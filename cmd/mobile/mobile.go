@@ -1,1 +1,3 @@
-package k8z
+package main
+
+func main() {}
