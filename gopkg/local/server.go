@@ -3,14 +3,12 @@ package local
 import (
 	"fmt"
 	"net/http"
-	"net/url"
-	"time"
 
 	"github.com/gin-gonic/gin"
 	"k8s.io/apimachinery/pkg/types"
-	"k8s.io/client-go/kubernetes"
 	"k8s.io/client-go/rest"
-	"k8s.io/client-go/tools/clientcmd"
+
+	"github.com/k8zdev/k8z/gopkg/k8z"
 )
 
 const Addr = ":29257"
@@ -51,7 +49,7 @@ func forward(ctx *gin.Context) {
 	}
 	fmt.Printf("server: %s,api: %s\n", k8zHeader.Server, api)
 
-	_, clientset, err := getClient(k8zHeader.CtxName, k8zHeader.Server, k8zHeader.CAData, k8zHeader.Insecure == "true", k8zHeader.CertData, k8zHeader.KeyData, k8zHeader.Token, k8zHeader.Username, k8zHeader.Password, k8zHeader.Proxy, k8zHeader.Timeout)
+	_, clientset, err := k8z.NewClient(k8zHeader.CtxName, k8zHeader.Server, k8zHeader.CAData, k8zHeader.Insecure == "true", k8zHeader.CertData, k8zHeader.KeyData, k8zHeader.Token, k8zHeader.Username, k8zHeader.Password, k8zHeader.Proxy, k8zHeader.Timeout)
 	if err != nil {
 		ctx.JSON(500, gin.H{"message": "get client error", "error": err.Error()})
 	}
@@ -90,58 +88,4 @@ func forward(ctx *gin.Context) {
 		return
 	}
 	ctx.Data(200, "application/json", respBody)
-}
-
-func getClient(contextName, clusterServer, clusterCertificateAuthorityData string, clusterInsecureSkipTLSVerify bool, userClientCertificateData, userClientKeyData, userToken, userUsername, userPassword, proxy string, timeout int64) (*rest.Config, *kubernetes.Clientset, error) {
-	config, err := clientcmd.NewClientConfigFromBytes([]byte(`apiVersion: v1
-clusters:
-  - cluster:
-      certificate-authority-data: ` + clusterCertificateAuthorityData + `
-      insecure-skip-tls-verify: ` + fmt.Sprintf("%t", clusterInsecureSkipTLSVerify) + `
-      server: ` + clusterServer + `
-    name: kubenav
-contexts:
-  - context:
-      cluster: kubenav
-      user: kubenav
-    name: kubenav
-current-context: kubenav
-kind: Config
-users:
-  - name: kubenav
-    user:
-      client-certificate-data: ` + userClientCertificateData + `
-      client-key-data: ` + userClientKeyData + `
-      password: ` + userPassword + `
-      token: ` + userToken + `
-      username: ` + userUsername))
-
-	if err != nil {
-		return nil, nil, err
-	}
-
-	restClient, err := config.ClientConfig()
-	if err != nil {
-		return nil, nil, err
-	}
-
-	if timeout > 0 {
-		restClient.Timeout = time.Duration(timeout) * time.Second
-	}
-
-	if proxy != "" {
-		proxyURL, err := url.Parse(proxy)
-		if err != nil {
-			return nil, nil, err
-		}
-
-		restClient.Transport = &http.Transport{Proxy: http.ProxyURL(proxyURL)}
-	}
-
-	clientset, err := kubernetes.NewForConfig(restClient)
-	if err != nil {
-		return nil, nil, err
-	}
-
-	return restClient, clientset, nil
 }

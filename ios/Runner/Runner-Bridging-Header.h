@@ -1,2 +1,2 @@
 #import "GeneratedPluginRegistrant.h"
-#import "libk8z.arm64.h"
+#import "libk8z.h"

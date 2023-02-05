@@ -46,6 +46,7 @@ app.*.map.json
 /ios/Runner/libs/K8z.xcframework
 /android/app/src/libs
 
-ios/Runner/libs/libk8z.a
-ios/Runner/libs/libk8z.arm64.a
-ios/Runner/libs/libk8z.x64.a
+tmp/
+ios/libs/libk8z.a
+ios/libs/libk8z.arm64.a
+ios/libs/libk8z.x64.a
