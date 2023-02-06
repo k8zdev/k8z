@@ -16,29 +16,34 @@ func NewCError(err error) string {
 	return fmt.Sprintf("{\"error\": \"%s\"}", strings.ReplaceAll(err.Error(), "\"", "'"))
 }
 
-func NewClient(contextName, clusterServer, clusterCaData string, clusterInsecureSkipTLSVerify bool, userCertificateData, userKeyData, userToken, userUsername, userPassword, proxy string, timeout int64) (*rest.Config, *kubernetes.Clientset, error) {
-	config, err := clientcmd.NewClientConfigFromBytes([]byte(`apiVersion: v1
+func NewClient(contextName, server, ca string, insecure bool, userCert, userKey, userToken, userName, userPassword, proxy string, timeout int64) (*rest.Config, *kubernetes.Clientset, error) {
+
+	var bytes = []byte(`kind: Config
+apiVersion: v1
 clusters:
-  - cluster:
-      certificate-authority-data: ` + clusterCaData + `
-      insecure-skip-tls-verify: ` + fmt.Sprintf("%t", clusterInsecureSkipTLSVerify) + `
-      server: ` + clusterServer + `
-    name: kubenav
+- cluster:
+    insecure-skip-tls-verify: ` + fmt.Sprintf("%v", insecure) + `
+    certificate-authority-data: ` + ca + `
+    server: ` + server + `
+  name: ` + contextName + `
 contexts:
-  - context:
-      cluster: kubenav
-      user: kubenav
-    name: kubenav
-current-context: kubenav
-kind: Config
+- context:
+    cluster: k8z
+    user: k8z
+  name: ` + contextName + `
+current-context: ` + contextName + `
+preferences: {}
 users:
-  - name: kubenav
-    user:
-      client-certificate-data: ` + userCertificateData + `
-      client-key-data: ` + userKeyData + `
-      password: ` + userPassword + `
-      token: ` + userToken + `
-      username: ` + userUsername))
+- name: k8z
+  user:
+    client-certificate-data: ` + userCert + `
+    client-key-data: ` + userKey + `
+    username: ` + userName + `
+    password: ` + userPassword + `
+    token: ` + userToken + `
+`)
+
+	config, err := clientcmd.NewClientConfigFromBytes(bytes)
 
 	if err != nil {
 		return nil, nil, err

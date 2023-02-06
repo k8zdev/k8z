@@ -10,7 +10,7 @@
 		1498D2341E8E89220040F4C2 /* GeneratedPluginRegistrant.m in Sources */ = {isa = PBXBuildFile; fileRef = 1498D2331E8E89220040F4C2 /* GeneratedPluginRegistrant.m */; };
 		331C808B294A63AB00263BE5 /* RunnerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 331C807B294A618700263BE5 /* RunnerTests.swift */; };
 		3B3967161E833CAA004F5970 /* AppFrameworkInfo.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3B3967151E833CAA004F5970 /* AppFrameworkInfo.plist */; };
-		5B911AF82B71DDD800E9043A /* libk8z.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B911AF62B71DDD800E9043A /* libk8z.a */; };
+		5B911AFB2B71E7D700E9043A /* libk8z.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B911AFA2B71E7D700E9043A /* libk8z.a */; };
 		61397EC840929D25EE564003 /* Pods_RunnerTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 78CAE931D5AA126C08D33984 /* Pods_RunnerTests.framework */; };
 		74858FAF1ED2DC5600515810 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74858FAE1ED2DC5600515810 /* AppDelegate.swift */; };
 		83DDCBEF522B617A9DA72DAE /* Pods_Runner.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 40FE4BF707B202F0A5F6A41D /* Pods_Runner.framework */; };
@@ -62,8 +62,8 @@
 		5472EBBAF39481BABB71F572 /* Pods-Runner.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Runner.debug.xcconfig"; path = "Target Support Files/Pods-Runner/Pods-Runner.debug.xcconfig"; sourceTree = "<group>"; };
 		5B911AF32B71DD3700E9043A /* libk8z.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = libk8z.h; path = Runner/libs/libk8z.h; sourceTree = "<group>"; };
 		5B911AF42B71DD3700E9043A /* libk8z.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libk8z.a; path = Runner/libs/libk8z.a; sourceTree = "<group>"; };
-		5B911AF62B71DDD800E9043A /* libk8z.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libk8z.a; sourceTree = "<group>"; };
-		5B911AF72B71DDD800E9043A /* libk8z.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = libk8z.h; sourceTree = "<group>"; };
+		5B911AF92B71E7D700E9043A /* libk8z.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = libk8z.h; sourceTree = "<group>"; };
+		5B911AFA2B71E7D700E9043A /* libk8z.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libk8z.a; sourceTree = "<group>"; };
 		74858FAD1ED2DC5600515810 /* Runner-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Runner-Bridging-Header.h"; sourceTree = "<group>"; };
 		74858FAE1ED2DC5600515810 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		78CAE931D5AA126C08D33984 /* Pods_RunnerTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RunnerTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -95,7 +95,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				83DDCBEF522B617A9DA72DAE /* Pods_Runner.framework in Frameworks */,
-				5B911AF82B71DDD800E9043A /* libk8z.a in Frameworks */,
+				5B911AFB2B71E7D700E9043A /* libk8z.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -113,8 +113,8 @@
 		5B911AF52B71DD4D00E9043A /* libs */ = {
 			isa = PBXGroup;
 			children = (
-				5B911AF62B71DDD800E9043A /* libk8z.a */,
-				5B911AF72B71DDD800E9043A /* libk8z.h */,
+				5B911AFA2B71E7D700E9043A /* libk8z.a */,
+				5B911AF92B71E7D700E9043A /* libk8z.h */,
 			);
 			path = libs;
 			sourceTree = "<group>";

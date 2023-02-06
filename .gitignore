@@ -50,3 +50,4 @@ tmp/
 ios/libs/libk8z.a
 ios/libs/libk8z.arm64.a
 ios/libs/libk8z.x64.a
+/*.dart

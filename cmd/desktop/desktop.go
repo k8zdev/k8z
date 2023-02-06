@@ -1,3 +1,1 @@
-package main
-
-func main() {}
+package desktop
