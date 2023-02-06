@@ -1,3 +1,6 @@
+K8SAPIVER=v1.25.0
+K8SMODELPATH=lib/models/kubernetes
+K8SAPISPEC=https://raw.githubusercontent.com/kubernetes/kubernetes/${K8SAPIVER}/api/openapi-spec/swagger.json
 
 .PHONY: bindings-android
 
@@ -25,3 +28,10 @@ library-macos:
 
 .PHONY: library
 library: library-macos library-ios
+
+.PHONY: gen-k8s-api-model
+gen-k8s-api-model:
+	@rm -fr tmp/lib/* && sed -i '' '/io_k8s.*$ /d' lib/models/models.dart
+	@docker run --rm -v "${PWD}/tmp/:/local/" -v "${PWD}/hack/k8sapi/:/api/" openapitools/openapi-generator-cli:latest generate -i /api/${K8SAPIVER}_swagger.json -g dart -o /local/
+	@bash hack/codefix.sh
+

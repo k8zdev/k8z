@@ -61,6 +61,7 @@ dependencies:
   flutter_multi_select_items: ^0.4.2
   material_dialogs: ^1.1.4
   ffi: ^2.0.1
+  collection: ^1.18.0
 
 dependency_overrides:
   meta: 1.11.0
