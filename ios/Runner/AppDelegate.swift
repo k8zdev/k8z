@@ -7,8 +7,12 @@ import Flutter
     _ application: UIApplication,
     didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?
   ) -> Bool {
-      // keep static link libk8z.a
-      PinStatic()
+      // WORKROUND: keep symbols of static library libk8z.a
+      print("FreePointer address: \(K8zRequest)")
+      print("FreePointer address: \(FreePointer)")
+      print("FreePointer address: \(LocalServerAddr)")
+      print("FreePointer address: \(StartLocalServer)")
+
     GeneratedPluginRegistrant.register(with: self)
     return super.application(application, didFinishLaunchingWithOptions: launchOptions)
   }
