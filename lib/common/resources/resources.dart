@@ -2,21 +2,32 @@ const _cpuUnitMap = {
   'n': 1,
   'u': 1000,
   'm': 1000 * 1000,
+  'k': 1000 * 1000 * 1000 * 1000,
+  'K': 1000 * 1000 * 1000 * 1000,
+  'ki': 1000 * 1000 * 1000 * 1000,
+  'Ki': 1000 * 1000 * 1000 * 1000,
   '': 1000 * 1000 * 1000,
 };
 const _memUnitMap = {
+  'k': 1024,
   'K': 1024,
   'ki': 1024,
   'Ki': 1024,
+  'm': 1024 * 1024,
   'M': 1024 * 1024,
   'mi': 1024 * 1024,
   'Mi': 1024 * 1024,
+  'g': 1024 * 1024 * 1024,
   'G': 1024 * 1024 * 1024,
   'gi': 1024 * 1024 * 1024,
   'Gi': 1024 * 1024 * 1024,
+  't': 1024 * 1024 * 1024 * 1024,
+  'T': 1024 * 1024 * 1024 * 1024,
+  'ti': 1024 * 1024 * 1024 * 1024,
+  'Ti': 1024 * 1024 * 1024 * 1024,
 };
 
-int _parseRes(String raw, Map<String, int> maps) {
+int _parseRes(String resType, String raw, Map<String, int> maps) {
   if (raw == '') {
     return 0;
   }
@@ -37,7 +48,7 @@ int _parseRes(String raw, Map<String, int> maps) {
 ///
 ///
 int parseCpuRes(String raw) {
-  return _parseRes(raw, _cpuUnitMap);
+  return _parseRes('cpu', raw, _cpuUnitMap);
 }
 
 /// [parseMemRes] converts mem [raw] resource [String] to [int].
@@ -45,7 +56,7 @@ int parseCpuRes(String raw) {
 ///
 /// > Pay attention to the case of the suffixes. If you request 400m of memory, this is a request for 0.4 bytes. Someone who types that probably meant to ask for 400 mebibytes (400Mi) or 400 megabytes (400M).
 int parseMemRes(String raw) {
-  return _parseRes(raw, _memUnitMap);
+  return _parseRes('mem', raw, _memUnitMap);
 }
 
 String formatCpuRes(int raw, {round = 2}) {
