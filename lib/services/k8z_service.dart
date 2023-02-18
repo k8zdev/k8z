@@ -19,7 +19,7 @@ class K8zService {
   /// [checkHealth] used to check the Kubernetes cluster is health.
   ///
   Future<bool> checkHealth() async {
-    var resp = K8zNative()
+    var resp = await K8zNative()
         .k8zRequestRaw(cluster, proxy, timeout, "GET", "/readyz", "");
     if (resp.body == "ok") {
       return true;
