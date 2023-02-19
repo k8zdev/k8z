@@ -39,11 +39,7 @@ class _ClusterHomePageState extends State<ClusterHomePage> {
             }(),
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
-                return const SizedBox(
-                  height: 16,
-                  width: 16,
-                  child: CircularProgressIndicator(color: Colors.blue),
-                );
+                return smallProgressIndicator;
               } else if (snapshot.hasError) {
                 return Tooltip(
                   message: snapshot.error.toString(),
@@ -113,11 +109,7 @@ class _ClusterHomePageState extends State<ClusterHomePage> {
           Widget trailing = Text(lang.all);
 
           if (snapshot.connectionState == ConnectionState.waiting) {
-            trailing = const SizedBox(
-              height: 16,
-              width: 16,
-              child: CircularProgressIndicator(),
-            );
+            trailing = smallProgressIndicator;
           } else if (snapshot.hasError) {
             trailing = Tooltip(
               message: snapshot.error.toString(),
@@ -177,11 +169,7 @@ class _ClusterHomePageState extends State<ClusterHomePage> {
           List<AbstractSettingsTile> list = [];
 
           if (snapshot.connectionState == ConnectionState.waiting) {
-            trailing = const SizedBox(
-              height: 16,
-              width: 16,
-              child: CircularProgressIndicator(),
-            );
+            trailing = smallProgressIndicator;
           } else if (snapshot.hasError) {
             trailing = Tooltip(
               message: snapshot.error.toString(),

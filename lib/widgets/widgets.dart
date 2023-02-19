@@ -48,3 +48,9 @@ final buildingWidget = Center(
     label: const Text("Building"),
   ),
 );
+
+const smallProgressIndicator = SizedBox(
+  height: 16,
+  width: 16,
+  child: CircularProgressIndicator(),
+);

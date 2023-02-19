@@ -8,6 +8,7 @@ import 'package:k8zdev/dao/kube.dart';
 import 'package:k8zdev/generated/l10n.dart';
 import 'package:k8zdev/models/models.dart';
 import 'package:k8zdev/services/k8z_service.dart';
+import 'package:k8zdev/widgets/widgets.dart';
 import 'package:settings_ui/settings_ui.dart';
 
 class CrdsPage extends StatefulWidget {
@@ -34,11 +35,7 @@ class _CrdsPageState extends State<CrdsPage> {
           Widget trailing = Text(lang.age);
 
           if (snapshot.connectionState == ConnectionState.waiting) {
-            trailing = const SizedBox(
-              height: 16,
-              width: 16,
-              child: CircularProgressIndicator(),
-            );
+            trailing = smallProgressIndicator;
           } else if (snapshot.hasError) {
             talker.error(
               "request events faild, error: ${snapshot.error.toString()}",

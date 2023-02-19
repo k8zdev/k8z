@@ -35,11 +35,7 @@ class _EventsPageState extends State<EventsPage> {
           Widget trailing = Text(lang.status);
 
           if (snapshot.connectionState == ConnectionState.waiting) {
-            trailing = const SizedBox(
-              height: 16,
-              width: 16,
-              child: CircularProgressIndicator(),
-            );
+            trailing = smallProgressIndicator;
           } else if (snapshot.hasError) {
             talker.error(
               "request events faild, error: ${snapshot.error.toString()}",

@@ -47,11 +47,7 @@ class _StatefulSetsPageState extends State<StatefulSetsPage> {
           Widget trailing = Container();
 
           if (snapshot.connectionState == ConnectionState.waiting) {
-            trailing = const SizedBox(
-              height: 16,
-              width: 16,
-              child: CircularProgressIndicator(),
-            );
+            trailing = smallProgressIndicator;
           } else if (snapshot.hasError) {
             talker.error(
               "request events faild, error: ${snapshot.error.toString()}",
