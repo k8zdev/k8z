@@ -1,6 +1,7 @@
 import 'dart:isolate';
 import 'dart:async';
 import 'dart:io';
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -21,6 +22,8 @@ import 'package:provider/provider.dart';
 import 'package:window_manager/window_manager.dart';
 import 'package:talker_flutter/talker_flutter.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'firebase_options.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -28,6 +31,20 @@ void main() async {
   await initStore();
   var rootIsolateToken = RootIsolateToken.instance!;
   Isolate.spawn(_localServer, rootIsolateToken);
+
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+
+  await FirebaseAnalytics.instance.setDefaultEventParameters({
+    "app.mode": releaseMode,
+    "dart.version": Platform.version,
+    "locale.name": Platform.localeName,
+    "os.name": Platform.operatingSystem,
+    "localHostname": Platform.localHostname,
+    "os.version": Platform.operatingSystemVersion,
+    "environment": Platform.environment
+  });
 
   if (Platform.isWindows || Platform.isLinux || Platform.isMacOS) {
     // Must add this line.

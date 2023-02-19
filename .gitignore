@@ -51,3 +51,9 @@ ios/libs/libk8z.a
 ios/libs/libk8z.arm64.a
 ios/libs/libk8z.x64.a
 /*.dart
+
+# secrets
+lib/firebase_options.dart
+ios/firebase_app_id_file.json
+ios/Runner/GoogleService-Info.plist
+macos/firebase_app_id_file.json

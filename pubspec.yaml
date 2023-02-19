@@ -64,6 +64,9 @@ dependencies:
   collection: ^1.18.0
   icons_plus: ^5.0.0
   geekyants_flutter_gauges: ^1.0.3
+  firebase_core: ^2.25.4
+  firebase_crashlytics: ^3.4.15
+  firebase_analytics: ^10.8.6
 
 dependency_overrides:
   meta: 1.11.0
