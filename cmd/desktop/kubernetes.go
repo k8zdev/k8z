@@ -9,7 +9,7 @@ import (
 )
 
 // StartLocalServer starts an Go server.
-// 
+//
 //export StartLocalServer
 func StartLocalServer() {
 	go local.Server()
