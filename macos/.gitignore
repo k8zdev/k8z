@@ -5,3 +5,10 @@
 # Xcode-related
 **/dgph
 **/xcuserdata/
+
+# Go build
+k8z.arm64.dylib
+k8z.arm64.h
+k8z.x64.dylib
+k8z.x64.h
+k8z.dylib
