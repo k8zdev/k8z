@@ -4,7 +4,7 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-var router *gin.Engine
+var router = gin.New()
 
 func Server() {
 	router.GET("/ping", func(c *gin.Context) {

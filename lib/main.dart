@@ -1,6 +1,8 @@
+import 'dart:isolate';
 import 'dart:async';
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:k8sapp/common/const.dart';
 import 'package:k8sapp/common/ops.dart';
@@ -10,6 +12,7 @@ import 'package:k8sapp/providers/lang.dart';
 import 'package:k8sapp/providers/talker.dart';
 import 'package:k8sapp/providers/theme.dart';
 import 'package:k8sapp/router.dart';
+import 'package:k8sapp/services/k8z_service.dart';
 import 'package:k8sapp/services/stash.dart';
 import 'package:k8sapp/theme/kung.dart';
 import 'package:k8sapp/widgets/inherited.dart';
@@ -22,6 +25,8 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await initStash();
   await initStore();
+  var rootIsolateToken = RootIsolateToken.instance!;
+  Isolate.spawn(_localServer, rootIsolateToken);
 
   if (Platform.isWindows || Platform.isLinux || Platform.isMacOS) {
     // Must add this line.
@@ -61,6 +66,13 @@ void main() async {
       ),
     ),
   );
+}
+
+Future<void> _localServer(RootIsolateToken rootIsolateToken) async {
+  // Register the background isolate with the root isolate.
+  BackgroundIsolateBinaryMessenger.ensureInitialized(rootIsolateToken);
+
+  await K8zService().startLocalServer();
 }
 
 class MyApp extends StatefulWidget {

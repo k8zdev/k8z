@@ -5,5 +5,5 @@ import (
 )
 
 func StartLocalServer() {
-	local.Server()
+	go local.Server()
 }
