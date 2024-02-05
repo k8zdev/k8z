@@ -72,6 +72,8 @@ Future<void> _localServer(RootIsolateToken rootIsolateToken) async {
   // Register the background isolate with the root isolate.
   BackgroundIsolateBinaryMessenger.ensureInitialized(rootIsolateToken);
 
+  talker.warning("local server address: ${K8zService().localServerAddr()}");
+
   await K8zService().startLocalServer();
 }
 

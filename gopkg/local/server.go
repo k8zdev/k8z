@@ -13,6 +13,8 @@ import (
 	"k8s.io/client-go/tools/clientcmd"
 )
 
+const Addr = ":29257"
+
 var router = gin.New()
 
 func Server() {
@@ -23,7 +25,7 @@ func Server() {
 		c.JSON(200, gin.H{"message": "pong"})
 	})
 	router.Any("/forward/*api", forward)
-	router.Run(":19257")
+	router.Run(Addr)
 }
 
 type K8zHeader struct {

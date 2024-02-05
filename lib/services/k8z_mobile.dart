@@ -1,9 +1,17 @@
 import 'dart:ffi';
-import 'dart:io';
+import 'package:ffi/ffi.dart';
 
 // ignore: camel_case_types
-typedef startlocalserver_func = Void Function();
-typedef StartLocalServerFunc = void Function();
+typedef free_pointer_func = Void Function(Pointer<Utf8>);
+typedef FreePointerFn = void Function(Pointer<Utf8>);
+
+// ignore: camel_case_types
+typedef local_server_addr_func = Pointer<Utf8> Function();
+typedef LocalServerAddrFn = Pointer<Utf8> Function();
+
+// ignore: camel_case_types
+typedef start_local_server_func = Void Function();
+typedef StartLocalServerFn = void Function();
 
 class K8zMobile {
   static final K8zMobile _instance = K8zMobile._internal();
@@ -14,29 +22,32 @@ class K8zMobile {
   }
 
   K8zMobile._internal() {
-    String libraryPath = _getLibraryPath();
-    if (libraryPath == '') {
-      exit(0);
-    }
-    _library = DynamicLibrary.open(libraryPath);
+    // load static libraries
+    _library = DynamicLibrary.executable();
   }
 
-  static String _getLibraryPath() {
-    if (Platform.isIOS) {
-      return 'libs/k8z.a';
-    } else {
-      return '';
-    }
+  void free(Pointer<Utf8> pointer) {
+    var C = _library.lookup<NativeFunction<free_pointer_func>>('FreePointer');
+    final func = C.asFunction<FreePointerFn>();
+
+    return func(pointer);
+  }
+
+  String localServerAddr() {
+    var C = _library
+        .lookup<NativeFunction<local_server_addr_func>>("LocalServerAddr");
+    var func = C.asFunction<LocalServerAddrFn>();
+    var addr = func();
+    var result = addr.toDartString();
+    free(addr);
+    return result;
   }
 
   Future<void> startLocalServer() async {
-    var startLocalServerC = _library
-        .lookup<NativeFunction<startlocalserver_func>>('StartLocalServer');
-    final startLocalServer =
-        startLocalServerC.asFunction<StartLocalServerFunc>();
+    var C = _library
+        .lookup<NativeFunction<start_local_server_func>>('StartLocalServer');
+    final func = C.asFunction<StartLocalServerFn>();
 
-    startLocalServer();
-
-    return;
+    return func();
   }
 }

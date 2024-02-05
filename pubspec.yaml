@@ -60,6 +60,7 @@ dependencies:
   path_provider: ^2.1.2
   flutter_multi_select_items: ^0.4.2
   material_dialogs: ^1.1.4
+  ffi: ^2.0.1
 
 dependency_overrides:
   meta: 1.11.0

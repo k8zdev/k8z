@@ -80,6 +80,18 @@ extern "C" {
 #endif
 
 
+// PinStatic do nothing, call it at swift just keep the static libarary be linked.
+//
+extern void PinStatic();
+
+// FreePointer can be used to free a returned pointer.
+//
+extern void FreePointer(char* ptr);
+
+// LocalServerAddr return listen address of web server.
+//
+extern char* LocalServerAddr();
+
 // StartLocalServer starts an Go server.
 //
 extern void StartLocalServer();
