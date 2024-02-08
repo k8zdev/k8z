@@ -12,7 +12,7 @@ import 'package:k8sapp/providers/lang.dart';
 import 'package:k8sapp/providers/talker.dart';
 import 'package:k8sapp/providers/theme.dart';
 import 'package:k8sapp/router.dart';
-import 'package:k8sapp/services/k8z_service.dart';
+import 'package:k8sapp/services/k8z_native.dart';
 import 'package:k8sapp/services/stash.dart';
 import 'package:k8sapp/theme/kung.dart';
 import 'package:k8sapp/widgets/inherited.dart';
@@ -72,9 +72,9 @@ Future<void> _localServer(RootIsolateToken rootIsolateToken) async {
   // Register the background isolate with the root isolate.
   BackgroundIsolateBinaryMessenger.ensureInitialized(rootIsolateToken);
 
-  talker.warning("local server address: ${K8zService().localServerAddr()}");
+  talker.warning("local server address: ${K8zNative().localServerAddr()}");
 
-  await K8zService().startLocalServer();
+  await K8zNative().startLocalServer();
 }
 
 class MyApp extends StatefulWidget {

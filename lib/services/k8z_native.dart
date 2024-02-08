@@ -79,15 +79,15 @@ typedef K8zRequestFn = BodyReturnNative Function(
   int bodyLen,
 );
 
-class K8zService {
-  static final K8zService _instance = K8zService._internal();
+class K8zNative {
+  static final K8zNative _instance = K8zNative._internal();
   late DynamicLibrary _library;
 
-  factory K8zService() {
+  factory K8zNative() {
     return _instance;
   }
 
-  K8zService._internal() {
+  K8zNative._internal() {
     if (Platform.isIOS) {
       // load static libraries
       _library = DynamicLibrary.executable();
