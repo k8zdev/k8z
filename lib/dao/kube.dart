@@ -3,14 +3,17 @@ import 'package:k8sapp/dao/dao.dart';
 String clustersTable = "clusters";
 String sqlCreateKubeClustersTable = '''
 CREATE TABLE IF NOT EXISTS  "$clustersTable" ( 
-  "id" INTEGER PRIMARY KEY AUTOINCREMENT, 
+  "id" INTEGER PRIMARY KEY AUTOINCREMENT,
   "name" TEXT NOT NULL,
   "server" TEXT NOT NULL,
-  "certificate_authority" TEXT,
+  "ca" TEXT TEXT NOT NULL,
   "namespace" TEXT DEFAULT "default",
   "insecure" INTEGER NOT NULL DEFAULT 0,
-  "client_key" TEXT NOT NULL,
-  "client_certificate" TEXT NOT NULL,
+  "client_key" TEXT NOT NULL DEFAULT "",
+  "client_cert" TEXT NOT NULL DEFAULT "",
+  "username" TEXT NOT NULL  DEFAULT "",
+  "password" TEXT NOT NULL DEFAULT "",
+  "token" TEXT NOT NULL DEFAULT "",
   "createdAt" INTEGER NOT NULL DEFAULT 0,
   "deleted" INTEGER NOT NULL DEFAULT 0
 )
@@ -20,11 +23,14 @@ class K8zCluster {
   late int? id;
   String name;
   String server;
-  String certificateAuthority;
+  String caData;
   String namespace;
   bool insecure;
   String clientKey;
-  String clientCertificate;
+  String clientCert;
+  String username;
+  String password;
+  String token;
   int createdAt;
   bool? deleted;
 
@@ -33,11 +39,14 @@ class K8zCluster {
       'id': id,
       'name': name,
       'server': server,
-      'certificate_authority': certificateAuthority,
+      'ca': caData,
       'namespace': namespace,
       'insecure': insecure ? 1 : 0,
       'client_key': clientKey,
-      'client_certificate': clientCertificate,
+      'client_cert': clientCert,
+      'username': username,
+      'password': password,
+      'token': token,
       'createdAt': createdAt,
     };
   }
@@ -47,11 +56,14 @@ class K8zCluster {
     this.deleted,
     required this.name,
     required this.server,
-    required this.certificateAuthority,
+    required this.caData,
     required this.namespace,
     required this.insecure,
     required this.clientKey,
-    required this.clientCertificate,
+    required this.clientCert,
+    required this.username,
+    required this.password,
+    required this.token,
     required this.createdAt,
   });
 
@@ -93,11 +105,14 @@ class K8zCluster {
       return K8zCluster(
         name: maps[i]['name'],
         server: maps[i]['server'],
-        certificateAuthority: maps[i]['certificate_authority'],
+        caData: maps[i]['ca'],
         namespace: maps[i]['namespace'],
         insecure: maps[i]['insecure'] == 1,
         clientKey: maps[i]['client_key'],
-        clientCertificate: maps[i]['client_certificate'],
+        clientCert: maps[i]['client_cert'],
+        username: maps[i]['username'],
+        password: maps[i]['password'],
+        token: maps[i]['token'],
         createdAt: maps[i]['createdAt'],
       );
     });

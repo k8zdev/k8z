@@ -65,14 +65,21 @@ contexts: []
             var clientKey = authInfo?.user?.clientKey ?? "";
             var clientCert = authInfo?.user?.clientCertificateData ?? "";
 
+            var username = authInfo?.user?.username;
+            var password = authInfo?.user?.password;
+            var token = authInfo?.user?.token;
+
             return K8zCluster(
               name: name,
               server: cluster?.server ?? "",
-              certificateAuthority: certificateAuthority,
+              caData: certificateAuthority,
               namespace: namespace,
               insecure: true,
               clientKey: clientKey,
-              clientCertificate: clientCert,
+              clientCert: clientCert,
+              username: username ?? "",
+              password: password ?? "",
+              token: token ?? "",
               createdAt: DateTime.now().millisecondsSinceEpoch,
             );
           }).toList() ??
@@ -105,6 +112,32 @@ contexts: []
   Widget build(BuildContext context) {
     var lang = S.of(context);
     var appbar = AppBar(title: Text(lang.load_file));
+
+    var buttons = Row(
+      mainAxisAlignment: MainAxisAlignment.end,
+      children: [
+        SizedBox(
+          height: 50,
+          child: TextButton.icon(
+            onPressed: loadFileOnPressed,
+            label: Text(lang.load_file),
+            icon: const Icon(Icons.file_copy_outlined),
+          ),
+        ),
+        const Divider(indent: 20),
+        SizedBox(
+          height: 50,
+          child: TextButton.icon(
+            onPressed: nextStepOnPressed,
+            label: Text(lang.next_step),
+            icon: const Icon(Icons.ac_unit),
+          ),
+        ),
+        const Divider(indent: 10),
+      ],
+    );
+    var buttonsHeight = 200;
+
     return Scaffold(
       appBar: appbar,
       body: Column(
@@ -122,8 +155,8 @@ contexts: []
               styleOptions: EditorModelStyleOptions(
                 showToolbar: false,
                 editButtonName: lang.edit,
-                heightOfContainer:
-                    availableHeight(context, appbar.preferredSize.height + 160),
+                heightOfContainer: availableHeight(
+                    context, appbar.preferredSize.height + buttonsHeight + 20),
               ),
             ),
             formatters: const ["yaml"],
@@ -131,23 +164,7 @@ contexts: []
 
           const Divider(height: 20, color: Colors.transparent),
           // buttons
-          Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              TextButton.icon(
-                onPressed: loadFileOnPressed,
-                label: Text(lang.load_file),
-                icon: const Icon(Icons.file_copy_outlined),
-              ),
-              const Divider(indent: 20),
-              TextButton.icon(
-                onPressed: nextStepOnPressed,
-                label: Text(lang.next_step),
-                icon: const Icon(Icons.ac_unit),
-              ),
-              const Divider(indent: 12),
-            ],
-          ),
+          buttons,
         ],
       ),
     );
