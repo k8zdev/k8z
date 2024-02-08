@@ -15,7 +15,7 @@ const Addr = ":29257"
 
 var router = gin.New()
 
-func Server() {
+func init() {
 	router.Use(gin.Logger(), gin.Recovery(), gin.ErrorLogger(), func(ctx *gin.Context) {
 		ctx.Header("Server", "K8z")
 	})
@@ -23,6 +23,9 @@ func Server() {
 		c.JSON(200, gin.H{"message": "pong"})
 	})
 	router.Any("/forward/*api", forward)
+}
+
+func Server() {
 	router.Run(Addr)
 }
 
