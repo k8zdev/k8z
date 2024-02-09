@@ -359,6 +359,36 @@ class S {
       args: [],
     );
   }
+
+  /// `Overview`
+  String get overview {
+    return Intl.message(
+      'Overview',
+      name: 'overview',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Status`
+  String get status {
+    return Intl.message(
+      'Status',
+      name: 'status',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Running`
+  String get running {
+    return Intl.message(
+      'Running',
+      name: 'running',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

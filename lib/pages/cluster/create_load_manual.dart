@@ -58,11 +58,12 @@ contexts: []
                 .cluster;
 
             var certificateAuthority = cluster?.certificateAuthorityData ?? "";
+            var insecure = cluster?.insecureSkipTlsVerify;
 
             var authInfo = kubeconfig.authInfos
                 ?.where((ele) => ele.name == authName)
                 .first;
-            var clientKey = authInfo?.user?.clientKey ?? "";
+            var clientKey = authInfo?.user?.clientKeyData ?? "";
             var clientCert = authInfo?.user?.clientCertificateData ?? "";
 
             var username = authInfo?.user?.username;
@@ -74,7 +75,7 @@ contexts: []
               server: cluster?.server ?? "",
               caData: certificateAuthority,
               namespace: namespace,
-              insecure: true,
+              insecure: insecure ?? false,
               clientKey: clientKey,
               clientCert: clientCert,
               username: username ?? "",

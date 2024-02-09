@@ -51,10 +51,13 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Load kubeconfig file"),
         "next_step": MessageLookupByLibrary.simpleMessage("next step"),
         "ok": MessageLookupByLibrary.simpleMessage("ok"),
+        "overview": MessageLookupByLibrary.simpleMessage("Overview"),
+        "running": MessageLookupByLibrary.simpleMessage("Running"),
         "save_clusters": MessageLookupByLibrary.simpleMessage("save clusters"),
         "select_clusters":
             MessageLookupByLibrary.simpleMessage("Select cluster(s)"),
         "settings": MessageLookupByLibrary.simpleMessage("Settings"),
+        "status": MessageLookupByLibrary.simpleMessage("Status"),
         "theme_auto": MessageLookupByLibrary.simpleMessage("auto"),
         "theme_dark": MessageLookupByLibrary.simpleMessage("dark mode"),
         "theme_light": MessageLookupByLibrary.simpleMessage("light mode"),

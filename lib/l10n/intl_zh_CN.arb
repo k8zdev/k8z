@@ -61,5 +61,11 @@
   "debug_flushdb_done": "数据库已清空",
   "@debug_flushdb_done": {},
   "debug_flushdb_desc": "将会清理所有数据库中的数据",
-  "@debug_flushdb_desc": {}
+  "@debug_flushdb_desc": {},
+  "overview": "概览",
+  "@overview": {},
+  "status": "状态",
+  "@status": {},
+  "running": "运行中",
+  "@running": {}
 }

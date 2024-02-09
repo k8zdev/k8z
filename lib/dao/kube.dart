@@ -34,7 +34,7 @@ class K8zCluster {
   int createdAt;
   bool? deleted;
 
-  Map<String, dynamic> toMap() {
+  Map<String, dynamic> toJson() {
     return {
       'id': id,
       'name': name,
@@ -69,7 +69,7 @@ class K8zCluster {
 
   static Future<K8zCluster> insert(K8zCluster config) async {
     try {
-      config.id = await database.insert(clustersTable, config.toMap());
+      config.id = await database.insert(clustersTable, config.toJson());
       return config;
     } catch (e) {
       rethrow;
@@ -80,7 +80,7 @@ class K8zCluster {
     try {
       var batch = database.batch();
       for (var cluster in clusters) {
-        await database.insert(clustersTable, cluster.toMap());
+        await database.insert(clustersTable, cluster.toJson());
       }
       return await batch.commit();
     } catch (e) {
@@ -89,7 +89,7 @@ class K8zCluster {
   }
 
   static Future<int> update(K8zCluster config) async {
-    return await database.update(clustersTable, config.toMap(),
+    return await database.update(clustersTable, config.toJson(),
         where: 'id = ?', whereArgs: [config.id]);
   }
 

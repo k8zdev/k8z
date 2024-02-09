@@ -61,5 +61,11 @@
   "debug_flushdb_done": "database flushed",
   "@debug_flushdb_done": {},
   "debug_flushdb_desc": "will flush all data at database",
-  "@debug_flushdb_desc": {}
+  "@debug_flushdb_desc": {},
+  "overview": "Overview",
+  "@overview": {},
+  "status": "Status",
+  "@status": {},
+  "running": "Running",
+  "@running": {}
 }
