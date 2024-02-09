@@ -11,10 +11,10 @@ final class BodyReturnNative extends Struct {
 }
 
 class BodyReturn {
-  String? body;
-  String? error;
+  String body;
+  String error;
 
-  BodyReturn(body, error);
+  BodyReturn({required this.body, required this.error});
 }
 
 // FreePointer free pointer mem.
@@ -148,86 +148,42 @@ class K8zNative {
     _startLocalServer();
   }
 
-  BodyReturnNative _k8zRequest(
-    Pointer<Utf8> server,
-    int serverLen,
-    Pointer<Utf8> caData,
-    int caDataLen,
-    int insecure,
-    Pointer<Utf8> userCertData,
-    int userCertDataLen,
-    Pointer<Utf8> userKeyData,
-    int userKeyDataLen,
-    Pointer<Utf8> userToken,
-    int userTokenLen,
-    Pointer<Utf8> userName,
-    int userNameLen,
-    Pointer<Utf8> password,
-    int passwordLen,
-    Pointer<Utf8> proxy,
-    int proxyLen,
-    int timeout,
-    Pointer<Utf8> method,
-    int methodLen,
-    Pointer<Utf8> api,
-    int apiLen,
-    Pointer<Utf8> body,
-    int bodyLen,
-  ) {
-    K8zRequestFn func =
-        _library.lookupFunction<K8zRequestNative, K8zRequestFn>("K8zRequest");
-    return func(
-      server,
-      serverLen,
-      caData,
-      caDataLen,
-      insecure,
-      userCertData,
-      userCertDataLen,
-      userKeyData,
-      userKeyDataLen,
-      userToken,
-      userTokenLen,
-      userName,
-      userNameLen,
-      password,
-      passwordLen,
-      proxy,
-      proxyLen,
-      timeout,
-      method,
-      methodLen,
-      api,
-      apiLen,
-      body,
-      bodyLen,
-    );
+  K8zRequestFn _k8zRequest() {
+    return _library
+        .lookupFunction<K8zRequestNative, K8zRequestFn>("K8zRequest");
   }
 
-  BodyReturn k8zRequest(
-    K8zCluster cluster,
-    String proxy,
-    int timeout,
-    String method,
-    String api,
-    String body,
-  ) {
-    final Pointer<Utf8> serverPtr = cluster.server.toNativeUtf8();
-    final int serverLen = cluster.server.length;
-    final Pointer<Utf8> caDataPtr = cluster.caData.toNativeUtf8();
-    final caDataLen = cluster.caData.length;
+  BodyReturn k8zRequest2({
+    required String server,
+    required String caData,
+    required bool insecure,
+    String clientCert = "",
+    String clientKey = "",
+    String token = "",
+    String username = "",
+    String password = "",
+    String proxy = "",
+    int timeout = 30,
+    required String method,
+    required String api,
+    String body = "",
+  }) {
+    final Pointer<Utf8> serverPtr = server.toNativeUtf8();
+    final int serverLen = server.length;
+    final Pointer<Utf8> caDataPtr = caData.toNativeUtf8();
+    final caDataLen = caData.length;
 
-    final Pointer<Utf8> userCertDataPtr = cluster.clientCert.toNativeUtf8();
-    final userCertDataLen = cluster.clientCert.length;
-    final Pointer<Utf8> userKeyDataPtr = cluster.clientKey.toNativeUtf8();
-    final userKeyDataLen = cluster.clientKey.length;
+    final Pointer<Utf8> clientCertPtr = clientCert.toNativeUtf8();
+    final clientCertLen = clientCert.length;
+    final Pointer<Utf8> clientKeyPtr = clientKey.toNativeUtf8();
+    final clientKeyLen = clientKey.length;
 
-    final Pointer<Utf8> userTokenPtr = cluster.token.toNativeUtf8();
-    final userTokenLen = cluster.token.length;
-    final Pointer<Utf8> usernamePtr = cluster.username.toNativeUtf8();
-    final usernameLen = cluster.username.length;
-    final Pointer<Utf8> passwordPtr = cluster.password.toNativeUtf8();
-    final passwordLen = cluster.password.length;
+    final Pointer<Utf8> tokenPtr = token.toNativeUtf8();
+    final tokenLen = token.length;
+    final Pointer<Utf8> usernamePtr = username.toNativeUtf8();
+    final usernameLen = username.length;
+    final Pointer<Utf8> passwordPtr = password.toNativeUtf8();
+    final passwordLen = password.length;
     final Pointer<Utf8> proxyPtr = proxy.toNativeUtf8();
     final proxyLen = proxy.length;
 
@@ -238,20 +194,20 @@ class K8zNative {
     final Pointer<Utf8> bodyPtr = body.toNativeUtf8();
     final bodyLen = body.length;
 
-    final int insecureInt = cluster.insecure ? 1 : 0;
+    final int insecureInt = insecure ? 1 : 0;
 
-    final result = _k8zRequest(
+    final result = _k8zRequest()(
       serverPtr,
       serverLen,
       caDataPtr,
       caDataLen,
       insecureInt,
-      userCertDataPtr,
-      userCertDataLen,
-      userKeyDataPtr,
-      userKeyDataLen,
-      userTokenPtr,
-      userTokenLen,
+      clientCertPtr,
+      clientCertLen,
+      clientKeyPtr,
+      clientKeyLen,
+      tokenPtr,
+      tokenLen,
       usernamePtr,
       usernameLen,
       passwordPtr,
@@ -267,20 +223,57 @@ class K8zNative {
       bodyLen,
     );
 
-    var resp = BodyReturn(result.body, result.error);
+    var resp = BodyReturn(
+        body: ptr2String(result.body), error: ptr2String(result.error));
 
     // free
     free(serverPtr.address);
     free(caDataPtr.address);
-    free(userCertDataPtr.address);
-    free(userKeyDataPtr.address);
-    free(userTokenPtr.address);
+    free(clientCertPtr.address);
+    free(clientKeyPtr.address);
+    free(tokenPtr.address);
     free(usernamePtr.address);
     free(passwordPtr.address);
     free(proxyPtr.address);
     free(methodPtr.address);
     free(apiPtr.address);
     free(bodyPtr.address);
+    return resp;
+  }
+
+  // ptr2String convert native pointer to string.
+  String ptr2String(Pointer<Utf8> ptr) {
+    var string = "";
+    if (ptr.address > 0) {
+      string = ptr.toDartString();
+    }
+    return string;
+  }
+
+  BodyReturn k8zRequest(
+    K8zCluster cluster,
+    String proxy,
+    int timeout,
+    String method,
+    String api,
+    String body,
+  ) {
+    final resp = k8zRequest2(
+      server: cluster.server,
+      caData: cluster.caData,
+      insecure: cluster.insecure,
+      clientCert: cluster.clientCert,
+      clientKey: cluster.clientKey,
+      token: cluster.token,
+      username: cluster.username,
+      password: cluster.password,
+      proxy: proxy,
+      timeout: timeout,
+      method: method,
+      api: api,
+      body: body,
+    );
+
     return resp;
   }
 }

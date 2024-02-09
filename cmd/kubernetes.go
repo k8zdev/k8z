@@ -70,11 +70,11 @@ func K8zRequest(
 	serverC *C.char, serverLen C.int,
 	caDataC *C.char, caDataLen C.int,
 	insecureC C._Bool,
-	userCertC *C.char, userCertLen C.int,
-	userKeyDataC *C.char, userKeyDataLen C.int,
-	userTokenC *C.char, userTokenLen C.int,
-	userNameC *C.char, userNameLen C.int,
-	userPasswordC *C.char, userPasswordLen C.int,
+	clientCertC *C.char, clientCertLen C.int,
+	clientKeyC *C.char, clientKeyLen C.int,
+	tokenC *C.char, tokenLen C.int,
+	usernameC *C.char, usernameLen C.int,
+	passwordC *C.char, passwordLen C.int,
 	proxyC *C.char, proxyLen C.int,
 	timeoutC C.int64_t,
 	methodC *C.char, mehtodLen C.int,
@@ -88,15 +88,15 @@ func K8zRequest(
 
 	var insecure bool = bool(insecureC)
 
-	var userCert string = cstr2String(userCertC, userCertLen)
+	var clientCert string = cstr2String(clientCertC, clientCertLen)
 
-	var userKeyData string = cstr2String(userKeyDataC, userKeyDataLen)
+	var clientKeyData string = cstr2String(clientKeyC, clientKeyLen)
 
-	var userToken string = cstr2String(userTokenC, userTokenLen)
+	var token string = cstr2String(tokenC, tokenLen)
 
-	var userName string = cstr2String(userNameC, userNameLen)
+	var username string = cstr2String(usernameC, usernameLen)
 
-	var userPassword string = cstr2String(userPasswordC, userPasswordLen)
+	var password string = cstr2String(passwordC, passwordLen)
 
 	var proxy string = cstr2String(proxyC, proxyLen)
 
@@ -109,7 +109,7 @@ func K8zRequest(
 	var body string = cstr2String(bodyC, bodyLen)
 
 	var errStr = ""
-	var resp, err = k8zRequest(server, caData, insecure, userCert, userKeyData, userToken, userName, userPassword, proxy, timeout, mehtod, api, body)
+	var resp, err = k8zRequest(server, caData, insecure, clientCert, clientKeyData, token, username, password, proxy, timeout, mehtod, api, body)
 
 	if err != nil {
 		errStr = k8z.NewCError(err)
@@ -121,33 +121,25 @@ func K8zRequest(
 	return
 }
 
-func k8zRequest2(server string, caData string,
-	insecure bool, userCertData, userKeyData string,
-	userToken, userName, userPassword, proxy string,
-	timeout int64, method, url string, body string) (resp string, err error) {
+func k8zRequest(server string, caData string,
+	insecure bool, clientCert, clientKey string,
+	token, username, password, proxy string,
+	timeout int64, method, api string, body string) (respBody []byte, err error) {
 
-	_, _, err = k8z.NewClient("k8z", server, string(caData), insecure, string(userCertData), string(userKeyData), userToken, userName, userPassword, proxy, timeout)
+	_, clientset, err := k8z.NewClient("k8z", server, string(caData), insecure, string(clientCert), string(clientKey), token, username, password, proxy, int64(timeout))
 	if err != nil {
 		err = fmt.Errorf("create k8s client failed, error: %w", err)
 		return
 	}
 
-	return
-}
-
-func k8zRequest(server string, caData string,
-	insecure bool, userCertData, userKeyData string,
-	userToken, userName, userPassword, proxy string,
-	timeout int64, method, api string, body string) (respBody []byte, err error) {
-
-	_, clientset, err := k8z.NewClient("k8z", server, string(caData), insecure, string(userCertData), string(userKeyData), userToken, userName, userPassword, proxy, int64(timeout))
-
-	fmt.Printf("%v", err)
-
 	var resp rest.Result
 	var req *rest.Request
 	var ctx = context.Background()
 	var cli = clientset.RESTClient()
+
+	if cli == nil {
+		return []byte{}, fmt.Errorf("nil client")
+	}
 
 	switch strings.ToUpper(method) {
 	case http.MethodGet:

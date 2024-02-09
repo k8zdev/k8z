@@ -16,7 +16,7 @@ func NewCError(err error) string {
 	return fmt.Sprintf("{\"error\": \"%s\"}", strings.ReplaceAll(err.Error(), "\"", "'"))
 }
 
-func NewClient(contextName, server, ca string, insecure bool, userCert, userKey, userToken, userName, userPassword, proxy string, timeout int64) (*rest.Config, *kubernetes.Clientset, error) {
+func NewClient(contextName, server, ca string, insecure bool, clientCert, clientKey, token, username, password, proxy string, timeout int64) (*rest.Config, *kubernetes.Clientset, error) {
 
 	var bytes = []byte(`kind: Config
 apiVersion: v1
@@ -36,11 +36,11 @@ preferences: {}
 users:
 - name: k8z
   user:
-    client-certificate-data: ` + userCert + `
-    client-key-data: ` + userKey + `
-    username: ` + userName + `
-    password: ` + userPassword + `
-    token: ` + userToken + `
+    client-certificate-data: ` + clientCert + `
+    client-key-data: ` + clientKey + `
+    username: ` + username + `
+    password: ` + password + `
+    token: ` + token + `
 `)
 
 	config, err := clientcmd.NewClientConfigFromBytes(bytes)

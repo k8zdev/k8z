@@ -112,7 +112,7 @@ struct K8zRequest_return {
 
 // K8zRequest
 //
-extern struct K8zRequest_return K8zRequest(char* serverC, int serverLen, char* caDataC, int caDataLen, _Bool insecureC, char* userCertC, int userCertLen, char* userKeyDataC, int userKeyDataLen, char* userTokenC, int userTokenLen, char* userNameC, int userNameLen, char* userPasswordC, int userPasswordLen, char* proxyC, int proxyLen, int64_t timeoutC, char* methodC, int mehtodLen, char* apiC, int apiLen, char* bodyC, int bodyLen);
+extern struct K8zRequest_return K8zRequest(char* serverC, int serverLen, char* caDataC, int caDataLen, _Bool insecureC, char* clientCertC, int clientCertLen, char* clientKeyC, int clientKeyLen, char* tokenC, int tokenLen, char* usernameC, int usernameLen, char* passwordC, int passwordLen, char* proxyC, int proxyLen, int64_t timeoutC, char* methodC, int mehtodLen, char* apiC, int apiLen, char* bodyC, int bodyLen);
 
 #ifdef __cplusplus
 }

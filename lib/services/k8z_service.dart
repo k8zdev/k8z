@@ -1,3 +1,4 @@
+import 'package:k8sapp/common/ops.dart';
 import 'package:k8sapp/dao/kube.dart';
 import 'package:k8sapp/services/k8z_native.dart';
 
@@ -23,6 +24,7 @@ class K8zService {
     if (resp.body == "ok") {
       return true;
     }
+    talker.error("check failed, error ${resp.error}");
     return false;
   }
 
