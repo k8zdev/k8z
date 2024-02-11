@@ -4,6 +4,8 @@ import 'package:k8sapp/common/ops.dart';
 import 'package:k8sapp/dao/kube.dart';
 import 'package:k8sapp/generated/l10n.dart';
 import 'package:k8sapp/pages/cluster/create.dart';
+import 'package:k8sapp/providers/current_cluster.dart';
+import 'package:provider/provider.dart';
 import 'package:settings_ui/settings_ui.dart';
 
 class ClustersPage extends StatefulWidget {
@@ -16,17 +18,17 @@ class ClustersPage extends StatefulWidget {
 
 class _ClustersPageState extends State<ClustersPage> {
   List<AbstractSettingsTile> genClusterChilds(List<K8zCluster> clusters) {
-    return clusters
-        .map(
-          (cluster) => SettingsTile.navigation(
-            title: Text(cluster.name),
-            leading: const Icon(Icons.computer),
-            onPressed: (context) {
-              GoRouter.of(context).pushNamed("cluster_home", extra: cluster);
-            },
-          ),
-        )
-        .toList();
+    final current = Provider.of<CurrentCluster>(context, listen: false).current;
+    return clusters.map((cluster) {
+      return SettingsTile.navigation(
+        title: Text(cluster.name),
+        leading: Icon(Icons.computer,
+            color: (current == cluster.name) ? Colors.green : Colors.grey),
+        onPressed: (context) {
+          GoRouter.of(context).pushNamed("cluster_home", extra: cluster);
+        },
+      );
+    }).toList();
   }
 
   @override
