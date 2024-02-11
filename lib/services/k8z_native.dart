@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:ffi';
 import 'dart:io';
 
@@ -15,6 +16,13 @@ class BodyReturn {
   String error;
 
   BodyReturn({required this.body, required this.error});
+}
+
+class JsonReturn {
+  Map<String, dynamic> body;
+  String error;
+
+  JsonReturn({required this.body, required this.error});
 }
 
 // FreePointer free pointer mem.
@@ -250,7 +258,34 @@ class K8zNative {
     return string;
   }
 
-  BodyReturn k8zRequest(
+  JsonReturn k8zRequest(
+    K8zCluster cluster,
+    String proxy,
+    int timeout,
+    String method,
+    String api,
+    String body,
+  ) {
+    final resp = k8zRequest2(
+      server: cluster.server,
+      caData: cluster.caData,
+      insecure: cluster.insecure,
+      clientCert: cluster.clientCert,
+      clientKey: cluster.clientKey,
+      token: cluster.token,
+      username: cluster.username,
+      password: cluster.password,
+      proxy: proxy,
+      timeout: timeout,
+      method: method,
+      api: api,
+      body: body,
+    );
+
+    return JsonReturn(body: jsonDecode(resp.body), error: resp.error);
+  }
+
+  BodyReturn k8zRequestRaw(
     K8zCluster cluster,
     String proxy,
     int timeout,

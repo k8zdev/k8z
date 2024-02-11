@@ -19,8 +19,8 @@ class K8zService {
   /// [checkHealth] used to check the Kubernetes cluster is health.
   ///
   Future<bool> checkHealth() async {
-    var resp =
-        K8zNative().k8zRequest(cluster, proxy, timeout, "GET", "/readyz", "");
+    var resp = K8zNative()
+        .k8zRequestRaw(cluster, proxy, timeout, "GET", "/readyz", "");
     if (resp.body == "ok") {
       return true;
     }
@@ -30,25 +30,25 @@ class K8zService {
 
   /// [get] it is used to run the GET request on the Kubernetes cluster.
   ///
-  Future<BodyReturn> get(String api) async {
+  Future<JsonReturn> get(String api) async {
     return K8zNative().k8zRequest(cluster, proxy, timeout, "GET", api, "");
   }
 
   /// [delete] it is used to run the DELETE request on the Kubernetes cluster.
   ///
-  Future<BodyReturn> delete(String api, String body) async {
+  Future<JsonReturn> delete(String api, String body) async {
     return K8zNative().k8zRequest(cluster, proxy, timeout, "DELETE", api, body);
   }
 
   /// [patch] it is used to run the PATCH request on the Kubernetes cluster.
   /// The [body] must be a valid json patch.
-  Future<BodyReturn> patch(String api, String body) async {
+  Future<JsonReturn> patch(String api, String body) async {
     return K8zNative().k8zRequest(cluster, proxy, timeout, "PATCH", api, body);
   }
 
   /// [post] it is used to run the POST request on the Kubernetes cluster.
   ///
-  Future<BodyReturn> post(String api, String body) async {
+  Future<JsonReturn> post(String api, String body) async {
     return K8zNative().k8zRequest(cluster, proxy, timeout, "POST", api, body);
   }
 }
