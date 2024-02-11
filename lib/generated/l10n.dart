@@ -150,6 +150,26 @@ class S {
     );
   }
 
+  /// `Workloads`
+  String get workloads {
+    return Intl.message(
+      'Workloads',
+      name: 'workloads',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Resources`
+  String get resources {
+    return Intl.message(
+      'Resources',
+      name: 'resources',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `save clusters`
   String get save_clusters {
     return Intl.message(

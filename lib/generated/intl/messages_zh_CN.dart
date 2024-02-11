@@ -65,6 +65,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "nodes_desc": MessageLookupByLibrary.simpleMessage("节点可以是虚拟机或物理机。"),
         "ok": MessageLookupByLibrary.simpleMessage("好的"),
         "overview": MessageLookupByLibrary.simpleMessage("概览"),
+        "resources": MessageLookupByLibrary.simpleMessage("资源"),
         "running": MessageLookupByLibrary.simpleMessage("运行中"),
         "save_clusters": MessageLookupByLibrary.simpleMessage("保存集群"),
         "select_clusters": MessageLookupByLibrary.simpleMessage("选择需要的集群"),
@@ -73,6 +74,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "theme_auto": MessageLookupByLibrary.simpleMessage("跟随系统"),
         "theme_dark": MessageLookupByLibrary.simpleMessage("深色模式"),
         "theme_light": MessageLookupByLibrary.simpleMessage("亮色模式"),
-        "version": MessageLookupByLibrary.simpleMessage("版本")
+        "version": MessageLookupByLibrary.simpleMessage("版本"),
+        "workloads": MessageLookupByLibrary.simpleMessage("负载")
       };
 }

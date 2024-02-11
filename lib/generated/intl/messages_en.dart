@@ -69,6 +69,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "A node may be a virtual or physical machine."),
         "ok": MessageLookupByLibrary.simpleMessage("ok"),
         "overview": MessageLookupByLibrary.simpleMessage("Overview"),
+        "resources": MessageLookupByLibrary.simpleMessage("Resources"),
         "running": MessageLookupByLibrary.simpleMessage("Running"),
         "save_clusters": MessageLookupByLibrary.simpleMessage("save clusters"),
         "select_clusters":
@@ -78,6 +79,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "theme_auto": MessageLookupByLibrary.simpleMessage("auto"),
         "theme_dark": MessageLookupByLibrary.simpleMessage("dark mode"),
         "theme_light": MessageLookupByLibrary.simpleMessage("light mode"),
-        "version": MessageLookupByLibrary.simpleMessage("version")
+        "version": MessageLookupByLibrary.simpleMessage("version"),
+        "workloads": MessageLookupByLibrary.simpleMessage("Workloads")
       };
 }

@@ -7,6 +7,8 @@ import 'package:k8sapp/pages/cluster/create.dart';
 import 'package:k8sapp/pages/cluster/create_load_manual.dart';
 import 'package:k8sapp/pages/cluster/home.dart';
 import 'package:k8sapp/pages/clusters.dart';
+import 'package:k8sapp/pages/resources.dart';
+import 'package:k8sapp/pages/workloads.dart';
 import 'package:sqlite_viewer/sqlite_viewer.dart';
 import 'package:talker_flutter/talker_flutter.dart';
 
@@ -82,6 +84,20 @@ final router = GoRouter(
               },
             ),
           ],
+        ),
+        GoRoute(
+          path: "/workloads",
+          name: "workloads",
+          pageBuilder: (context, state) => const NoTransitionPage(
+            child: WorkloadsPage(),
+          ),
+        ),
+        GoRoute(
+          path: "/resources",
+          name: "resources",
+          pageBuilder: (context, state) => const NoTransitionPage(
+            child: ResourcesPage(),
+          ),
         ),
         GoRoute(
           path: "/settings",

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
+import 'package:icons_plus/icons_plus.dart';
 import 'package:k8sapp/common/styles.dart';
 import 'package:k8sapp/generated/l10n.dart';
 import 'package:k8sapp/common/helpers.dart';
@@ -35,6 +36,8 @@ class _LandingState extends State<Landing> with SingleTickerProviderStateMixin {
 
   static final tabroute = [
     "clusters",
+    "workloads",
+    "resources",
     "settings",
   ];
 
@@ -88,6 +91,22 @@ class _LandingState extends State<Landing> with SingleTickerProviderStateMixin {
                     backgroundColor: Colors.purple.withOpacity(.2),
                     icon: Icons.home_rounded,
                     text: lang.clusters,
+                    textStyle: tabTextStyle),
+                GButton(
+                    iconActiveColor: Colors.purple,
+                    iconColor: Colors.grey.shade800,
+                    textColor: Colors.purple,
+                    backgroundColor: Colors.purple.withOpacity(.2),
+                    icon: BoxIcons.bxs_server,
+                    text: lang.workloads,
+                    textStyle: tabTextStyle),
+                GButton(
+                    iconActiveColor: Colors.purple,
+                    iconColor: Colors.grey.shade800,
+                    textColor: Colors.purple,
+                    backgroundColor: Colors.purple.withOpacity(.2),
+                    icon: BoxIcons.bxs_notepad,
+                    text: lang.resources,
                     textStyle: tabTextStyle),
                 GButton(
                     iconActiveColor: Colors.teal,
