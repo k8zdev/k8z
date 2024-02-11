@@ -23,6 +23,7 @@ class MessageLookup extends MessageLookupByLibrary {
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "add_cluster": MessageLookupByLibrary.simpleMessage("添加集群"),
+        "all": MessageLookupByLibrary.simpleMessage("全部"),
         "appName": MessageLookupByLibrary.simpleMessage("k8z"),
         "appearance": MessageLookupByLibrary.simpleMessage("外观"),
         "cancel": MessageLookupByLibrary.simpleMessage("取消"),
@@ -47,7 +48,11 @@ class MessageLookup extends MessageLookupByLibrary {
         "load_file": MessageLookupByLibrary.simpleMessage("加载文件"),
         "manual_load_kubeconfig":
             MessageLookupByLibrary.simpleMessage("加载 kubeconfig 文件"),
+        "more": MessageLookupByLibrary.simpleMessage("更多"),
+        "name": MessageLookupByLibrary.simpleMessage("名称"),
         "next_step": MessageLookupByLibrary.simpleMessage("下一步"),
+        "nodes": MessageLookupByLibrary.simpleMessage("节点"),
+        "nodes_desc": MessageLookupByLibrary.simpleMessage("节点可以是虚拟机或物理机。"),
         "ok": MessageLookupByLibrary.simpleMessage("好的"),
         "overview": MessageLookupByLibrary.simpleMessage("概览"),
         "running": MessageLookupByLibrary.simpleMessage("运行中"),

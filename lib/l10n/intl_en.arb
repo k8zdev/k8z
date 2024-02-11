@@ -67,5 +67,15 @@
   "status": "Status",
   "@status": {},
   "running": "Running",
-  "@running": {}
+  "@running": {},
+  "nodes": "Nodes",
+  "@nodes": {},
+  "nodes_desc": "A node may be a virtual or physical machine.",
+  "@nodes_desc": {},
+  "name": "Name",
+  "@name": {},
+  "more": "More",
+  "@more": {},
+  "all": "All",
+  "@all": {}
 }

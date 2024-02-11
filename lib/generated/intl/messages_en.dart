@@ -23,6 +23,7 @@ class MessageLookup extends MessageLookupByLibrary {
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "add_cluster": MessageLookupByLibrary.simpleMessage("Add cluster"),
+        "all": MessageLookupByLibrary.simpleMessage("All"),
         "appName": MessageLookupByLibrary.simpleMessage("k8z"),
         "appearance": MessageLookupByLibrary.simpleMessage("appearance"),
         "cancel": MessageLookupByLibrary.simpleMessage("cancel"),
@@ -49,7 +50,12 @@ class MessageLookup extends MessageLookupByLibrary {
         "load_file": MessageLookupByLibrary.simpleMessage("load file"),
         "manual_load_kubeconfig":
             MessageLookupByLibrary.simpleMessage("Load kubeconfig file"),
+        "more": MessageLookupByLibrary.simpleMessage("More"),
+        "name": MessageLookupByLibrary.simpleMessage("Name"),
         "next_step": MessageLookupByLibrary.simpleMessage("next step"),
+        "nodes": MessageLookupByLibrary.simpleMessage("Nodes"),
+        "nodes_desc": MessageLookupByLibrary.simpleMessage(
+            "A node may be a virtual or physical machine."),
         "ok": MessageLookupByLibrary.simpleMessage("ok"),
         "overview": MessageLookupByLibrary.simpleMessage("Overview"),
         "running": MessageLookupByLibrary.simpleMessage("Running"),

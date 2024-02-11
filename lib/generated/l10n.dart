@@ -389,6 +389,56 @@ class S {
       args: [],
     );
   }
+
+  /// `Nodes`
+  String get nodes {
+    return Intl.message(
+      'Nodes',
+      name: 'nodes',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `A node may be a virtual or physical machine.`
+  String get nodes_desc {
+    return Intl.message(
+      'A node may be a virtual or physical machine.',
+      name: 'nodes_desc',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Name`
+  String get name {
+    return Intl.message(
+      'Name',
+      name: 'name',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `More`
+  String get more {
+    return Intl.message(
+      'More',
+      name: 'more',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `All`
+  String get all {
+    return Intl.message(
+      'All',
+      name: 'all',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

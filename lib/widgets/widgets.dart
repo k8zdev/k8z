@@ -25,3 +25,13 @@ Widget safeSca(
     backgroundColor: context.isDarkMode ? navDarkColor : Colors.white,
   );
 }
+
+const errorIcon = Icon(
+  Icons.donut_large_rounded,
+  color: Colors.green,
+);
+
+const runningIcon = Icon(
+  Icons.error_outline,
+  color: Colors.red,
+);

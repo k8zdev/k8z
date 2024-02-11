@@ -1,11 +1,12 @@
-import 'dart:convert';
-
+import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:k8sapp/common/ops.dart';
 import 'package:k8sapp/dao/kube.dart';
 import 'package:k8sapp/generated/l10n.dart';
+import 'package:k8sapp/models/models.dart';
 import 'package:k8sapp/services/k8z_native.dart';
 import 'package:k8sapp/services/k8z_service.dart';
+import 'package:k8sapp/widgets/widgets.dart';
 import 'package:settings_ui/settings_ui.dart';
 
 class ClusterHomePage extends StatefulWidget {
@@ -23,7 +24,7 @@ class _ClusterHomePageState extends State<ClusterHomePage> {
       tiles: [
         SettingsTile(
           title: Text(lang.version),
-          trailing: FutureBuilder<BodyReturn>(
+          trailing: FutureBuilder<JsonReturn>(
             future: () async {
               return await K8zService(cluster: widget.cluster).get("/version");
             }(),
@@ -42,15 +43,13 @@ class _ClusterHomePageState extends State<ClusterHomePage> {
               var data = snapshot.data;
               var body = data?.body ?? "";
               var message = data?.error ?? "";
-              var childText = data?.body ?? "";
               var ok = data?.error.isEmpty ?? false;
 
               talker.info("ok: $ok, body: $body,error: $message");
 
+              var childText = message;
               if (ok) {
-                Map<String, dynamic> version = jsonDecode(body);
-                message = body;
-                childText = version["gitVersion"];
+                childText = data?.body["gitVersion"];
               }
 
               return Tooltip(
@@ -79,6 +78,67 @@ class _ClusterHomePageState extends State<ClusterHomePage> {
     );
   }
 
+  AbstractSettingsSection nodes(S lang) {
+    return CustomSettingsSection(
+      child: FutureBuilder(
+        future: () async {
+          // await Future.delayed(const Duration(seconds: 1));
+          return await K8zService(cluster: widget.cluster)
+              .get("/api/v1/nodes?limit=3");
+        }(),
+        builder: (BuildContext context, AsyncSnapshot snapshot) {
+          var title = Text(lang.name);
+          Widget trailing = Text(lang.all);
+
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            trailing = const SizedBox(
+              height: 16,
+              width: 16,
+              child: CircularProgressIndicator(),
+            );
+          } else if (snapshot.hasError) {
+            trailing = Tooltip(
+              message: snapshot.error.toString(),
+              child: Text(lang.error),
+            );
+          }
+
+          var data = snapshot.data;
+          var body = data?.body;
+          var message = data?.error ?? "";
+          var ok = message.isEmpty ?? false;
+
+          // talker.debug("ok: $ok, body: $body,error: $message");
+          final nodesList = IoK8sApiCoreV1NodeList.fromJson(body);
+          final list = nodesList?.items.mapIndexed(
+                (index, node) {
+                  var metadata = node.metadata;
+                  var status = node.status?.conditions
+                      .where((condition) => condition.status == 'True')
+                      .map((condition) => condition.type);
+                  var running = status != null &&
+                      status.where((e) => e == 'Ready').isNotEmpty;
+
+                  return SettingsTile.navigation(
+                    title: Text(metadata?.name ?? ""),
+                    trailing: running ? errorIcon : runningIcon,
+                  );
+                },
+              ).toList() ??
+              [];
+
+          return SettingsSection(
+            title: Text(lang.nodes),
+            tiles: [
+              SettingsTile.navigation(title: title, trailing: trailing),
+              ...list,
+            ],
+          );
+        },
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     var lang = S.of(context);
@@ -89,6 +149,7 @@ class _ClusterHomePageState extends State<ClusterHomePage> {
       body: SettingsList(
         sections: [
           overview(lang),
+          nodes(lang),
         ],
       ),
     );

@@ -67,5 +67,15 @@
   "status": "状态",
   "@status": {},
   "running": "运行中",
-  "@running": {}
+  "@running": {},
+  "nodes": "节点",
+  "@nodes": {},
+  "nodes_desc": "节点可以是虚拟机或物理机。",
+  "@nodes_desc": {},
+  "name": "名称",
+  "@name": {},
+  "more": "更多",
+  "@more": {},
+  "all": "全部",
+  "@all": {}
 }
