@@ -479,6 +479,16 @@ class S {
       ],
     );
   }
+
+  /// `Current cluster`
+  String get current_cluster {
+    return Intl.message(
+      'Current cluster',
+      name: 'current_cluster',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

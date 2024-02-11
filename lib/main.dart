@@ -8,6 +8,7 @@ import 'package:k8sapp/common/const.dart';
 import 'package:k8sapp/common/ops.dart';
 import 'package:k8sapp/dao/dao.dart';
 import 'package:k8sapp/generated/l10n.dart';
+import 'package:k8sapp/providers/current_cluster.dart';
 import 'package:k8sapp/providers/lang.dart';
 import 'package:k8sapp/providers/talker.dart';
 import 'package:k8sapp/providers/theme.dart';
@@ -50,12 +51,14 @@ void main() async {
   var locale = CurrentLocale()..init();
   var themeMode = ThemeModeProvider()..init();
   var talkerMode = TalkerModeProvider()..init();
+  var currentCluster = CurrentCluster()..init();
   runApp(
     MultiProvider(
       providers: [
         ChangeNotifierProvider<CurrentLocale>.value(value: locale),
         ChangeNotifierProvider<ThemeModeProvider>.value(value: themeMode),
         ChangeNotifierProvider<TalkerModeProvider>.value(value: talkerMode),
+        ChangeNotifierProvider<CurrentCluster>.value(value: currentCluster),
       ],
       child: TalkerWrapper(
         talker: talker,

@@ -34,6 +34,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "appearance": MessageLookupByLibrary.simpleMessage("appearance"),
         "cancel": MessageLookupByLibrary.simpleMessage("cancel"),
         "clusters": MessageLookupByLibrary.simpleMessage("Clusters"),
+        "current_cluster":
+            MessageLookupByLibrary.simpleMessage("Current cluster"),
         "debug_flushdb": MessageLookupByLibrary.simpleMessage("flush database"),
         "debug_flushdb_desc": MessageLookupByLibrary.simpleMessage(
             "will flush all data at database"),

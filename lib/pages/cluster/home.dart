@@ -7,9 +7,11 @@ import 'package:k8sapp/common/styles.dart';
 import 'package:k8sapp/dao/kube.dart';
 import 'package:k8sapp/generated/l10n.dart';
 import 'package:k8sapp/models/models.dart';
+import 'package:k8sapp/providers/current_cluster.dart';
 import 'package:k8sapp/services/k8z_native.dart';
 import 'package:k8sapp/services/k8z_service.dart';
 import 'package:k8sapp/widgets/widgets.dart';
+import 'package:provider/provider.dart';
 import 'package:settings_ui/settings_ui.dart';
 
 class ClusterHomePage extends StatefulWidget {
@@ -23,6 +25,8 @@ class ClusterHomePage extends StatefulWidget {
 class _ClusterHomePageState extends State<ClusterHomePage> {
   final eventNumber = 5;
   SettingsSection overview(S lang) {
+    var currentClusterProvider =
+        Provider.of<CurrentCluster>(context, listen: true);
     return SettingsSection(
       title: Text(lang.overview),
       tiles: [
@@ -77,6 +81,18 @@ class _ClusterHomePageState extends State<ClusterHomePage> {
               return Text(running ? lang.running : lang.error, style: style);
             },
           ),
+        ),
+        SettingsTile.switchTile(
+          initialValue: currentClusterProvider.current == widget.cluster.name,
+          onToggle: (value) {
+            var name = "";
+            talker.info("to $value");
+            if (value) {
+              name = widget.cluster.name;
+            }
+            currentClusterProvider.setCurrent(name);
+          },
+          title: Text(lang.current_cluster),
         ),
       ],
     );

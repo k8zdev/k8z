@@ -34,6 +34,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "appearance": MessageLookupByLibrary.simpleMessage("外观"),
         "cancel": MessageLookupByLibrary.simpleMessage("取消"),
         "clusters": MessageLookupByLibrary.simpleMessage("集群"),
+        "current_cluster": MessageLookupByLibrary.simpleMessage("当前群集"),
         "debug_flushdb": MessageLookupByLibrary.simpleMessage("清空数据库"),
         "debug_flushdb_desc":
             MessageLookupByLibrary.simpleMessage("将会清理所有数据库中的数据"),

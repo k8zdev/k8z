@@ -116,5 +116,7 @@
         "type": "String"
       }
     }
-  }
+  },
+  "current_cluster": "Current cluster",
+  "@current_cluster": {}
 }

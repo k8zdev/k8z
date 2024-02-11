@@ -116,5 +116,7 @@
         "type": "String"
       }
     }
-  }
+  },
+  "current_cluster": "当前群集",
+  "@current_cluster": {}
 }
