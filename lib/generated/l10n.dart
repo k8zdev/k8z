@@ -439,6 +439,46 @@ class S {
       args: [],
     );
   }
+
+  /// `Events`
+  String get events {
+    return Intl.message(
+      'Events',
+      name: 'events',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `last {n} warnings`
+  String last_warning_events(num n) {
+    return Intl.message(
+      'last $n warnings',
+      name: 'last_warning_events',
+      desc: '',
+      args: [n],
+    );
+  }
+
+  /// `{namespace} / {name}\n\nType: {type}\nReason: {reason}\nObject: {kind}/{ObjName}\nLast Seen: {lastTimestamp}\n\nMessage: {message}\n`
+  String event_text(String namespace, String name, String type, String reason,
+      String kind, String ObjName, String lastTimestamp, String message) {
+    return Intl.message(
+      '$namespace / $name\n\nType: $type\nReason: $reason\nObject: $kind/$ObjName\nLast Seen: $lastTimestamp\n\nMessage: $message\n',
+      name: 'event_text',
+      desc: '',
+      args: [
+        namespace,
+        name,
+        type,
+        reason,
+        kind,
+        ObjName,
+        lastTimestamp,
+        message
+      ],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

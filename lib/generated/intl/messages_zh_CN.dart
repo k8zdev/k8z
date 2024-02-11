@@ -20,6 +20,12 @@ typedef String MessageIfAbsent(String messageStr, List<dynamic> args);
 class MessageLookup extends MessageLookupByLibrary {
   String get localeName => 'zh_CN';
 
+  static String m0(namespace, name, type, reason, kind, ObjName, lastTimestamp,
+          message) =>
+      "${namespace} / ${name}\n\n类型: ${type}\n原因: ${reason}\n对象: ${kind}/${ObjName}\n最后发生: ${lastTimestamp}\n\n信息: ${message}\n";
+
+  static String m1(n) => "最近 ${n} 警告";
+
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "add_cluster": MessageLookupByLibrary.simpleMessage("添加集群"),
@@ -37,6 +43,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "empyt_context": MessageLookupByLibrary.simpleMessage(
             "无法从 kubeconfig 读取集群信息, contexts 字段可能为空"),
         "error": MessageLookupByLibrary.simpleMessage("错误"),
+        "event_text": m0,
+        "events": MessageLookupByLibrary.simpleMessage("事件"),
         "general": MessageLookupByLibrary.simpleMessage("常规"),
         "general_debug": MessageLookupByLibrary.simpleMessage("调试"),
         "general_debug_sqlview": MessageLookupByLibrary.simpleMessage("sql 视图"),
@@ -45,6 +53,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "general_language_ja": MessageLookupByLibrary.simpleMessage("日本语"),
         "general_language_null": MessageLookupByLibrary.simpleMessage("跟随系统"),
         "general_language_zh": MessageLookupByLibrary.simpleMessage("中文"),
+        "last_warning_events": m1,
         "load_file": MessageLookupByLibrary.simpleMessage("加载文件"),
         "manual_load_kubeconfig":
             MessageLookupByLibrary.simpleMessage("加载 kubeconfig 文件"),

@@ -1,6 +1,9 @@
+import 'dart:convert';
+
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:k8sapp/common/ops.dart';
+import 'package:k8sapp/common/styles.dart';
 import 'package:k8sapp/dao/kube.dart';
 import 'package:k8sapp/generated/l10n.dart';
 import 'package:k8sapp/models/models.dart';
@@ -18,6 +21,7 @@ class ClusterHomePage extends StatefulWidget {
 }
 
 class _ClusterHomePageState extends State<ClusterHomePage> {
+  final eventNumber = 5;
   SettingsSection overview(S lang) {
     return SettingsSection(
       title: Text(lang.overview),
@@ -105,8 +109,8 @@ class _ClusterHomePageState extends State<ClusterHomePage> {
 
           var data = snapshot.data;
           var body = data?.body;
-          var message = data?.error ?? "";
-          var ok = message.isEmpty ?? false;
+          // var message = data?.error ?? "";
+          // var ok = message.isEmpty ?? false;
 
           // talker.debug("ok: $ok, body: $body,error: $message");
           final nodesList = IoK8sApiCoreV1NodeList.fromJson(body);
@@ -139,6 +143,90 @@ class _ClusterHomePageState extends State<ClusterHomePage> {
     );
   }
 
+  AbstractSettingsSection events(S lang) {
+    return CustomSettingsSection(
+      child: FutureBuilder(
+        future: () async {
+          // await Future.delayed(const Duration(seconds: 1));
+          return await K8zService(cluster: widget.cluster).get(
+              "/api/v1/events?fieldSelector=type=Warning&limit=$eventNumber");
+        }(),
+        builder: (BuildContext context, AsyncSnapshot snapshot) {
+          var title = Text(lang.last_warning_events(eventNumber));
+          Widget trailing = Text(lang.all);
+          List<AbstractSettingsTile> list = [];
+
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            trailing = const SizedBox(
+              height: 16,
+              width: 16,
+              child: CircularProgressIndicator(),
+            );
+          } else if (snapshot.hasError) {
+            trailing = Tooltip(
+              message: snapshot.error.toString(),
+              child: Text(lang.error),
+            );
+          } else {
+            var data = snapshot.data;
+            var body = data?.body;
+            var message = data?.error ?? "";
+            var ok = message.isEmpty ?? false;
+
+            talker.debug(
+                "ok: $ok, body: $body,error: ${jsonEncode(message.toString())}");
+            final eventsList = (body == null)
+                ? IoK8sApiCoreV1EventList()
+                : IoK8sApiCoreV1EventList.fromJson(body);
+            var eventItems = eventsList?.items;
+            if (eventsList != null) {
+              eventItems?.sort(
+                (a, b) {
+                  return a.lastTimestamp != null && b.lastTimestamp != null
+                      ? b.lastTimestamp!.compareTo(a.lastTimestamp!)
+                      : 0;
+                },
+              );
+            }
+            list = eventItems?.mapIndexed(
+                  (index, event) {
+                    talker.debug("$index");
+                    var metadata = event.metadata;
+                    var object = event.involvedObject;
+                    var warning = (event.type == "Warning");
+                    var text = lang.event_text(
+                      metadata.namespace!,
+                      metadata.name!,
+                      event.type!,
+                      event.reason!,
+                      object.kind!,
+                      object.name!,
+                      event.lastTimestamp?.toString() ?? "null",
+                      event.message!,
+                    );
+
+                    talker.debug(text);
+                    return SettingsTile.navigation(
+                      title: Text(text, style: smallTextStyle),
+                      trailing: warning ? runningIcon : errorIcon,
+                    );
+                  },
+                ).toList() ??
+                [];
+          }
+
+          return SettingsSection(
+            title: Text(lang.events),
+            tiles: [
+              SettingsTile.navigation(title: title, trailing: trailing),
+              ...list,
+            ],
+          );
+        },
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     var lang = S.of(context);
@@ -150,6 +238,7 @@ class _ClusterHomePageState extends State<ClusterHomePage> {
         sections: [
           overview(lang),
           nodes(lang),
+          events(lang),
         ],
       ),
     );

@@ -20,6 +20,12 @@ typedef String MessageIfAbsent(String messageStr, List<dynamic> args);
 class MessageLookup extends MessageLookupByLibrary {
   String get localeName => 'en';
 
+  static String m0(namespace, name, type, reason, kind, ObjName, lastTimestamp,
+          message) =>
+      "${namespace} / ${name}\n\nType: ${type}\nReason: ${reason}\nObject: ${kind}/${ObjName}\nLast Seen: ${lastTimestamp}\n\nMessage: ${message}\n";
+
+  static String m1(n) => "last ${n} warnings";
+
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "add_cluster": MessageLookupByLibrary.simpleMessage("Add cluster"),
@@ -38,6 +44,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "empyt_context": MessageLookupByLibrary.simpleMessage(
             "can not get cluster kubeconfig, contexts maybe empty"),
         "error": MessageLookupByLibrary.simpleMessage("error"),
+        "event_text": m0,
+        "events": MessageLookupByLibrary.simpleMessage("Events"),
         "general": MessageLookupByLibrary.simpleMessage("general"),
         "general_debug": MessageLookupByLibrary.simpleMessage("debug"),
         "general_debug_sqlview":
@@ -47,6 +55,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "general_language_ja": MessageLookupByLibrary.simpleMessage("Japanese"),
         "general_language_null": MessageLookupByLibrary.simpleMessage("Auto"),
         "general_language_zh": MessageLookupByLibrary.simpleMessage("Chinese"),
+        "last_warning_events": m1,
         "load_file": MessageLookupByLibrary.simpleMessage("load file"),
         "manual_load_kubeconfig":
             MessageLookupByLibrary.simpleMessage("Load kubeconfig file"),

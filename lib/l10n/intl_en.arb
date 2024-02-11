@@ -77,5 +77,44 @@
   "more": "More",
   "@more": {},
   "all": "All",
-  "@all": {}
+  "@all": {},
+  "events": "Events",
+  "@events": {},
+  "last_warning_events": "last {n} warnings",
+  "@last_warning_events": {
+    "placeholders": {
+      "n": {
+        "type": "num"
+      }
+    }
+  },
+  "event_text": "{namespace} / {name}\n\nType: {type}\nReason: {reason}\nObject: {kind}/{ObjName}\nLast Seen: {lastTimestamp}\n\nMessage: {message}\n",
+  "@event_text": {
+    "placeholders": {
+      "namespace": {
+        "type": "String"
+      },
+      "name": {
+        "type": "String"
+      },
+      "type": {
+        "type": "String"
+      },
+      "reason": {
+        "type": "String"
+      },
+      "kind": {
+        "type": "String"
+      },
+      "ObjName": {
+        "type": "String"
+      },
+      "lastTimestamp": {
+        "type": "String"
+      },
+      "message": {
+        "type": "String"
+      }
+    }
+  }
 }

@@ -77,5 +77,44 @@
   "more": "更多",
   "@more": {},
   "all": "全部",
-  "@all": {}
+  "@all": {},
+  "events": "事件",
+  "@events": {},
+  "last_warning_events": "最近 {n} 警告",
+  "@last_warning_events": {
+    "placeholders": {
+      "n": {
+        "type": "num"
+      }
+    }
+  },
+  "event_text": "{namespace} / {name}\n\n类型: {type}\n原因: {reason}\n对象: {kind}/{ObjName}\n最后发生: {lastTimestamp}\n\n信息: {message}\n",
+  "@event_text": {
+    "placeholders": {
+      "namespace": {
+        "type": "String"
+      },
+      "name": {
+        "type": "String"
+      },
+      "type": {
+        "type": "String"
+      },
+      "reason": {
+        "type": "String"
+      },
+      "kind": {
+        "type": "String"
+      },
+      "ObjName": {
+        "type": "String"
+      },
+      "lastTimestamp": {
+        "type": "String"
+      },
+      "message": {
+        "type": "String"
+      }
+    }
+  }
 }
