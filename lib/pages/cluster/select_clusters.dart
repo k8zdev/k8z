@@ -5,6 +5,8 @@ import 'package:k8sapp/common/ops.dart';
 import 'package:k8sapp/common/styles.dart';
 import 'package:k8sapp/dao/kube.dart';
 import 'package:k8sapp/generated/l10n.dart';
+import 'package:k8sapp/providers/current_cluster.dart';
+import 'package:provider/provider.dart';
 
 class ChoiceClustersSubPage extends StatefulWidget {
   final List<K8zCluster> clusters;
@@ -41,6 +43,11 @@ class _ChoiceClustersSubPageState extends State<ChoiceClustersSubPage> {
           talker.debug("save selectedItems: $_selected");
           try {
             K8zCluster.batchInsert(_selected);
+            if (_selected.isNotEmpty) {
+              final ccProvider =
+                  Provider.of<CurrentCluster>(context, listen: false);
+              ccProvider.setCurrent(_selected[0].name);
+            }
             GoRouter.of(context).go("/clusters");
           } catch (err) {
             talker.error("insert failed: ${err.toString()}");
