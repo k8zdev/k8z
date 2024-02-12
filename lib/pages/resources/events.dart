@@ -49,8 +49,17 @@ class _EventsPageState extends State<EventsPage> {
           } else {
             final eventslist =
                 IoK8sApiCoreV1EventList.fromJson(snapshot.data.body);
-
-            list = eventslist?.items.mapIndexed(
+            var eventItems = eventslist?.items;
+            if (eventslist != null) {
+              eventItems?.sort(
+                (a, b) {
+                  return a.lastTimestamp != null && b.lastTimestamp != null
+                      ? b.lastTimestamp!.compareTo(a.lastTimestamp!)
+                      : 0;
+                },
+              );
+            }
+            list = eventItems?.mapIndexed(
                   (index, event) {
                     talker.debug("ns: ${event.metadata}\n");
 
