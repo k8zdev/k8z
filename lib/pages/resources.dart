@@ -33,7 +33,10 @@ class _ResourcesPageState extends State<ResourcesPage> {
         ),
         SettingsTile.navigation(
           title: Text(lang.events),
-          onPressed: (context) => GoRouter.of(context).pushNamed("events"),
+          onPressed: (context) => GoRouter.of(context).pushNamed(
+            "events",
+            extra: cluster,
+          ),
         ),
         SettingsTile.navigation(
           title: Text(lang.namespaces),

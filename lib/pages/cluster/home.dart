@@ -245,7 +245,10 @@ class _ClusterHomePageState extends State<ClusterHomePage> {
               SettingsTile.navigation(
                 title: title,
                 trailing: trailing,
-                onPressed: (ctx) => GoRouter.of(ctx).goNamed("events"),
+                onPressed: (ctx) => GoRouter.of(ctx).goNamed(
+                  "events",
+                  extra: widget.cluster,
+                ),
               ),
               ...list,
             ],
