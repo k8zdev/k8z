@@ -24,6 +24,8 @@
   "@workloads": {},
   "resources": "Resources",
   "@resources": {},
+  "namespaces": "Namespaces",
+  "@namespaces": {},
   "save_clusters": "save clusters",
   "@save_clusters": {},
   "appearance": "appearance",

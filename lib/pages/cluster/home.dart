@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:k8sapp/common/ops.dart';
 import 'package:k8sapp/common/styles.dart';
 import 'package:k8sapp/dao/kube.dart';
@@ -150,7 +151,11 @@ class _ClusterHomePageState extends State<ClusterHomePage> {
           return SettingsSection(
             title: Text(lang.nodes),
             tiles: [
-              SettingsTile.navigation(title: title, trailing: trailing),
+              SettingsTile.navigation(
+                title: title,
+                trailing: trailing,
+                onPressed: (ctx) => GoRouter.of(ctx).goNamed("nodes"),
+              ),
               ...list,
             ],
           );
@@ -234,7 +239,11 @@ class _ClusterHomePageState extends State<ClusterHomePage> {
           return SettingsSection(
             title: Text(lang.events),
             tiles: [
-              SettingsTile.navigation(title: title, trailing: trailing),
+              SettingsTile.navigation(
+                title: title,
+                trailing: trailing,
+                onPressed: (ctx) => GoRouter.of(ctx).goNamed("events"),
+              ),
               ...list,
             ],
           );

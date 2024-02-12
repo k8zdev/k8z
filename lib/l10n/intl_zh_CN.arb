@@ -24,6 +24,8 @@
   "@workloads": {},
   "resources": "资源",
   "@resources": {},
+  "namespaces": "命名空间",
+  "@namespaces": {},
   "save_clusters": "保存集群",
   "@save_clusters": {},
   "appearance": "外观",

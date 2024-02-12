@@ -60,6 +60,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("加载 kubeconfig 文件"),
         "more": MessageLookupByLibrary.simpleMessage("更多"),
         "name": MessageLookupByLibrary.simpleMessage("名称"),
+        "namespaces": MessageLookupByLibrary.simpleMessage("命名空间"),
         "next_step": MessageLookupByLibrary.simpleMessage("下一步"),
         "nodes": MessageLookupByLibrary.simpleMessage("节点"),
         "nodes_desc": MessageLookupByLibrary.simpleMessage("节点可以是虚拟机或物理机。"),

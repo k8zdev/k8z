@@ -8,6 +8,9 @@ import 'package:k8sapp/pages/cluster/create_load_manual.dart';
 import 'package:k8sapp/pages/cluster/home.dart';
 import 'package:k8sapp/pages/clusters.dart';
 import 'package:k8sapp/pages/resources.dart';
+import 'package:k8sapp/pages/resources/events.dart';
+import 'package:k8sapp/pages/resources/namespaces.dart';
+import 'package:k8sapp/pages/resources/nodes.dart';
 import 'package:k8sapp/pages/workloads.dart';
 import 'package:sqlite_viewer/sqlite_viewer.dart';
 import 'package:talker_flutter/talker_flutter.dart';
@@ -98,6 +101,29 @@ final router = GoRouter(
           pageBuilder: (context, state) => const NoTransitionPage(
             child: ResourcesPage(),
           ),
+          routes: [
+            GoRoute(
+              path: "nodes",
+              name: "nodes",
+              pageBuilder: (context, state) => const NoTransitionPage(
+                child: NodesPage(),
+              ),
+            ),
+            GoRoute(
+              path: "namespaces",
+              name: "namespaces",
+              pageBuilder: (context, state) => const NoTransitionPage(
+                child: NamespacesPage(),
+              ),
+            ),
+            GoRoute(
+              path: "events",
+              name: "events",
+              pageBuilder: (context, state) => const NoTransitionPage(
+                child: EventssPage(),
+              ),
+            ),
+          ],
         ),
         GoRoute(
           path: "/settings",

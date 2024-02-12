@@ -170,6 +170,16 @@ class S {
     );
   }
 
+  /// `Namespaces`
+  String get namespaces {
+    return Intl.message(
+      'Namespaces',
+      name: 'namespaces',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `save clusters`
   String get save_clusters {
     return Intl.message(

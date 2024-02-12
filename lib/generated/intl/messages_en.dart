@@ -63,6 +63,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Load kubeconfig file"),
         "more": MessageLookupByLibrary.simpleMessage("More"),
         "name": MessageLookupByLibrary.simpleMessage("Name"),
+        "namespaces": MessageLookupByLibrary.simpleMessage("Namespaces"),
         "next_step": MessageLookupByLibrary.simpleMessage("next step"),
         "nodes": MessageLookupByLibrary.simpleMessage("Nodes"),
         "nodes_desc": MessageLookupByLibrary.simpleMessage(
