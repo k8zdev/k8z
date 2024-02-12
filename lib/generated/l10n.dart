@@ -769,6 +769,46 @@ class S {
       args: [],
     );
   }
+
+  /// `are your sure?`
+  String get arsure {
+    return Intl.message(
+      'are your sure?',
+      name: 'arsure',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `will delete {type} {name}`
+  String will_delete(Object type, Object name) {
+    return Intl.message(
+      'will delete $type $name',
+      name: 'will_delete',
+      desc: '',
+      args: [type, name],
+    );
+  }
+
+  /// `{name} deleted`
+  String deleted(Object name) {
+    return Intl.message(
+      '$name deleted',
+      name: 'deleted',
+      desc: '',
+      args: [name],
+    );
+  }
+
+  /// `delete failed, error: {error}`
+  String delete_failed(Object error) {
+    return Intl.message(
+      'delete failed, error: $error',
+      name: 'delete_failed',
+      desc: '',
+      args: [error],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

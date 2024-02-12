@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:collection/collection.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:k8sapp/common/ops.dart';
@@ -25,9 +26,7 @@ class ClusterHomePage extends StatefulWidget {
 
 class _ClusterHomePageState extends State<ClusterHomePage> {
   final eventNumber = 5;
-  SettingsSection overview(S lang) {
-    var currentClusterProvider =
-        Provider.of<CurrentCluster>(context, listen: true);
+  SettingsSection overview(S lang, CurrentCluster ccProvider) {
     return SettingsSection(
       title: Text(lang.overview),
       tiles: [
@@ -85,15 +84,14 @@ class _ClusterHomePageState extends State<ClusterHomePage> {
           ),
         ),
         SettingsTile.switchTile(
-          initialValue:
-              currentClusterProvider.current?.name == widget.cluster.name,
+          initialValue: ccProvider.current?.name == widget.cluster.name,
           onToggle: (value) {
             late K8zCluster cluster;
             talker.info("to $value");
             if (value) {
               cluster = widget.cluster;
             }
-            currentClusterProvider.setCurrent(cluster);
+            ccProvider.setCurrent(cluster);
           },
           title: Text(lang.current_cluster),
         ),
@@ -128,10 +126,7 @@ class _ClusterHomePageState extends State<ClusterHomePage> {
 
           var data = snapshot.data;
           var body = data?.body;
-          // var message = data?.error ?? "";
-          // var ok = message.isEmpty ?? false;
 
-          // talker.debug("ok: $ok, body: $body,error: $message");
           final nodesList = IoK8sApiCoreV1NodeList.fromJson(body);
           final list = nodesList?.items.mapIndexed(
                 (index, node) {
@@ -258,16 +253,82 @@ class _ClusterHomePageState extends State<ClusterHomePage> {
     );
   }
 
+  AppBar appBar(BuildContext context, S lang, CurrentCluster ccProvider) {
+    return AppBar(
+      title: InkWell(
+        onLongPress: () {
+          showDialog(
+              context: context,
+              builder: (context) {
+                return CupertinoAlertDialog(
+                  title: Text(lang.arsure),
+                  content: Text(
+                    lang.will_delete(lang.clusters, widget.cluster.name),
+                  ),
+                  actions: [
+                    CupertinoDialogAction(
+                      isDefaultAction: false,
+                      child: Text(lang.cancel),
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                      },
+                    ),
+                    CupertinoDialogAction(
+                      isDefaultAction: true,
+                      child: Text(lang.ok),
+                      onPressed: () async {
+                        try {
+                          if (ccProvider.current?.name == widget.cluster.name) {
+                            ccProvider.setCurrent(null);
+                          }
+                          await K8zCluster.delete(widget.cluster);
+                          // ignore: use_build_context_synchronously
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              showCloseIcon: true,
+                              closeIconColor: Colors.white,
+                              backgroundColor: Colors.green,
+                              content: Text(
+                                lang.deleted(widget.cluster.name),
+                              ),
+                            ),
+                          );
+                          // ignore: use_build_context_synchronously
+                          GoRouter.of(context).goNamed("clusters");
+                        } catch (err) {
+                          // ignore: use_build_context_synchronously
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              showCloseIcon: true,
+                              closeIconColor: Colors.white,
+                              backgroundColor: Colors.red,
+                              content: Text(
+                                lang.delete_failed(err.toString()),
+                              ),
+                            ),
+                          );
+                        }
+                      },
+                    )
+                  ],
+                );
+              });
+        },
+        child: Text(widget.cluster.name),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     var lang = S.of(context);
-    var appbar = AppBar(title: Text(widget.cluster.name));
+    var ccProvider = Provider.of<CurrentCluster>(context, listen: true);
 
     return Scaffold(
-      appBar: appbar,
+      appBar: appBar(context, lang, ccProvider),
       body: SettingsList(
         sections: [
-          overview(lang),
+          overview(lang, ccProvider),
           nodes(lang),
           events(lang),
         ],

@@ -207,5 +207,26 @@
     }
   },
   "current_cluster": "Current cluster",
-  "@current_cluster": {}
+  "@current_cluster": {},
+  "arsure": "are your sure?",
+  "@arsure": {},
+  "will_delete": "will delete {type} {name}",
+  "@will_delete": {
+    "placeholders": {
+      "type": {},
+      "name": {}
+    }
+  },
+  "deleted": "{name} deleted",
+  "@deleted": {
+    "placeholders": {
+      "name": {}
+    }
+  },
+  "delete_failed": "delete failed, error: {error}",
+  "@delete_failed": {
+    "placeholders": {
+      "error": {}
+    }
+  }
 }

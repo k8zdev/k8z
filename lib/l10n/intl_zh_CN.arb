@@ -207,5 +207,26 @@
     }
   },
   "current_cluster": "当前群集",
-  "@current_cluster": {}
+  "@current_cluster": {},
+  "arsure": "你确认吗?",
+  "@arsure": {},
+  "will_delete": "将要删除 {type} {name}",
+  "@will_delete": {
+    "placeholders": {
+      "type": {},
+      "name": {}
+    }
+  },
+  "deleted": "{name} 已删除",
+  "@deleted": {
+    "placeholders": {
+      "name": {}
+    }
+  },
+  "delete_failed": "删除失败, 错误: {error}",
+  "@delete_failed": {
+    "placeholders": {
+      "error": {}
+    }
+  }
 }

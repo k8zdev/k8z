@@ -117,6 +117,7 @@ class K8zCluster {
         await database.query(clustersTable, where: 'deleted = 0');
     return List.generate(maps.length, (i) {
       return K8zCluster(
+        id: maps[i]['id'],
         name: maps[i]['name'],
         server: maps[i]['server'],
         caData: maps[i]['ca'],

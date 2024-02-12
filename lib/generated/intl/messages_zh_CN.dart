@@ -22,25 +22,31 @@ class MessageLookup extends MessageLookupByLibrary {
 
   static String m0(arg) => "运行时:\t\t ${arg}";
 
-  static String m1(namespace, name, type, reason, kind, objName, lastTimestamp,
+  static String m1(error) => "删除失败, 错误: ${error}";
+
+  static String m2(name) => "${name} 已删除";
+
+  static String m3(namespace, name, type, reason, kind, objName, lastTimestamp,
           message) =>
       "${namespace} / ${name}\n\n类型: ${type}\n原因: ${reason}\n对象: ${kind}/${objName}\n最后发生: ${lastTimestamp}\n\n信息: ${message}\n";
 
-  static String m2(arg) => "外部 IP:\t\t ${arg}";
+  static String m4(arg) => "外部 IP:\t\t ${arg}";
 
-  static String m3(arg) => "内部 IP:\t\t ${arg}";
+  static String m5(arg) => "内部 IP:\t\t ${arg}";
 
-  static String m4(n) => "最近 ${n} 警告";
+  static String m6(n) => "最近 ${n} 警告";
 
-  static String m5(arg) => "架构\t\t: ${arg}";
+  static String m7(arg) => "架构\t\t: ${arg}";
 
-  static String m6(os, arg) => "内核:\t\t ${os}/${arg}";
+  static String m8(os, arg) => "内核:\t\t ${os}/${arg}";
 
-  static String m7(arg) => "系统镜像:\t\t ${arg}";
+  static String m9(arg) => "系统镜像:\t\t ${arg}";
 
-  static String m8(arg) => "角色:\t\t ${arg}";
+  static String m10(arg) => "角色:\t\t ${arg}";
 
-  static String m9(arg) => "版本:\t\t ${arg}";
+  static String m11(arg) => "版本:\t\t ${arg}";
+
+  static String m12(type, name) => "将要删除 ${type} ${name}";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
@@ -48,6 +54,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "all": MessageLookupByLibrary.simpleMessage("全部"),
         "appName": MessageLookupByLibrary.simpleMessage("k8z"),
         "appearance": MessageLookupByLibrary.simpleMessage("外观"),
+        "arsure": MessageLookupByLibrary.simpleMessage("你确认吗?"),
         "cancel": MessageLookupByLibrary.simpleMessage("取消"),
         "clusters": MessageLookupByLibrary.simpleMessage("集群"),
         "config": MessageLookupByLibrary.simpleMessage("配置"),
@@ -61,6 +68,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("将会清理所有数据库中的数据"),
         "debug_flushdb_done": MessageLookupByLibrary.simpleMessage("数据库已清空"),
         "delete": MessageLookupByLibrary.simpleMessage("删除"),
+        "delete_failed": m1,
+        "deleted": m2,
         "deployments": MessageLookupByLibrary.simpleMessage("Deployments"),
         "discovery_and_lb": MessageLookupByLibrary.simpleMessage("服务发现与负载均衡"),
         "edit": MessageLookupByLibrary.simpleMessage("编辑"),
@@ -68,9 +77,9 @@ class MessageLookup extends MessageLookupByLibrary {
             "无法从 kubeconfig 读取集群信息, contexts 字段可能为空"),
         "endpoints": MessageLookupByLibrary.simpleMessage("端点 (endpoints)"),
         "error": MessageLookupByLibrary.simpleMessage("错误"),
-        "event_text": m1,
+        "event_text": m3,
         "events": MessageLookupByLibrary.simpleMessage("事件"),
-        "external_ip": m2,
+        "external_ip": m4,
         "general": MessageLookupByLibrary.simpleMessage("常规"),
         "general_debug": MessageLookupByLibrary.simpleMessage("调试"),
         "general_debug_sqlview": MessageLookupByLibrary.simpleMessage("sql 视图"),
@@ -80,8 +89,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "general_language_null": MessageLookupByLibrary.simpleMessage("跟随系统"),
         "general_language_zh": MessageLookupByLibrary.simpleMessage("中文"),
         "ingresses": MessageLookupByLibrary.simpleMessage("入口 (ingresses)"),
-        "internel_ip": m3,
-        "last_warning_events": m4,
+        "internel_ip": m5,
+        "last_warning_events": m6,
         "load_file": MessageLookupByLibrary.simpleMessage("加载文件"),
         "manual_load_kubeconfig":
             MessageLookupByLibrary.simpleMessage("加载 kubeconfig 文件"),
@@ -89,11 +98,11 @@ class MessageLookup extends MessageLookupByLibrary {
         "name": MessageLookupByLibrary.simpleMessage("名称"),
         "namespaces": MessageLookupByLibrary.simpleMessage("名字空间"),
         "next_step": MessageLookupByLibrary.simpleMessage("下一步"),
-        "node_arch": m5,
-        "node_kernel": m6,
-        "node_os_image": m7,
-        "node_roles": m8,
-        "node_version": m9,
+        "node_arch": m7,
+        "node_kernel": m8,
+        "node_os_image": m9,
+        "node_roles": m10,
+        "node_version": m11,
         "nodes": MessageLookupByLibrary.simpleMessage("节点"),
         "nodes_desc": MessageLookupByLibrary.simpleMessage("节点可以是虚拟机或物理机。"),
         "ok": MessageLookupByLibrary.simpleMessage("好的"),
@@ -117,6 +126,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "theme_dark": MessageLookupByLibrary.simpleMessage("深色模式"),
         "theme_light": MessageLookupByLibrary.simpleMessage("亮色模式"),
         "version": MessageLookupByLibrary.simpleMessage("版本"),
+        "will_delete": m12,
         "workloads": MessageLookupByLibrary.simpleMessage("负载")
       };
 }
