@@ -819,6 +819,36 @@ class S {
       args: [],
     );
   }
+
+  /// `Age`
+  String get age {
+    return Intl.message(
+      'Age',
+      name: 'age',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Totals: {number}`
+  String totals(Object number) {
+    return Intl.message(
+      'Totals: $number',
+      name: 'totals',
+      desc: '',
+      args: [number],
+    );
+  }
+
+  /// `{name}\n\nKind: {kind}\nScope: {scope}\nshortNames: {shortNames}`
+  String crds_text(Object name, Object kind, Object scope, Object shortNames) {
+    return Intl.message(
+      '$name\n\nKind: $kind\nScope: $scope\nshortNames: $shortNames',
+      name: 'crds_text',
+      desc: '',
+      args: [name, kind, scope, shortNames],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

@@ -230,9 +230,12 @@ final router = GoRouter(
             GoRoute(
               path: "crds",
               name: "crds",
-              pageBuilder: (context, state) => const NoTransitionPage(
-                child: CrdsPage(),
-              ),
+              pageBuilder: (context, state) {
+                var cluster = state.extra as K8zCluster;
+                return NoTransitionPage(
+                  child: CrdsPage(cluster: cluster),
+                );
+              },
             ),
             // config group
             GoRoute(

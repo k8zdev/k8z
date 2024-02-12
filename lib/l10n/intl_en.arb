@@ -230,5 +230,22 @@
     }
   },
   "no_current_cluster": "no current cluster",
-  "@no_current_cluster": {}
+  "@no_current_cluster": {},
+  "age": "Age",
+  "@age": {},
+  "totals": "Totals: {number}",
+  "@totals": {
+    "placeholders": {
+      "number": {}
+    }
+  },
+  "crds_text": "{name}\n\nKind: {kind}\nScope: {scope}\nshortNames: {shortNames}",
+  "@crds_text": {
+    "placeholders": {
+      "name": {},
+      "kind": {},
+      "scope": {},
+      "shortNames": {}
+    }
+  }
 }

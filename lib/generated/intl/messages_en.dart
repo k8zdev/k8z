@@ -22,35 +22,41 @@ class MessageLookup extends MessageLookupByLibrary {
 
   static String m0(arg) => "Runtime:\t\t ${arg}";
 
-  static String m1(error) => "delete failed, error: ${error}";
+  static String m1(name, kind, scope, shortNames) =>
+      "${name}\n\nKind: ${kind}\nScope: ${scope}\nshortNames: ${shortNames}";
 
-  static String m2(name) => "${name} deleted";
+  static String m2(error) => "delete failed, error: ${error}";
 
-  static String m3(namespace, name, type, reason, kind, objName, lastTimestamp,
+  static String m3(name) => "${name} deleted";
+
+  static String m4(namespace, name, type, reason, kind, objName, lastTimestamp,
           message) =>
       "${namespace} / ${name}\n\nType: ${type}\nReason: ${reason}\nObject: ${kind}/${objName}\nLast Seen: ${lastTimestamp}\n\nMessage: ${message}\n";
 
-  static String m4(arg) => "External-IP:\t\t ${arg}";
+  static String m5(arg) => "External-IP:\t\t ${arg}";
 
-  static String m5(arg) => "Internal-IP:\t\t ${arg}";
+  static String m6(arg) => "Internal-IP:\t\t ${arg}";
 
-  static String m6(n) => "last ${n} warnings";
+  static String m7(n) => "last ${n} warnings";
 
-  static String m7(arg) => "Architecture\t\t: ${arg}";
+  static String m8(arg) => "Architecture\t\t: ${arg}";
 
-  static String m8(os, arg) => "Kernel:\t\t ${os}/${arg}";
+  static String m9(os, arg) => "Kernel:\t\t ${os}/${arg}";
 
-  static String m9(arg) => "Kernel:\t\t ${arg}";
+  static String m10(arg) => "Kernel:\t\t ${arg}";
 
-  static String m10(arg) => "Roles:\t\t ${arg}";
+  static String m11(arg) => "Roles:\t\t ${arg}";
 
-  static String m11(arg) => "Version:\t\t ${arg}";
+  static String m12(arg) => "Version:\t\t ${arg}";
 
-  static String m12(type, name) => "will delete ${type} ${name}";
+  static String m13(number) => "Totals: ${number}";
+
+  static String m14(type, name) => "will delete ${type} ${name}";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "add_cluster": MessageLookupByLibrary.simpleMessage("Add cluster"),
+        "age": MessageLookupByLibrary.simpleMessage("Age"),
         "all": MessageLookupByLibrary.simpleMessage("All"),
         "appName": MessageLookupByLibrary.simpleMessage("k8z"),
         "appearance": MessageLookupByLibrary.simpleMessage("appearance"),
@@ -62,6 +68,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "container_runtime": m0,
         "crds":
             MessageLookupByLibrary.simpleMessage("CustomResourceDefinition"),
+        "crds_text": m1,
         "current_cluster":
             MessageLookupByLibrary.simpleMessage("Current cluster"),
         "daemon_sets": MessageLookupByLibrary.simpleMessage("DaemonSets"),
@@ -71,8 +78,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "debug_flushdb_done":
             MessageLookupByLibrary.simpleMessage("database flushed"),
         "delete": MessageLookupByLibrary.simpleMessage("delete"),
-        "delete_failed": m1,
-        "deleted": m2,
+        "delete_failed": m2,
+        "deleted": m3,
         "deployments": MessageLookupByLibrary.simpleMessage("Deployments"),
         "discovery_and_lb": MessageLookupByLibrary.simpleMessage(
             "Discovery and Load Balancing"),
@@ -81,9 +88,9 @@ class MessageLookup extends MessageLookupByLibrary {
             "can not get cluster kubeconfig, contexts maybe empty"),
         "endpoints": MessageLookupByLibrary.simpleMessage("Endpoints"),
         "error": MessageLookupByLibrary.simpleMessage("error"),
-        "event_text": m3,
+        "event_text": m4,
         "events": MessageLookupByLibrary.simpleMessage("Events"),
-        "external_ip": m4,
+        "external_ip": m5,
         "general": MessageLookupByLibrary.simpleMessage("general"),
         "general_debug": MessageLookupByLibrary.simpleMessage("debug"),
         "general_debug_sqlview":
@@ -94,8 +101,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "general_language_null": MessageLookupByLibrary.simpleMessage("Auto"),
         "general_language_zh": MessageLookupByLibrary.simpleMessage("Chinese"),
         "ingresses": MessageLookupByLibrary.simpleMessage("Ingresses"),
-        "internel_ip": m5,
-        "last_warning_events": m6,
+        "internel_ip": m6,
+        "last_warning_events": m7,
         "load_file": MessageLookupByLibrary.simpleMessage("load file"),
         "manual_load_kubeconfig":
             MessageLookupByLibrary.simpleMessage("Load kubeconfig file"),
@@ -105,11 +112,11 @@ class MessageLookup extends MessageLookupByLibrary {
         "next_step": MessageLookupByLibrary.simpleMessage("next step"),
         "no_current_cluster":
             MessageLookupByLibrary.simpleMessage("no current cluster"),
-        "node_arch": m7,
-        "node_kernel": m8,
-        "node_os_image": m9,
-        "node_roles": m10,
-        "node_version": m11,
+        "node_arch": m8,
+        "node_kernel": m9,
+        "node_os_image": m10,
+        "node_roles": m11,
+        "node_version": m12,
         "nodes": MessageLookupByLibrary.simpleMessage("Nodes"),
         "nodes_desc": MessageLookupByLibrary.simpleMessage(
             "A node may be a virtual or physical machine."),
@@ -136,8 +143,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "theme_auto": MessageLookupByLibrary.simpleMessage("auto"),
         "theme_dark": MessageLookupByLibrary.simpleMessage("dark mode"),
         "theme_light": MessageLookupByLibrary.simpleMessage("light mode"),
+        "totals": m13,
         "version": MessageLookupByLibrary.simpleMessage("version"),
-        "will_delete": m12,
+        "will_delete": m14,
         "workloads": MessageLookupByLibrary.simpleMessage("Workloads")
       };
 }

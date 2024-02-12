@@ -47,7 +47,10 @@ class _ResourcesPageState extends State<ResourcesPage> {
         ),
         SettingsTile.navigation(
           title: Text(lang.crds),
-          onPressed: (context) => GoRouter.of(context).pushNamed("crds"),
+          onPressed: (context) => GoRouter.of(context).pushNamed(
+            "crds",
+            extra: cluster,
+          ),
         ),
       ],
     );

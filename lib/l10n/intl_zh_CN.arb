@@ -230,5 +230,22 @@
     }
   },
   "no_current_cluster": "没有选择任何集群",
-  "@no_current_cluster": {}
+  "@no_current_cluster": {},
+  "age": "年龄",
+  "@age": {},
+  "totals": "总计: {number}",
+  "@totals": {
+    "placeholders": {
+      "number": {}
+    }
+  },
+  "crds_text": "{name}\n\n种类: {kind}\n范围: {scope}\n简称: {shortNames}",
+  "@crds_text": {
+    "placeholders": {
+      "name": {},
+      "kind": {},
+      "scope": {},
+      "shortNames": {}
+    }
+  }
 }
