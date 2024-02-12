@@ -23,7 +23,8 @@ class _ClustersPageState extends State<ClustersPage> {
       return SettingsTile.navigation(
         title: Text(cluster.name),
         leading: Icon(Icons.computer,
-            color: (current == cluster.name) ? Colors.green : Colors.grey),
+            color:
+                (current?.name == cluster.name) ? Colors.green : Colors.grey),
         onPressed: (context) {
           GoRouter.of(context).pushNamed("cluster_home", extra: cluster);
         },

@@ -1,20 +1,25 @@
+import 'dart:convert';
+
 import 'package:flutter/foundation.dart';
+import 'package:k8sapp/dao/kube.dart';
 import 'package:k8sapp/services/stash.dart';
 
 const currentClusterKey = "app_default_cluster";
 
 class CurrentCluster with ChangeNotifier {
-  late String? _current;
-  String? get current => _current;
+  K8zCluster? _current;
+  K8zCluster? get current => _current;
 
   init() async {
-    String? current = await vget<String>(currentClusterKey);
+    String? raw = await vget<String>(currentClusterKey);
+    var current = K8zCluster.fromJson(jsonDecode(raw ?? ""));
     _current = current;
   }
 
-  void setCurrent(String? cluster) {
+  void setCurrent(K8zCluster? cluster) {
     _current = cluster;
-    vset(currentClusterKey, _current);
+    vset(currentClusterKey, jsonEncode(_current?.toJson()));
+
     notifyListeners();
   }
 }

@@ -46,7 +46,8 @@ class _ClusterHomePageState extends State<ClusterHomePage> {
                 );
               } else if (snapshot.hasError) {
                 return Tooltip(
-                  child: Text('Error: ${snapshot.error}'),
+                  message: snapshot.error.toString(),
+                  child: Text(lang.error),
                 );
               }
               var data = snapshot.data;
@@ -84,14 +85,15 @@ class _ClusterHomePageState extends State<ClusterHomePage> {
           ),
         ),
         SettingsTile.switchTile(
-          initialValue: currentClusterProvider.current == widget.cluster.name,
+          initialValue:
+              currentClusterProvider.current?.name == widget.cluster.name,
           onToggle: (value) {
-            var name = "";
+            late K8zCluster cluster;
             talker.info("to $value");
             if (value) {
-              name = widget.cluster.name;
+              cluster = widget.cluster;
             }
-            currentClusterProvider.setCurrent(name);
+            currentClusterProvider.setCurrent(cluster);
           },
           title: Text(lang.current_cluster),
         ),
@@ -154,7 +156,8 @@ class _ClusterHomePageState extends State<ClusterHomePage> {
               SettingsTile.navigation(
                 title: title,
                 trailing: trailing,
-                onPressed: (ctx) => GoRouter.of(ctx).goNamed("nodes"),
+                onPressed: (ctx) =>
+                    GoRouter.of(ctx).goNamed("nodes", extra: widget.cluster),
               ),
               ...list,
             ],

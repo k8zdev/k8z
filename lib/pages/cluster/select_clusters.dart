@@ -46,7 +46,7 @@ class _ChoiceClustersSubPageState extends State<ChoiceClustersSubPage> {
             if (_selected.isNotEmpty) {
               final ccProvider =
                   Provider.of<CurrentCluster>(context, listen: false);
-              ccProvider.setCurrent(_selected[0].name);
+              ccProvider.setCurrent(_selected[0]);
             }
             GoRouter.of(context).go("/clusters");
           } catch (err) {
