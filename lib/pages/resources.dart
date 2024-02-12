@@ -37,7 +37,10 @@ class _ResourcesPageState extends State<ResourcesPage> {
         ),
         SettingsTile.navigation(
           title: Text(lang.namespaces),
-          onPressed: (context) => GoRouter.of(context).pushNamed("namespaces"),
+          onPressed: (context) => GoRouter.of(context).pushNamed(
+            "namespaces",
+            extra: cluster,
+          ),
         ),
         SettingsTile.navigation(
           title: Text(lang.crds),
