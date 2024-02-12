@@ -157,6 +157,55 @@
       }
     }
   },
+  "node_roles": "Roles:\t\t {arg}",
+  "@node_roles": {
+    "placeholders": {
+      "arg": {}
+    }
+  },
+  "node_arch": "Architecture\t\t: {arg}",
+  "@node_arch": {
+    "placeholders": {
+      "arg": {}
+    }
+  },
+  "node_version": "Version:\t\t {arg}",
+  "@node_version": {
+    "placeholders": {
+      "arg": {}
+    }
+  },
+  "node_os_image": "Kernel:\t\t {arg}",
+  "@node_os_image": {
+    "placeholders": {
+      "arg": {}
+    }
+  },
+  "node_kernel": "Kernel:\t\t {os}/{arg}",
+  "@node_kernel": {
+    "placeholders": {
+      "os": {},
+      "arg": {}
+    }
+  },
+  "internel_ip": "Internal-IP:\t\t {arg}",
+  "@internel_ip": {
+    "placeholders": {
+      "arg": {}
+    }
+  },
+  "external_ip": "External-IP:\t\t {arg}",
+  "@external_ip": {
+    "placeholders": {
+      "arg": {}
+    }
+  },
+  "container_runtime": "Runtime:\t\t {arg}",
+  "@container_runtime": {
+    "placeholders": {
+      "arg": {}
+    }
+  },
   "current_cluster": "Current cluster",
   "@current_cluster": {}
 }

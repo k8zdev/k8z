@@ -14,7 +14,7 @@ CREATE TABLE IF NOT EXISTS  "$clustersTable" (
   "username" TEXT NOT NULL  DEFAULT "",
   "password" TEXT NOT NULL DEFAULT "",
   "token" TEXT NOT NULL DEFAULT "",
-  "createdAt" INTEGER NOT NULL DEFAULT 0,
+  "created_at" INTEGER NOT NULL DEFAULT 0,
   "deleted" INTEGER NOT NULL DEFAULT 0
 )
 ''';
@@ -47,9 +47,23 @@ class K8zCluster {
       'username': username,
       'password': password,
       'token': token,
-      'createdAt': createdAt,
+      'created_at': createdAt,
     };
   }
+
+  K8zCluster.fromJson(Map<String, dynamic> json)
+      : id = json["id"],
+        name = json["name"],
+        server = json["server"],
+        caData = json["ca"],
+        namespace = json["namespace"],
+        insecure = json["insecure"] == 1,
+        clientKey = json["client_key"],
+        clientCert = json["client_cert"],
+        password = json["password"],
+        username = json["username"],
+        token = json["token"],
+        createdAt = json["created_at"];
 
   K8zCluster({
     this.id,
@@ -113,7 +127,7 @@ class K8zCluster {
         username: maps[i]['username'],
         password: maps[i]['password'],
         token: maps[i]['token'],
-        createdAt: maps[i]['createdAt'],
+        createdAt: maps[i]['created_at'],
       );
     });
   }

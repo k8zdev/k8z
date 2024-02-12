@@ -20,11 +20,27 @@ typedef String MessageIfAbsent(String messageStr, List<dynamic> args);
 class MessageLookup extends MessageLookupByLibrary {
   String get localeName => 'en';
 
-  static String m0(namespace, name, type, reason, kind, objName, lastTimestamp,
+  static String m0(arg) => "Runtime:\t\t ${arg}";
+
+  static String m1(namespace, name, type, reason, kind, objName, lastTimestamp,
           message) =>
       "${namespace} / ${name}\n\nType: ${type}\nReason: ${reason}\nObject: ${kind}/${objName}\nLast Seen: ${lastTimestamp}\n\nMessage: ${message}\n";
 
-  static String m1(n) => "last ${n} warnings";
+  static String m2(arg) => "External-IP:\t\t ${arg}";
+
+  static String m3(arg) => "Internal-IP:\t\t ${arg}";
+
+  static String m4(n) => "last ${n} warnings";
+
+  static String m5(arg) => "Architecture\t\t: ${arg}";
+
+  static String m6(os, arg) => "Kernel:\t\t ${os}/${arg}";
+
+  static String m7(arg) => "Kernel:\t\t ${arg}";
+
+  static String m8(arg) => "Roles:\t\t ${arg}";
+
+  static String m9(arg) => "Version:\t\t ${arg}";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
@@ -36,6 +52,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "clusters": MessageLookupByLibrary.simpleMessage("Clusters"),
         "config": MessageLookupByLibrary.simpleMessage("Config"),
         "config_maps": MessageLookupByLibrary.simpleMessage("ConfigMaps"),
+        "container_runtime": m0,
         "crds":
             MessageLookupByLibrary.simpleMessage("CustomResourceDefinition"),
         "current_cluster":
@@ -55,8 +72,9 @@ class MessageLookup extends MessageLookupByLibrary {
             "can not get cluster kubeconfig, contexts maybe empty"),
         "endpoints": MessageLookupByLibrary.simpleMessage("Endpoints"),
         "error": MessageLookupByLibrary.simpleMessage("error"),
-        "event_text": m0,
+        "event_text": m1,
         "events": MessageLookupByLibrary.simpleMessage("Events"),
+        "external_ip": m2,
         "general": MessageLookupByLibrary.simpleMessage("general"),
         "general_debug": MessageLookupByLibrary.simpleMessage("debug"),
         "general_debug_sqlview":
@@ -67,7 +85,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "general_language_null": MessageLookupByLibrary.simpleMessage("Auto"),
         "general_language_zh": MessageLookupByLibrary.simpleMessage("Chinese"),
         "ingresses": MessageLookupByLibrary.simpleMessage("Ingresses"),
-        "last_warning_events": m1,
+        "internel_ip": m3,
+        "last_warning_events": m4,
         "load_file": MessageLookupByLibrary.simpleMessage("load file"),
         "manual_load_kubeconfig":
             MessageLookupByLibrary.simpleMessage("Load kubeconfig file"),
@@ -75,6 +94,11 @@ class MessageLookup extends MessageLookupByLibrary {
         "name": MessageLookupByLibrary.simpleMessage("Name"),
         "namespaces": MessageLookupByLibrary.simpleMessage("Namespaces"),
         "next_step": MessageLookupByLibrary.simpleMessage("next step"),
+        "node_arch": m5,
+        "node_kernel": m6,
+        "node_os_image": m7,
+        "node_roles": m8,
+        "node_version": m9,
         "nodes": MessageLookupByLibrary.simpleMessage("Nodes"),
         "nodes_desc": MessageLookupByLibrary.simpleMessage(
             "A node may be a virtual or physical machine."),

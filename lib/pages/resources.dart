@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:k8sapp/dao/kube.dart';
 import 'package:k8sapp/generated/l10n.dart';
+import 'package:k8sapp/providers/current_cluster.dart';
+import 'package:provider/provider.dart';
 import 'package:settings_ui/settings_ui.dart';
 
 class ResourcesPage extends StatefulWidget {
@@ -11,13 +14,22 @@ class ResourcesPage extends StatefulWidget {
 }
 
 class _ResourcesPageState extends State<ResourcesPage> {
+  late K8zCluster cluster;
+
+  @override
+  void initState() {
+    cluster = Provider.of<CurrentCluster>(context, listen: false).current!;
+    super.initState();
+  }
+
   AbstractSettingsSection clusterSection(S lang) {
     return SettingsSection(
       title: Text(lang.clusters),
       tiles: [
         SettingsTile.navigation(
           title: Text(lang.nodes),
-          onPressed: (context) => GoRouter.of(context).pushNamed("nodes"),
+          onPressed: (context) =>
+              GoRouter.of(context).pushNamed("nodes", extra: cluster),
         ),
         SettingsTile.navigation(
           title: Text(lang.events),

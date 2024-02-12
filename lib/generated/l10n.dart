@@ -680,6 +680,86 @@ class S {
     );
   }
 
+  /// `Roles:\t\t {arg}`
+  String node_roles(Object arg) {
+    return Intl.message(
+      'Roles:\t\t $arg',
+      name: 'node_roles',
+      desc: '',
+      args: [arg],
+    );
+  }
+
+  /// `Architecture\t\t: {arg}`
+  String node_arch(Object arg) {
+    return Intl.message(
+      'Architecture\t\t: $arg',
+      name: 'node_arch',
+      desc: '',
+      args: [arg],
+    );
+  }
+
+  /// `Version:\t\t {arg}`
+  String node_version(Object arg) {
+    return Intl.message(
+      'Version:\t\t $arg',
+      name: 'node_version',
+      desc: '',
+      args: [arg],
+    );
+  }
+
+  /// `Kernel:\t\t {arg}`
+  String node_os_image(Object arg) {
+    return Intl.message(
+      'Kernel:\t\t $arg',
+      name: 'node_os_image',
+      desc: '',
+      args: [arg],
+    );
+  }
+
+  /// `Kernel:\t\t {os}/{arg}`
+  String node_kernel(Object os, Object arg) {
+    return Intl.message(
+      'Kernel:\t\t $os/$arg',
+      name: 'node_kernel',
+      desc: '',
+      args: [os, arg],
+    );
+  }
+
+  /// `Internal-IP:\t\t {arg}`
+  String internel_ip(Object arg) {
+    return Intl.message(
+      'Internal-IP:\t\t $arg',
+      name: 'internel_ip',
+      desc: '',
+      args: [arg],
+    );
+  }
+
+  /// `External-IP:\t\t {arg}`
+  String external_ip(Object arg) {
+    return Intl.message(
+      'External-IP:\t\t $arg',
+      name: 'external_ip',
+      desc: '',
+      args: [arg],
+    );
+  }
+
+  /// `Runtime:\t\t {arg}`
+  String container_runtime(Object arg) {
+    return Intl.message(
+      'Runtime:\t\t $arg',
+      name: 'container_runtime',
+      desc: '',
+      args: [arg],
+    );
+  }
+
   /// `Current cluster`
   String get current_cluster {
     return Intl.message(

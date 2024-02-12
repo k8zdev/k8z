@@ -20,11 +20,27 @@ typedef String MessageIfAbsent(String messageStr, List<dynamic> args);
 class MessageLookup extends MessageLookupByLibrary {
   String get localeName => 'zh_CN';
 
-  static String m0(namespace, name, type, reason, kind, objName, lastTimestamp,
+  static String m0(arg) => "运行时:\t\t ${arg}";
+
+  static String m1(namespace, name, type, reason, kind, objName, lastTimestamp,
           message) =>
       "${namespace} / ${name}\n\n类型: ${type}\n原因: ${reason}\n对象: ${kind}/${objName}\n最后发生: ${lastTimestamp}\n\n信息: ${message}\n";
 
-  static String m1(n) => "最近 ${n} 警告";
+  static String m2(arg) => "外部 IP:\t\t ${arg}";
+
+  static String m3(arg) => "内部 IP:\t\t ${arg}";
+
+  static String m4(n) => "最近 ${n} 警告";
+
+  static String m5(arg) => "架构\t\t: ${arg}";
+
+  static String m6(os, arg) => "内核:\t\t ${os}/${arg}";
+
+  static String m7(arg) => "系统镜像:\t\t ${arg}";
+
+  static String m8(arg) => "角色:\t\t ${arg}";
+
+  static String m9(arg) => "版本:\t\t ${arg}";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
@@ -36,6 +52,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "clusters": MessageLookupByLibrary.simpleMessage("集群"),
         "config": MessageLookupByLibrary.simpleMessage("配置"),
         "config_maps": MessageLookupByLibrary.simpleMessage("ConfigMaps"),
+        "container_runtime": m0,
         "crds": MessageLookupByLibrary.simpleMessage("自定资源定义"),
         "current_cluster": MessageLookupByLibrary.simpleMessage("当前群集"),
         "daemon_sets": MessageLookupByLibrary.simpleMessage("DaemonSets"),
@@ -51,8 +68,9 @@ class MessageLookup extends MessageLookupByLibrary {
             "无法从 kubeconfig 读取集群信息, contexts 字段可能为空"),
         "endpoints": MessageLookupByLibrary.simpleMessage("端点 (endpoints)"),
         "error": MessageLookupByLibrary.simpleMessage("错误"),
-        "event_text": m0,
+        "event_text": m1,
         "events": MessageLookupByLibrary.simpleMessage("事件"),
+        "external_ip": m2,
         "general": MessageLookupByLibrary.simpleMessage("常规"),
         "general_debug": MessageLookupByLibrary.simpleMessage("调试"),
         "general_debug_sqlview": MessageLookupByLibrary.simpleMessage("sql 视图"),
@@ -62,7 +80,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "general_language_null": MessageLookupByLibrary.simpleMessage("跟随系统"),
         "general_language_zh": MessageLookupByLibrary.simpleMessage("中文"),
         "ingresses": MessageLookupByLibrary.simpleMessage("入口 (ingresses)"),
-        "last_warning_events": m1,
+        "internel_ip": m3,
+        "last_warning_events": m4,
         "load_file": MessageLookupByLibrary.simpleMessage("加载文件"),
         "manual_load_kubeconfig":
             MessageLookupByLibrary.simpleMessage("加载 kubeconfig 文件"),
@@ -70,6 +89,11 @@ class MessageLookup extends MessageLookupByLibrary {
         "name": MessageLookupByLibrary.simpleMessage("名称"),
         "namespaces": MessageLookupByLibrary.simpleMessage("名字空间"),
         "next_step": MessageLookupByLibrary.simpleMessage("下一步"),
+        "node_arch": m5,
+        "node_kernel": m6,
+        "node_os_image": m7,
+        "node_roles": m8,
+        "node_version": m9,
         "nodes": MessageLookupByLibrary.simpleMessage("节点"),
         "nodes_desc": MessageLookupByLibrary.simpleMessage("节点可以是虚拟机或物理机。"),
         "ok": MessageLookupByLibrary.simpleMessage("好的"),
