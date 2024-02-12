@@ -22,10 +22,44 @@
   "@clusters": {},
   "workloads": "Workloads",
   "@workloads": {},
+  "pods": "Pods",
+  "@pods": {},
+  "daemon_sets": "DaemonSets",
+  "@daemon_sets": {},
+  "deployments": "Deployments",
+  "@deployments": {},
+  "stateful_sets": "StatefulSets",
+  "@stateful_sets": {},
+  "discovery_and_lb": "Discovery and Load Balancing",
+  "@discovery_and_lb": {},
+  "endpoints": "Endpoints",
+  "@endpoints": {},
+  "ingresses": "Ingresses",
+  "@ingresses": {},
+  "services": "Services",
+  "@services": {},
   "resources": "Resources",
   "@resources": {},
   "namespaces": "Namespaces",
   "@namespaces": {},
+  "crds": "CustomResourceDefinition",
+  "@crds": {},
+  "config": "Config",
+  "@config": {},
+  "config_maps": "ConfigMaps",
+  "@config_maps": {},
+  "secrets": "Secrets",
+  "@secrets": {},
+  "service_accounts": "ServiceAccounts",
+  "@service_accounts": {},
+  "storage": "Storage",
+  "@storage": {},
+  "storage_class": "StorageClass",
+  "@storage_class": {},
+  "pvs": "Persistent Volumes",
+  "@pvs": {},
+  "pvcs": "Persistent Volume Claims",
+  "@pvcs": {},
   "save_clusters": "save clusters",
   "@save_clusters": {},
   "appearance": "appearance",
@@ -94,7 +128,7 @@
       }
     }
   },
-  "event_text": "{namespace} / {name}\n\nType: {type}\nReason: {reason}\nObject: {kind}/{ObjName}\nLast Seen: {lastTimestamp}\n\nMessage: {message}\n",
+  "event_text": "{namespace} / {name}\n\nType: {type}\nReason: {reason}\nObject: {kind}/{objName}\nLast Seen: {lastTimestamp}\n\nMessage: {message}\n",
   "@event_text": {
     "placeholders": {
       "namespace": {
@@ -112,7 +146,7 @@
       "kind": {
         "type": "String"
       },
-      "ObjName": {
+      "objName": {
         "type": "String"
       },
       "lastTimestamp": {

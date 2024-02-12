@@ -22,10 +22,44 @@
   "@clusters": {},
   "workloads": "负载",
   "@workloads": {},
+  "pods": "Pods",
+  "@pods": {},
+  "daemon_sets": "DaemonSets",
+  "@daemon_sets": {},
+  "deployments": "Deployments",
+  "@deployments": {},
+  "stateful_sets": "StatefulSets",
+  "@stateful_sets": {},
+  "discovery_and_lb": "服务发现与负载均衡",
+  "@discovery_and_lb": {},
+  "endpoints": "端点 (endpoints)",
+  "@endpoints": {},
+  "ingresses": "入口 (ingresses)",
+  "@ingresses": {},
+  "services": "服务 (services)",
+  "@services": {},
   "resources": "资源",
   "@resources": {},
-  "namespaces": "命名空间",
+  "namespaces": "名字空间",
   "@namespaces": {},
+  "crds": "自定资源定义",
+  "@crds": {},
+  "config": "配置",
+  "@config": {},
+  "config_maps": "ConfigMaps",
+  "@config_maps": {},
+  "secrets": "Secrets",
+  "@secrets": {},
+  "service_accounts": "服务账号",
+  "@service_accounts": {},
+  "storage": "存储",
+  "@storage": {},
+  "storage_class": "存储类",
+  "@storage_class": {},
+  "pvs": "持久卷",
+  "@pvs": {},
+  "pvcs": "持久卷申领",
+  "@pvcs": {},
   "save_clusters": "保存集群",
   "@save_clusters": {},
   "appearance": "外观",
@@ -94,7 +128,7 @@
       }
     }
   },
-  "event_text": "{namespace} / {name}\n\n类型: {type}\n原因: {reason}\n对象: {kind}/{ObjName}\n最后发生: {lastTimestamp}\n\n信息: {message}\n",
+  "event_text": "{namespace} / {name}\n\n类型: {type}\n原因: {reason}\n对象: {kind}/{objName}\n最后发生: {lastTimestamp}\n\n信息: {message}\n",
   "@event_text": {
     "placeholders": {
       "namespace": {
@@ -112,7 +146,7 @@
       "kind": {
         "type": "String"
       },
-      "ObjName": {
+      "objName": {
         "type": "String"
       },
       "lastTimestamp": {

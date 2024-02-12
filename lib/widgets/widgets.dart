@@ -35,3 +35,11 @@ const runningIcon = Icon(
   Icons.error_outline,
   color: Colors.red,
 );
+
+final buildingWidget = Center(
+  child: TextButton.icon(
+    onPressed: null,
+    icon: const Icon(Icons.work_history_rounded),
+    label: const Text("Building"),
+  ),
+);

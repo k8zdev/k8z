@@ -160,6 +160,86 @@ class S {
     );
   }
 
+  /// `Pods`
+  String get pods {
+    return Intl.message(
+      'Pods',
+      name: 'pods',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `DaemonSets`
+  String get daemon_sets {
+    return Intl.message(
+      'DaemonSets',
+      name: 'daemon_sets',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Deployments`
+  String get deployments {
+    return Intl.message(
+      'Deployments',
+      name: 'deployments',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `StatefulSets`
+  String get stateful_sets {
+    return Intl.message(
+      'StatefulSets',
+      name: 'stateful_sets',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Discovery and Load Balancing`
+  String get discovery_and_lb {
+    return Intl.message(
+      'Discovery and Load Balancing',
+      name: 'discovery_and_lb',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Endpoints`
+  String get endpoints {
+    return Intl.message(
+      'Endpoints',
+      name: 'endpoints',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Ingresses`
+  String get ingresses {
+    return Intl.message(
+      'Ingresses',
+      name: 'ingresses',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Services`
+  String get services {
+    return Intl.message(
+      'Services',
+      name: 'services',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Resources`
   String get resources {
     return Intl.message(
@@ -175,6 +255,96 @@ class S {
     return Intl.message(
       'Namespaces',
       name: 'namespaces',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `CustomResourceDefinition`
+  String get crds {
+    return Intl.message(
+      'CustomResourceDefinition',
+      name: 'crds',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Config`
+  String get config {
+    return Intl.message(
+      'Config',
+      name: 'config',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `ConfigMaps`
+  String get config_maps {
+    return Intl.message(
+      'ConfigMaps',
+      name: 'config_maps',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Secrets`
+  String get secrets {
+    return Intl.message(
+      'Secrets',
+      name: 'secrets',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `ServiceAccounts`
+  String get service_accounts {
+    return Intl.message(
+      'ServiceAccounts',
+      name: 'service_accounts',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Storage`
+  String get storage {
+    return Intl.message(
+      'Storage',
+      name: 'storage',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `StorageClass`
+  String get storage_class {
+    return Intl.message(
+      'StorageClass',
+      name: 'storage_class',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Persistent Volumes`
+  String get pvs {
+    return Intl.message(
+      'Persistent Volumes',
+      name: 'pvs',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Persistent Volume Claims`
+  String get pvcs {
+    return Intl.message(
+      'Persistent Volume Claims',
+      name: 'pvcs',
       desc: '',
       args: [],
     );
@@ -490,11 +660,11 @@ class S {
     );
   }
 
-  /// `{namespace} / {name}\n\nType: {type}\nReason: {reason}\nObject: {kind}/{ObjName}\nLast Seen: {lastTimestamp}\n\nMessage: {message}\n`
+  /// `{namespace} / {name}\n\nType: {type}\nReason: {reason}\nObject: {kind}/{objName}\nLast Seen: {lastTimestamp}\n\nMessage: {message}\n`
   String event_text(String namespace, String name, String type, String reason,
-      String kind, String ObjName, String lastTimestamp, String message) {
+      String kind, String objName, String lastTimestamp, String message) {
     return Intl.message(
-      '$namespace / $name\n\nType: $type\nReason: $reason\nObject: $kind/$ObjName\nLast Seen: $lastTimestamp\n\nMessage: $message\n',
+      '$namespace / $name\n\nType: $type\nReason: $reason\nObject: $kind/$objName\nLast Seen: $lastTimestamp\n\nMessage: $message\n',
       name: 'event_text',
       desc: '',
       args: [
@@ -503,7 +673,7 @@ class S {
         type,
         reason,
         kind,
-        ObjName,
+        objName,
         lastTimestamp,
         message
       ],

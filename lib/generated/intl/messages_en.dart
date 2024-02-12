@@ -20,9 +20,9 @@ typedef String MessageIfAbsent(String messageStr, List<dynamic> args);
 class MessageLookup extends MessageLookupByLibrary {
   String get localeName => 'en';
 
-  static String m0(namespace, name, type, reason, kind, ObjName, lastTimestamp,
+  static String m0(namespace, name, type, reason, kind, objName, lastTimestamp,
           message) =>
-      "${namespace} / ${name}\n\nType: ${type}\nReason: ${reason}\nObject: ${kind}/${ObjName}\nLast Seen: ${lastTimestamp}\n\nMessage: ${message}\n";
+      "${namespace} / ${name}\n\nType: ${type}\nReason: ${reason}\nObject: ${kind}/${objName}\nLast Seen: ${lastTimestamp}\n\nMessage: ${message}\n";
 
   static String m1(n) => "last ${n} warnings";
 
@@ -34,17 +34,26 @@ class MessageLookup extends MessageLookupByLibrary {
         "appearance": MessageLookupByLibrary.simpleMessage("appearance"),
         "cancel": MessageLookupByLibrary.simpleMessage("cancel"),
         "clusters": MessageLookupByLibrary.simpleMessage("Clusters"),
+        "config": MessageLookupByLibrary.simpleMessage("Config"),
+        "config_maps": MessageLookupByLibrary.simpleMessage("ConfigMaps"),
+        "crds":
+            MessageLookupByLibrary.simpleMessage("CustomResourceDefinition"),
         "current_cluster":
             MessageLookupByLibrary.simpleMessage("Current cluster"),
+        "daemon_sets": MessageLookupByLibrary.simpleMessage("DaemonSets"),
         "debug_flushdb": MessageLookupByLibrary.simpleMessage("flush database"),
         "debug_flushdb_desc": MessageLookupByLibrary.simpleMessage(
             "will flush all data at database"),
         "debug_flushdb_done":
             MessageLookupByLibrary.simpleMessage("database flushed"),
         "delete": MessageLookupByLibrary.simpleMessage("delete"),
+        "deployments": MessageLookupByLibrary.simpleMessage("Deployments"),
+        "discovery_and_lb": MessageLookupByLibrary.simpleMessage(
+            "Discovery and Load Balancing"),
         "edit": MessageLookupByLibrary.simpleMessage("Edit"),
         "empyt_context": MessageLookupByLibrary.simpleMessage(
             "can not get cluster kubeconfig, contexts maybe empty"),
+        "endpoints": MessageLookupByLibrary.simpleMessage("Endpoints"),
         "error": MessageLookupByLibrary.simpleMessage("error"),
         "event_text": m0,
         "events": MessageLookupByLibrary.simpleMessage("Events"),
@@ -57,6 +66,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "general_language_ja": MessageLookupByLibrary.simpleMessage("Japanese"),
         "general_language_null": MessageLookupByLibrary.simpleMessage("Auto"),
         "general_language_zh": MessageLookupByLibrary.simpleMessage("Chinese"),
+        "ingresses": MessageLookupByLibrary.simpleMessage("Ingresses"),
         "last_warning_events": m1,
         "load_file": MessageLookupByLibrary.simpleMessage("load file"),
         "manual_load_kubeconfig":
@@ -70,13 +80,24 @@ class MessageLookup extends MessageLookupByLibrary {
             "A node may be a virtual or physical machine."),
         "ok": MessageLookupByLibrary.simpleMessage("ok"),
         "overview": MessageLookupByLibrary.simpleMessage("Overview"),
+        "pods": MessageLookupByLibrary.simpleMessage("Pods"),
+        "pvcs":
+            MessageLookupByLibrary.simpleMessage("Persistent Volume Claims"),
+        "pvs": MessageLookupByLibrary.simpleMessage("Persistent Volumes"),
         "resources": MessageLookupByLibrary.simpleMessage("Resources"),
         "running": MessageLookupByLibrary.simpleMessage("Running"),
         "save_clusters": MessageLookupByLibrary.simpleMessage("save clusters"),
+        "secrets": MessageLookupByLibrary.simpleMessage("Secrets"),
         "select_clusters":
             MessageLookupByLibrary.simpleMessage("Select cluster(s)"),
+        "service_accounts":
+            MessageLookupByLibrary.simpleMessage("ServiceAccounts"),
+        "services": MessageLookupByLibrary.simpleMessage("Services"),
         "settings": MessageLookupByLibrary.simpleMessage("Settings"),
+        "stateful_sets": MessageLookupByLibrary.simpleMessage("StatefulSets"),
         "status": MessageLookupByLibrary.simpleMessage("Status"),
+        "storage": MessageLookupByLibrary.simpleMessage("Storage"),
+        "storage_class": MessageLookupByLibrary.simpleMessage("StorageClass"),
         "theme_auto": MessageLookupByLibrary.simpleMessage("auto"),
         "theme_dark": MessageLookupByLibrary.simpleMessage("dark mode"),
         "theme_light": MessageLookupByLibrary.simpleMessage("light mode"),

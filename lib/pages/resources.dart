@@ -27,6 +27,52 @@ class _ResourcesPageState extends State<ResourcesPage> {
           title: Text(lang.namespaces),
           onPressed: (context) => GoRouter.of(context).pushNamed("namespaces"),
         ),
+        SettingsTile.navigation(
+          title: Text(lang.crds),
+          onPressed: (context) => GoRouter.of(context).pushNamed("crds"),
+        ),
+      ],
+    );
+  }
+
+  AbstractSettingsSection configSection(S lang) {
+    return SettingsSection(
+      title: Text(lang.config),
+      tiles: [
+        SettingsTile.navigation(
+          title: Text(lang.config_maps),
+          onPressed: (context) => GoRouter.of(context).pushNamed("config_maps"),
+        ),
+        SettingsTile.navigation(
+          title: Text(lang.secrets),
+          onPressed: (context) => GoRouter.of(context).pushNamed("secrets"),
+        ),
+        SettingsTile.navigation(
+          title: Text(lang.service_accounts),
+          onPressed: (context) =>
+              GoRouter.of(context).pushNamed("service_accounts"),
+        ),
+      ],
+    );
+  }
+
+  AbstractSettingsSection storageSection(S lang) {
+    return SettingsSection(
+      title: Text(lang.storage),
+      tiles: [
+        SettingsTile.navigation(
+          title: Text(lang.storage_class),
+          onPressed: (context) =>
+              GoRouter.of(context).pushNamed("storage_class"),
+        ),
+        SettingsTile.navigation(
+          title: Text(lang.pvs),
+          onPressed: (context) => GoRouter.of(context).pushNamed("pvs"),
+        ),
+        SettingsTile.navigation(
+          title: Text(lang.pvcs),
+          onPressed: (context) => GoRouter.of(context).pushNamed("pvcs"),
+        ),
       ],
     );
   }
@@ -39,6 +85,8 @@ class _ResourcesPageState extends State<ResourcesPage> {
       body: SettingsList(
         sections: <AbstractSettingsSection>[
           clusterSection(lang),
+          configSection(lang),
+          storageSection(lang),
         ],
       ),
     );

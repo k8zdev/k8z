@@ -7,11 +7,25 @@ import 'package:k8sapp/pages/cluster/create.dart';
 import 'package:k8sapp/pages/cluster/create_load_manual.dart';
 import 'package:k8sapp/pages/cluster/home.dart';
 import 'package:k8sapp/pages/clusters.dart';
+import 'package:k8sapp/pages/networks/endpoints.dart';
+import 'package:k8sapp/pages/networks/ingresses.dart';
+import 'package:k8sapp/pages/networks/services.dart';
 import 'package:k8sapp/pages/resources.dart';
+import 'package:k8sapp/pages/resources/config/configmaps.dart';
+import 'package:k8sapp/pages/resources/config/secrets.dart';
+import 'package:k8sapp/pages/resources/config/service_accounts.dart';
+import 'package:k8sapp/pages/resources/crds.dart';
 import 'package:k8sapp/pages/resources/events.dart';
 import 'package:k8sapp/pages/resources/namespaces.dart';
 import 'package:k8sapp/pages/resources/nodes.dart';
+import 'package:k8sapp/pages/resources/storage/pvcs.dart';
+import 'package:k8sapp/pages/resources/storage/pvs.dart';
+import 'package:k8sapp/pages/resources/storage/storage_class.dart';
 import 'package:k8sapp/pages/workloads.dart';
+import 'package:k8sapp/pages/workloads/daemon_sets.dart';
+import 'package:k8sapp/pages/workloads/deployments.dart';
+import 'package:k8sapp/pages/workloads/pods.dart';
+import 'package:k8sapp/pages/workloads/stateful_sets.dart';
 import 'package:sqlite_viewer/sqlite_viewer.dart';
 import 'package:talker_flutter/talker_flutter.dart';
 
@@ -94,6 +108,59 @@ final router = GoRouter(
           pageBuilder: (context, state) => const NoTransitionPage(
             child: WorkloadsPage(),
           ),
+          routes: [
+            // workload
+            GoRoute(
+              path: "pods",
+              name: "pods",
+              pageBuilder: (context, state) => const NoTransitionPage(
+                child: PodsPage(),
+              ),
+            ),
+            GoRoute(
+              path: "daemon_sets",
+              name: "daemon_sets",
+              pageBuilder: (context, state) => const NoTransitionPage(
+                child: DaemonSetsPage(),
+              ),
+            ),
+            GoRoute(
+              path: "deployments",
+              name: "deployments",
+              pageBuilder: (context, state) => const NoTransitionPage(
+                child: DeploymentsPage(),
+              ),
+            ),
+            GoRoute(
+              path: "stateful_sets",
+              name: "stateful_sets",
+              pageBuilder: (context, state) => const NoTransitionPage(
+                child: StatefulSetsPage(),
+              ),
+            ),
+            // networks
+            GoRoute(
+              path: "endpoints",
+              name: "endpoints",
+              pageBuilder: (context, state) => const NoTransitionPage(
+                child: EndpointsPage(),
+              ),
+            ),
+            GoRoute(
+              path: "ingresses",
+              name: "ingresses",
+              pageBuilder: (context, state) => const NoTransitionPage(
+                child: IngressesPage(),
+              ),
+            ),
+            GoRoute(
+              path: "services",
+              name: "services",
+              pageBuilder: (context, state) => const NoTransitionPage(
+                child: ServicesPage(),
+              ),
+            ),
+          ],
         ),
         GoRoute(
           path: "/resources",
@@ -102,6 +169,7 @@ final router = GoRouter(
             child: ResourcesPage(),
           ),
           routes: [
+            // cluster group
             GoRoute(
               path: "nodes",
               name: "nodes",
@@ -120,7 +188,58 @@ final router = GoRouter(
               path: "events",
               name: "events",
               pageBuilder: (context, state) => const NoTransitionPage(
-                child: EventssPage(),
+                child: EventsPage(),
+              ),
+            ),
+            GoRoute(
+              path: "crds",
+              name: "crds",
+              pageBuilder: (context, state) => const NoTransitionPage(
+                child: CrdsPage(),
+              ),
+            ),
+            // config group
+            GoRoute(
+              path: "config_maps",
+              name: "config_maps",
+              pageBuilder: (context, state) => const NoTransitionPage(
+                child: ConfigMapsPage(),
+              ),
+            ),
+            GoRoute(
+              path: "secrets",
+              name: "secrets",
+              pageBuilder: (context, state) => const NoTransitionPage(
+                child: SecretsPage(),
+              ),
+            ),
+            GoRoute(
+              path: "service_accounts",
+              name: "service_accounts",
+              pageBuilder: (context, state) => const NoTransitionPage(
+                child: ServiceAccountsPage(),
+              ),
+            ),
+            // storage group
+            GoRoute(
+              path: "storage_class",
+              name: "storage_class",
+              pageBuilder: (context, state) => const NoTransitionPage(
+                child: StorageClassPage(),
+              ),
+            ),
+            GoRoute(
+              path: "pvs",
+              name: "pvs",
+              pageBuilder: (context, state) => const NoTransitionPage(
+                child: PvsPage(),
+              ),
+            ),
+            GoRoute(
+              path: "pvcs",
+              name: "pvcs",
+              pageBuilder: (context, state) => const NoTransitionPage(
+                child: PvcsPage(),
               ),
             ),
           ],

@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:k8sapp/generated/l10n.dart';
 
-class EventssPage extends StatefulWidget {
-  const EventssPage({super.key});
+class EventsPage extends StatefulWidget {
+  const EventsPage({super.key});
 
   @override
-  State<EventssPage> createState() => _EventssPageState();
+  State<EventsPage> createState() => _EventsPageState();
 }
 
-class _EventssPageState extends State<EventssPage> {
+class _EventsPageState extends State<EventsPage> {
   @override
   Widget build(BuildContext context) {
     var lang = S.of(context);
