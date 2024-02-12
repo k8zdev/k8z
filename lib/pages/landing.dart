@@ -43,7 +43,7 @@ class _LandingState extends State<Landing> with SingleTickerProviderStateMixin {
 
   static int _calculateSelectedIndex(BuildContext context) {
     final String subloc = GoRouterState.of(context).matchedLocation;
-    var idx = tabroute.indexOf("/${subloc.split("/")[1]}");
+    var idx = tabroute.indexOf(subloc.split("/")[1]);
     return (idx < 0) ? 0 : idx;
   }
 
@@ -93,18 +93,18 @@ class _LandingState extends State<Landing> with SingleTickerProviderStateMixin {
                     text: lang.clusters,
                     textStyle: tabTextStyle),
                 GButton(
-                    iconActiveColor: Colors.purple,
+                    iconActiveColor: Colors.amber.shade600,
                     iconColor: Colors.grey.shade800,
-                    textColor: Colors.purple,
-                    backgroundColor: Colors.purple.withOpacity(.2),
+                    textColor: Colors.amber.shade600,
+                    backgroundColor: Colors.amber.withOpacity(.2),
                     icon: BoxIcons.bxs_server,
                     text: lang.workloads,
                     textStyle: tabTextStyle),
                 GButton(
-                    iconActiveColor: Colors.purple,
+                    iconActiveColor: Colors.green,
                     iconColor: Colors.grey.shade800,
-                    textColor: Colors.purple,
-                    backgroundColor: Colors.purple.withOpacity(.2),
+                    textColor: Colors.green,
+                    backgroundColor: Colors.green.withOpacity(.2),
                     icon: BoxIcons.bxs_notepad,
                     text: lang.resources,
                     textStyle: tabTextStyle),
