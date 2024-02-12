@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:k8sapp/common/ops.dart';
 import 'package:k8sapp/dao/kube.dart';
+import 'package:k8sapp/generated/l10n.dart';
 import 'package:k8sapp/pages/cluster/select_clusters.dart';
 import 'package:k8sapp/pages/cluster/create.dart';
 import 'package:k8sapp/pages/cluster/create_load_manual.dart';
@@ -10,6 +11,7 @@ import 'package:k8sapp/pages/clusters.dart';
 import 'package:k8sapp/pages/networks/endpoints.dart';
 import 'package:k8sapp/pages/networks/ingresses.dart';
 import 'package:k8sapp/pages/networks/services.dart';
+import 'package:k8sapp/pages/not_found.dart';
 import 'package:k8sapp/pages/resources.dart';
 import 'package:k8sapp/pages/resources/config/configmaps.dart';
 import 'package:k8sapp/pages/resources/config/secrets.dart';
@@ -26,6 +28,8 @@ import 'package:k8sapp/pages/workloads/daemon_sets.dart';
 import 'package:k8sapp/pages/workloads/deployments.dart';
 import 'package:k8sapp/pages/workloads/pods.dart';
 import 'package:k8sapp/pages/workloads/stateful_sets.dart';
+import 'package:k8sapp/providers/current_cluster.dart';
+import 'package:provider/provider.dart';
 import 'package:sqlite_viewer/sqlite_viewer.dart';
 import 'package:talker_flutter/talker_flutter.dart';
 
@@ -105,9 +109,21 @@ final router = GoRouter(
         GoRoute(
           path: "/workloads",
           name: "workloads",
-          pageBuilder: (context, state) => const NoTransitionPage(
-            child: WorkloadsPage(),
-          ),
+          pageBuilder: (context, state) {
+            var lang = S.current;
+            var ccProvider = Provider.of<CurrentCluster>(context);
+            if (ccProvider.current == null) {
+              return NoTransitionPage(
+                child: NotFoundPage(
+                  title: lang.workloads,
+                  info: lang.no_current_cluster,
+                ),
+              );
+            }
+            return const NoTransitionPage(
+              child: WorkloadsPage(),
+            );
+          },
           routes: [
             // workload
             GoRoute(
@@ -165,9 +181,21 @@ final router = GoRouter(
         GoRoute(
           path: "/resources",
           name: "resources",
-          pageBuilder: (context, state) => const NoTransitionPage(
-            child: ResourcesPage(),
-          ),
+          pageBuilder: (context, state) {
+            var lang = S.current;
+            var ccProvider = Provider.of<CurrentCluster>(context);
+            if (ccProvider.current == null) {
+              return NoTransitionPage(
+                child: NotFoundPage(
+                  title: lang.resources,
+                  info: lang.no_current_cluster,
+                ),
+              );
+            }
+            return const NoTransitionPage(
+              child: ResourcesPage(),
+            );
+          },
           routes: [
             // cluster group
             GoRoute(

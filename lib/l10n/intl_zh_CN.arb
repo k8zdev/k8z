@@ -228,5 +228,7 @@
     "placeholders": {
       "error": {}
     }
-  }
+  },
+  "no_current_cluster": "没有选择任何集群",
+  "@no_current_cluster": {}
 }

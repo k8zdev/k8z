@@ -809,6 +809,16 @@ class S {
       args: [error],
     );
   }
+
+  /// `no current cluster`
+  String get no_current_cluster {
+    return Intl.message(
+      'no current cluster',
+      name: 'no_current_cluster',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

@@ -27,13 +27,13 @@ Widget safeSca(
 }
 
 const errorIcon = Icon(
-  Icons.donut_large_rounded,
-  color: Colors.green,
+  Icons.error_outline,
+  color: Colors.red,
 );
 
 const runningIcon = Icon(
-  Icons.error_outline,
-  color: Colors.red,
+  Icons.donut_large_rounded,
+  color: Colors.green,
 );
 
 final buildingWidget = Center(

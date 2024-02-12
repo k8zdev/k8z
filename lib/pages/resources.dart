@@ -14,11 +14,11 @@ class ResourcesPage extends StatefulWidget {
 }
 
 class _ResourcesPageState extends State<ResourcesPage> {
-  late K8zCluster cluster;
+  late K8zCluster? cluster;
 
   @override
   void initState() {
-    cluster = Provider.of<CurrentCluster>(context, listen: false).current!;
+    cluster = Provider.of<CurrentCluster>(context, listen: false).current;
     super.initState();
   }
 

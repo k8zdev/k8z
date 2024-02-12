@@ -77,7 +77,7 @@ class _EventsPageState extends State<EventsPage> {
                         children: [
                           Text(age),
                           const Divider(indent: 12),
-                          warning ? runningIcon : errorIcon,
+                          warning ? errorIcon : runningIcon,
                         ],
                       ),
                     );

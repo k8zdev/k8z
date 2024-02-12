@@ -98,6 +98,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "name": MessageLookupByLibrary.simpleMessage("名称"),
         "namespaces": MessageLookupByLibrary.simpleMessage("名字空间"),
         "next_step": MessageLookupByLibrary.simpleMessage("下一步"),
+        "no_current_cluster": MessageLookupByLibrary.simpleMessage("没有选择任何集群"),
         "node_arch": m7,
         "node_kernel": m8,
         "node_os_image": m9,

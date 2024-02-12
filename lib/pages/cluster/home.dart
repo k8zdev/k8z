@@ -139,7 +139,7 @@ class _ClusterHomePageState extends State<ClusterHomePage> {
 
                   return SettingsTile.navigation(
                     title: Text(metadata?.name ?? ""),
-                    trailing: running ? errorIcon : runningIcon,
+                    trailing: running ? runningIcon : errorIcon,
                   );
                 },
               ).toList() ??
@@ -227,7 +227,7 @@ class _ClusterHomePageState extends State<ClusterHomePage> {
                     talker.debug(text);
                     return SettingsTile.navigation(
                       title: Text(text, style: smallTextStyle),
-                      trailing: warning ? runningIcon : errorIcon,
+                      trailing: warning ? errorIcon : errorIcon,
                     );
                   },
                 ).toList() ??

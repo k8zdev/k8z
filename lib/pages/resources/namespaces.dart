@@ -64,8 +64,8 @@ class _NamespacesPageState extends State<NamespacesPage> {
                           Text(age),
                           const Divider(indent: 12),
                           ns.status?.phase == "Active"
-                              ? errorIcon
-                              : runningIcon,
+                              ? runningIcon
+                              : errorIcon,
                         ],
                       ),
                     );
