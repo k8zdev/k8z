@@ -849,6 +849,17 @@ class S {
       args: [name, kind, scope, shortNames],
     );
   }
+
+  /// `{name}\n\nNamespace: {namespace}\nReady: {ready}\nStatus: {status}\nRestarts: {restarts}\nContainers: {containers}\nCPU: {cpu}\nMemory: {memory}`
+  String pod_text(Object name, Object namespace, Object ready, Object status,
+      Object restarts, Object containers, Object cpu, Object memory) {
+    return Intl.message(
+      '$name\n\nNamespace: $namespace\nReady: $ready\nStatus: $status\nRestarts: $restarts\nContainers: $containers\nCPU: $cpu\nMemory: $memory',
+      name: 'pod_text',
+      desc: '',
+      args: [name, namespace, ready, status, restarts, containers, cpu, memory],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

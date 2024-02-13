@@ -49,9 +49,13 @@ class MessageLookup extends MessageLookupByLibrary {
 
   static String m12(arg) => "版本:\t\t ${arg}";
 
-  static String m13(number) => "总计: ${number}";
+  static String m13(
+          name, namespace, ready, status, restarts, containers, cpu, memory) =>
+      "${name}\n\n名字空间: ${namespace}\n就绪: ${ready}\n状况: ${status}\n重启: ${restarts}\n容器: ${containers}\nCPU: ${cpu}\n内存: ${memory}";
 
-  static String m14(type, name) => "将要删除 ${type} ${name}";
+  static String m14(number) => "总计: ${number}";
+
+  static String m15(type, name) => "将要删除 ${type} ${name}";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
@@ -115,6 +119,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "nodes_desc": MessageLookupByLibrary.simpleMessage("节点可以是虚拟机或物理机。"),
         "ok": MessageLookupByLibrary.simpleMessage("好的"),
         "overview": MessageLookupByLibrary.simpleMessage("概览"),
+        "pod_text": m13,
         "pods": MessageLookupByLibrary.simpleMessage("Pods"),
         "pvcs": MessageLookupByLibrary.simpleMessage("持久卷申领"),
         "pvs": MessageLookupByLibrary.simpleMessage("持久卷"),
@@ -133,9 +138,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "theme_auto": MessageLookupByLibrary.simpleMessage("跟随系统"),
         "theme_dark": MessageLookupByLibrary.simpleMessage("深色模式"),
         "theme_light": MessageLookupByLibrary.simpleMessage("亮色模式"),
-        "totals": m13,
+        "totals": m14,
         "version": MessageLookupByLibrary.simpleMessage("版本"),
-        "will_delete": m14,
+        "will_delete": m15,
         "workloads": MessageLookupByLibrary.simpleMessage("负载")
       };
 }

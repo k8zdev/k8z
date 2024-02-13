@@ -247,5 +247,18 @@
       "scope": {},
       "shortNames": {}
     }
+  },
+  "pod_text": "{name}\n\n名字空间: {namespace}\n就绪: {ready}\n状况: {status}\n重启: {restarts}\n容器: {containers}\nCPU: {cpu}\n内存: {memory}",
+  "@pod_text": {
+    "placeholders": {
+      "name": {},
+      "namespace": {},
+      "ready": {},
+      "status": {},
+      "restarts": {},
+      "containers": {},
+      "cpu": {},
+      "memory": {}
+    }
   }
 }

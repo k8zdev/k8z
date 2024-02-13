@@ -76,13 +76,21 @@ class _PodsPageState extends State<PodsPage> {
 
                     final spec = pod.spec;
                     final restarts = getRestarts(pod);
+                    final resources = getPodResources(pod);
                     final containers =
                         spec?.containers.map((e) => e.name).toList().join(",");
                     final ready =
                         '${pod.status?.containerStatuses.where((containerStatus) => containerStatus.ready).length ?? '0'}/${pod.spec?.containers.length ?? '0'}';
 
-                    var text =
-                        "${metadata?.name}\n\nNamespace: $ns\nReady: $ready\nStatus: $status\Restarts: $restarts\nContainers: $containers";
+                    final text = lang.pod_text(
+                        metadata!.name!,
+                        ns,
+                        ready,
+                        status,
+                        restarts,
+                        containers!,
+                        resources?.cpu ?? "-",
+                        resources?.memory ?? "-");
 
                     return SettingsTile(
                       title: Text(text, style: smallTextStyle),

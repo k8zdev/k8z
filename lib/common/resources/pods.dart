@@ -1,10 +1,18 @@
 // String getStatusText(IoK8sApiCoreV1Pod? pod) {
 
 import 'package:flutter/material.dart';
+import 'package:k8sapp/common/resources/resources.dart';
 import 'package:k8sapp/models/models.dart';
 import 'package:k8sapp/widgets/widgets.dart';
 
 const podOkStatusList = ["Running", "Succeeded"];
+
+class PodResources {
+  String cpu;
+  String memory;
+
+  PodResources({required this.cpu, required this.memory});
+}
 
 /// [getPodStatus] returns pod status string and icon from [pod].
 (String status, Widget icon) getPodStatus(IoK8sApiCoreV1Pod? pod) {
@@ -48,4 +56,38 @@ int getRestarts(IoK8sApiCoreV1Pod? pod) {
       : 0;
 
   return count + initCount;
+}
+
+PodResources? getPodResources(IoK8sApiCoreV1Pod? pod) {
+  if (pod == null || pod.spec == null || pod.spec!.containers.isEmpty) {
+    return null;
+  }
+
+  int cpuLimits = 0;
+  int memLimits = 0;
+  int cpuRequests = 0;
+  int memRequests = 0;
+
+  for (var container in pod.spec!.containers) {
+    var limits = container.resources!.limits;
+    if (limits.containsKey('cpu')) {
+      cpuLimits += parseCpuRes(limits['cpu']!);
+    }
+    if (limits.containsKey('memory')) {
+      memLimits += parseMemRes(limits['memory']!);
+    }
+
+    var requests = container.resources!.requests;
+    if (requests.containsKey('cpu')) {
+      cpuRequests += parseCpuRes(requests['cpu']!);
+    }
+    if (requests.containsKey('memory')) {
+      memRequests += parseMemRes(requests['memory']!);
+    }
+  }
+
+  return PodResources(
+    cpu: '${formatCpuRes(cpuRequests)} / ${formatCpuRes(cpuLimits)}',
+    memory: '${formatMemRes(memRequests)} / ${formatMemRes(memLimits)}',
+  );
 }

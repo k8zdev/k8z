@@ -49,9 +49,13 @@ class MessageLookup extends MessageLookupByLibrary {
 
   static String m12(arg) => "Version:\t\t ${arg}";
 
-  static String m13(number) => "Totals: ${number}";
+  static String m13(
+          name, namespace, ready, status, restarts, containers, cpu, memory) =>
+      "${name}\n\nNamespace: ${namespace}\nReady: ${ready}\nStatus: ${status}\nRestarts: ${restarts}\nContainers: ${containers}\nCPU: ${cpu}\nMemory: ${memory}";
 
-  static String m14(type, name) => "will delete ${type} ${name}";
+  static String m14(number) => "Totals: ${number}";
+
+  static String m15(type, name) => "will delete ${type} ${name}";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
@@ -122,6 +126,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "A node may be a virtual or physical machine."),
         "ok": MessageLookupByLibrary.simpleMessage("ok"),
         "overview": MessageLookupByLibrary.simpleMessage("Overview"),
+        "pod_text": m13,
         "pods": MessageLookupByLibrary.simpleMessage("Pods"),
         "pvcs":
             MessageLookupByLibrary.simpleMessage("Persistent Volume Claims"),
@@ -143,9 +148,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "theme_auto": MessageLookupByLibrary.simpleMessage("auto"),
         "theme_dark": MessageLookupByLibrary.simpleMessage("dark mode"),
         "theme_light": MessageLookupByLibrary.simpleMessage("light mode"),
-        "totals": m13,
+        "totals": m14,
         "version": MessageLookupByLibrary.simpleMessage("version"),
-        "will_delete": m14,
+        "will_delete": m15,
         "workloads": MessageLookupByLibrary.simpleMessage("Workloads")
       };
 }
