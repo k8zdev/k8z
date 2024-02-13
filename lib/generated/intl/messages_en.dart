@@ -37,25 +37,27 @@ class MessageLookup extends MessageLookupByLibrary {
 
   static String m6(arg) => "Internal-IP:\t\t ${arg}";
 
-  static String m7(n) => "last ${n} warnings";
+  static String m7(number) => " (${number} items)";
 
-  static String m8(arg) => "Architecture\t\t: ${arg}";
+  static String m8(n) => "last ${n} warnings";
 
-  static String m9(os, arg) => "Kernel:\t\t ${os}/${arg}";
+  static String m9(arg) => "Architecture\t\t: ${arg}";
 
-  static String m10(arg) => "Kernel:\t\t ${arg}";
+  static String m10(os, arg) => "Kernel:\t\t ${os}/${arg}";
 
-  static String m11(arg) => "Roles:\t\t ${arg}";
+  static String m11(arg) => "Kernel:\t\t ${arg}";
 
-  static String m12(arg) => "Version:\t\t ${arg}";
+  static String m12(arg) => "Roles:\t\t ${arg}";
 
-  static String m13(
+  static String m13(arg) => "Version:\t\t ${arg}";
+
+  static String m14(
           name, namespace, ready, status, restarts, containers, cpu, memory) =>
       "${name}\n\nNamespace: ${namespace}\nReady: ${ready}\nStatus: ${status}\nRestarts: ${restarts}\nContainers: ${containers}\nCPU: ${cpu}\nMemory: ${memory}";
 
-  static String m14(number) => "Totals: ${number}";
+  static String m15(number) => "Totals: ${number}";
 
-  static String m15(type, name) => "will delete ${type} ${name}";
+  static String m16(type, name) => "will delete ${type} ${name}";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
@@ -106,7 +108,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "general_language_zh": MessageLookupByLibrary.simpleMessage("Chinese"),
         "ingresses": MessageLookupByLibrary.simpleMessage("Ingresses"),
         "internel_ip": m6,
-        "last_warning_events": m7,
+        "items_number": m7,
+        "last_warning_events": m8,
         "load_file": MessageLookupByLibrary.simpleMessage("load file"),
         "manual_load_kubeconfig":
             MessageLookupByLibrary.simpleMessage("Load kubeconfig file"),
@@ -116,17 +119,17 @@ class MessageLookup extends MessageLookupByLibrary {
         "next_step": MessageLookupByLibrary.simpleMessage("next step"),
         "no_current_cluster":
             MessageLookupByLibrary.simpleMessage("no current cluster"),
-        "node_arch": m8,
-        "node_kernel": m9,
-        "node_os_image": m10,
-        "node_roles": m11,
-        "node_version": m12,
+        "node_arch": m9,
+        "node_kernel": m10,
+        "node_os_image": m11,
+        "node_roles": m12,
+        "node_version": m13,
         "nodes": MessageLookupByLibrary.simpleMessage("Nodes"),
         "nodes_desc": MessageLookupByLibrary.simpleMessage(
             "A node may be a virtual or physical machine."),
         "ok": MessageLookupByLibrary.simpleMessage("ok"),
         "overview": MessageLookupByLibrary.simpleMessage("Overview"),
-        "pod_text": m13,
+        "pod_text": m14,
         "pods": MessageLookupByLibrary.simpleMessage("Pods"),
         "pvcs":
             MessageLookupByLibrary.simpleMessage("Persistent Volume Claims"),
@@ -148,9 +151,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "theme_auto": MessageLookupByLibrary.simpleMessage("auto"),
         "theme_dark": MessageLookupByLibrary.simpleMessage("dark mode"),
         "theme_light": MessageLookupByLibrary.simpleMessage("light mode"),
-        "totals": m14,
+        "totals": m15,
         "version": MessageLookupByLibrary.simpleMessage("version"),
-        "will_delete": m15,
+        "will_delete": m16,
         "workloads": MessageLookupByLibrary.simpleMessage("Workloads")
       };
 }

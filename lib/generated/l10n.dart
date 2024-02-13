@@ -860,6 +860,16 @@ class S {
       args: [name, namespace, ready, status, restarts, containers, cpu, memory],
     );
   }
+
+  /// ` ({number} items)`
+  String items_number(Object number) {
+    return Intl.message(
+      ' ($number items)',
+      name: 'items_number',
+      desc: '',
+      args: [number],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

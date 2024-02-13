@@ -30,6 +30,7 @@ class _EventsPageState extends State<EventsPage> {
         }(),
         builder: (BuildContext context, AsyncSnapshot snapshot) {
           var list = [];
+          String totals = "";
           var title = Text(lang.name);
           Widget trailing = Text(lang.status);
 
@@ -51,6 +52,9 @@ class _EventsPageState extends State<EventsPage> {
             final eventslist =
                 IoK8sApiCoreV1EventList.fromJson(snapshot.data.body);
             var eventItems = eventslist?.items;
+
+            totals = lang.items_number(eventItems?.length ?? 0);
+
             if (eventslist != null) {
               eventItems?.sort(
                 (a, b) {
@@ -99,7 +103,7 @@ class _EventsPageState extends State<EventsPage> {
           talker.debug("list ${list.length}");
 
           return SettingsSection(
-            title: Text(lang.events),
+            title: Text(lang.events + totals),
             tiles: [
               SettingsTile.navigation(
                 title: title,

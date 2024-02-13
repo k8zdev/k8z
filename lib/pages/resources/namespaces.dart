@@ -29,6 +29,7 @@ class _NamespacesPageState extends State<NamespacesPage> {
         }(),
         builder: (BuildContext context, AsyncSnapshot snapshot) {
           var list = [];
+          String totals = "";
           var title = Text(lang.name);
           Widget trailing = Text(lang.status);
 
@@ -49,6 +50,8 @@ class _NamespacesPageState extends State<NamespacesPage> {
           } else {
             final nssList =
                 IoK8sApiCoreV1NamespaceList.fromJson(snapshot.data.body);
+
+            totals = lang.items_number(nssList?.items.length ?? 0);
 
             list = nssList?.items.mapIndexed(
                   (index, ns) {
@@ -78,7 +81,7 @@ class _NamespacesPageState extends State<NamespacesPage> {
           talker.debug("list ${list.length}");
 
           return SettingsSection(
-            title: Text(lang.namespaces),
+            title: Text(lang.namespaces + totals),
             tiles: [
               SettingsTile.navigation(
                 title: title,

@@ -29,6 +29,7 @@ class _PodsPageState extends State<PodsPage> {
         }(),
         builder: (BuildContext context, AsyncSnapshot snapshot) {
           var list = [];
+          String totals = "";
           Widget title = Container();
           Widget trailing = Container();
 
@@ -52,7 +53,7 @@ class _PodsPageState extends State<PodsPage> {
 
             var podsItems = podList?.items;
 
-            title = Text(lang.totals(podsItems?.length ?? 0));
+            totals = lang.items_number(podsItems?.length ?? 0);
 
             if (podsItems != null) {
               podsItems.sort(
@@ -111,7 +112,7 @@ class _PodsPageState extends State<PodsPage> {
           talker.debug("list ${list.length}");
 
           return SettingsSection(
-            title: Text(lang.pods),
+            title: Text(lang.pods + totals),
             tiles: [
               SettingsTile.navigation(
                 title: title,

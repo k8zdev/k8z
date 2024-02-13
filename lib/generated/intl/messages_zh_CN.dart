@@ -37,25 +37,27 @@ class MessageLookup extends MessageLookupByLibrary {
 
   static String m6(arg) => "内部 IP:\t\t ${arg}";
 
-  static String m7(n) => "最近 ${n} 警告";
+  static String m7(number) => " (${number} 项)";
 
-  static String m8(arg) => "架构\t\t: ${arg}";
+  static String m8(n) => "最近 ${n} 警告";
 
-  static String m9(os, arg) => "内核:\t\t ${os}/${arg}";
+  static String m9(arg) => "架构\t\t: ${arg}";
 
-  static String m10(arg) => "系统镜像:\t\t ${arg}";
+  static String m10(os, arg) => "内核:\t\t ${os}/${arg}";
 
-  static String m11(arg) => "角色:\t\t ${arg}";
+  static String m11(arg) => "系统镜像:\t\t ${arg}";
 
-  static String m12(arg) => "版本:\t\t ${arg}";
+  static String m12(arg) => "角色:\t\t ${arg}";
 
-  static String m13(
+  static String m13(arg) => "版本:\t\t ${arg}";
+
+  static String m14(
           name, namespace, ready, status, restarts, containers, cpu, memory) =>
       "${name}\n\n名字空间: ${namespace}\n就绪: ${ready}\n状况: ${status}\n重启: ${restarts}\n容器: ${containers}\nCPU: ${cpu}\n内存: ${memory}";
 
-  static String m14(number) => "总计: ${number}";
+  static String m15(number) => "总计: ${number}";
 
-  static String m15(type, name) => "将要删除 ${type} ${name}";
+  static String m16(type, name) => "将要删除 ${type} ${name}";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
@@ -101,7 +103,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "general_language_zh": MessageLookupByLibrary.simpleMessage("中文"),
         "ingresses": MessageLookupByLibrary.simpleMessage("入口 (ingresses)"),
         "internel_ip": m6,
-        "last_warning_events": m7,
+        "items_number": m7,
+        "last_warning_events": m8,
         "load_file": MessageLookupByLibrary.simpleMessage("加载文件"),
         "manual_load_kubeconfig":
             MessageLookupByLibrary.simpleMessage("加载 kubeconfig 文件"),
@@ -110,16 +113,16 @@ class MessageLookup extends MessageLookupByLibrary {
         "namespaces": MessageLookupByLibrary.simpleMessage("名字空间"),
         "next_step": MessageLookupByLibrary.simpleMessage("下一步"),
         "no_current_cluster": MessageLookupByLibrary.simpleMessage("没有选择任何集群"),
-        "node_arch": m8,
-        "node_kernel": m9,
-        "node_os_image": m10,
-        "node_roles": m11,
-        "node_version": m12,
+        "node_arch": m9,
+        "node_kernel": m10,
+        "node_os_image": m11,
+        "node_roles": m12,
+        "node_version": m13,
         "nodes": MessageLookupByLibrary.simpleMessage("节点"),
         "nodes_desc": MessageLookupByLibrary.simpleMessage("节点可以是虚拟机或物理机。"),
         "ok": MessageLookupByLibrary.simpleMessage("好的"),
         "overview": MessageLookupByLibrary.simpleMessage("概览"),
-        "pod_text": m13,
+        "pod_text": m14,
         "pods": MessageLookupByLibrary.simpleMessage("Pods"),
         "pvcs": MessageLookupByLibrary.simpleMessage("持久卷申领"),
         "pvs": MessageLookupByLibrary.simpleMessage("持久卷"),
@@ -138,9 +141,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "theme_auto": MessageLookupByLibrary.simpleMessage("跟随系统"),
         "theme_dark": MessageLookupByLibrary.simpleMessage("深色模式"),
         "theme_light": MessageLookupByLibrary.simpleMessage("亮色模式"),
-        "totals": m14,
+        "totals": m15,
         "version": MessageLookupByLibrary.simpleMessage("版本"),
-        "will_delete": m15,
+        "will_delete": m16,
         "workloads": MessageLookupByLibrary.simpleMessage("负载")
       };
 }
