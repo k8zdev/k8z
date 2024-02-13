@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:k8sapp/common/const.dart';
 import 'package:k8sapp/dao/kube.dart';
 import 'package:k8sapp/generated/l10n.dart';
 import 'package:k8sapp/providers/current_cluster.dart';
@@ -103,12 +104,15 @@ class _ResourcesPageState extends State<ResourcesPage> {
     var lang = S.of(context);
     return Scaffold(
       appBar: AppBar(title: Text(lang.resources)),
-      body: SettingsList(
-        sections: <AbstractSettingsSection>[
-          clusterSection(lang),
-          configSection(lang),
-          storageSection(lang),
-        ],
+      body: Container(
+        margin: bottomEdge,
+        child: SettingsList(
+          sections: <AbstractSettingsSection>[
+            clusterSection(lang),
+            configSection(lang),
+            storageSection(lang),
+          ],
+        ),
       ),
     );
   }

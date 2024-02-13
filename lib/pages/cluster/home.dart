@@ -4,6 +4,7 @@ import 'package:collection/collection.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:k8sapp/common/const.dart';
 import 'package:k8sapp/common/ops.dart';
 import 'package:k8sapp/common/styles.dart';
 import 'package:k8sapp/dao/kube.dart';
@@ -326,12 +327,15 @@ class _ClusterHomePageState extends State<ClusterHomePage> {
 
     return Scaffold(
       appBar: appBar(context, lang, ccProvider),
-      body: SettingsList(
-        sections: [
-          overview(lang, ccProvider),
-          nodes(lang),
-          events(lang),
-        ],
+      body: Container(
+        margin: bottomEdge,
+        child: SettingsList(
+          sections: [
+            overview(lang, ccProvider),
+            nodes(lang),
+            events(lang),
+          ],
+        ),
       ),
     );
   }

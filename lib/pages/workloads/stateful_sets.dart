@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:k8sapp/common/const.dart';
 import 'package:k8sapp/generated/l10n.dart';
 import 'package:k8sapp/widgets/widgets.dart';
 
@@ -15,7 +16,10 @@ class _StatefulSetsPageState extends State<StatefulSetsPage> {
     var lang = S.of(context);
     return Scaffold(
       appBar: AppBar(title: Text(lang.stateful_sets)),
-      body: buildingWidget,
+      body: Container(
+        margin: bottomEdge,
+        child: buildingWidget,
+      ),
     );
   }
 }

@@ -1,5 +1,6 @@
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
+import 'package:k8sapp/common/const.dart';
 import 'package:k8sapp/common/helpers.dart';
 import 'package:k8sapp/common/ops.dart';
 import 'package:k8sapp/common/resources/pods.dart';
@@ -129,7 +130,10 @@ class _PodsPageState extends State<PodsPage> {
     var lang = S.of(context);
     return Scaffold(
       appBar: AppBar(title: Text(lang.pods)),
-      body: SettingsList(sections: [buildPodList(lang)]),
+      body: Container(
+        margin: bottomEdge,
+        child: SettingsList(sections: [buildPodList(lang)]),
+      ),
     );
   }
 }

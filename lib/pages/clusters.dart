@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:k8sapp/common/const.dart';
 import 'package:k8sapp/common/ops.dart';
 import 'package:k8sapp/dao/kube.dart';
 import 'package:k8sapp/generated/l10n.dart';
@@ -80,11 +81,11 @@ class _ClustersPageState extends State<ClustersPage> {
         }
 
         return Scaffold(
+          appBar: AppBar(title: title, actions: actions),
           body: Container(
-            padding: const EdgeInsets.only(bottom: 60),
+            padding: bottomEdge,
             child: body,
           ),
-          appBar: AppBar(title: title, actions: actions),
         );
       },
     );

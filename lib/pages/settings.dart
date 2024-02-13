@@ -2,6 +2,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:k8sapp/common/const.dart';
 import 'package:k8sapp/common/ops.dart';
 import 'package:k8sapp/dao/dao.dart';
 import 'package:k8sapp/generated/l10n.dart';
@@ -228,7 +229,7 @@ class _SettingsPageState extends State<SettingsPage> {
     return Scaffold(
       appBar: AppBar(title: Text(lang.settings)),
       body: Container(
-        padding: const EdgeInsets.only(bottom: 60),
+        padding: bottomEdge,
         child: list,
       ),
     );

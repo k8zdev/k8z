@@ -1,5 +1,6 @@
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
+import 'package:k8sapp/common/const.dart';
 import 'package:k8sapp/common/helpers.dart';
 import 'package:k8sapp/common/ops.dart';
 import 'package:k8sapp/common/styles.dart';
@@ -117,10 +118,9 @@ class _EventsPageState extends State<EventsPage> {
     var lang = S.of(context);
     return Scaffold(
       appBar: AppBar(title: Text(lang.events)),
-      body: SettingsList(
-        sections: [
-          buildEventsList(lang),
-        ],
+      body: Container(
+        margin: bottomEdge,
+        child: SettingsList(sections: [buildEventsList(lang)]),
       ),
     );
   }

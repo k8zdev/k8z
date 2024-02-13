@@ -1,5 +1,6 @@
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
+import 'package:k8sapp/common/const.dart';
 import 'package:k8sapp/common/helpers.dart';
 import 'package:k8sapp/common/styles.dart';
 import 'package:k8sapp/dao/kube.dart';
@@ -165,8 +166,11 @@ class _NodesPageState extends State<NodesPage> {
     var lang = S.of(context);
     return Scaffold(
       appBar: AppBar(title: Text(lang.nodes)),
-      body: SettingsList(
-        sections: [nodes(lang)],
+      body: Container(
+        margin: bottomEdge,
+        child: SettingsList(
+          sections: [nodes(lang)],
+        ),
       ),
     );
   }

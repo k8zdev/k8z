@@ -1,5 +1,6 @@
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
+import 'package:k8sapp/common/const.dart';
 import 'package:k8sapp/common/helpers.dart';
 import 'package:k8sapp/common/ops.dart';
 import 'package:k8sapp/dao/kube.dart';
@@ -96,7 +97,10 @@ class _NamespacesPageState extends State<NamespacesPage> {
     var lang = S.of(context);
     return Scaffold(
       appBar: AppBar(title: Text(lang.namespaces)),
-      body: SettingsList(sections: [namespaces(lang)]),
+      body: Container(
+        margin: bottomEdge,
+        child: SettingsList(sections: [namespaces(lang)]),
+      ),
     );
   }
 }
