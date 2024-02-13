@@ -26,6 +26,41 @@ k8s admin app
 - [ ] Add clusters from kubernetes cloud providers, like awk, gce etc.
 
 
+### Resource management
+
+- [x] Supported resources page.
+- [x] Nodes list page.
+- [ ] Node's detail info page.
+- [x] Events list page.
+- [ ] Event's detail info page.
+- [x] Namespaces list page.
+- [ ] Namespace's detail info page.
+- [x] CRDs list page.
+- [ ] CRD's detail info page.
+- [ ] ConfigMaps list page.
+- [ ] ConfigMap's detail info page.
+- [ ] Secrets list page.
+- [ ] Secret's detail info page.
+- [ ] SAs list page.
+- [ ] SA's detail info page.
+- [ ] StorageClass list page.
+- [ ] StorageClass's detail info page.
+- [ ] PVs list page.
+- [ ] PV's detail info page.
+- [ ] PVCs list page.
+- [ ] PVC's detail info page.
+
+### Workload management
+
+- [x] Supported workloads page.
+- [x] Pods list page.
+- [ ] DaemonSets list page.
+- [ ] Deployments list page.
+- [ ] StatefulSets list page.
+- [ ] Endpoints list page.
+- [ ] Ingresses list page.
+- [ ] Services list page.
+
 ## Getting Started
 
 This project is a starting point for a Flutter application.
