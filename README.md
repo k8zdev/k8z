@@ -8,22 +8,22 @@ k8s admin app
 
 ### Basic futures
 
-[x] App's appearance: light/dark mode.
+- [x] App's appearance: light/dark mode.
 
-[x] L18n supports: English, Chinese.
+- [x] L18n supports: English, Chinese.
 
 ### Cluster management
-[x] Show added clusters list.
+- [x] Show added clusters list.
 
-[x] Add clusters from kubeconfig file.
+- [x] Add clusters from kubeconfig file.
 
-[x] Local persistent storage of cluster information.
+- [x] Local persistent storage of cluster information.
 
-[x] Delete cluster info from local storage.
+- [x] Delete cluster info from local storage.
 
-[x] Show overview of cluster, like kubernetes version, running status, warnning events.
+- [x] Show overview of cluster, like kubernetes version, running status, warnning events.
 
-[] Add clusters from kubernetes cloud providers, like awk, gce etc.
+- [ ] Add clusters from kubernetes cloud providers, like awk, gce etc.
 
 
 ## Getting Started
