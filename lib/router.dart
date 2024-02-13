@@ -129,9 +129,12 @@ final router = GoRouter(
             GoRoute(
               path: "pods",
               name: "pods",
-              pageBuilder: (context, state) => const NoTransitionPage(
-                child: PodsPage(),
-              ),
+              pageBuilder: (context, state) {
+                var cluster = state.extra as K8zCluster;
+                return NoTransitionPage(
+                  child: PodsPage(cluster: cluster),
+                );
+              },
             ),
             GoRoute(
               path: "daemon_sets",

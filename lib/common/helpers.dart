@@ -59,3 +59,9 @@ extension PrettyFormat on Duration {
     return components.join();
   }
 }
+
+const podOkStatusList = ["Running", "Succeeded"];
+
+bool isOkStatus(String status) {
+  return podOkStatusList.contains(status);
+}

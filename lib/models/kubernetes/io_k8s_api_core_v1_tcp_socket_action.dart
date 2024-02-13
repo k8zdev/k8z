@@ -30,15 +30,16 @@ class IoK8sApiCoreV1TCPSocketAction {
   String port;
 
   @override
-  bool operator ==(Object other) => identical(this, other) || other is IoK8sApiCoreV1TCPSocketAction &&
-    other.host == host &&
-    other.port == port;
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is IoK8sApiCoreV1TCPSocketAction &&
+          other.host == host &&
+          other.port == port;
 
   @override
   int get hashCode =>
-    // ignore: unnecessary_parenthesis
-    (host == null ? 0 : host!.hashCode) +
-    (port.hashCode);
+      // ignore: unnecessary_parenthesis
+      (host == null ? 0 : host!.hashCode) + (port.hashCode);
 
   @override
   String toString() => 'IoK8sApiCoreV1TCPSocketAction[host=$host, port=$port]';
@@ -50,7 +51,7 @@ class IoK8sApiCoreV1TCPSocketAction {
     } else {
       json[r'host'] = null;
     }
-      json[r'port'] = this.port;
+    json[r'port'] = this.port;
     return json;
   }
 
@@ -66,21 +67,26 @@ class IoK8sApiCoreV1TCPSocketAction {
       // Note 2: this code is stripped in release mode!
       assert(() {
         requiredKeys.forEach((key) {
-          assert(json.containsKey(key), 'Required key "IoK8sApiCoreV1TCPSocketAction[$key]" is missing from JSON.');
-          assert(json[key] != null, 'Required key "IoK8sApiCoreV1TCPSocketAction[$key]" has a null value in JSON.');
+          assert(json.containsKey(key),
+              'Required key "IoK8sApiCoreV1TCPSocketAction[$key]" is missing from JSON.');
+          assert(json[key] != null,
+              'Required key "IoK8sApiCoreV1TCPSocketAction[$key]" has a null value in JSON.');
         });
         return true;
       }());
 
       return IoK8sApiCoreV1TCPSocketAction(
         host: mapValueOfType<String>(json, r'host'),
-        port: mapValueOfType<String>(json, r'port')!,
+        port: mapValueOfType<String>(json, r'port') ?? "",
       );
     }
     return null;
   }
 
-  static List<IoK8sApiCoreV1TCPSocketAction> listFromJson(dynamic json, {bool growable = false,}) {
+  static List<IoK8sApiCoreV1TCPSocketAction> listFromJson(
+    dynamic json, {
+    bool growable = false,
+  }) {
     final result = <IoK8sApiCoreV1TCPSocketAction>[];
     if (json is List && json.isNotEmpty) {
       for (final row in json) {
@@ -108,13 +114,19 @@ class IoK8sApiCoreV1TCPSocketAction {
   }
 
   // maps a json object with a list of IoK8sApiCoreV1TCPSocketAction-objects as value to a dart map
-  static Map<String, List<IoK8sApiCoreV1TCPSocketAction>> mapListFromJson(dynamic json, {bool growable = false,}) {
+  static Map<String, List<IoK8sApiCoreV1TCPSocketAction>> mapListFromJson(
+    dynamic json, {
+    bool growable = false,
+  }) {
     final map = <String, List<IoK8sApiCoreV1TCPSocketAction>>{};
     if (json is Map && json.isNotEmpty) {
       // ignore: parameter_assignments
       json = json.cast<String, dynamic>();
       for (final entry in json.entries) {
-        map[entry.key] = IoK8sApiCoreV1TCPSocketAction.listFromJson(entry.value, growable: growable,);
+        map[entry.key] = IoK8sApiCoreV1TCPSocketAction.listFromJson(
+          entry.value,
+          growable: growable,
+        );
       }
     }
     return map;
@@ -125,4 +137,3 @@ class IoK8sApiCoreV1TCPSocketAction {
     'port',
   };
 }
-

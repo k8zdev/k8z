@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:k8sapp/dao/kube.dart';
 import 'package:k8sapp/generated/l10n.dart';
+import 'package:k8sapp/providers/current_cluster.dart';
+import 'package:provider/provider.dart';
 import 'package:settings_ui/settings_ui.dart';
 
 class WorkloadsPage extends StatefulWidget {
@@ -11,6 +14,13 @@ class WorkloadsPage extends StatefulWidget {
 }
 
 class _WorkloadsPageState extends State<WorkloadsPage> {
+  late K8zCluster? cluster;
+  @override
+  void initState() {
+    cluster = Provider.of<CurrentCluster>(context, listen: false).current;
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     var lang = S.of(context);
@@ -23,7 +33,10 @@ class _WorkloadsPageState extends State<WorkloadsPage> {
             tiles: [
               SettingsTile.navigation(
                 title: Text(lang.pods),
-                onPressed: (context) => GoRouter.of(context).pushNamed("pods"),
+                onPressed: (context) => GoRouter.of(context).pushNamed(
+                  "pods",
+                  extra: cluster,
+                ),
               ),
               SettingsTile.navigation(
                 title: Text(lang.daemon_sets),

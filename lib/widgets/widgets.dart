@@ -36,6 +36,11 @@ const runningIcon = Icon(
   color: Colors.green,
 );
 
+const quizIcon = Icon(
+  Icons.quiz,
+  color: Colors.black12,
+);
+
 final buildingWidget = Center(
   child: TextButton.icon(
     onPressed: null,

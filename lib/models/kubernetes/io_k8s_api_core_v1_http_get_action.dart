@@ -44,7 +44,7 @@ class IoK8sApiCoreV1HTTPGetAction {
   /// IntOrString is a type that can hold an int32 or a string.  When used in JSON or YAML marshalling and unmarshalling, it produces or consumes the inner type.  This allows you to have, for example, a JSON field that can accept a name or number.
   String port;
 
-  /// Scheme to use for connecting to the host. Defaults to HTTP.  
+  /// Scheme to use for connecting to the host. Defaults to HTTP.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -54,24 +54,27 @@ class IoK8sApiCoreV1HTTPGetAction {
   String? scheme;
 
   @override
-  bool operator ==(Object other) => identical(this, other) || other is IoK8sApiCoreV1HTTPGetAction &&
-    other.host == host &&
-    _deepEquality.equals(other.httpHeaders, httpHeaders) &&
-    other.path == path &&
-    other.port == port &&
-    other.scheme == scheme;
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is IoK8sApiCoreV1HTTPGetAction &&
+          other.host == host &&
+          _deepEquality.equals(other.httpHeaders, httpHeaders) &&
+          other.path == path &&
+          other.port == port &&
+          other.scheme == scheme;
 
   @override
   int get hashCode =>
-    // ignore: unnecessary_parenthesis
-    (host == null ? 0 : host!.hashCode) +
-    (httpHeaders.hashCode) +
-    (path == null ? 0 : path!.hashCode) +
-    (port.hashCode) +
-    (scheme == null ? 0 : scheme!.hashCode);
+      // ignore: unnecessary_parenthesis
+      (host == null ? 0 : host!.hashCode) +
+      (httpHeaders.hashCode) +
+      (path == null ? 0 : path!.hashCode) +
+      (port.hashCode) +
+      (scheme == null ? 0 : scheme!.hashCode);
 
   @override
-  String toString() => 'IoK8sApiCoreV1HTTPGetAction[host=$host, httpHeaders=$httpHeaders, path=$path, port=$port, scheme=$scheme]';
+  String toString() =>
+      'IoK8sApiCoreV1HTTPGetAction[host=$host, httpHeaders=$httpHeaders, path=$path, port=$port, scheme=$scheme]';
 
   Map<String, dynamic> toJson() {
     final json = <String, dynamic>{};
@@ -80,13 +83,13 @@ class IoK8sApiCoreV1HTTPGetAction {
     } else {
       json[r'host'] = null;
     }
-      json[r'httpHeaders'] = this.httpHeaders;
+    json[r'httpHeaders'] = this.httpHeaders;
     if (this.path != null) {
       json[r'path'] = this.path;
     } else {
       json[r'path'] = null;
     }
-      json[r'port'] = this.port;
+    json[r'port'] = this.port;
     if (this.scheme != null) {
       json[r'scheme'] = this.scheme;
     } else {
@@ -107,24 +110,30 @@ class IoK8sApiCoreV1HTTPGetAction {
       // Note 2: this code is stripped in release mode!
       assert(() {
         requiredKeys.forEach((key) {
-          assert(json.containsKey(key), 'Required key "IoK8sApiCoreV1HTTPGetAction[$key]" is missing from JSON.');
-          assert(json[key] != null, 'Required key "IoK8sApiCoreV1HTTPGetAction[$key]" has a null value in JSON.');
+          assert(json.containsKey(key),
+              'Required key "IoK8sApiCoreV1HTTPGetAction[$key]" is missing from JSON.');
+          assert(json[key] != null,
+              'Required key "IoK8sApiCoreV1HTTPGetAction[$key]" has a null value in JSON.');
         });
         return true;
       }());
 
       return IoK8sApiCoreV1HTTPGetAction(
         host: mapValueOfType<String>(json, r'host'),
-        httpHeaders: IoK8sApiCoreV1HTTPHeader.listFromJson(json[r'httpHeaders']),
+        httpHeaders:
+            IoK8sApiCoreV1HTTPHeader.listFromJson(json[r'httpHeaders']),
         path: mapValueOfType<String>(json, r'path'),
-        port: mapValueOfType<String>(json, r'port')!,
+        port: mapValueOfType<String>(json, r'port') ?? "",
         scheme: mapValueOfType<String>(json, r'scheme'),
       );
     }
     return null;
   }
 
-  static List<IoK8sApiCoreV1HTTPGetAction> listFromJson(dynamic json, {bool growable = false,}) {
+  static List<IoK8sApiCoreV1HTTPGetAction> listFromJson(
+    dynamic json, {
+    bool growable = false,
+  }) {
     final result = <IoK8sApiCoreV1HTTPGetAction>[];
     if (json is List && json.isNotEmpty) {
       for (final row in json) {
@@ -152,13 +161,19 @@ class IoK8sApiCoreV1HTTPGetAction {
   }
 
   // maps a json object with a list of IoK8sApiCoreV1HTTPGetAction-objects as value to a dart map
-  static Map<String, List<IoK8sApiCoreV1HTTPGetAction>> mapListFromJson(dynamic json, {bool growable = false,}) {
+  static Map<String, List<IoK8sApiCoreV1HTTPGetAction>> mapListFromJson(
+    dynamic json, {
+    bool growable = false,
+  }) {
     final map = <String, List<IoK8sApiCoreV1HTTPGetAction>>{};
     if (json is Map && json.isNotEmpty) {
       // ignore: parameter_assignments
       json = json.cast<String, dynamic>();
       for (final entry in json.entries) {
-        map[entry.key] = IoK8sApiCoreV1HTTPGetAction.listFromJson(entry.value, growable: growable,);
+        map[entry.key] = IoK8sApiCoreV1HTTPGetAction.listFromJson(
+          entry.value,
+          growable: growable,
+        );
       }
     }
     return map;
@@ -169,4 +184,3 @@ class IoK8sApiCoreV1HTTPGetAction {
     'port',
   };
 }
-

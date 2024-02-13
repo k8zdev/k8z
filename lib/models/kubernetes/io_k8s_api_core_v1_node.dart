@@ -63,27 +63,24 @@ class IoK8sApiCoreV1Node {
   IoK8sApiCoreV1NodeStatus? status;
 
   @override
-  bool operator ==(Object other) =>
-      identical(this, other) ||
-      other is IoK8sApiCoreV1Node &&
-          other.apiVersion == apiVersion &&
-          other.kind == kind &&
-          other.metadata == metadata &&
-          other.spec == spec &&
-          other.status == status;
+  bool operator ==(Object other) => identical(this, other) || other is IoK8sApiCoreV1Node &&
+    other.apiVersion == apiVersion &&
+    other.kind == kind &&
+    other.metadata == metadata &&
+    other.spec == spec &&
+    other.status == status;
 
   @override
   int get hashCode =>
-      // ignore: unnecessary_parenthesis
-      (apiVersion == null ? 0 : apiVersion!.hashCode) +
-      (kind == null ? 0 : kind!.hashCode) +
-      (metadata == null ? 0 : metadata!.hashCode) +
-      (spec == null ? 0 : spec!.hashCode) +
-      (status == null ? 0 : status!.hashCode);
+    // ignore: unnecessary_parenthesis
+    (apiVersion == null ? 0 : apiVersion!.hashCode) +
+    (kind == null ? 0 : kind!.hashCode) +
+    (metadata == null ? 0 : metadata!.hashCode) +
+    (spec == null ? 0 : spec!.hashCode) +
+    (status == null ? 0 : status!.hashCode);
 
   @override
-  String toString() =>
-      'IoK8sApiCoreV1Node[apiVersion=$apiVersion, kind=$kind, metadata=$metadata, spec=$spec, status=$status]';
+  String toString() => 'IoK8sApiCoreV1Node[apiVersion=$apiVersion, kind=$kind, metadata=$metadata, spec=$spec, status=$status]';
 
   Map<String, dynamic> toJson() {
     final json = <String, dynamic>{};
@@ -127,10 +124,8 @@ class IoK8sApiCoreV1Node {
       // Note 2: this code is stripped in release mode!
       assert(() {
         requiredKeys.forEach((key) {
-          assert(json.containsKey(key),
-              'Required key "IoK8sApiCoreV1Node[$key]" is missing from JSON.');
-          assert(json[key] != null,
-              'Required key "IoK8sApiCoreV1Node[$key]" has a null value in JSON.');
+          assert(json.containsKey(key), 'Required key "IoK8sApiCoreV1Node[$key]" is missing from JSON.');
+          assert(json[key] != null, 'Required key "IoK8sApiCoreV1Node[$key]" has a null value in JSON.');
         });
         return true;
       }());
@@ -138,8 +133,7 @@ class IoK8sApiCoreV1Node {
       return IoK8sApiCoreV1Node(
         apiVersion: mapValueOfType<String>(json, r'apiVersion'),
         kind: mapValueOfType<String>(json, r'kind'),
-        metadata: IoK8sApimachineryPkgApisMetaV1ObjectMeta.fromJson(
-            json[r'metadata']),
+        metadata: IoK8sApimachineryPkgApisMetaV1ObjectMeta.fromJson(json[r'metadata']),
         spec: IoK8sApiCoreV1NodeSpec.fromJson(json[r'spec']),
         status: IoK8sApiCoreV1NodeStatus.fromJson(json[r'status']),
       );
@@ -147,10 +141,7 @@ class IoK8sApiCoreV1Node {
     return null;
   }
 
-  static List<IoK8sApiCoreV1Node> listFromJson(
-    dynamic json, {
-    bool growable = false,
-  }) {
+  static List<IoK8sApiCoreV1Node> listFromJson(dynamic json, {bool growable = false,}) {
     final result = <IoK8sApiCoreV1Node>[];
     if (json is List && json.isNotEmpty) {
       for (final row in json) {
@@ -178,24 +169,20 @@ class IoK8sApiCoreV1Node {
   }
 
   // maps a json object with a list of IoK8sApiCoreV1Node-objects as value to a dart map
-  static Map<String, List<IoK8sApiCoreV1Node>> mapListFromJson(
-    dynamic json, {
-    bool growable = false,
-  }) {
+  static Map<String, List<IoK8sApiCoreV1Node>> mapListFromJson(dynamic json, {bool growable = false,}) {
     final map = <String, List<IoK8sApiCoreV1Node>>{};
     if (json is Map && json.isNotEmpty) {
       // ignore: parameter_assignments
       json = json.cast<String, dynamic>();
       for (final entry in json.entries) {
-        map[entry.key] = IoK8sApiCoreV1Node.listFromJson(
-          entry.value,
-          growable: growable,
-        );
+        map[entry.key] = IoK8sApiCoreV1Node.listFromJson(entry.value, growable: growable,);
       }
     }
     return map;
   }
 
   /// The list of required keys that must be present in a JSON.
-  static const requiredKeys = <String>{};
+  static const requiredKeys = <String>{
+  };
 }
+
