@@ -23,6 +23,10 @@ class Metric {
 
   static final zero = Metric(allocatable: 0, usage: 0, requests: 0, limits: 0);
 
+  @override
+  String toString() =>
+      'allocatable=$allocatable, usage=$usage, requests=$requests, limits=$limits';
+
   Metric({
     required this.allocatable,
     required this.usage,
@@ -35,12 +39,10 @@ class Metric {
 /// It can be used to show overview metrics of whole cluster or a single node.
 /// If [nodeName] is empty, will show whole cluster.
 class OverviewMetric extends StatefulWidget {
-  final MetricType type;
   final String? nodeName;
-  final K8zCluster cluster;
+  final K8zCluster? cluster;
   const OverviewMetric({
     super.key,
-    required this.type,
     this.nodeName,
     required this.cluster,
   });
@@ -50,14 +52,12 @@ class OverviewMetric extends StatefulWidget {
 }
 
 class _OverviewMetricState extends State<OverviewMetric> {
-  late Future<Map<MetricType, Metric>> _futureFetchMetrics;
-
   Future<Map<MetricType, Metric>> _fetchMetrics() async {
     // 1. fetch nodes list
     var nodesFilter = widget.nodeName == null
         ? ''
         : '?fieldSelector=metadata.name=${widget.nodeName}';
-    final nodesData = await K8zService(cluster: widget.cluster)
+    final nodesData = await K8zService(cluster: widget.cluster!)
         .get('/api/v1/nodes$nodesFilter');
     final nodesList = IoK8sApiCoreV1NodeList.fromJson(nodesData.body);
 
@@ -65,13 +65,13 @@ class _OverviewMetricState extends State<OverviewMetric> {
     final podsFilter = widget.nodeName == null
         ? ''
         : '?fieldSelector=spec.nodeName=${widget.nodeName}';
-    final podsData = await K8zService(cluster: widget.cluster)
+    final podsData = await K8zService(cluster: widget.cluster!)
         .get('/api/v1/pods$podsFilter');
     final podsList = IoK8sApiCoreV1PodList.fromJson(podsData.body);
 
     // 3. fetch node's metrics.
-    final nodeMetricsData = await K8zService(cluster: widget.cluster)
-        .get('/apis/metrics.k8s.io/v1beta1/nodes$NodeFilter');
+    final nodeMetricsData = await K8zService(cluster: widget.cluster!)
+        .get('/apis/metrics.k8s.io/v1beta1/nodes$nodesFilter');
     final nodeMetricsList =
         ApisMetricsV1beta1NodeMetricsList.fromJson(nodeMetricsData.body);
 
@@ -92,7 +92,7 @@ class _OverviewMetricState extends State<OverviewMetric> {
     bool nodesCondition = nodesList != null;
     bool nodesMetricCondition = nodeMetricsList.items != null;
 
-    if (podsCondition && nodesCondition && nodesMetricCondition) {
+    if (podsCondition && nodesCondition) {
       for (var node in nodesList.items) {
         if (node.status != null &&
             node.status!.allocatable.containsKey('cpu')) {
@@ -100,22 +100,24 @@ class _OverviewMetricState extends State<OverviewMetric> {
         }
         if (node.status != null &&
             node.status!.allocatable.containsKey('memory')) {
-          memoryAllocatable += parseCpuRes(node.status!.allocatable['memory']!);
+          memoryAllocatable += parseMemRes(node.status!.allocatable['memory']!);
         }
         if (node.status != null &&
             node.status!.allocatable.containsKey('pods')) {
-          podsAllocatable += parseCpuRes(node.status!.allocatable['pods']!);
+          podsAllocatable += parseMemRes(node.status!.allocatable['pods']!);
         }
       }
 
-      for (var usage in nodeMetricsList.items!) {
-        if (usage.usage != null && usage.usage!.cpu != null) {
-          cpuUsage += parseCpuRes(usage.usage!.cpu!);
+      if (nodesMetricCondition) {
+        for (var usage in nodeMetricsList.items!) {
+          if (usage.usage != null && usage.usage!.cpu != null) {
+            cpuUsage += parseCpuRes(usage.usage!.cpu!);
+          }
+          if (usage.usage != null && usage.usage!.memory != null) {
+            memoryUsage += parseMemRes(usage.usage!.memory!);
+          }
+          podsUsage += podsList.items.length;
         }
-        if (usage.usage != null && usage.usage!.memory != null) {
-          memoryUsage += parseMemRes(usage.usage!.memory!);
-        }
-        podsUsage += podsList.items.length;
       }
 
       for (var pod in podsList.items) {
@@ -164,6 +166,73 @@ class _OverviewMetricState extends State<OverviewMetric> {
 
   @override
   Widget build(BuildContext context) {
-    return Container();
+    var lang = S.of(context);
+    if (widget.cluster == null) {
+      return SizedBox(
+        height: 100,
+        child: Center(
+          child: Text(lang.no_current_cluster),
+        ),
+      );
+    }
+
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 16),
+      child: FutureBuilder(
+        future: _fetchMetrics(),
+        builder: (BuildContext context, AsyncSnapshot snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            // loading
+            return const SizedBox(
+              height: 100,
+              child: Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    CircularProgressIndicator(),
+                    SizedBox(height: 32),
+                    Text("loading metrics"),
+                  ],
+                ),
+              ),
+            );
+          } else if (snapshot.hasError) {
+            talker.debug("snapshot error ${snapshot.error.toString()}");
+            return SizedBox(
+              height: 100,
+              child: Container(
+                alignment: Alignment.topCenter,
+                child: Text(
+                  "load metrics error:\n ${snapshot.error.toString()}",
+                  textAlign: TextAlign.center,
+                ),
+              ),
+            );
+          } else {
+            talker.debug('''
+
+cpu metrics: ${snapshot.data?[MetricType.cpu]}
+mem metrics: ${snapshot.data?[MetricType.memory]}
+pods metrics: ${snapshot.data?[MetricType.pods]}
+''');
+
+            return Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: <Widget>[
+                Expanded(
+                  child: Container(height: 100, color: Colors.amber),
+                ),
+                Expanded(
+                  child: Container(height: 100, color: Colors.green),
+                ),
+                Expanded(
+                  child: Container(height: 100, color: Colors.blue),
+                ),
+              ],
+            );
+          }
+        },
+      ),
+    );
   }
 }
