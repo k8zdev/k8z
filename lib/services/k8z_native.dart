@@ -281,6 +281,9 @@ class K8zNative {
       api: api,
       body: body,
     );
+    if (resp.error.isNotEmpty) {
+      return JsonReturn(body: {}, error: resp.error);
+    }
 
     return JsonReturn(body: jsonDecode(resp.body), error: resp.error);
   }
