@@ -310,6 +310,14 @@ packages:
       url: "https://mirrors.tuna.tsinghua.edu.cn/dart-pub/"
     source: hosted
     version: "10.7.0"
+  geekyants_flutter_gauges:
+    dependency: "direct main"
+    description:
+      name: geekyants_flutter_gauges
+      sha256: cfdbfeadec8ac1db39b6aa1cb25623cc87ce0ce3d4501344c5294ae4aefcee06
+      url: "https://mirrors.tuna.tsinghua.edu.cn/dart-pub/"
+    source: hosted
+    version: "1.0.3"
   go_router:
     dependency: "direct main"
     description:

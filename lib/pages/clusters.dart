@@ -6,6 +6,7 @@ import 'package:k8sapp/dao/kube.dart';
 import 'package:k8sapp/generated/l10n.dart';
 import 'package:k8sapp/pages/cluster/create.dart';
 import 'package:k8sapp/providers/current_cluster.dart';
+import 'package:k8sapp/widgets/overview_metrics.dart';
 import 'package:provider/provider.dart';
 import 'package:settings_ui/settings_ui.dart';
 
@@ -31,6 +32,22 @@ class _ClustersPageState extends State<ClustersPage> {
         },
       );
     }).toList();
+  }
+
+  AbstractSettingsSection metrics() {
+    var ccProvider = Provider.of<CurrentCluster>(context, listen: false);
+    if (ccProvider.current == null) {
+      return const CustomSettingsSection(
+        child: Center(
+          child: Row(children: [
+            Icon(Icons.build_circle),
+          ]),
+        ),
+      );
+    }
+    return CustomSettingsSection(
+      child: OverviewMetric(cluster: ccProvider.current!),
+    );
   }
 
   @override
@@ -71,6 +88,7 @@ class _ClustersPageState extends State<ClustersPage> {
               padding: EdgeInsets.zero,
               child: SettingsList(
                 sections: [
+                  metrics(),
                   SettingsSection(
                     tiles: genClusterChilds(clusters),
                   ),

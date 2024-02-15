@@ -1,8 +1,9 @@
-import 'dart:html';
-
 import 'package:flutter/material.dart';
+import 'package:geekyants_flutter_gauges/geekyants_flutter_gauges.dart';
+import 'package:k8sapp/common/ops.dart';
 import 'package:k8sapp/common/resources/resources.dart';
 import 'package:k8sapp/dao/kube.dart';
+import 'package:k8sapp/generated/l10n.dart';
 import 'package:k8sapp/models/kubernetes_extensions/node_metrics.dart';
 import 'package:k8sapp/models/models.dart';
 import 'package:k8sapp/services/k8z_service.dart';
@@ -164,6 +165,45 @@ class _OverviewMetricState extends State<OverviewMetric> {
     };
   }
 
+  Widget metricChart(Metric metric, {cpu = false}) {
+    var allocatable = metric.allocatable;
+    var requests =
+        metric.requests > allocatable ? allocatable : metric.requests;
+    var limits = metric.limits > allocatable ? allocatable : metric.limits;
+
+    return Container(
+      margin: const EdgeInsets.symmetric(horizontal: 6),
+      child: RadialGauge(
+        track: RadialTrack(
+          start: 0,
+          color: Colors.grey.shade300,
+          trackStyle: const TrackStyle(showLabel: false),
+          steps: allocatable ~/ 2,
+          end: allocatable.toDouble(),
+        ),
+        valueBar: [
+          RadialValueBar(
+            color: Colors.redAccent,
+            radialOffset: -8,
+            valueBarThickness: 8,
+            value: requests.toDouble(),
+          ),
+          RadialValueBar(
+            color: Colors.amber,
+            valueBarThickness: 8,
+            value: metric.usage.toDouble(),
+          ),
+          RadialValueBar(
+            color: Colors.blueAccent,
+            radialOffset: 8,
+            valueBarThickness: 8,
+            value: limits.toDouble(),
+          ),
+        ],
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     var lang = S.of(context);
@@ -216,19 +256,37 @@ mem metrics: ${snapshot.data?[MetricType.memory]}
 pods metrics: ${snapshot.data?[MetricType.pods]}
 ''');
 
-            return Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: <Widget>[
-                Expanded(
-                  child: Container(height: 100, color: Colors.amber),
+            var data = snapshot.data;
+            var rowList = <Widget>[
+              Expanded(
+                child: Container(
+                  height: 100,
+                  padding: const EdgeInsets.only(top: 5),
+                  child: metricChart(data[MetricType.cpu]),
                 ),
-                Expanded(
-                  child: Container(height: 100, color: Colors.green),
+              ),
+              Expanded(
+                child: Container(
+                  height: 100,
+                  padding: const EdgeInsets.only(top: 5),
+                  child: metricChart(data[MetricType.pods]),
                 ),
-                Expanded(
-                  child: Container(height: 100, color: Colors.blue),
+              ),
+              Expanded(
+                child: Container(
+                  padding: const EdgeInsets.only(top: 5),
+                  height: 100,
+                  child: metricChart(data[MetricType.memory]),
                 ),
-              ],
+              ),
+            ];
+
+            return Card(
+              margin: const EdgeInsets.symmetric(vertical: 10),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: rowList,
+              ),
             );
           }
         },

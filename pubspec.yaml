@@ -63,6 +63,7 @@ dependencies:
   ffi: ^2.0.1
   collection: ^1.18.0
   icons_plus: ^5.0.0
+  geekyants_flutter_gauges: ^1.0.3
 
 dependency_overrides:
   meta: 1.11.0
