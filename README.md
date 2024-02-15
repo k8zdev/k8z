@@ -13,6 +13,8 @@ k8s admin app
 - [x] L18n supports: English, Chinese.
 
 ### Cluster management
+- [x] Cluster overview metric charts.
+
 - [x] Show added clusters list.
 
 - [x] Add clusters from kubeconfig file.
