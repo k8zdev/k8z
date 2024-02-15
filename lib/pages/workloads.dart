@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:k8sapp/common/const.dart';
-import 'package:k8sapp/dao/kube.dart';
-import 'package:k8sapp/generated/l10n.dart';
-import 'package:k8sapp/providers/current_cluster.dart';
+import 'package:k8zdev/common/const.dart';
+import 'package:k8zdev/dao/kube.dart';
+import 'package:k8zdev/generated/l10n.dart';
+import 'package:k8zdev/providers/current_cluster.dart';
 import 'package:provider/provider.dart';
 import 'package:settings_ui/settings_ui.dart';
 

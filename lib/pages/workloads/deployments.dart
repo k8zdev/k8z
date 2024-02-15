@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:k8sapp/common/const.dart';
-import 'package:k8sapp/generated/l10n.dart';
-import 'package:k8sapp/widgets/widgets.dart';
+import 'package:k8zdev/common/const.dart';
+import 'package:k8zdev/generated/l10n.dart';
+import 'package:k8zdev/widgets/widgets.dart';
 
 class DeploymentsPage extends StatefulWidget {
   const DeploymentsPage({super.key});

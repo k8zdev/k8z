@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:k8sapp/generated/l10n.dart';
-import 'package:k8sapp/widgets/widgets.dart';
+import 'package:k8zdev/generated/l10n.dart';
+import 'package:k8zdev/widgets/widgets.dart';
 
 class ServicesPage extends StatefulWidget {
   const ServicesPage({super.key});

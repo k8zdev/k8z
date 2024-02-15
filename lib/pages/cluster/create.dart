@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:k8sapp/common/styles.dart';
-import 'package:k8sapp/generated/l10n.dart';
+import 'package:k8zdev/common/styles.dart';
+import 'package:k8zdev/generated/l10n.dart';
 
 class ClusterCreatePage extends StatefulWidget {
   final bool hiddenAppBar;

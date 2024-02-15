@@ -1,5 +1,5 @@
-import 'package:k8sapp/common/ops.dart';
-import 'package:k8sapp/dao/kube.dart';
+import 'package:k8zdev/common/ops.dart';
+import 'package:k8zdev/dao/kube.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 

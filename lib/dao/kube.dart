@@ -1,4 +1,4 @@
-import 'package:k8sapp/dao/dao.dart';
+import 'package:k8zdev/dao/dao.dart';
 
 String clustersTable = "clusters";
 String sqlCreateKubeClustersTable = '''

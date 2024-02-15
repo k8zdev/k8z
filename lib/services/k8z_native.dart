@@ -3,7 +3,7 @@ import 'dart:ffi';
 import 'dart:io';
 
 import 'package:ffi/ffi.dart';
-import 'package:k8sapp/dao/kube.dart';
+import 'package:k8zdev/dao/kube.dart';
 
 // _BodyReturn defines struct of golang reutrn (body, error string)
 final class BodyReturnNative extends Struct {

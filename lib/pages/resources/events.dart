@@ -1,14 +1,14 @@
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
-import 'package:k8sapp/common/const.dart';
-import 'package:k8sapp/common/helpers.dart';
-import 'package:k8sapp/common/ops.dart';
-import 'package:k8sapp/common/styles.dart';
-import 'package:k8sapp/dao/kube.dart';
-import 'package:k8sapp/generated/l10n.dart';
-import 'package:k8sapp/models/models.dart';
-import 'package:k8sapp/services/k8z_service.dart';
-import 'package:k8sapp/widgets/widgets.dart';
+import 'package:k8zdev/common/const.dart';
+import 'package:k8zdev/common/helpers.dart';
+import 'package:k8zdev/common/ops.dart';
+import 'package:k8zdev/common/styles.dart';
+import 'package:k8zdev/dao/kube.dart';
+import 'package:k8zdev/generated/l10n.dart';
+import 'package:k8zdev/models/models.dart';
+import 'package:k8zdev/services/k8z_service.dart';
+import 'package:k8zdev/widgets/widgets.dart';
 import 'package:settings_ui/settings_ui.dart';
 
 class EventsPage extends StatefulWidget {

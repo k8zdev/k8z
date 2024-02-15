@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:geekyants_flutter_gauges/geekyants_flutter_gauges.dart';
-import 'package:k8sapp/common/ops.dart';
-import 'package:k8sapp/common/resources/resources.dart';
-import 'package:k8sapp/dao/kube.dart';
-import 'package:k8sapp/generated/l10n.dart';
-import 'package:k8sapp/models/kubernetes_extensions/node_metrics.dart';
-import 'package:k8sapp/models/models.dart';
-import 'package:k8sapp/services/k8z_service.dart';
+import 'package:k8zdev/common/ops.dart';
+import 'package:k8zdev/common/resources/resources.dart';
+import 'package:k8zdev/dao/kube.dart';
+import 'package:k8zdev/generated/l10n.dart';
+import 'package:k8zdev/models/kubernetes_extensions/node_metrics.dart';
+import 'package:k8zdev/models/models.dart';
+import 'package:k8zdev/services/k8z_service.dart';
 
 const _chartLabelStyle = TextStyle(
   fontSize: 10,

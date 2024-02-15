@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:k8sapp/common/helpers.dart';
-import 'package:k8sapp/common/styles.dart';
+import 'package:k8zdev/common/helpers.dart';
+import 'package:k8zdev/common/styles.dart';
 
 const Widget topSizeBox = SizedBox(height: 12);
 const Widget naviNextIcon = Icon(Icons.navigate_next);

@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:icons_plus/icons_plus.dart';
-import 'package:k8sapp/common/styles.dart';
-import 'package:k8sapp/generated/l10n.dart';
-import 'package:k8sapp/common/helpers.dart';
+import 'package:k8zdev/common/styles.dart';
+import 'package:k8zdev/generated/l10n.dart';
+import 'package:k8zdev/common/helpers.dart';
 
 class Landing extends StatefulWidget {
   const Landing({super.key, required this.child});

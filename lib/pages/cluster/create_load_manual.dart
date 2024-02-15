@@ -4,10 +4,10 @@ import 'package:code_editor/code_editor.dart';
 import 'package:file_selector/file_selector.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:k8sapp/common/helpers.dart';
-import 'package:k8sapp/common/ops.dart';
-import 'package:k8sapp/dao/kube.dart';
-import 'package:k8sapp/generated/l10n.dart';
+import 'package:k8zdev/common/helpers.dart';
+import 'package:k8zdev/common/ops.dart';
+import 'package:k8zdev/dao/kube.dart';
+import 'package:k8zdev/generated/l10n.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:kubeconfig/kubeconfig.dart';
 

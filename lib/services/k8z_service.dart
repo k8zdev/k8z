@@ -1,6 +1,6 @@
-import 'package:k8sapp/common/ops.dart';
-import 'package:k8sapp/dao/kube.dart';
-import 'package:k8sapp/services/k8z_native.dart';
+import 'package:k8zdev/common/ops.dart';
+import 'package:k8zdev/dao/kube.dart';
+import 'package:k8zdev/services/k8z_native.dart';
 
 /// [K8zService] implements a service to interactiv with Kubernetes cluster.
 ///

@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_multi_select_items/flutter_multi_select_items.dart';
 import 'package:go_router/go_router.dart';
-import 'package:k8sapp/common/ops.dart';
-import 'package:k8sapp/common/styles.dart';
-import 'package:k8sapp/dao/kube.dart';
-import 'package:k8sapp/generated/l10n.dart';
-import 'package:k8sapp/providers/current_cluster.dart';
+import 'package:k8zdev/common/ops.dart';
+import 'package:k8zdev/common/styles.dart';
+import 'package:k8zdev/dao/kube.dart';
+import 'package:k8zdev/generated/l10n.dart';
+import 'package:k8zdev/providers/current_cluster.dart';
 import 'package:provider/provider.dart';
 
 class ChoiceClustersSubPage extends StatefulWidget {

@@ -1,9 +1,9 @@
 // String getStatusText(IoK8sApiCoreV1Pod? pod) {
 
 import 'package:flutter/material.dart';
-import 'package:k8sapp/common/resources/resources.dart';
-import 'package:k8sapp/models/models.dart';
-import 'package:k8sapp/widgets/widgets.dart';
+import 'package:k8zdev/common/resources/resources.dart';
+import 'package:k8zdev/models/models.dart';
+import 'package:k8zdev/widgets/widgets.dart';
 
 const podOkStatusList = ["Running", "Succeeded"];
 

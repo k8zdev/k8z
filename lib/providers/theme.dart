@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:k8sapp/services/stash.dart';
+import 'package:k8zdev/services/stash.dart';
 
 const String key = "app_theme_mode";
 
