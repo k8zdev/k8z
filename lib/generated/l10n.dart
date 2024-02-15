@@ -890,6 +890,26 @@ class S {
       args: [error],
     );
   }
+
+  /// `CPU`
+  String get cpu {
+    return Intl.message(
+      'CPU',
+      name: 'cpu',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Memory`
+  String get memory {
+    return Intl.message(
+      'Memory',
+      name: 'memory',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

@@ -74,6 +74,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "config": MessageLookupByLibrary.simpleMessage("Config"),
         "config_maps": MessageLookupByLibrary.simpleMessage("ConfigMaps"),
         "container_runtime": m0,
+        "cpu": MessageLookupByLibrary.simpleMessage("CPU"),
         "crds":
             MessageLookupByLibrary.simpleMessage("CustomResourceDefinition"),
         "crds_text": m1,
@@ -118,6 +119,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("loading metrics"),
         "manual_load_kubeconfig":
             MessageLookupByLibrary.simpleMessage("Load kubeconfig file"),
+        "memory": MessageLookupByLibrary.simpleMessage("Memory"),
         "more": MessageLookupByLibrary.simpleMessage("More"),
         "name": MessageLookupByLibrary.simpleMessage("Name"),
         "namespaces": MessageLookupByLibrary.simpleMessage("Namespaces"),

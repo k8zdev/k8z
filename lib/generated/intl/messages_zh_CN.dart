@@ -74,6 +74,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "config": MessageLookupByLibrary.simpleMessage("配置"),
         "config_maps": MessageLookupByLibrary.simpleMessage("ConfigMaps"),
         "container_runtime": m0,
+        "cpu": MessageLookupByLibrary.simpleMessage("CPU"),
         "crds": MessageLookupByLibrary.simpleMessage("自定资源定义"),
         "crds_text": m1,
         "current_cluster": MessageLookupByLibrary.simpleMessage("当前群集"),
@@ -112,6 +113,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "loading_metrics": MessageLookupByLibrary.simpleMessage("加载指标..."),
         "manual_load_kubeconfig":
             MessageLookupByLibrary.simpleMessage("加载 kubeconfig 文件"),
+        "memory": MessageLookupByLibrary.simpleMessage("Memory"),
         "more": MessageLookupByLibrary.simpleMessage("更多"),
         "name": MessageLookupByLibrary.simpleMessage("名称"),
         "namespaces": MessageLookupByLibrary.simpleMessage("名字空间"),

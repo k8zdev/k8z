@@ -8,6 +8,11 @@ import 'package:k8sapp/models/kubernetes_extensions/node_metrics.dart';
 import 'package:k8sapp/models/models.dart';
 import 'package:k8sapp/services/k8z_service.dart';
 
+const _chartLabelStyle = TextStyle(
+  fontSize: 10,
+  color: Colors.grey,
+);
+
 /// [MetricType] defines type of metrics that we want to show.
 /// Current support: [cpu],[memory],[pods].
 enum MetricType {
@@ -172,7 +177,11 @@ class _OverviewMetricState extends State<OverviewMetric> {
     var limits = metric.limits > allocatable ? allocatable : metric.limits;
 
     return Container(
-      margin: const EdgeInsets.symmetric(horizontal: 6),
+      height: 100,
+      margin: const EdgeInsets.symmetric(
+        horizontal: 6,
+        vertical: 0,
+      ),
       child: RadialGauge(
         track: RadialTrack(
           start: 0,
@@ -249,43 +258,74 @@ class _OverviewMetricState extends State<OverviewMetric> {
               ),
             );
           } else {
-            talker.debug('''
+            Metric cpu = snapshot.data[MetricType.cpu];
+            Metric pods = snapshot.data[MetricType.pods];
+            Metric memory = snapshot.data[MetricType.memory];
 
-cpu metrics: ${snapshot.data?[MetricType.cpu]}
-mem metrics: ${snapshot.data?[MetricType.memory]}
-pods metrics: ${snapshot.data?[MetricType.pods]}
+            talker.debug('''
+cpu metrics: $cpu
+mem metrics: $memory
+pods metrics: $pods
 ''');
 
-            var data = snapshot.data;
             var rowList = <Widget>[
               Expanded(
                 child: Container(
-                  height: 100,
+                  height: 150,
                   padding: const EdgeInsets.only(top: 5),
-                  child: metricChart(data[MetricType.cpu]),
+                  child: Column(
+                    children: [
+                      Text(
+                        '${lang.cpu}\nU:${formatCpuRes(cpu.usage)}c/R:${formatCpuRes(cpu.requests)}c/L:${formatCpuRes(cpu.limits)}c/A:${formatCpuRes(cpu.allocatable, round: 0)}c',
+                        style: _chartLabelStyle,
+                        textAlign: TextAlign.center,
+                      ),
+                      metricChart(cpu),
+                    ],
+                  ),
                 ),
               ),
               Expanded(
                 child: Container(
-                  height: 100,
+                  height: 150,
                   padding: const EdgeInsets.only(top: 5),
-                  child: metricChart(data[MetricType.pods]),
+                  child: Column(children: [
+                    Text(
+                      '${lang.pods}\nUsage:${pods.usage}\nAllocatable:${pods.allocatable}',
+                      style: _chartLabelStyle,
+                      textAlign: TextAlign.center,
+                    ),
+                    metricChart(pods),
+                  ]),
                 ),
               ),
               Expanded(
                 child: Container(
                   padding: const EdgeInsets.only(top: 5),
-                  height: 100,
-                  child: metricChart(data[MetricType.memory]),
+                  height: 150,
+                  child: Column(children: [
+                    Text(
+                      '${lang.memory}\nU:${formatMemRes(memory.usage)}/R:${formatMemRes(memory.requests)}/L:${formatMemRes(memory.limits)}/A:${formatMemRes(memory.allocatable)}',
+                      style: _chartLabelStyle,
+                      textAlign: TextAlign.center,
+                    ),
+                    metricChart(memory),
+                  ]),
                 ),
               ),
             ];
 
             return Card(
               margin: const EdgeInsets.symmetric(vertical: 10),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: rowList,
+              child: Column(
+                children: [
+                  // charts
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: rowList,
+                  ),
+                  // legends
+                ],
               ),
             );
           }

@@ -274,5 +274,9 @@
     "placeholders": {
       "error": {}
     }
-  }
+  },
+  "cpu": "CPU",
+  "@cpu": {},
+  "memory": "Memory",
+  "@memory": {}
 }
