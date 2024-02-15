@@ -266,5 +266,13 @@
     "placeholders": {
       "number": {}
     }
+  },
+  "loading_metrics": "loading metrics",
+  "@loading_metrics": {},
+  "load_metrics_error": "load metrics error: {error}",
+  "@load_metrics_error": {
+    "placeholders": {
+      "error": {}
+    }
   }
 }

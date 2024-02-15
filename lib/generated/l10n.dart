@@ -870,6 +870,26 @@ class S {
       args: [number],
     );
   }
+
+  /// `loading metrics`
+  String get loading_metrics {
+    return Intl.message(
+      'loading metrics',
+      name: 'loading_metrics',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `load metrics error: {error}`
+  String load_metrics_error(Object error) {
+    return Intl.message(
+      'load metrics error: $error',
+      name: 'load_metrics_error',
+      desc: '',
+      args: [error],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

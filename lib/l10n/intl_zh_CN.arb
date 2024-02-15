@@ -266,5 +266,13 @@
     "placeholders": {
       "number": {}
     }
+  },
+  "loading_metrics": "加载指标...",
+  "@loading_metrics": {},
+  "load_metrics_error": "加载指标错误: {error}",
+  "@load_metrics_error": {
+    "placeholders": {
+      "error": {}
+    }
   }
 }

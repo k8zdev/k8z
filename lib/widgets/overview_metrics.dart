@@ -223,15 +223,15 @@ class _OverviewMetricState extends State<OverviewMetric> {
         builder: (BuildContext context, AsyncSnapshot snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             // loading
-            return const SizedBox(
+            return SizedBox(
               height: 100,
               child: Center(
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    CircularProgressIndicator(),
-                    SizedBox(height: 32),
-                    Text("loading metrics"),
+                    const CircularProgressIndicator(),
+                    const SizedBox(height: 32),
+                    Text(lang.loading_metrics),
                   ],
                 ),
               ),
@@ -243,7 +243,7 @@ class _OverviewMetricState extends State<OverviewMetric> {
               child: Container(
                 alignment: Alignment.topCenter,
                 child: Text(
-                  "load metrics error:\n ${snapshot.error.toString()}",
+                  lang.load_metrics_error(snapshot.error.toString()),
                   textAlign: TextAlign.center,
                 ),
               ),
