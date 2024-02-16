@@ -49,21 +49,44 @@ int parseMemRes(String raw) {
 }
 
 String _formatRes(int raw, Map<String, int> maps, round) {
-  if (raw <= 0) {
+  if (raw < 0) {
     return '-';
   }
   for (var map in maps.entries) {
-    if (raw < map.value && (raw % map.value == 0)) {
+    if (raw > map.value && raw / map.value > 0) {
+      continue;
+    } else {
       return '${(raw.toDouble() / map.value.toDouble()).toStringAsFixed(round)}${map.key}';
     }
   }
-  return '-';
+  return 'none';
 }
 
 String formatCpuRes(int raw, {round = 2}) {
-  return _formatRes(raw, _cpuUnitMap, round);
+  return (raw / 1e9.toInt()).toStringAsFixed(round);
 }
 
+const _memUnit = 1024;
 String formatMemRes(int raw, {round = 2}) {
-  return _formatRes(raw, _memUnitMap, round);
+  if (raw < _memUnit) {
+    return '$raw';
+  }
+
+  if (raw < _memUnit * _memUnit && raw % _memUnit == 0) {
+    return '${(raw / _memUnit).toStringAsFixed(round)}Ki';
+  }
+
+  if (raw < _memUnit * _memUnit) {
+    return '${(raw / _memUnit).toStringAsFixed(round)}Ki';
+  }
+
+  if (raw < _memUnit * _memUnit * _memUnit && raw % _memUnit == 0) {
+    return '${(raw / (_memUnit * _memUnit)).toStringAsFixed(round)}Mi';
+  }
+
+  if (raw < _memUnit * _memUnit * _memUnit * _memUnit && raw % _memUnit == 0) {
+    return '${(raw / (_memUnit * _memUnit * _memUnit)).toStringAsFixed(round)}Gi';
+  }
+
+  return '${(raw / _memUnit / _memUnit / _memUnit / _memUnit).toStringAsFixed(round)}Ti';
 }
