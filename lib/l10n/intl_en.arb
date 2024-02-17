@@ -278,5 +278,15 @@
   "cpu": "CPU",
   "@cpu": {},
   "memory": "Memory",
-  "@memory": {}
+  "@memory": {},
+  "deployment_text": "{name}\nNamespace: {ns}\nReady: {ready}\nUp to date: {upToDate}\nAvailable: {available}",
+  "@deployment_text": {
+    "placeholders": {
+      "name": {},
+      "ns": {},
+      "ready": {},
+      "upToDate": {},
+      "available": {}
+    }
+  }
 }

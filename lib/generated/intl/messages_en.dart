@@ -29,37 +29,40 @@ class MessageLookup extends MessageLookupByLibrary {
 
   static String m3(name) => "${name} deleted";
 
-  static String m4(namespace, name, type, reason, kind, objName, lastTimestamp,
+  static String m4(name, ns, ready, upToDate, available) =>
+      "${name}\nNamespace: ${ns}\nReady: ${ready}\nUp to date: ${upToDate}\nAvailable: ${available}";
+
+  static String m5(namespace, name, type, reason, kind, objName, lastTimestamp,
           message) =>
       "${namespace} / ${name}\n\nType: ${type}\nReason: ${reason}\nObject: ${kind}/${objName}\nLast Seen: ${lastTimestamp}\n\nMessage: ${message}\n";
 
-  static String m5(arg) => "External-IP:\t\t ${arg}";
+  static String m6(arg) => "External-IP:\t\t ${arg}";
 
-  static String m6(arg) => "Internal-IP:\t\t ${arg}";
+  static String m7(arg) => "Internal-IP:\t\t ${arg}";
 
-  static String m7(number) => " (${number} items)";
+  static String m8(number) => " (${number} items)";
 
-  static String m8(n) => "last ${n} warnings";
+  static String m9(n) => "last ${n} warnings";
 
-  static String m9(error) => "load metrics error: ${error}";
+  static String m10(error) => "load metrics error: ${error}";
 
-  static String m10(arg) => "Architecture\t\t: ${arg}";
+  static String m11(arg) => "Architecture\t\t: ${arg}";
 
-  static String m11(os, arg) => "Kernel:\t\t ${os}/${arg}";
+  static String m12(os, arg) => "Kernel:\t\t ${os}/${arg}";
 
-  static String m12(arg) => "Kernel:\t\t ${arg}";
+  static String m13(arg) => "Kernel:\t\t ${arg}";
 
-  static String m13(arg) => "Roles:\t\t ${arg}";
+  static String m14(arg) => "Roles:\t\t ${arg}";
 
-  static String m14(arg) => "Version:\t\t ${arg}";
+  static String m15(arg) => "Version:\t\t ${arg}";
 
-  static String m15(
+  static String m16(
           name, namespace, ready, status, restarts, containers, cpu, memory) =>
       "${name}\n\nNamespace: ${namespace}\nReady: ${ready}\nStatus: ${status}\nRestarts: ${restarts}\nContainers: ${containers}\nCPU: ${cpu}\nMemory: ${memory}";
 
-  static String m16(number) => "Totals: ${number}";
+  static String m17(number) => "Totals: ${number}";
 
-  static String m17(type, name) => "will delete ${type} ${name}";
+  static String m18(type, name) => "will delete ${type} ${name}";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
@@ -89,6 +92,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "delete": MessageLookupByLibrary.simpleMessage("delete"),
         "delete_failed": m2,
         "deleted": m3,
+        "deployment_text": m4,
         "deployments": MessageLookupByLibrary.simpleMessage("Deployments"),
         "discovery_and_lb": MessageLookupByLibrary.simpleMessage(
             "Discovery and Load Balancing"),
@@ -97,9 +101,9 @@ class MessageLookup extends MessageLookupByLibrary {
             "can not get cluster kubeconfig, contexts maybe empty"),
         "endpoints": MessageLookupByLibrary.simpleMessage("Endpoints"),
         "error": MessageLookupByLibrary.simpleMessage("error"),
-        "event_text": m4,
+        "event_text": m5,
         "events": MessageLookupByLibrary.simpleMessage("Events"),
-        "external_ip": m5,
+        "external_ip": m6,
         "general": MessageLookupByLibrary.simpleMessage("general"),
         "general_debug": MessageLookupByLibrary.simpleMessage("debug"),
         "general_debug_sqlview":
@@ -110,11 +114,11 @@ class MessageLookup extends MessageLookupByLibrary {
         "general_language_null": MessageLookupByLibrary.simpleMessage("Auto"),
         "general_language_zh": MessageLookupByLibrary.simpleMessage("Chinese"),
         "ingresses": MessageLookupByLibrary.simpleMessage("Ingresses"),
-        "internel_ip": m6,
-        "items_number": m7,
-        "last_warning_events": m8,
+        "internel_ip": m7,
+        "items_number": m8,
+        "last_warning_events": m9,
         "load_file": MessageLookupByLibrary.simpleMessage("load file"),
-        "load_metrics_error": m9,
+        "load_metrics_error": m10,
         "loading_metrics":
             MessageLookupByLibrary.simpleMessage("loading metrics"),
         "manual_load_kubeconfig":
@@ -126,17 +130,17 @@ class MessageLookup extends MessageLookupByLibrary {
         "next_step": MessageLookupByLibrary.simpleMessage("next step"),
         "no_current_cluster":
             MessageLookupByLibrary.simpleMessage("no current cluster"),
-        "node_arch": m10,
-        "node_kernel": m11,
-        "node_os_image": m12,
-        "node_roles": m13,
-        "node_version": m14,
+        "node_arch": m11,
+        "node_kernel": m12,
+        "node_os_image": m13,
+        "node_roles": m14,
+        "node_version": m15,
         "nodes": MessageLookupByLibrary.simpleMessage("Nodes"),
         "nodes_desc": MessageLookupByLibrary.simpleMessage(
             "A node may be a virtual or physical machine."),
         "ok": MessageLookupByLibrary.simpleMessage("ok"),
         "overview": MessageLookupByLibrary.simpleMessage("Overview"),
-        "pod_text": m15,
+        "pod_text": m16,
         "pods": MessageLookupByLibrary.simpleMessage("Pods"),
         "pvcs":
             MessageLookupByLibrary.simpleMessage("Persistent Volume Claims"),
@@ -158,9 +162,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "theme_auto": MessageLookupByLibrary.simpleMessage("auto"),
         "theme_dark": MessageLookupByLibrary.simpleMessage("dark mode"),
         "theme_light": MessageLookupByLibrary.simpleMessage("light mode"),
-        "totals": m16,
+        "totals": m17,
         "version": MessageLookupByLibrary.simpleMessage("version"),
-        "will_delete": m17,
+        "will_delete": m18,
         "workloads": MessageLookupByLibrary.simpleMessage("Workloads")
       };
 }

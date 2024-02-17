@@ -37,8 +37,8 @@ const runningIcon = Icon(
 );
 
 const quizIcon = Icon(
-  Icons.quiz,
-  color: Colors.black12,
+  Icons.donut_large_rounded,
+  color: Colors.amber,
 );
 
 final buildingWidget = Center(

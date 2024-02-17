@@ -146,9 +146,12 @@ final router = GoRouter(
             GoRoute(
               path: "deployments",
               name: "deployments",
-              pageBuilder: (context, state) => const NoTransitionPage(
-                child: DeploymentsPage(),
-              ),
+              pageBuilder: (context, state) {
+                var cluster = state.extra as K8zCluster;
+                return NoTransitionPage(
+                  child: DeploymentsPage(cluster: cluster),
+                );
+              },
             ),
             GoRoute(
               path: "stateful_sets",

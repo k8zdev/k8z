@@ -1,5 +1,3 @@
-// String getStatusText(IoK8sApiCoreV1Pod? pod) {
-
 import 'package:flutter/material.dart';
 import 'package:k8zdev/common/resources/resources.dart';
 import 'package:k8zdev/models/models.dart';

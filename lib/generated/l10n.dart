@@ -910,6 +910,17 @@ class S {
       args: [],
     );
   }
+
+  /// `{name}\nNamespace: {ns}\nReady: {ready}\nUp to date: {upToDate}\nAvailable: {available}`
+  String deployment_text(
+      Object name, Object ns, Object ready, Object upToDate, Object available) {
+    return Intl.message(
+      '$name\nNamespace: $ns\nReady: $ready\nUp to date: $upToDate\nAvailable: $available',
+      name: 'deployment_text',
+      desc: '',
+      args: [name, ns, ready, upToDate, available],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {
