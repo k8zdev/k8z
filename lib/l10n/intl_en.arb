@@ -288,5 +288,15 @@
       "upToDate": {},
       "available": {}
     }
+  },
+  "daemon_set_text": "{name}\nNamespace: {ns}\nReady: {ready}\nUp to date: {upToDate}\nAvailable: {available}\n",
+  "@daemon_set_text": {
+    "placeholders": {
+      "name": {},
+      "ns": {},
+      "ready": {},
+      "upToDate": {},
+      "available": {}
+    }
   }
 }

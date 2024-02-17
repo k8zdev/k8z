@@ -38,8 +38,10 @@ class _WorkloadsPageState extends State<WorkloadsPage> {
           ),
           SettingsTile.navigation(
             title: Text(lang.daemon_sets),
-            onPressed: (context) =>
-                GoRouter.of(context).pushNamed("daemon_sets"),
+            onPressed: (context) => GoRouter.of(context).pushNamed(
+              "daemon_sets",
+              extra: cluster,
+            ),
           ),
           SettingsTile.navigation(
             title: Text(lang.deployments),
