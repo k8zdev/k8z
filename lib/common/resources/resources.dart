@@ -48,20 +48,6 @@ int parseMemRes(String raw) {
   return _parseRes(raw, _memUnitMap);
 }
 
-String _formatRes(int raw, Map<String, int> maps, round) {
-  if (raw < 0) {
-    return '-';
-  }
-  for (var map in maps.entries) {
-    if (raw > map.value && raw / map.value > 0) {
-      continue;
-    } else {
-      return '${(raw.toDouble() / map.value.toDouble()).toStringAsFixed(round)}${map.key}';
-    }
-  }
-  return 'none';
-}
-
 String formatCpuRes(int raw, {round = 2}) {
   return (raw / 1e9.toInt()).toStringAsFixed(round);
 }
