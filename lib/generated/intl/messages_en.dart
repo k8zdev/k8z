@@ -63,9 +63,12 @@ class MessageLookup extends MessageLookupByLibrary {
           name, namespace, ready, status, restarts, containers, cpu, memory) =>
       "${name}\n\nNamespace: ${namespace}\nReady: ${ready}\nStatus: ${status}\nRestarts: ${restarts}\nContainers: ${containers}\nCPU: ${cpu}\nMemory: ${memory}";
 
-  static String m18(number) => "Totals: ${number}";
+  static String m18(name, ns, ready, upToDate, available) =>
+      "${name}\nNamespace: ${ns}\nReady: ${ready}\nUp to date: ${upToDate}\nAvailable: ${available}\n";
 
-  static String m19(type, name) => "will delete ${type} ${name}";
+  static String m19(number) => "Totals: ${number}";
+
+  static String m20(type, name) => "will delete ${type} ${name}";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
@@ -159,6 +162,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("ServiceAccounts"),
         "services": MessageLookupByLibrary.simpleMessage("Services"),
         "settings": MessageLookupByLibrary.simpleMessage("Settings"),
+        "stateful_set_text": m18,
         "stateful_sets": MessageLookupByLibrary.simpleMessage("StatefulSets"),
         "status": MessageLookupByLibrary.simpleMessage("Status"),
         "storage": MessageLookupByLibrary.simpleMessage("Storage"),
@@ -166,9 +170,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "theme_auto": MessageLookupByLibrary.simpleMessage("auto"),
         "theme_dark": MessageLookupByLibrary.simpleMessage("dark mode"),
         "theme_light": MessageLookupByLibrary.simpleMessage("light mode"),
-        "totals": m18,
+        "totals": m19,
         "version": MessageLookupByLibrary.simpleMessage("version"),
-        "will_delete": m19,
+        "will_delete": m20,
         "workloads": MessageLookupByLibrary.simpleMessage("Workloads")
       };
 }

@@ -60,9 +60,12 @@ class MessageLookup extends MessageLookupByLibrary {
           name, namespace, ready, status, restarts, containers, cpu, memory) =>
       "${name}\n\n名字空间: ${namespace}\n就绪: ${ready}\n状况: ${status}\n重启: ${restarts}\n容器: ${containers}\nCPU: ${cpu}\n内存: ${memory}";
 
-  static String m18(number) => "总计: ${number}";
+  static String m18(name, ns, ready, upToDate, available) =>
+      "${name}\n名字空间: ${ns}\n就绪: ${ready}\nUp to date: ${upToDate}\n可用: ${available}";
 
-  static String m19(type, name) => "将要删除 ${type} ${name}";
+  static String m19(number) => "总计: ${number}";
+
+  static String m20(type, name) => "将要删除 ${type} ${name}";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
@@ -144,6 +147,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "service_accounts": MessageLookupByLibrary.simpleMessage("服务账号"),
         "services": MessageLookupByLibrary.simpleMessage("服务 (services)"),
         "settings": MessageLookupByLibrary.simpleMessage("设置"),
+        "stateful_set_text": m18,
         "stateful_sets": MessageLookupByLibrary.simpleMessage("StatefulSets"),
         "status": MessageLookupByLibrary.simpleMessage("状态"),
         "storage": MessageLookupByLibrary.simpleMessage("存储"),
@@ -151,9 +155,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "theme_auto": MessageLookupByLibrary.simpleMessage("跟随系统"),
         "theme_dark": MessageLookupByLibrary.simpleMessage("深色模式"),
         "theme_light": MessageLookupByLibrary.simpleMessage("亮色模式"),
-        "totals": m18,
+        "totals": m19,
         "version": MessageLookupByLibrary.simpleMessage("版本"),
-        "will_delete": m19,
+        "will_delete": m20,
         "workloads": MessageLookupByLibrary.simpleMessage("负载")
       };
 }

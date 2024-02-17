@@ -52,8 +52,10 @@ class _WorkloadsPageState extends State<WorkloadsPage> {
           ),
           SettingsTile.navigation(
             title: Text(lang.stateful_sets),
-            onPressed: (context) =>
-                GoRouter.of(context).pushNamed("stateful_sets"),
+            onPressed: (context) => GoRouter.of(context).pushNamed(
+              "stateful_sets",
+              extra: cluster,
+            ),
           ),
         ],
       ),

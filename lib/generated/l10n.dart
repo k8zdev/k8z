@@ -932,6 +932,17 @@ class S {
       args: [name, ns, ready, upToDate, available],
     );
   }
+
+  /// `{name}\nNamespace: {ns}\nReady: {ready}\nUp to date: {upToDate}\nAvailable: {available}\n`
+  String stateful_set_text(
+      Object name, Object ns, Object ready, Object upToDate, Object available) {
+    return Intl.message(
+      '$name\nNamespace: $ns\nReady: $ready\nUp to date: $upToDate\nAvailable: $available\n',
+      name: 'stateful_set_text',
+      desc: '',
+      args: [name, ns, ready, upToDate, available],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {
