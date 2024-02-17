@@ -308,5 +308,16 @@
       "upToDate": {},
       "available": {}
     }
+  },
+  "ingress_text": "{name}\nNamespace: {ns}\nClass: {className}\nHosts: {hosts}\nAddress: {address}\nPorts: {ports}",
+  "@ingress_text": {
+    "placeholders": {
+      "name": {},
+      "ns": {},
+      "className": {},
+      "hosts": {},
+      "address": {},
+      "ports": {}
+    }
   }
 }

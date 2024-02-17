@@ -943,6 +943,17 @@ class S {
       args: [name, ns, ready, upToDate, available],
     );
   }
+
+  /// `{name}\nNamespace: {ns}\nClass: {className}\nHosts: {hosts}\nAddress: {address}\nPorts: {ports}`
+  String ingress_text(Object name, Object ns, Object className, Object hosts,
+      Object address, Object ports) {
+    return Intl.message(
+      '$name\nNamespace: $ns\nClass: $className\nHosts: $hosts\nAddress: $address\nPorts: $ports',
+      name: 'ingress_text',
+      desc: '',
+      args: [name, ns, className, hosts, address, ports],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

@@ -298,5 +298,16 @@
       "upToDate": {},
       "available": {}
     }
+  },
+  "ingress_text": "{name}\n名字空间: {ns}\n类: {className}\n主机: {hosts}\n地址: {address}\n端口: {ports}",
+  "@ingress_text": {
+    "placeholders": {
+      "name": {},
+      "ns": {},
+      "className": {},
+      "hosts": {},
+      "address": {},
+      "ports": {}
+    }
   }
 }

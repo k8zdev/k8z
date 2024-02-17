@@ -159,7 +159,7 @@ final router = GoRouter(
             GoRoute(
               path: "stateful_sets",
               name: "stateful_sets",
-              pageBuilder: (context, state){
+              pageBuilder: (context, state) {
                 var cluster = state.extra as K8zCluster;
                 return NoTransitionPage(
                   child: StatefulSetsPage(cluster: cluster),
@@ -177,9 +177,12 @@ final router = GoRouter(
             GoRoute(
               path: "ingresses",
               name: "ingresses",
-              pageBuilder: (context, state) => const NoTransitionPage(
-                child: IngressesPage(),
-              ),
+              pageBuilder: (context, state) {
+                var cluster = state.extra as K8zCluster;
+                return NoTransitionPage(
+                  child: IngressesPage(cluster: cluster),
+                );
+              },
             ),
             GoRoute(
               path: "services",

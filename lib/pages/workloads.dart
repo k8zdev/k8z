@@ -70,7 +70,10 @@ class _WorkloadsPageState extends State<WorkloadsPage> {
           ),
           SettingsTile.navigation(
             title: Text(lang.ingresses),
-            onPressed: (context) => GoRouter.of(context).pushNamed("ingresses"),
+            onPressed: (context) => GoRouter.of(context).pushNamed(
+              "ingresses",
+              extra: cluster,
+            ),
           ),
           SettingsTile.navigation(
             title: Text(lang.services),
