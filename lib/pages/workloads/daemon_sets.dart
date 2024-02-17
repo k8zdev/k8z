@@ -129,7 +129,7 @@ class _DaemonSetsPageState extends State<DaemonSetsPage> {
           talker.debug("list ${list.length}");
 
           return SettingsSection(
-            title: Text(lang.pods + totals),
+            title: Text(lang.daemon_sets + totals),
             tiles: [
               SettingsTile.navigation(
                 title: title,

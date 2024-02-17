@@ -123,7 +123,7 @@ class _DeploymentsPageState extends State<DeploymentsPage> {
           talker.debug("list ${list.length}");
 
           return SettingsSection(
-            title: Text(lang.pods + totals),
+            title: Text(lang.deployments + totals),
             tiles: [
               SettingsTile.navigation(
                 title: title,
