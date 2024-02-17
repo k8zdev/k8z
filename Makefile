@@ -16,7 +16,7 @@ bindings-ios:
 .PHONY: library-ios
 library-ios:
 	GOARCH=amd64 GOOS=darwin CGO_ENABLED=1 SDK=iphonesimulator CC=$(PWD)/hack/clangwrap.sh CGO_CFLAGS="-fembed-bitcode" go build -buildmode=c-archive -o tmp/libs/libk8z.x64.a github.com/k8zdev/k8z/cmd/
-	GOARCH=arm64 GOOS=darwin CGO_ENABLED=1 SDK=iphoneos CC=$(PWD)/hack/clangwrap.sh CGO_CFLAGS="-fembed-bitcode" go build -buildmode=c-archive -o tmp/libs/libk8z.arm64.a github.com/k8zdev/k8z/cmd/
+	GOARCH=arm64 GOOS=ios CGO_ENABLED=1 SDK=iphoneos CC=$(PWD)/hack/clangwrap.sh CGO_CFLAGS="-fembed-bitcode" go build -buildmode=c-archive -o tmp/libs/libk8z.arm64.a github.com/k8zdev/k8z/cmd/
 	mkdir -p ios/libs/ && cp tmp/libs/libk8z.arm64.h ios/libs/libk8z.h
 	lipo -create tmp/libs/libk8z.x64.a tmp/libs/libk8z.arm64.a  -output ios/libs/libk8z.a
 
