@@ -35,3 +35,6 @@ gen-k8s-api-model:
 	@docker run --rm -v "${PWD}/tmp/:/local/" -v "${PWD}/hack/k8sapi/:/api/" openapitools/openapi-generator-cli:latest generate -i /api/${K8SAPIVER}_swagger.json -g dart -o /local/
 	@bash hack/codefix.sh
 
+.PHONY: update-icon
+update-icon:
+	dart run icons_launcher:create

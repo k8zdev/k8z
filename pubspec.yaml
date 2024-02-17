@@ -78,6 +78,7 @@ dev_dependencies:
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
   flutter_lints: ^3.0.1
+  icons_launcher: ^2.1.7
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
@@ -117,3 +118,11 @@ flutter:
   # see https://flutter.dev/custom-fonts/#from-packages
 flutter_intl:
   enabled: true
+
+icons_launcher:
+  image_path: "assets/icon@8x.png"
+  platforms:
+    ios:
+      enable: false
+    macos:
+      enable: true
