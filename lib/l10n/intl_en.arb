@@ -346,5 +346,14 @@
       "ns": {},
       "data": {}
     }
+  },
+  "secret_text": "{name}\nNamespace: {ns}\nType: {type}\nData: {data}",
+  "@secret_text": {
+    "placeholders": {
+      "name": {},
+      "ns": {},
+      "type": {},
+      "data": {}
+    }
   }
 }

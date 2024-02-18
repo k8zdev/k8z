@@ -336,5 +336,14 @@
       "ns": {},
       "data": {}
     }
+  },
+  "secret_text": "{name}\n名字空间: {ns}\n类型: {type}\n数据: {data}",
+  "@secret_text": {
+    "placeholders": {
+      "name": {},
+      "ns": {},
+      "type": {},
+      "data": {}
+    }
   }
 }

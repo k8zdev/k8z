@@ -272,9 +272,12 @@ final router = GoRouter(
             GoRoute(
               path: "secrets",
               name: "secrets",
-              pageBuilder: (context, state) => const NoTransitionPage(
-                child: SecretsPage(),
-              ),
+              pageBuilder: (context, state) {
+                var cluster = state.extra as K8zCluster;
+                return NoTransitionPage(
+                  child: SecretsPage(cluster: cluster),
+                );
+              },
             ),
             GoRoute(
               path: "service_accounts",

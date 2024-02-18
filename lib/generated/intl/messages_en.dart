@@ -72,15 +72,18 @@ class MessageLookup extends MessageLookupByLibrary {
           name, namespace, ready, status, restarts, containers, cpu, memory) =>
       "${name}\n\nNamespace: ${namespace}\nReady: ${ready}\nStatus: ${status}\nRestarts: ${restarts}\nContainers: ${containers}\nCPU: ${cpu}\nMemory: ${memory}";
 
-  static String m21(name, ns, type, clusterIP, externalIP, ports) =>
+  static String m21(name, ns, type, data) =>
+      "${name}\nNamespace: ${ns}\nType: ${type}\nData: ${data}";
+
+  static String m22(name, ns, type, clusterIP, externalIP, ports) =>
       "${name}\nNamespace: ${ns}\nType: ${type}\nCluster IP: ${clusterIP}\nExternal IP: ${externalIP}\nPorts: ${ports}";
 
-  static String m22(name, ns, ready, upToDate, available) =>
+  static String m23(name, ns, ready, upToDate, available) =>
       "${name}\nNamespace: ${ns}\nReady: ${ready}\nUp to date: ${upToDate}\nAvailable: ${available}\n";
 
-  static String m23(number) => "Totals: ${number}";
+  static String m24(number) => "Totals: ${number}";
 
-  static String m24(type, name) => "will delete ${type} ${name}";
+  static String m25(type, name) => "will delete ${type} ${name}";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
@@ -170,15 +173,16 @@ class MessageLookup extends MessageLookupByLibrary {
         "resources": MessageLookupByLibrary.simpleMessage("Resources"),
         "running": MessageLookupByLibrary.simpleMessage("Running"),
         "save_clusters": MessageLookupByLibrary.simpleMessage("save clusters"),
+        "secret_text": m21,
         "secrets": MessageLookupByLibrary.simpleMessage("Secrets"),
         "select_clusters":
             MessageLookupByLibrary.simpleMessage("Select cluster(s)"),
         "service_accounts":
             MessageLookupByLibrary.simpleMessage("ServiceAccounts"),
-        "service_text": m21,
+        "service_text": m22,
         "services": MessageLookupByLibrary.simpleMessage("Services"),
         "settings": MessageLookupByLibrary.simpleMessage("Settings"),
-        "stateful_set_text": m22,
+        "stateful_set_text": m23,
         "stateful_sets": MessageLookupByLibrary.simpleMessage("StatefulSets"),
         "status": MessageLookupByLibrary.simpleMessage("Status"),
         "storage": MessageLookupByLibrary.simpleMessage("Storage"),
@@ -186,9 +190,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "theme_auto": MessageLookupByLibrary.simpleMessage("auto"),
         "theme_dark": MessageLookupByLibrary.simpleMessage("dark mode"),
         "theme_light": MessageLookupByLibrary.simpleMessage("light mode"),
-        "totals": m23,
+        "totals": m24,
         "version": MessageLookupByLibrary.simpleMessage("version"),
-        "will_delete": m24,
+        "will_delete": m25,
         "workloads": MessageLookupByLibrary.simpleMessage("Workloads")
       };
 }
