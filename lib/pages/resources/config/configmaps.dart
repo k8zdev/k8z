@@ -19,7 +19,7 @@ class ConfigMapsPage extends StatefulWidget {
 }
 
 class _ConfigMapsPageState extends State<ConfigMapsPage> {
-  AbstractSettingsSection buildEndpointList(S lang) {
+  AbstractSettingsSection buildConfigMapList(S lang) {
     return CustomSettingsSection(
       child: FutureBuilder(
         future: () async {
@@ -80,7 +80,7 @@ class _ConfigMapsPageState extends State<ConfigMapsPage> {
                     final ctime = metadata?.creationTimestamp ?? now;
                     final age = now.difference(ctime).pretty;
 
-                    final text = "$name\nNamespace: $ns\nData: $dataNumber";
+                    final text = lang.config_map_text(name, ns, dataNumber);
 
                     return SettingsTile(
                       title: Text(text, style: smallTextStyle),
@@ -120,7 +120,7 @@ class _ConfigMapsPageState extends State<ConfigMapsPage> {
       appBar: AppBar(title: Text(lang.config_maps)),
       body: Container(
         padding: bottomEdge,
-        child: SettingsList(sections: [buildEndpointList(lang)]),
+        child: SettingsList(sections: [buildConfigMapList(lang)]),
       ),
     );
   }
