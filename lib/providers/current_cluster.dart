@@ -12,7 +12,10 @@ class CurrentCluster with ChangeNotifier {
 
   init() async {
     String? raw = await vget<String>(currentClusterKey);
-    var current = K8zCluster.fromJson(jsonDecode(raw ?? ""));
+    if (raw == null || raw.isEmpty) {
+      return;
+    }
+    K8zCluster? current = K8zCluster.fromJson(jsonDecode(raw));
     _current = current;
   }
 
