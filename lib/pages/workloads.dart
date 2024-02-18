@@ -66,7 +66,10 @@ class _WorkloadsPageState extends State<WorkloadsPage> {
         tiles: [
           SettingsTile.navigation(
             title: Text(lang.endpoints),
-            onPressed: (context) => GoRouter.of(context).pushNamed("endpoints"),
+            onPressed: (context) => GoRouter.of(context).pushNamed(
+              "endpoints",
+              extra: cluster,
+            ),
           ),
           SettingsTile.navigation(
             title: Text(lang.ingresses),

@@ -330,5 +330,13 @@
       "externalIP": {},
       "ports": {}
     }
+  },
+  "endpoint_text": "{name}\nNamespace: {ns}\nEndpoints: {endpoints}",
+  "@endpoint_text": {
+    "placeholders": {
+      "name": {},
+      "ns": {},
+      "endpoints": {}
+    }
   }
 }

@@ -965,6 +965,16 @@ class S {
       args: [name, ns, type, clusterIP, externalIP, ports],
     );
   }
+
+  /// `{name}\nNamespace: {ns}\nEndpoints: {endpoints}`
+  String endpoint_text(Object name, Object ns, Object endpoints) {
+    return Intl.message(
+      '$name\nNamespace: $ns\nEndpoints: $endpoints',
+      name: 'endpoint_text',
+      desc: '',
+      args: [name, ns, endpoints],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {
