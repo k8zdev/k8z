@@ -63,7 +63,10 @@ class _ResourcesPageState extends State<ResourcesPage> {
       tiles: [
         SettingsTile.navigation(
           title: Text(lang.config_maps),
-          onPressed: (context) => GoRouter.of(context).pushNamed("config_maps"),
+          onPressed: (context) => GoRouter.of(context).pushNamed(
+            "config_maps",
+            extra: cluster,
+          ),
         ),
         SettingsTile.navigation(
           title: Text(lang.secrets),

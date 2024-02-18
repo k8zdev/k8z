@@ -975,6 +975,16 @@ class S {
       args: [name, ns, endpoints],
     );
   }
+
+  /// `{name}\nNamespace: {ns}\nData: {data}`
+  String config_map_text(Object name, Object ns, Object data) {
+    return Intl.message(
+      '$name\nNamespace: $ns\nData: $data',
+      name: 'config_map_text',
+      desc: '',
+      args: [name, ns, data],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

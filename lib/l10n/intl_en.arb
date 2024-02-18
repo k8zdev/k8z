@@ -338,5 +338,13 @@
       "ns": {},
       "endpoints": {}
     }
+  },
+  "config_map_text": "{name}\nNamespace: {ns}\nData: {data}",
+  "@config_map_text": {
+    "placeholders": {
+      "name": {},
+      "ns": {},
+      "data": {}
+    }
   }
 }

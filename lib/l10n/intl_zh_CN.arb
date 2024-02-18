@@ -328,5 +328,13 @@
       "ns": {},
       "endpoints": {}
     }
+  },
+  "config_map_text": "{name}\n名字空间: {ns}\n数据: {data}",
+  "@config_map_text": {
+    "placeholders": {
+      "name": {},
+      "ns": {},
+      "data": {}
+    }
   }
 }
