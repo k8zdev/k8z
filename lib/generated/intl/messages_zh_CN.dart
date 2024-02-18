@@ -63,12 +63,15 @@ class MessageLookup extends MessageLookupByLibrary {
           name, namespace, ready, status, restarts, containers, cpu, memory) =>
       "${name}\n\n名字空间: ${namespace}\n就绪: ${ready}\n状况: ${status}\n重启: ${restarts}\n容器: ${containers}\nCPU: ${cpu}\n内存: ${memory}";
 
-  static String m19(name, ns, ready, upToDate, available) =>
+  static String m19(name, ns, type, clusterIP, externalIP, ports) =>
+      "${name}\n名字空间: ${ns}\n类: ${type}\n集群 IP: ${clusterIP}\n外部 IP: ${externalIP}\n端口: ${ports}";
+
+  static String m20(name, ns, ready, upToDate, available) =>
       "${name}\n名字空间: ${ns}\n就绪: ${ready}\nUp to date: ${upToDate}\n可用: ${available}";
 
-  static String m20(number) => "总计: ${number}";
+  static String m21(number) => "总计: ${number}";
 
-  static String m21(type, name) => "将要删除 ${type} ${name}";
+  static String m22(type, name) => "将要删除 ${type} ${name}";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
@@ -149,9 +152,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "secrets": MessageLookupByLibrary.simpleMessage("Secrets"),
         "select_clusters": MessageLookupByLibrary.simpleMessage("选择需要的集群"),
         "service_accounts": MessageLookupByLibrary.simpleMessage("服务账号"),
+        "service_text": m19,
         "services": MessageLookupByLibrary.simpleMessage("服务 (services)"),
         "settings": MessageLookupByLibrary.simpleMessage("设置"),
-        "stateful_set_text": m19,
+        "stateful_set_text": m20,
         "stateful_sets": MessageLookupByLibrary.simpleMessage("StatefulSets"),
         "status": MessageLookupByLibrary.simpleMessage("状态"),
         "storage": MessageLookupByLibrary.simpleMessage("存储"),
@@ -159,9 +163,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "theme_auto": MessageLookupByLibrary.simpleMessage("跟随系统"),
         "theme_dark": MessageLookupByLibrary.simpleMessage("深色模式"),
         "theme_light": MessageLookupByLibrary.simpleMessage("亮色模式"),
-        "totals": m20,
+        "totals": m21,
         "version": MessageLookupByLibrary.simpleMessage("版本"),
-        "will_delete": m21,
+        "will_delete": m22,
         "workloads": MessageLookupByLibrary.simpleMessage("负载")
       };
 }

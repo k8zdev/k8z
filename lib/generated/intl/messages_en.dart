@@ -66,12 +66,15 @@ class MessageLookup extends MessageLookupByLibrary {
           name, namespace, ready, status, restarts, containers, cpu, memory) =>
       "${name}\n\nNamespace: ${namespace}\nReady: ${ready}\nStatus: ${status}\nRestarts: ${restarts}\nContainers: ${containers}\nCPU: ${cpu}\nMemory: ${memory}";
 
-  static String m19(name, ns, ready, upToDate, available) =>
+  static String m19(name, ns, type, clusterIP, externalIP, ports) =>
+      "${name}\nNamespace: ${ns}\nType: ${type}\nCluster IP: ${clusterIP}\nExternal IP: ${externalIP}\nPorts: ${ports}";
+
+  static String m20(name, ns, ready, upToDate, available) =>
       "${name}\nNamespace: ${ns}\nReady: ${ready}\nUp to date: ${upToDate}\nAvailable: ${available}\n";
 
-  static String m20(number) => "Totals: ${number}";
+  static String m21(number) => "Totals: ${number}";
 
-  static String m21(type, name) => "will delete ${type} ${name}";
+  static String m22(type, name) => "will delete ${type} ${name}";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
@@ -164,9 +167,10 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Select cluster(s)"),
         "service_accounts":
             MessageLookupByLibrary.simpleMessage("ServiceAccounts"),
+        "service_text": m19,
         "services": MessageLookupByLibrary.simpleMessage("Services"),
         "settings": MessageLookupByLibrary.simpleMessage("Settings"),
-        "stateful_set_text": m19,
+        "stateful_set_text": m20,
         "stateful_sets": MessageLookupByLibrary.simpleMessage("StatefulSets"),
         "status": MessageLookupByLibrary.simpleMessage("Status"),
         "storage": MessageLookupByLibrary.simpleMessage("Storage"),
@@ -174,9 +178,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "theme_auto": MessageLookupByLibrary.simpleMessage("auto"),
         "theme_dark": MessageLookupByLibrary.simpleMessage("dark mode"),
         "theme_light": MessageLookupByLibrary.simpleMessage("light mode"),
-        "totals": m20,
+        "totals": m21,
         "version": MessageLookupByLibrary.simpleMessage("version"),
-        "will_delete": m21,
+        "will_delete": m22,
         "workloads": MessageLookupByLibrary.simpleMessage("Workloads")
       };
 }

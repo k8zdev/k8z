@@ -309,5 +309,16 @@
       "address": {},
       "ports": {}
     }
+  },
+  "service_text": "{name}\n名字空间: {ns}\n类: {type}\n集群 IP: {clusterIP}\n外部 IP: {externalIP}\n端口: {ports}",
+  "@service_text": {
+    "placeholders": {
+      "name": {},
+      "ns": {},
+      "type": {},
+      "clusterIP": {},
+      "externalIP": {},
+      "ports": {}
+    }
   }
 }

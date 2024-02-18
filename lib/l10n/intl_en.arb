@@ -319,5 +319,16 @@
       "address": {},
       "ports": {}
     }
+  },
+  "service_text": "{name}\nNamespace: {ns}\nType: {type}\nCluster IP: {clusterIP}\nExternal IP: {externalIP}\nPorts: {ports}",
+  "@service_text": {
+    "placeholders": {
+      "name": {},
+      "ns": {},
+      "type": {},
+      "clusterIP": {},
+      "externalIP": {},
+      "ports": {}
+    }
   }
 }

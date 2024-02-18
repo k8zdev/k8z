@@ -954,6 +954,17 @@ class S {
       args: [name, ns, className, hosts, address, ports],
     );
   }
+
+  /// `{name}\nNamespace: {ns}\nType: {type}\nCluster IP: {clusterIP}\nExternal IP: {externalIP}\nPorts: {ports}`
+  String service_text(Object name, Object ns, Object type, Object clusterIP,
+      Object externalIP, Object ports) {
+    return Intl.message(
+      '$name\nNamespace: $ns\nType: $type\nCluster IP: $clusterIP\nExternal IP: $externalIP\nPorts: $ports',
+      name: 'service_text',
+      desc: '',
+      args: [name, ns, type, clusterIP, externalIP, ports],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {
