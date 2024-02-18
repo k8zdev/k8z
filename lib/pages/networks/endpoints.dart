@@ -1,5 +1,6 @@
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
+import 'package:k8zdev/common/const.dart';
 import 'package:k8zdev/common/helpers.dart';
 import 'package:k8zdev/common/ops.dart';
 import 'package:k8zdev/common/styles.dart';
@@ -121,7 +122,10 @@ class _EndpointsPageState extends State<EndpointsPage> {
   Widget build(BuildContext context) {
     var lang = S.of(context);
     return Scaffold(
-        appBar: AppBar(title: Text(lang.endpoints)),
-        body: SettingsList(sections: [buildEndpointList(lang)]));
+      appBar: AppBar(title: Text(lang.endpoints)),
+      body: Container(
+          padding: bottomEdge,
+          child: SettingsList(sections: [buildEndpointList(lang)])),
+    );
   }
 }

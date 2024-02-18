@@ -1,5 +1,6 @@
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
+import 'package:k8zdev/common/const.dart';
 import 'package:k8zdev/common/helpers.dart';
 import 'package:k8zdev/common/ops.dart';
 import 'package:k8zdev/common/styles.dart';
@@ -122,7 +123,10 @@ class _ServicesPageState extends State<ServicesPage> {
   Widget build(BuildContext context) {
     var lang = S.of(context);
     return Scaffold(
-        appBar: AppBar(title: Text(lang.services)),
-        body: SettingsList(sections: [buildServiceList(lang)]));
+      appBar: AppBar(title: Text(lang.services)),
+      body: Container(
+          padding: bottomEdge,
+          child: SettingsList(sections: [buildServiceList(lang)])),
+    );
   }
 }
