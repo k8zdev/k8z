@@ -355,5 +355,13 @@
       "type": {},
       "data": {}
     }
+  },
+  "service_account_text": "{name}\nNamespace: {ns}\nSecret: {secrets}",
+  "@service_account_text": {
+    "placeholders": {
+      "name": {},
+      "ns": {},
+      "secrets": {}
+    }
   }
 }

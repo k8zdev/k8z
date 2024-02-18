@@ -77,8 +77,10 @@ class _ResourcesPageState extends State<ResourcesPage> {
         ),
         SettingsTile.navigation(
           title: Text(lang.service_accounts),
-          onPressed: (context) =>
-              GoRouter.of(context).pushNamed("service_accounts"),
+          onPressed: (context) => GoRouter.of(context).pushNamed(
+            "service_accounts",
+            extra: cluster,
+          ),
         ),
       ],
     );

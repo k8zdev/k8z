@@ -345,5 +345,13 @@
       "type": {},
       "data": {}
     }
+  },
+  "service_account_text": "{name}\n名字空间: {ns}\n秘钥: {secrets}",
+  "@service_account_text": {
+    "placeholders": {
+      "name": {},
+      "ns": {},
+      "secrets": {}
+    }
   }
 }

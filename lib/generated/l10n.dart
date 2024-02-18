@@ -995,6 +995,16 @@ class S {
       args: [name, ns, type, data],
     );
   }
+
+  /// `{name}\nNamespace: {ns}\nSecret: {secrets}`
+  String service_account_text(Object name, Object ns, Object secrets) {
+    return Intl.message(
+      '$name\nNamespace: $ns\nSecret: $secrets',
+      name: 'service_account_text',
+      desc: '',
+      args: [name, ns, secrets],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {
