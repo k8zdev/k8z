@@ -92,8 +92,10 @@ class _ResourcesPageState extends State<ResourcesPage> {
       tiles: [
         SettingsTile.navigation(
           title: Text(lang.storage_class),
-          onPressed: (context) =>
-              GoRouter.of(context).pushNamed("storage_class"),
+          onPressed: (context) => GoRouter.of(context).pushNamed(
+            "storage_class",
+            extra: cluster,
+          ),
         ),
         SettingsTile.navigation(
           title: Text(lang.pvs),

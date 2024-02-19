@@ -84,9 +84,13 @@ class MessageLookup extends MessageLookupByLibrary {
   static String m24(name, ns, ready, upToDate, available) =>
       "${name}\nNamespace: ${ns}\nReady: ${ready}\nUp to date: ${upToDate}\nAvailable: ${available}\n";
 
-  static String m25(number) => "Totals: ${number}";
+  static String m25(name, provisioner, reclaimPolicy, mountOptions,
+          volumeBindingMode, allowVolumeExpansion) =>
+      "${name}\nProvisioner: ${provisioner}\nReclaim Policy: ${reclaimPolicy}\nVolume Binding Mode: ${volumeBindingMode}\nAllow Volume Expansion: ${allowVolumeExpansion}";
 
-  static String m26(type, name) => "will delete ${type} ${name}";
+  static String m26(number) => "Totals: ${number}";
+
+  static String m27(type, name) => "will delete ${type} ${name}";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
@@ -191,12 +195,13 @@ class MessageLookup extends MessageLookupByLibrary {
         "status": MessageLookupByLibrary.simpleMessage("Status"),
         "storage": MessageLookupByLibrary.simpleMessage("Storage"),
         "storage_class": MessageLookupByLibrary.simpleMessage("StorageClass"),
+        "storage_class_text": m25,
         "theme_auto": MessageLookupByLibrary.simpleMessage("auto"),
         "theme_dark": MessageLookupByLibrary.simpleMessage("dark mode"),
         "theme_light": MessageLookupByLibrary.simpleMessage("light mode"),
-        "totals": m25,
+        "totals": m26,
         "version": MessageLookupByLibrary.simpleMessage("version"),
-        "will_delete": m26,
+        "will_delete": m27,
         "workloads": MessageLookupByLibrary.simpleMessage("Workloads")
       };
 }

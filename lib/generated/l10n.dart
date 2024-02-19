@@ -1005,6 +1005,29 @@ class S {
       args: [name, ns, secrets],
     );
   }
+
+  /// `{name}\nProvisioner: {provisioner}\nReclaim Policy: {reclaimPolicy}\nVolume Binding Mode: {volumeBindingMode}\nAllow Volume Expansion: {allowVolumeExpansion}`
+  String storage_class_text(
+      Object name,
+      Object provisioner,
+      Object reclaimPolicy,
+      Object mountOptions,
+      Object volumeBindingMode,
+      Object allowVolumeExpansion) {
+    return Intl.message(
+      '$name\nProvisioner: $provisioner\nReclaim Policy: $reclaimPolicy\nVolume Binding Mode: $volumeBindingMode\nAllow Volume Expansion: $allowVolumeExpansion',
+      name: 'storage_class_text',
+      desc: '',
+      args: [
+        name,
+        provisioner,
+        reclaimPolicy,
+        mountOptions,
+        volumeBindingMode,
+        allowVolumeExpansion
+      ],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

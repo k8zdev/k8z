@@ -353,5 +353,15 @@
       "ns": {},
       "secrets": {}
     }
+  },
+  "storage_class_text": "{name}\n分配器: {provisioner}\n回收策略: {reclaimPolicy}\n存储卷绑定模式: {volumeBindingMode}\n允许卷扩展: {allowVolumeExpansion}",
+  "@storage_class_text": {
+    "placeholders": {
+      "name": {},
+      "provisioner": {},
+      "reclaimPolicy": {},
+      "volumeBindingMode": {},
+      "allowVolumeExpansion": {}
+    }
   }
 }

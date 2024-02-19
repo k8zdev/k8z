@@ -363,5 +363,16 @@
       "ns": {},
       "secrets": {}
     }
+  },
+  "storage_class_text": "{name}\nProvisioner: {provisioner}\nReclaim Policy: {reclaimPolicy}\nVolume Binding Mode: {volumeBindingMode}\nAllow Volume Expansion: {allowVolumeExpansion}",
+  "@storage_class_text": {
+    "placeholders": {
+      "name": {},
+      "provisioner": {},
+      "reclaimPolicy": {},
+      "mountOptions": {},
+      "volumeBindingMode": {},
+      "allowVolumeExpansion": {}
+    }
   }
 }

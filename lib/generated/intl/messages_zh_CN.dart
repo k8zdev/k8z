@@ -80,9 +80,13 @@ class MessageLookup extends MessageLookupByLibrary {
   static String m24(name, ns, ready, upToDate, available) =>
       "${name}\n名字空间: ${ns}\n就绪: ${ready}\nUp to date: ${upToDate}\n可用: ${available}";
 
-  static String m25(number) => "总计: ${number}";
+  static String m25(name, provisioner, reclaimPolicy, mountOptions,
+          volumeBindingMode, allowVolumeExpansion) =>
+      "${name}\n分配器: ${provisioner}\n回收策略: ${reclaimPolicy}\n存储卷绑定模式: ${volumeBindingMode}\n允许卷扩展: ${allowVolumeExpansion}";
 
-  static String m26(type, name) => "将要删除 ${type} ${name}";
+  static String m26(number) => "总计: ${number}";
+
+  static String m27(type, name) => "将要删除 ${type} ${name}";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
@@ -175,12 +179,13 @@ class MessageLookup extends MessageLookupByLibrary {
         "status": MessageLookupByLibrary.simpleMessage("状态"),
         "storage": MessageLookupByLibrary.simpleMessage("存储"),
         "storage_class": MessageLookupByLibrary.simpleMessage("存储类"),
+        "storage_class_text": m25,
         "theme_auto": MessageLookupByLibrary.simpleMessage("跟随系统"),
         "theme_dark": MessageLookupByLibrary.simpleMessage("深色模式"),
         "theme_light": MessageLookupByLibrary.simpleMessage("亮色模式"),
-        "totals": m25,
+        "totals": m26,
         "version": MessageLookupByLibrary.simpleMessage("版本"),
-        "will_delete": m26,
+        "will_delete": m27,
         "workloads": MessageLookupByLibrary.simpleMessage("负载")
       };
 }
