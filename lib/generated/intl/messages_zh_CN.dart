@@ -68,25 +68,29 @@ class MessageLookup extends MessageLookupByLibrary {
           name, namespace, ready, status, restarts, containers, cpu, memory) =>
       "${name}\n\n名字空间: ${namespace}\n就绪: ${ready}\n状况: ${status}\n重启: ${restarts}\n容器: ${containers}\nCPU: ${cpu}\n内存: ${memory}";
 
-  static String m21(name, ns, type, data) =>
+  static String m21(name, capacity, accessModes, reclaimPolicy, status, claim,
+          storageClass, reason) =>
+      "${name}\n容量: ${capacity}\n访问模式: ${accessModes}\n回收策略: ${reclaimPolicy}\n状态: ${status}\n声明: ${claim}\n存储类: ${storageClass}\n原因: ${reason}\n";
+
+  static String m22(name, ns, type, data) =>
       "${name}\n名字空间: ${ns}\n类型: ${type}\n数据: ${data}";
 
-  static String m22(name, ns, secrets) =>
+  static String m23(name, ns, secrets) =>
       "${name}\n名字空间: ${ns}\n秘钥: ${secrets}";
 
-  static String m23(name, ns, type, clusterIP, externalIP, ports) =>
+  static String m24(name, ns, type, clusterIP, externalIP, ports) =>
       "${name}\n名字空间: ${ns}\n类: ${type}\n集群 IP: ${clusterIP}\n外部 IP: ${externalIP}\n端口: ${ports}";
 
-  static String m24(name, ns, ready, upToDate, available) =>
+  static String m25(name, ns, ready, upToDate, available) =>
       "${name}\n名字空间: ${ns}\n就绪: ${ready}\nUp to date: ${upToDate}\n可用: ${available}";
 
-  static String m25(name, provisioner, reclaimPolicy, mountOptions,
+  static String m26(name, provisioner, reclaimPolicy, mountOptions,
           volumeBindingMode, allowVolumeExpansion) =>
       "${name}\n分配器: ${provisioner}\n回收策略: ${reclaimPolicy}\n存储卷绑定模式: ${volumeBindingMode}\n允许卷扩展: ${allowVolumeExpansion}";
 
-  static String m26(number) => "总计: ${number}";
+  static String m27(number) => "总计: ${number}";
 
-  static String m27(type, name) => "将要删除 ${type} ${name}";
+  static String m28(type, name) => "将要删除 ${type} ${name}";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
@@ -161,31 +165,32 @@ class MessageLookup extends MessageLookupByLibrary {
         "overview": MessageLookupByLibrary.simpleMessage("概览"),
         "pod_text": m20,
         "pods": MessageLookupByLibrary.simpleMessage("Pods"),
+        "pv_text": m21,
         "pvcs": MessageLookupByLibrary.simpleMessage("持久卷申领"),
         "pvs": MessageLookupByLibrary.simpleMessage("持久卷"),
         "resources": MessageLookupByLibrary.simpleMessage("资源"),
         "running": MessageLookupByLibrary.simpleMessage("运行中"),
         "save_clusters": MessageLookupByLibrary.simpleMessage("保存集群"),
-        "secret_text": m21,
+        "secret_text": m22,
         "secrets": MessageLookupByLibrary.simpleMessage("Secrets"),
         "select_clusters": MessageLookupByLibrary.simpleMessage("选择需要的集群"),
-        "service_account_text": m22,
+        "service_account_text": m23,
         "service_accounts": MessageLookupByLibrary.simpleMessage("服务账号"),
-        "service_text": m23,
+        "service_text": m24,
         "services": MessageLookupByLibrary.simpleMessage("服务 (services)"),
         "settings": MessageLookupByLibrary.simpleMessage("设置"),
-        "stateful_set_text": m24,
+        "stateful_set_text": m25,
         "stateful_sets": MessageLookupByLibrary.simpleMessage("StatefulSets"),
         "status": MessageLookupByLibrary.simpleMessage("状态"),
         "storage": MessageLookupByLibrary.simpleMessage("存储"),
         "storage_class": MessageLookupByLibrary.simpleMessage("存储类"),
-        "storage_class_text": m25,
+        "storage_class_text": m26,
         "theme_auto": MessageLookupByLibrary.simpleMessage("跟随系统"),
         "theme_dark": MessageLookupByLibrary.simpleMessage("深色模式"),
         "theme_light": MessageLookupByLibrary.simpleMessage("亮色模式"),
-        "totals": m26,
+        "totals": m27,
         "version": MessageLookupByLibrary.simpleMessage("版本"),
-        "will_delete": m27,
+        "will_delete": m28,
         "workloads": MessageLookupByLibrary.simpleMessage("负载")
       };
 }

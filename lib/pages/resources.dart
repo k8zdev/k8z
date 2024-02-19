@@ -99,7 +99,10 @@ class _ResourcesPageState extends State<ResourcesPage> {
         ),
         SettingsTile.navigation(
           title: Text(lang.pvs),
-          onPressed: (context) => GoRouter.of(context).pushNamed("pvs"),
+          onPressed: (context) => GoRouter.of(context).pushNamed(
+            "pvs",
+            extra: cluster,
+          ),
         ),
         SettingsTile.navigation(
           title: Text(lang.pvcs),

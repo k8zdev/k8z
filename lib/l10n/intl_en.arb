@@ -374,5 +374,18 @@
       "volumeBindingMode": {},
       "allowVolumeExpansion": {}
     }
+  },
+  "pv_text": "{name}\nCapacity: {capacity}\nAccess Modes: {accessModes}\nReclaim Policy: {reclaimPolicy}\nStatus: {status}\nClaim: {claim}\nStorage Class: {storageClass}\nReason: {reason}\n",
+  "@pv_text": {
+    "placeholders": {
+      "name": {},
+      "capacity": {},
+      "accessModes": {},
+      "reclaimPolicy": {},
+      "status": {},
+      "claim": {},
+      "storageClass": {},
+      "reason": {}
+    }
   }
 }

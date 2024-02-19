@@ -72,25 +72,29 @@ class MessageLookup extends MessageLookupByLibrary {
           name, namespace, ready, status, restarts, containers, cpu, memory) =>
       "${name}\n\nNamespace: ${namespace}\nReady: ${ready}\nStatus: ${status}\nRestarts: ${restarts}\nContainers: ${containers}\nCPU: ${cpu}\nMemory: ${memory}";
 
-  static String m21(name, ns, type, data) =>
+  static String m21(name, capacity, accessModes, reclaimPolicy, status, claim,
+          storageClass, reason) =>
+      "${name}\nCapacity: ${capacity}\nAccess Modes: ${accessModes}\nReclaim Policy: ${reclaimPolicy}\nStatus: ${status}\nClaim: ${claim}\nStorage Class: ${storageClass}\nReason: ${reason}\n";
+
+  static String m22(name, ns, type, data) =>
       "${name}\nNamespace: ${ns}\nType: ${type}\nData: ${data}";
 
-  static String m22(name, ns, secrets) =>
+  static String m23(name, ns, secrets) =>
       "${name}\nNamespace: ${ns}\nSecret: ${secrets}";
 
-  static String m23(name, ns, type, clusterIP, externalIP, ports) =>
+  static String m24(name, ns, type, clusterIP, externalIP, ports) =>
       "${name}\nNamespace: ${ns}\nType: ${type}\nCluster IP: ${clusterIP}\nExternal IP: ${externalIP}\nPorts: ${ports}";
 
-  static String m24(name, ns, ready, upToDate, available) =>
+  static String m25(name, ns, ready, upToDate, available) =>
       "${name}\nNamespace: ${ns}\nReady: ${ready}\nUp to date: ${upToDate}\nAvailable: ${available}\n";
 
-  static String m25(name, provisioner, reclaimPolicy, mountOptions,
+  static String m26(name, provisioner, reclaimPolicy, mountOptions,
           volumeBindingMode, allowVolumeExpansion) =>
       "${name}\nProvisioner: ${provisioner}\nReclaim Policy: ${reclaimPolicy}\nVolume Binding Mode: ${volumeBindingMode}\nAllow Volume Expansion: ${allowVolumeExpansion}";
 
-  static String m26(number) => "Totals: ${number}";
+  static String m27(number) => "Totals: ${number}";
 
-  static String m27(type, name) => "will delete ${type} ${name}";
+  static String m28(type, name) => "will delete ${type} ${name}";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
@@ -174,34 +178,35 @@ class MessageLookup extends MessageLookupByLibrary {
         "overview": MessageLookupByLibrary.simpleMessage("Overview"),
         "pod_text": m20,
         "pods": MessageLookupByLibrary.simpleMessage("Pods"),
+        "pv_text": m21,
         "pvcs":
             MessageLookupByLibrary.simpleMessage("Persistent Volume Claims"),
         "pvs": MessageLookupByLibrary.simpleMessage("Persistent Volumes"),
         "resources": MessageLookupByLibrary.simpleMessage("Resources"),
         "running": MessageLookupByLibrary.simpleMessage("Running"),
         "save_clusters": MessageLookupByLibrary.simpleMessage("save clusters"),
-        "secret_text": m21,
+        "secret_text": m22,
         "secrets": MessageLookupByLibrary.simpleMessage("Secrets"),
         "select_clusters":
             MessageLookupByLibrary.simpleMessage("Select cluster(s)"),
-        "service_account_text": m22,
+        "service_account_text": m23,
         "service_accounts":
             MessageLookupByLibrary.simpleMessage("ServiceAccounts"),
-        "service_text": m23,
+        "service_text": m24,
         "services": MessageLookupByLibrary.simpleMessage("Services"),
         "settings": MessageLookupByLibrary.simpleMessage("Settings"),
-        "stateful_set_text": m24,
+        "stateful_set_text": m25,
         "stateful_sets": MessageLookupByLibrary.simpleMessage("StatefulSets"),
         "status": MessageLookupByLibrary.simpleMessage("Status"),
         "storage": MessageLookupByLibrary.simpleMessage("Storage"),
         "storage_class": MessageLookupByLibrary.simpleMessage("StorageClass"),
-        "storage_class_text": m25,
+        "storage_class_text": m26,
         "theme_auto": MessageLookupByLibrary.simpleMessage("auto"),
         "theme_dark": MessageLookupByLibrary.simpleMessage("dark mode"),
         "theme_light": MessageLookupByLibrary.simpleMessage("light mode"),
-        "totals": m26,
+        "totals": m27,
         "version": MessageLookupByLibrary.simpleMessage("version"),
-        "will_delete": m27,
+        "will_delete": m28,
         "workloads": MessageLookupByLibrary.simpleMessage("Workloads")
       };
 }

@@ -1028,6 +1028,33 @@ class S {
       ],
     );
   }
+
+  /// `{name}\nCapacity: {capacity}\nAccess Modes: {accessModes}\nReclaim Policy: {reclaimPolicy}\nStatus: {status}\nClaim: {claim}\nStorage Class: {storageClass}\nReason: {reason}\n`
+  String pv_text(
+      Object name,
+      Object capacity,
+      Object accessModes,
+      Object reclaimPolicy,
+      Object status,
+      Object claim,
+      Object storageClass,
+      Object reason) {
+    return Intl.message(
+      '$name\nCapacity: $capacity\nAccess Modes: $accessModes\nReclaim Policy: $reclaimPolicy\nStatus: $status\nClaim: $claim\nStorage Class: $storageClass\nReason: $reason\n',
+      name: 'pv_text',
+      desc: '',
+      args: [
+        name,
+        capacity,
+        accessModes,
+        reclaimPolicy,
+        status,
+        claim,
+        storageClass,
+        reason
+      ],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

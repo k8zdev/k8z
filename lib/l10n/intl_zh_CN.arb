@@ -363,5 +363,18 @@
       "volumeBindingMode": {},
       "allowVolumeExpansion": {}
     }
+  },
+  "pv_text": "{name}\n容量: {capacity}\n访问模式: {accessModes}\n回收策略: {reclaimPolicy}\n状态: {status}\n声明: {claim}\n存储类: {storageClass}\n原因: {reason}\n",
+  "@pv_text": {
+    "placeholders": {
+      "name": {},
+      "capacity": {},
+      "accessModes": {},
+      "reclaimPolicy": {},
+      "status": {},
+      "claim": {},
+      "storageClass": {},
+      "reason": {}
+    }
   }
 }
