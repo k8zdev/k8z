@@ -376,5 +376,17 @@
       "storageClass": {},
       "reason": {}
     }
+  },
+  "pvc_text": "{name}\n名字空间: {ns}\n状态: {status}\n卷名称: {volume}\n容量: {capacity}\n访问模式: {accessModes}\n存储类: {storageClass}",
+  "@pvc_text": {
+    "placeholders": {
+      "name": {},
+      "ns": {},
+      "capacity": {},
+      "accessModes": {},
+      "status": {},
+      "storageClass": {},
+      "reason": {}
+    }
   }
 }

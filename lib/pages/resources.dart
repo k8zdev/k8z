@@ -106,7 +106,10 @@ class _ResourcesPageState extends State<ResourcesPage> {
         ),
         SettingsTile.navigation(
           title: Text(lang.pvcs),
-          onPressed: (context) => GoRouter.of(context).pushNamed("pvcs"),
+          onPressed: (context) => GoRouter.of(context).pushNamed(
+            "pvcs",
+            extra: cluster,
+          ),
         ),
       ],
     );

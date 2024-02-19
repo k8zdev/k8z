@@ -313,9 +313,12 @@ final router = GoRouter(
             GoRoute(
               path: "pvcs",
               name: "pvcs",
-              pageBuilder: (context, state) => const NoTransitionPage(
-                child: PvcsPage(),
-              ),
+              pageBuilder: (context, state) {
+                var cluster = state.extra as K8zCluster;
+                return NoTransitionPage(
+                  child: PvcsPage(cluster: cluster),
+                );
+              },
             ),
           ],
         ),

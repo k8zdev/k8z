@@ -1055,6 +1055,17 @@ class S {
       ],
     );
   }
+
+  /// `{name}\nNamespace: {ns}\nStatus: {status}\nVolume: {volume}\nCapacity: {capacity}\nAccess Modes: {accessModes}\nStorage Class: {storageClass}`
+  String pvc_text(Object name, Object ns, Object status, Object volume,
+      Object capacity, Object accessModes, Object storageClass) {
+    return Intl.message(
+      '$name\nNamespace: $ns\nStatus: $status\nVolume: $volume\nCapacity: $capacity\nAccess Modes: $accessModes\nStorage Class: $storageClass',
+      name: 'pvc_text',
+      desc: '',
+      args: [name, ns, status, volume, capacity, accessModes, storageClass],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {
