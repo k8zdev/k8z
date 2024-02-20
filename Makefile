@@ -38,3 +38,9 @@ gen-k8s-api-model:
 .PHONY: update-icon
 update-icon:
 	dart run icons_launcher:create
+
+.PHONY: decrypt
+decrypt:
+	@gpg --quiet --batch --yes --decrypt --passphrase="${LARGE_SECRET_PASSPHRASE}" \
+	 --output ${PWD}/lib/firebase_options.dart ${PWD}/lib/firebase_options.dart.gpg
+	echo "Decrypt firebase_options done"
