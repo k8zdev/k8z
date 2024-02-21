@@ -25,4 +25,15 @@ class CurrentCluster with ChangeNotifier {
 
     notifyListeners();
   }
+
+  void updateNamespace(String? namespace) {
+    if (_current == null) {
+      return;
+    }
+    _current!.namespace = namespace ?? "";
+    vset(currentClusterKey, jsonEncode(_current?.toJson()));
+    K8zCluster.update(_current!);
+
+    notifyListeners();
+  }
 }
