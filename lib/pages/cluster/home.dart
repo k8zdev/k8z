@@ -83,7 +83,7 @@ class _ClusterHomePageState extends State<ClusterHomePage> {
         SettingsTile.switchTile(
           initialValue: ccProvider.current?.name == widget.cluster.name,
           onToggle: (value) {
-            late K8zCluster cluster;
+            K8zCluster? cluster;
             talker.info("to $value");
             if (value) {
               cluster = widget.cluster;
