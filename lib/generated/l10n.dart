@@ -1066,6 +1066,47 @@ class S {
       args: [name, ns, status, volume, capacity, accessModes, storageClass],
     );
   }
+
+  /// `Applications`
+  String get applications {
+    return Intl.message(
+      'Applications',
+      name: 'applications',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Helm`
+  String get helm {
+    return Intl.message(
+      'Helm',
+      name: 'helm',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Releases`
+  String get releases {
+    return Intl.message(
+      'Releases',
+      name: 'releases',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `{name}\nNamespace: {ns}\nRevision: {revision}\nApp Version: {appVer}\nUpdated: {updated}\nStatus: {status}\nChart: {chart}`
+  String release_text(Object name, Object ns, Object revision, Object appVer,
+      Object updated, Object status, Object chart) {
+    return Intl.message(
+      '$name\nNamespace: $ns\nRevision: $revision\nApp Version: $appVer\nUpdated: $updated\nStatus: $status\nChart: $chart',
+      name: 'release_text',
+      desc: '',
+      args: [name, ns, revision, appVer, updated, status, chart],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

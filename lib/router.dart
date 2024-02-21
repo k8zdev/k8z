@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:k8zdev/common/ops.dart';
 import 'package:k8zdev/dao/kube.dart';
 import 'package:k8zdev/generated/l10n.dart';
+import 'package:k8zdev/pages/applications/helm_releases.dart';
 import 'package:k8zdev/pages/cluster/select_clusters.dart';
 import 'package:k8zdev/pages/cluster/create.dart';
 import 'package:k8zdev/pages/cluster/create_load_manual.dart';
@@ -125,6 +126,17 @@ final router = GoRouter(
             );
           },
           routes: [
+            // apps
+            GoRoute(
+              path: "helm_releases",
+              name: "helm_releases",
+              pageBuilder: (context, state) {
+                var cluster = state.extra as K8zCluster;
+                return NoTransitionPage(
+                  child: HelmReleasesPage(cluster: cluster),
+                );
+              },
+            ),
             // workload
             GoRoute(
               path: "pods",

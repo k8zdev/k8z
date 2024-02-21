@@ -399,5 +399,22 @@
       "accessModes": {},
       "storageClass": {}
     }
+  },
+  "applications": "Applications",
+  "helm": "Helm",
+  "@helm": {},
+  "releases": "Releases",
+  "@releases": {},
+  "release_text": "{name}\nNamespace: {ns}\nRevision: {revision}\nApp Version: {appVer}\nUpdated: {updated}\nStatus: {status}\nChart: {chart}",
+  "@release_text": {
+    "placeholders": {
+      "name": {},
+      "ns": {},
+      "revision": {},
+      "appVer": {},
+      "updated": {},
+      "status": {},
+      "chart": {}
+    }
   }
 }

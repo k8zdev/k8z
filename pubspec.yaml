@@ -67,6 +67,7 @@ dependencies:
   firebase_core: ^2.25.4
   firebase_crashlytics: ^3.4.15
   firebase_analytics: ^10.8.6
+  archive: ^3.4.10
 
 dependency_overrides:
   meta: 1.11.0

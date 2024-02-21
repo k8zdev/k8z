@@ -80,25 +80,28 @@ class MessageLookup extends MessageLookupByLibrary {
           name, ns, status, volume, capacity, accessModes, storageClass) =>
       "${name}\nNamespace: ${ns}\nStatus: ${status}\nVolume: ${volume}\nCapacity: ${capacity}\nAccess Modes: ${accessModes}\nStorage Class: ${storageClass}";
 
-  static String m23(name, ns, type, data) =>
+  static String m23(name, ns, revision, appVer, updated, status, chart) =>
+      "${name}\nNamespace: ${ns}\nRevision: ${revision}\nApp Version: ${appVer}\nUpdated: ${updated}\nStatus: ${status}\nChart: ${chart}";
+
+  static String m24(name, ns, type, data) =>
       "${name}\nNamespace: ${ns}\nType: ${type}\nData: ${data}";
 
-  static String m24(name, ns, secrets) =>
+  static String m25(name, ns, secrets) =>
       "${name}\nNamespace: ${ns}\nSecret: ${secrets}";
 
-  static String m25(name, ns, type, clusterIP, externalIP, ports) =>
+  static String m26(name, ns, type, clusterIP, externalIP, ports) =>
       "${name}\nNamespace: ${ns}\nType: ${type}\nCluster IP: ${clusterIP}\nExternal IP: ${externalIP}\nPorts: ${ports}";
 
-  static String m26(name, ns, ready, upToDate, available) =>
+  static String m27(name, ns, ready, upToDate, available) =>
       "${name}\nNamespace: ${ns}\nReady: ${ready}\nUp to date: ${upToDate}\nAvailable: ${available}\n";
 
-  static String m27(name, provisioner, reclaimPolicy, mountOptions,
+  static String m28(name, provisioner, reclaimPolicy, mountOptions,
           volumeBindingMode, allowVolumeExpansion) =>
       "${name}\nProvisioner: ${provisioner}\nReclaim Policy: ${reclaimPolicy}\nVolume Binding Mode: ${volumeBindingMode}\nAllow Volume Expansion: ${allowVolumeExpansion}";
 
-  static String m28(number) => "Totals: ${number}";
+  static String m29(number) => "Totals: ${number}";
 
-  static String m29(type, name) => "will delete ${type} ${name}";
+  static String m30(type, name) => "will delete ${type} ${name}";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
@@ -107,6 +110,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "all": MessageLookupByLibrary.simpleMessage("All"),
         "appName": MessageLookupByLibrary.simpleMessage("k8z"),
         "appearance": MessageLookupByLibrary.simpleMessage("appearance"),
+        "applications": MessageLookupByLibrary.simpleMessage("Applications"),
         "arsure": MessageLookupByLibrary.simpleMessage("are your sure?"),
         "cancel": MessageLookupByLibrary.simpleMessage("cancel"),
         "clusters": MessageLookupByLibrary.simpleMessage("Clusters"),
@@ -152,6 +156,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "general_language_ja": MessageLookupByLibrary.simpleMessage("Japanese"),
         "general_language_null": MessageLookupByLibrary.simpleMessage("Auto"),
         "general_language_zh": MessageLookupByLibrary.simpleMessage("Chinese"),
+        "helm": MessageLookupByLibrary.simpleMessage("Helm"),
         "ingress_text": m10,
         "ingresses": MessageLookupByLibrary.simpleMessage("Ingresses"),
         "internel_ip": m11,
@@ -187,31 +192,33 @@ class MessageLookup extends MessageLookupByLibrary {
         "pvcs":
             MessageLookupByLibrary.simpleMessage("Persistent Volume Claims"),
         "pvs": MessageLookupByLibrary.simpleMessage("Persistent Volumes"),
+        "release_text": m23,
+        "releases": MessageLookupByLibrary.simpleMessage("Releases"),
         "resources": MessageLookupByLibrary.simpleMessage("Resources"),
         "running": MessageLookupByLibrary.simpleMessage("Running"),
         "save_clusters": MessageLookupByLibrary.simpleMessage("save clusters"),
-        "secret_text": m23,
+        "secret_text": m24,
         "secrets": MessageLookupByLibrary.simpleMessage("Secrets"),
         "select_clusters":
             MessageLookupByLibrary.simpleMessage("Select cluster(s)"),
-        "service_account_text": m24,
+        "service_account_text": m25,
         "service_accounts":
             MessageLookupByLibrary.simpleMessage("ServiceAccounts"),
-        "service_text": m25,
+        "service_text": m26,
         "services": MessageLookupByLibrary.simpleMessage("Services"),
         "settings": MessageLookupByLibrary.simpleMessage("Settings"),
-        "stateful_set_text": m26,
+        "stateful_set_text": m27,
         "stateful_sets": MessageLookupByLibrary.simpleMessage("StatefulSets"),
         "status": MessageLookupByLibrary.simpleMessage("Status"),
         "storage": MessageLookupByLibrary.simpleMessage("Storage"),
         "storage_class": MessageLookupByLibrary.simpleMessage("StorageClass"),
-        "storage_class_text": m27,
+        "storage_class_text": m28,
         "theme_auto": MessageLookupByLibrary.simpleMessage("auto"),
         "theme_dark": MessageLookupByLibrary.simpleMessage("dark mode"),
         "theme_light": MessageLookupByLibrary.simpleMessage("light mode"),
-        "totals": m28,
+        "totals": m29,
         "version": MessageLookupByLibrary.simpleMessage("version"),
-        "will_delete": m29,
+        "will_delete": m30,
         "workloads": MessageLookupByLibrary.simpleMessage("Workloads")
       };
 }

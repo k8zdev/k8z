@@ -26,6 +26,21 @@ class _WorkloadsPageState extends State<WorkloadsPage> {
   Widget build(BuildContext context) {
     var lang = S.of(context);
     var sections = [
+      //
+      SettingsSection(
+        title: Text(lang.applications),
+        tiles: [
+          SettingsTile.navigation(
+            title: Text(lang.helm),
+            onPressed: (context) => GoRouter.of(context).pushNamed(
+              "helm_releases",
+              extra: cluster,
+            ),
+          ),
+        ],
+      ),
+
+      //
       SettingsSection(
         title: Text(lang.workloads),
         tiles: [

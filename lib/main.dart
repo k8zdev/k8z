@@ -43,7 +43,7 @@ void main() async {
     "os.name": Platform.operatingSystem,
     "localHostname": Platform.localHostname,
     "os.version": Platform.operatingSystemVersion,
-    "environment": Platform.environment
+    "environment": Platform.environment.toString(),
   });
 
   if (Platform.isWindows || Platform.isLinux || Platform.isMacOS) {

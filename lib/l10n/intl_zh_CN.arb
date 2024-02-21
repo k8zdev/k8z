@@ -388,5 +388,22 @@
       "storageClass": {},
       "reason": {}
     }
+  },
+  "applications": "应用程序",
+  "helm": "Helm",
+  "@helm": {},
+  "releases": "Releases",
+  "@releases": {},
+  "release_text": "{name}\n名字空间: {ns}\nRevision: {revision}\n程序版本: {appVer}\n更新: {updated}\n状态: {status}\nChart: {chart}",
+  "@release_text": {
+    "placeholders": {
+      "name": {},
+      "ns": {},
+      "revision": {},
+      "appVer": {},
+      "updated": {},
+      "status": {},
+      "chart": {}
+    }
   }
 }

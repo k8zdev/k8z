@@ -76,25 +76,28 @@ class MessageLookup extends MessageLookupByLibrary {
           name, ns, status, volume, capacity, accessModes, storageClass) =>
       "${name}\n名字空间: ${ns}\n状态: ${status}\n卷名称: ${volume}\n容量: ${capacity}\n访问模式: ${accessModes}\n存储类: ${storageClass}";
 
-  static String m23(name, ns, type, data) =>
+  static String m23(name, ns, revision, appVer, updated, status, chart) =>
+      "${name}\n名字空间: ${ns}\nRevision: ${revision}\n程序版本: ${appVer}\n更新: ${updated}\n状态: ${status}\nChart: ${chart}";
+
+  static String m24(name, ns, type, data) =>
       "${name}\n名字空间: ${ns}\n类型: ${type}\n数据: ${data}";
 
-  static String m24(name, ns, secrets) =>
+  static String m25(name, ns, secrets) =>
       "${name}\n名字空间: ${ns}\n秘钥: ${secrets}";
 
-  static String m25(name, ns, type, clusterIP, externalIP, ports) =>
+  static String m26(name, ns, type, clusterIP, externalIP, ports) =>
       "${name}\n名字空间: ${ns}\n类: ${type}\n集群 IP: ${clusterIP}\n外部 IP: ${externalIP}\n端口: ${ports}";
 
-  static String m26(name, ns, ready, upToDate, available) =>
+  static String m27(name, ns, ready, upToDate, available) =>
       "${name}\n名字空间: ${ns}\n就绪: ${ready}\nUp to date: ${upToDate}\n可用: ${available}";
 
-  static String m27(name, provisioner, reclaimPolicy, mountOptions,
+  static String m28(name, provisioner, reclaimPolicy, mountOptions,
           volumeBindingMode, allowVolumeExpansion) =>
       "${name}\n分配器: ${provisioner}\n回收策略: ${reclaimPolicy}\n存储卷绑定模式: ${volumeBindingMode}\n允许卷扩展: ${allowVolumeExpansion}";
 
-  static String m28(number) => "总计: ${number}";
+  static String m29(number) => "总计: ${number}";
 
-  static String m29(type, name) => "将要删除 ${type} ${name}";
+  static String m30(type, name) => "将要删除 ${type} ${name}";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
@@ -103,6 +106,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "all": MessageLookupByLibrary.simpleMessage("全部"),
         "appName": MessageLookupByLibrary.simpleMessage("k8z"),
         "appearance": MessageLookupByLibrary.simpleMessage("外观"),
+        "applications": MessageLookupByLibrary.simpleMessage("应用程序"),
         "arsure": MessageLookupByLibrary.simpleMessage("你确认吗?"),
         "cancel": MessageLookupByLibrary.simpleMessage("取消"),
         "clusters": MessageLookupByLibrary.simpleMessage("集群"),
@@ -142,6 +146,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "general_language_ja": MessageLookupByLibrary.simpleMessage("日本语"),
         "general_language_null": MessageLookupByLibrary.simpleMessage("跟随系统"),
         "general_language_zh": MessageLookupByLibrary.simpleMessage("中文"),
+        "helm": MessageLookupByLibrary.simpleMessage("Helm"),
         "ingress_text": m10,
         "ingresses": MessageLookupByLibrary.simpleMessage("入口 (ingresses)"),
         "internel_ip": m11,
@@ -173,29 +178,31 @@ class MessageLookup extends MessageLookupByLibrary {
         "pvc_text": m22,
         "pvcs": MessageLookupByLibrary.simpleMessage("持久卷申领"),
         "pvs": MessageLookupByLibrary.simpleMessage("持久卷"),
+        "release_text": m23,
+        "releases": MessageLookupByLibrary.simpleMessage("Releases"),
         "resources": MessageLookupByLibrary.simpleMessage("资源"),
         "running": MessageLookupByLibrary.simpleMessage("运行中"),
         "save_clusters": MessageLookupByLibrary.simpleMessage("保存集群"),
-        "secret_text": m23,
+        "secret_text": m24,
         "secrets": MessageLookupByLibrary.simpleMessage("Secrets"),
         "select_clusters": MessageLookupByLibrary.simpleMessage("选择需要的集群"),
-        "service_account_text": m24,
+        "service_account_text": m25,
         "service_accounts": MessageLookupByLibrary.simpleMessage("服务账号"),
-        "service_text": m25,
+        "service_text": m26,
         "services": MessageLookupByLibrary.simpleMessage("服务 (services)"),
         "settings": MessageLookupByLibrary.simpleMessage("设置"),
-        "stateful_set_text": m26,
+        "stateful_set_text": m27,
         "stateful_sets": MessageLookupByLibrary.simpleMessage("StatefulSets"),
         "status": MessageLookupByLibrary.simpleMessage("状态"),
         "storage": MessageLookupByLibrary.simpleMessage("存储"),
         "storage_class": MessageLookupByLibrary.simpleMessage("存储类"),
-        "storage_class_text": m27,
+        "storage_class_text": m28,
         "theme_auto": MessageLookupByLibrary.simpleMessage("跟随系统"),
         "theme_dark": MessageLookupByLibrary.simpleMessage("深色模式"),
         "theme_light": MessageLookupByLibrary.simpleMessage("亮色模式"),
-        "totals": m28,
+        "totals": m29,
         "version": MessageLookupByLibrary.simpleMessage("版本"),
-        "will_delete": m29,
+        "will_delete": m30,
         "workloads": MessageLookupByLibrary.simpleMessage("负载")
       };
 }
