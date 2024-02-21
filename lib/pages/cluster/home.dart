@@ -29,6 +29,7 @@ class ClusterHomePage extends StatefulWidget {
 class _ClusterHomePageState extends State<ClusterHomePage> {
   final eventNumber = 5;
   SettingsSection overview(S lang, CurrentCluster ccProvider) {
+    final ns = ccProvider.current?.namespace ?? "";
     return SettingsSection(
       title: Text(lang.overview),
       tiles: [
@@ -95,7 +96,7 @@ class _ClusterHomePageState extends State<ClusterHomePage> {
         ),
         SettingsTile.navigation(
             title: Text(lang.namespaces),
-            value: Text(ccProvider.current?.namespace ?? ""),
+            value: Text(ns.isEmpty ? lang.all : ns),
             onPressed: (context) {
               showCurrentNamespace(context, ccProvider.current);
             }),

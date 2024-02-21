@@ -4,8 +4,10 @@ import 'package:k8zdev/common/ops.dart';
 import 'package:k8zdev/dao/kube.dart';
 import 'package:k8zdev/generated/l10n.dart';
 import 'package:k8zdev/models/models.dart';
+import 'package:k8zdev/providers/current_cluster.dart';
 import 'package:k8zdev/services/k8z_service.dart';
 import 'package:k8zdev/widgets/widgets.dart';
+import 'package:provider/provider.dart';
 import 'package:settings_ui/settings_ui.dart';
 
 void showCurrentNamespace(BuildContext context, K8zCluster? cluster) {
@@ -28,7 +30,7 @@ class CurrentNamespace extends StatelessWidget {
   final K8zCluster cluster;
   const CurrentNamespace({super.key, required this.cluster});
 
-  AbstractSettingsSection namespaces(S lang) {
+  AbstractSettingsSection namespaces(S lang, CurrentCluster ccProvider) {
     return CustomSettingsSection(
       child: FutureBuilder(
         future: () async {
@@ -68,8 +70,8 @@ class CurrentNamespace extends StatelessWidget {
                         value: name,
                         groupValue: cluster.namespace,
                         onChanged: (value) {
-                          cluster.namespace = value as String;
-                          K8zCluster.update(cluster);
+                          ccProvider.updateNamespace(value);
+
                           Navigator.pop(context);
                         },
                       ),
@@ -110,6 +112,8 @@ class CurrentNamespace extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final lang = S.of(context);
+    final ccProvider = Provider.of<CurrentCluster>(context, listen: true);
     return Container(
       constraints: BoxConstraints(
         minHeight: 400,
@@ -121,13 +125,12 @@ class CurrentNamespace extends StatelessWidget {
           SettingsSection(
             tiles: [
               SettingsTile(
-                title: const Text("All Namespaces"),
+                title: Text(lang.all),
                 trailing: Radio(
                   value: "",
                   groupValue: cluster.namespace,
                   onChanged: (value) {
-                    cluster.namespace = value as String;
-                    K8zCluster.update(cluster);
+                    ccProvider.updateNamespace("");
                     Navigator.pop(context);
                   },
                 ),
@@ -135,7 +138,7 @@ class CurrentNamespace extends StatelessWidget {
             ],
           ),
           //
-          namespaces(S.of(context)),
+          namespaces(lang, ccProvider),
         ],
       ),
     );
