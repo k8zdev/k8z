@@ -7,8 +7,10 @@ import 'package:k8zdev/common/styles.dart';
 import 'package:k8zdev/dao/kube.dart';
 import 'package:k8zdev/generated/l10n.dart';
 import 'package:k8zdev/models/models.dart';
+import 'package:k8zdev/providers/current_cluster.dart';
 import 'package:k8zdev/services/k8z_service.dart';
 import 'package:k8zdev/widgets/widgets.dart';
+import 'package:provider/provider.dart';
 import 'package:settings_ui/settings_ui.dart';
 
 class IngressesPage extends StatefulWidget {
@@ -33,9 +35,14 @@ class _IngressesPageState extends State<IngressesPage> {
     return CustomSettingsSection(
       child: FutureBuilder(
         future: () async {
+          final c = Provider.of<CurrentCluster>(context, listen: true).current;
+          final namespaced = c?.namespace.isEmpty ?? true
+              ? ""
+              : "/namespaces/${c?.namespace ?? ""}";
+
           // await Future.delayed(const Duration(seconds: 1));
           return await K8zService(cluster: widget.cluster)
-              .get("/apis/networking.k8s.io/v1/ingresses");
+              .get("/apis/networking.k8s.io/v1$namespaced/ingresses");
         }(),
         builder: (BuildContext context, AsyncSnapshot snapshot) {
           var list = [];
