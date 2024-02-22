@@ -12,6 +12,7 @@ import 'package:k8zdev/generated/l10n.dart';
 import 'package:k8zdev/models/models.dart';
 import 'package:k8zdev/providers/current_cluster.dart';
 import 'package:k8zdev/services/k8z_service.dart';
+import 'package:k8zdev/widgets/namespace.dart';
 import 'package:provider/provider.dart';
 import 'package:settings_ui/settings_ui.dart';
 
@@ -155,10 +156,16 @@ class _HelmReleasesPageState extends State<HelmReleasesPage> {
   Widget build(BuildContext context) {
     var lang = S.of(context);
     return Scaffold(
-        appBar: AppBar(title: Text(lang.releases)),
-        body: Container(
-          padding: bottomEdge,
-          child: SettingsList(sections: [buildHelmReleasesList(lang)]),
-        ));
+      appBar: AppBar(title: Text(lang.releases)),
+      body: Container(
+        padding: bottomEdge,
+        child: SettingsList(
+          sections: [
+            namespaceFilter(context),
+            buildHelmReleasesList(lang),
+          ],
+        ),
+      ),
+    );
   }
 }

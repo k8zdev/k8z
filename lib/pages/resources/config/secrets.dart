@@ -9,6 +9,7 @@ import 'package:k8zdev/generated/l10n.dart';
 import 'package:k8zdev/models/models.dart';
 import 'package:k8zdev/providers/current_cluster.dart';
 import 'package:k8zdev/services/k8z_service.dart';
+import 'package:k8zdev/widgets/namespace.dart';
 import 'package:k8zdev/widgets/widgets.dart';
 import 'package:provider/provider.dart';
 import 'package:settings_ui/settings_ui.dart';
@@ -123,7 +124,12 @@ class _SecretsPageState extends State<SecretsPage> {
       appBar: AppBar(title: Text(lang.secrets)),
       body: Container(
         padding: bottomEdge,
-        child: SettingsList(sections: [buildSecretList(lang)]),
+        child: SettingsList(
+          sections: [
+            namespaceFilter(context),
+            buildSecretList(lang),
+          ],
+        ),
       ),
     );
   }

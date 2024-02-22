@@ -9,6 +9,7 @@ import 'package:k8zdev/generated/l10n.dart';
 import 'package:k8zdev/models/models.dart';
 import 'package:k8zdev/providers/current_cluster.dart';
 import 'package:k8zdev/services/k8z_service.dart';
+import 'package:k8zdev/widgets/namespace.dart';
 import 'package:k8zdev/widgets/widgets.dart';
 import 'package:provider/provider.dart';
 import 'package:settings_ui/settings_ui.dart';
@@ -153,7 +154,12 @@ class _DaemonSetsPageState extends State<DaemonSetsPage> {
       appBar: AppBar(title: Text(lang.daemon_sets)),
       body: Container(
         margin: bottomEdge,
-        child: SettingsList(sections: [buildDaemonSetList(lang)]),
+        child: SettingsList(
+          sections: [
+            namespaceFilter(context),
+            buildDaemonSetList(lang),
+          ],
+        ),
       ),
     );
   }

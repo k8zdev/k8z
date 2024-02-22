@@ -10,6 +10,19 @@ import 'package:k8zdev/widgets/widgets.dart';
 import 'package:provider/provider.dart';
 import 'package:settings_ui/settings_ui.dart';
 
+AbstractSettingsSection namespaceFilter(BuildContext context) {
+  final lang = S.of(context);
+  final cluster = Provider.of<CurrentCluster>(context, listen: true).current;
+
+  return SettingsSection(tiles: [
+    SettingsTile.navigation(
+      title: Text(lang.namespaces),
+      onPressed: (context) => showCurrentNamespace(context, cluster),
+      value: Text(cluster!.namespace.isEmpty ? lang.all : cluster.namespace),
+    ),
+  ]);
+}
+
 void showCurrentNamespace(BuildContext context, K8zCluster? cluster) {
   showModalBottomSheet(
     context: context,
