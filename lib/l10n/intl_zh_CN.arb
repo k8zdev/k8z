@@ -445,5 +445,9 @@
     "placeholders": {
       "date": {}
     }
-  }
+  },
+  "terminal": "终端",
+  "@terminal": {},
+  "logs": "日志",
+  "@logs": {}
 }

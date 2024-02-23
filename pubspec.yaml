@@ -70,6 +70,7 @@ dependencies:
   archive: ^3.4.10
   purchases_flutter: ^6.21.1
   url_launcher: ^6.2.5
+  flutter_slidable: ^3.0.1
 
 dependency_overrides:
   meta: 1.11.0

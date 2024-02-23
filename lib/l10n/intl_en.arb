@@ -455,5 +455,9 @@
     "placeholders": {
       "date": {}
     }
-  }
+  },
+  "terminal": "Terminal",
+  "@terminal": {},
+  "logs": "Logs",
+  "@logs": {}
 }

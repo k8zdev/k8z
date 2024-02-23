@@ -171,6 +171,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "load_metrics_error": m14,
         "loading_metrics":
             MessageLookupByLibrary.simpleMessage("loading metrics"),
+        "logs": MessageLookupByLibrary.simpleMessage("Logs"),
         "manual_load_kubeconfig":
             MessageLookupByLibrary.simpleMessage("Load kubeconfig file"),
         "memory": MessageLookupByLibrary.simpleMessage("Memory"),
@@ -240,6 +241,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Resotre success."),
         "subscriptions_yearly": MessageLookupByLibrary.simpleMessage("Yearly"),
         "success": MessageLookupByLibrary.simpleMessage("Success"),
+        "terminal": MessageLookupByLibrary.simpleMessage("Terminal"),
         "theme_auto": MessageLookupByLibrary.simpleMessage("auto"),
         "theme_dark": MessageLookupByLibrary.simpleMessage("dark mode"),
         "theme_light": MessageLookupByLibrary.simpleMessage("light mode"),

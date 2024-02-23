@@ -160,6 +160,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "load_file": MessageLookupByLibrary.simpleMessage("加载文件"),
         "load_metrics_error": m14,
         "loading_metrics": MessageLookupByLibrary.simpleMessage("加载指标..."),
+        "logs": MessageLookupByLibrary.simpleMessage("日志"),
         "manual_load_kubeconfig":
             MessageLookupByLibrary.simpleMessage("加载 kubeconfig 文件"),
         "memory": MessageLookupByLibrary.simpleMessage("Memory"),
@@ -220,6 +221,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("恢复成功"),
         "subscriptions_yearly": MessageLookupByLibrary.simpleMessage("每年"),
         "success": MessageLookupByLibrary.simpleMessage("成功"),
+        "terminal": MessageLookupByLibrary.simpleMessage("终端"),
         "theme_auto": MessageLookupByLibrary.simpleMessage("跟随系统"),
         "theme_dark": MessageLookupByLibrary.simpleMessage("深色模式"),
         "theme_light": MessageLookupByLibrary.simpleMessage("亮色模式"),

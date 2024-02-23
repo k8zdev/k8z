@@ -1257,6 +1257,26 @@ class S {
       args: [date],
     );
   }
+
+  /// `Terminal`
+  String get terminal {
+    return Intl.message(
+      'Terminal',
+      name: 'terminal',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Logs`
+  String get logs {
+    return Intl.message(
+      'Logs',
+      name: 'logs',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

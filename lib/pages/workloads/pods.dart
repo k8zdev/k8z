@@ -1,5 +1,6 @@
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:k8zdev/common/const.dart';
 import 'package:k8zdev/common/helpers.dart';
 import 'package:k8zdev/common/ops.dart';
@@ -100,7 +101,7 @@ class _PodsPageState extends State<PodsPage> {
                         resources?.cpu ?? "-",
                         resources?.memory ?? "-");
 
-                    return SettingsTile(
+                    final tile = SettingsTile(
                       title: Text(text, style: smallTextStyle),
                       trailing: Row(
                         children: [
@@ -108,6 +109,47 @@ class _PodsPageState extends State<PodsPage> {
                           const Divider(indent: 2),
                           icon,
                         ],
+                      ),
+                    );
+                    return CustomSettingsTile(
+                      child: Slidable(
+                        startActionPane: ActionPane(
+                          motion: const ScrollMotion(),
+                          children: [
+                            SlidableAction(
+                              onPressed: (context) {},
+                              backgroundColor: const Color(0xFFFE4A49),
+                              foregroundColor: Colors.white,
+                              icon: Icons.delete,
+                              label: lang.delete,
+                              padding: EdgeInsets.zero,
+                            ),
+                            SlidableAction(
+                              onPressed: (context) {},
+                              backgroundColor: const Color(0xFF21B7CA),
+                              foregroundColor: Colors.white,
+                              icon: Icons.terminal,
+                              spacing: 8,
+                              label: lang.terminal,
+                              padding: EdgeInsets.zero,
+                            ),
+                          ],
+                        ),
+                        endActionPane: ActionPane(
+                          motion: const ScrollMotion(),
+                          children: [
+                            SlidableAction(
+                              onPressed: (context) {},
+                              backgroundColor: const Color(0xFF21B7CA),
+                              foregroundColor: Colors.white,
+                              icon: Icons.list_alt,
+                              spacing: 8,
+                              label: lang.logs,
+                              padding: EdgeInsets.zero,
+                            ),
+                          ],
+                        ),
+                        child: tile,
                       ),
                     );
                   },
