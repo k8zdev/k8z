@@ -1006,7 +1006,7 @@ class S {
     );
   }
 
-  /// `{name}\nProvisioner: {provisioner}\nReclaim Policy: {reclaimPolicy}\nVolume Binding Mode: {volumeBindingMode}\nAllow Volume Expansion: {allowVolumeExpansion}`
+  /// `{name}\nProvisioner: {provisioner}\nReclaim Policy: {reclaimPolicy}\nVolume Binding Mode: {volumeBindingMode}\nAllow Volume Expansion: {allowVolumeExpansion}\nMountOptions: {mountOptions}`
   String storage_class_text(
       Object name,
       Object provisioner,
@@ -1015,7 +1015,7 @@ class S {
       Object volumeBindingMode,
       Object allowVolumeExpansion) {
     return Intl.message(
-      '$name\nProvisioner: $provisioner\nReclaim Policy: $reclaimPolicy\nVolume Binding Mode: $volumeBindingMode\nAllow Volume Expansion: $allowVolumeExpansion',
+      '$name\nProvisioner: $provisioner\nReclaim Policy: $reclaimPolicy\nVolume Binding Mode: $volumeBindingMode\nAllow Volume Expansion: $allowVolumeExpansion\nMountOptions: $mountOptions',
       name: 'storage_class_text',
       desc: '',
       args: [
@@ -1105,6 +1105,156 @@ class S {
       name: 'release_text',
       desc: '',
       args: [name, ns, revision, appVer, updated, status, chart],
+    );
+  }
+
+  /// `EULA`
+  String get eula {
+    return Intl.message(
+      'EULA',
+      name: 'eula',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Privacy Policy`
+  String get privacy_policy {
+    return Intl.message(
+      'Privacy Policy',
+      name: 'privacy_policy',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Sponsors`
+  String get sponsors {
+    return Intl.message(
+      'Sponsors',
+      name: 'sponsors',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Sponsor Me`
+  String get sponsorme {
+    return Intl.message(
+      'Sponsor Me',
+      name: 'sponsorme',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Sponsor me so that I can continue to develop and maintain this app.`
+  String get sponsor_desc {
+    return Intl.message(
+      'Sponsor me so that I can continue to develop and maintain this app.',
+      name: 'sponsor_desc',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Monthly`
+  String get subscriptions_monthly {
+    return Intl.message(
+      'Monthly',
+      name: 'subscriptions_monthly',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Yearly`
+  String get subscriptions_yearly {
+    return Intl.message(
+      'Yearly',
+      name: 'subscriptions_yearly',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Lifetime`
+  String get subscriptions_lifetime {
+    return Intl.message(
+      'Lifetime',
+      name: 'subscriptions_lifetime',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `If not cancelled, the subscription will be renewed automatically. Payment will be charged to the iTunes account when the purchase is confirmed. Subscriptions are automatically renewed unless automatic renewal is closed at least 24 hours before the end of the current term. The account will charge a renewal fee within 24 hours prior to the end of the current period and determine the renewal fee. Subscriptions can be managed by the user and auto-renewal can be turned off after purchase by going to the user''s account settings. Any unused portion of the free trial period, if provided, will be forfeited when the user purchases a subscription to the publication.`
+  String get subscriptions_iap_desc {
+    return Intl.message(
+      'If not cancelled, the subscription will be renewed automatically. Payment will be charged to the iTunes account when the purchase is confirmed. Subscriptions are automatically renewed unless automatic renewal is closed at least 24 hours before the end of the current term. The account will charge a renewal fee within 24 hours prior to the end of the current period and determine the renewal fee. Subscriptions can be managed by the user and auto-renewal can be turned off after purchase by going to the user\'\'s account settings. Any unused portion of the free trial period, if provided, will be forfeited when the user purchases a subscription to the publication.',
+      name: 'subscriptions_iap_desc',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Purchased`
+  String get subscriptions_purchased {
+    return Intl.message(
+      'Purchased',
+      name: 'subscriptions_purchased',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Success`
+  String get success {
+    return Intl.message(
+      'Success',
+      name: 'success',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Restore Purchases`
+  String get subscriptions_restore_purchases {
+    return Intl.message(
+      'Restore Purchases',
+      name: 'subscriptions_restore_purchases',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Resotre success.`
+  String get subscriptions_restore_success {
+    return Intl.message(
+      'Resotre success.',
+      name: 'subscriptions_restore_success',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Restore Purchases Failed, ERROR: {error}`
+  String subscriptions_restorePurchases_failed(Object error) {
+    return Intl.message(
+      'Restore Purchases Failed, ERROR: $error',
+      name: 'subscriptions_restorePurchases_failed',
+      desc: '',
+      args: [error],
+    );
+  }
+
+  /// `Sponsor expired: ${date}`
+  String subscriptions_expired_at(Object date) {
+    return Intl.message(
+      'Sponsor expired: \$$date',
+      name: 'subscriptions_expired_at',
+      desc: '',
+      args: [date],
     );
   }
 }

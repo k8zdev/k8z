@@ -193,6 +193,16 @@ class _SettingsPageState extends State<SettingsPage> {
           ],
         ),
 
+        SettingsSection(
+          title: Text(lang.sponsors),
+          tiles: [
+            SettingsTile.navigation(
+              title: Text(lang.sponsorme),
+              onPressed: (context) =>
+                  GoRouter.of(context).pushNamed("appstore"),
+            ),
+          ],
+        ),
         // debug tool
         if (kProfileMode || _forceDebug)
           SettingsSection(

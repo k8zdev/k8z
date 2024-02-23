@@ -44,3 +44,7 @@ decrypt:
 	@gpg --quiet --batch --yes --decrypt --passphrase="${LARGE_SECRET_PASSPHRASE}" \
 	 --output ${PWD}/lib/firebase_options.dart ${PWD}/lib/firebase_options.dart.gpg
 	echo "Decrypt firebase_options done"
+	@gpg --quiet --batch --yes --decrypt --passphrase="${LARGE_SECRET_PASSPHRASE}" \
+	 --output ${PWD}/lib/common/secrets.dart ${PWD}/lib/common/secrets.dart.gpg
+	echo "Decrypt secrets done"
+

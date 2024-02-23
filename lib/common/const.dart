@@ -9,3 +9,14 @@ const releaseMode = kDebugMode
     : kReleaseMode
         ? "release"
         : "profile";
+final privacyUrl = Uri(
+  scheme: "https",
+  host: "k8z.dev",
+  path: "/docs/privacy/",
+);
+
+final stdeulaUrl = Uri(
+  scheme: "https",
+  host: "www.apple.com",
+  path: "/legal/internet-services/itunes/dev/stdeula/",
+);

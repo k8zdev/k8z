@@ -364,7 +364,7 @@
       "secrets": {}
     }
   },
-  "storage_class_text": "{name}\nProvisioner: {provisioner}\nReclaim Policy: {reclaimPolicy}\nVolume Binding Mode: {volumeBindingMode}\nAllow Volume Expansion: {allowVolumeExpansion}",
+  "storage_class_text": "{name}\nProvisioner: {provisioner}\nReclaim Policy: {reclaimPolicy}\nVolume Binding Mode: {volumeBindingMode}\nAllow Volume Expansion: {allowVolumeExpansion}\nMountOptions: {mountOptions}",
   "@storage_class_text": {
     "placeholders": {
       "name": {},
@@ -401,6 +401,7 @@
     }
   },
   "applications": "Applications",
+  "@applications": {},
   "helm": "Helm",
   "@helm": {},
   "releases": "Releases",
@@ -415,6 +416,44 @@
       "updated": {},
       "status": {},
       "chart": {}
+    }
+  },
+  "eula": "EULA",
+  "@eula": {},
+  "privacy_policy": "Privacy Policy",
+  "@privacy_policy": {},
+  "sponsors": "Sponsors",
+  "@sponsors": {},
+  "sponsorme": "Sponsor Me",
+  "@sponsorme": {},
+  "sponsor_desc": "Sponsor me so that I can continue to develop and maintain this app.",
+  "@sponsor_desc": {},
+  "subscriptions_monthly": "Monthly",
+  "@subscriptions_monthly": {},
+  "subscriptions_yearly": "Yearly",
+  "@subscriptions_yearly": {},
+  "subscriptions_lifetime": "Lifetime",
+  "@subscriptions_lifetime": {},
+  "subscriptions_iap_desc": "If not cancelled, the subscription will be renewed automatically. Payment will be charged to the iTunes account when the purchase is confirmed. Subscriptions are automatically renewed unless automatic renewal is closed at least 24 hours before the end of the current term. The account will charge a renewal fee within 24 hours prior to the end of the current period and determine the renewal fee. Subscriptions can be managed by the user and auto-renewal can be turned off after purchase by going to the user''s account settings. Any unused portion of the free trial period, if provided, will be forfeited when the user purchases a subscription to the publication.",
+  "@subscriptions_iap_desc": {},
+  "subscriptions_purchased": "Purchased",
+  "@subscriptions_purchased": {},
+  "success": "Success",
+  "@success": {},
+  "subscriptions_restore_purchases": "Restore Purchases",
+  "@subscriptions_restore_purchases": {},
+  "subscriptions_restore_success": "Resotre success.",
+  "@subscriptions_restore_success": {},
+  "subscriptions_restorePurchases_failed": "Restore Purchases Failed, ERROR: {error}",
+  "@subscriptions_restorePurchases_failed": {
+    "placeholders": {
+      "error": {}
+    }
+  },
+  "subscriptions_expired_at": "Sponsor expired: ${date}",
+  "@subscriptions_expired_at": {
+    "placeholders": {
+      "date": {}
     }
   }
 }

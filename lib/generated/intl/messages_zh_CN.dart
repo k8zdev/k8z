@@ -93,11 +93,15 @@ class MessageLookup extends MessageLookupByLibrary {
 
   static String m28(name, provisioner, reclaimPolicy, mountOptions,
           volumeBindingMode, allowVolumeExpansion) =>
-      "${name}\n分配器: ${provisioner}\n回收策略: ${reclaimPolicy}\n存储卷绑定模式: ${volumeBindingMode}\n允许卷扩展: ${allowVolumeExpansion}";
+      "${name}\n分配器: ${provisioner}\n回收策略: ${reclaimPolicy}\n存储卷绑定模式: ${volumeBindingMode}\n允许卷扩展: ${allowVolumeExpansion}\n挂载参数: ${mountOptions}";
 
-  static String m29(number) => "总计: ${number}";
+  static String m29(date) => "赞助过期时间: \$${date}";
 
-  static String m30(type, name) => "将要删除 ${type} ${name}";
+  static String m30(error) => "恢复购买失败, 错误: ${error}";
+
+  static String m31(number) => "总计: ${number}";
+
+  static String m32(type, name) => "将要删除 ${type} ${name}";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
@@ -135,6 +139,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "endpoint_text": m7,
         "endpoints": MessageLookupByLibrary.simpleMessage("端点 (endpoints)"),
         "error": MessageLookupByLibrary.simpleMessage("错误"),
+        "eula": MessageLookupByLibrary.simpleMessage("EULA"),
         "event_text": m8,
         "events": MessageLookupByLibrary.simpleMessage("事件"),
         "external_ip": m9,
@@ -174,6 +179,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "overview": MessageLookupByLibrary.simpleMessage("概览"),
         "pod_text": m20,
         "pods": MessageLookupByLibrary.simpleMessage("Pods"),
+        "privacy_policy": MessageLookupByLibrary.simpleMessage("隐私政策"),
         "pv_text": m21,
         "pvc_text": m22,
         "pvcs": MessageLookupByLibrary.simpleMessage("持久卷申领"),
@@ -191,18 +197,35 @@ class MessageLookup extends MessageLookupByLibrary {
         "service_text": m26,
         "services": MessageLookupByLibrary.simpleMessage("服务 (services)"),
         "settings": MessageLookupByLibrary.simpleMessage("设置"),
+        "sponsor_desc":
+            MessageLookupByLibrary.simpleMessage("赞助我以便于我可以继续开发维护这款应用程序。"),
+        "sponsorme": MessageLookupByLibrary.simpleMessage("赞助我"),
+        "sponsors": MessageLookupByLibrary.simpleMessage("赞助"),
         "stateful_set_text": m27,
         "stateful_sets": MessageLookupByLibrary.simpleMessage("StatefulSets"),
         "status": MessageLookupByLibrary.simpleMessage("状态"),
         "storage": MessageLookupByLibrary.simpleMessage("存储"),
         "storage_class": MessageLookupByLibrary.simpleMessage("存储类"),
         "storage_class_text": m28,
+        "subscriptions_expired_at": m29,
+        "subscriptions_iap_desc": MessageLookupByLibrary.simpleMessage(
+            "如不取消, 订购将会自动续费。付款将在确认购买时向iTunes帐户收取。订阅自动续订, 除非自动续订在当前期限结束前至少24小时关闭。账户将在本期结束前的24小时内收取续费费用, 并确定续约费用。订购可由用户管理, 购买后可通过转到用户的帐户设置关闭自动续订。免费试用期的任何未使用部分（如果提供）在用户购买该出版物的订阅时将被没收。"),
+        "subscriptions_lifetime": MessageLookupByLibrary.simpleMessage("终身"),
+        "subscriptions_monthly": MessageLookupByLibrary.simpleMessage("每月"),
+        "subscriptions_purchased": MessageLookupByLibrary.simpleMessage("已购买"),
+        "subscriptions_restorePurchases_failed": m30,
+        "subscriptions_restore_purchases":
+            MessageLookupByLibrary.simpleMessage("恢复购买"),
+        "subscriptions_restore_success":
+            MessageLookupByLibrary.simpleMessage("恢复成功"),
+        "subscriptions_yearly": MessageLookupByLibrary.simpleMessage("每年"),
+        "success": MessageLookupByLibrary.simpleMessage("成功"),
         "theme_auto": MessageLookupByLibrary.simpleMessage("跟随系统"),
         "theme_dark": MessageLookupByLibrary.simpleMessage("深色模式"),
         "theme_light": MessageLookupByLibrary.simpleMessage("亮色模式"),
-        "totals": m29,
+        "totals": m31,
         "version": MessageLookupByLibrary.simpleMessage("版本"),
-        "will_delete": m30,
+        "will_delete": m32,
         "workloads": MessageLookupByLibrary.simpleMessage("负载")
       };
 }

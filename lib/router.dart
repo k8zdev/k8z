@@ -13,6 +13,7 @@ import 'package:k8zdev/pages/networks/endpoints.dart';
 import 'package:k8zdev/pages/networks/ingresses.dart';
 import 'package:k8zdev/pages/networks/services.dart';
 import 'package:k8zdev/pages/not_found.dart';
+import 'package:k8zdev/pages/paywalls/appstore_sponsors.dart';
 import 'package:k8zdev/pages/resources.dart';
 import 'package:k8zdev/pages/resources/config/configmaps.dart';
 import 'package:k8zdev/pages/resources/config/secrets.dart';
@@ -361,6 +362,12 @@ final router = GoRouter(
               builder: (context, state) => TalkerScreen(
                 talker: talker,
               ),
+            ),
+            GoRoute(
+              name: "appstore",
+              path: "paywall/appstore",
+              parentNavigatorKey: _rootNavigatorKey,
+              builder: (context, state) => const AppStorePaywall(),
             ),
           ],
         ),

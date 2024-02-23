@@ -97,11 +97,15 @@ class MessageLookup extends MessageLookupByLibrary {
 
   static String m28(name, provisioner, reclaimPolicy, mountOptions,
           volumeBindingMode, allowVolumeExpansion) =>
-      "${name}\nProvisioner: ${provisioner}\nReclaim Policy: ${reclaimPolicy}\nVolume Binding Mode: ${volumeBindingMode}\nAllow Volume Expansion: ${allowVolumeExpansion}";
+      "${name}\nProvisioner: ${provisioner}\nReclaim Policy: ${reclaimPolicy}\nVolume Binding Mode: ${volumeBindingMode}\nAllow Volume Expansion: ${allowVolumeExpansion}\nMountOptions: ${mountOptions}";
 
-  static String m29(number) => "Totals: ${number}";
+  static String m29(date) => "Sponsor expired: \$${date}";
 
-  static String m30(type, name) => "will delete ${type} ${name}";
+  static String m30(error) => "Restore Purchases Failed, ERROR: ${error}";
+
+  static String m31(number) => "Totals: ${number}";
+
+  static String m32(type, name) => "will delete ${type} ${name}";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
@@ -144,6 +148,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "endpoint_text": m7,
         "endpoints": MessageLookupByLibrary.simpleMessage("Endpoints"),
         "error": MessageLookupByLibrary.simpleMessage("error"),
+        "eula": MessageLookupByLibrary.simpleMessage("EULA"),
         "event_text": m8,
         "events": MessageLookupByLibrary.simpleMessage("Events"),
         "external_ip": m9,
@@ -187,6 +192,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "overview": MessageLookupByLibrary.simpleMessage("Overview"),
         "pod_text": m20,
         "pods": MessageLookupByLibrary.simpleMessage("Pods"),
+        "privacy_policy":
+            MessageLookupByLibrary.simpleMessage("Privacy Policy"),
         "pv_text": m21,
         "pvc_text": m22,
         "pvcs":
@@ -207,18 +214,38 @@ class MessageLookup extends MessageLookupByLibrary {
         "service_text": m26,
         "services": MessageLookupByLibrary.simpleMessage("Services"),
         "settings": MessageLookupByLibrary.simpleMessage("Settings"),
+        "sponsor_desc": MessageLookupByLibrary.simpleMessage(
+            "Sponsor me so that I can continue to develop and maintain this app."),
+        "sponsorme": MessageLookupByLibrary.simpleMessage("Sponsor Me"),
+        "sponsors": MessageLookupByLibrary.simpleMessage("Sponsors"),
         "stateful_set_text": m27,
         "stateful_sets": MessageLookupByLibrary.simpleMessage("StatefulSets"),
         "status": MessageLookupByLibrary.simpleMessage("Status"),
         "storage": MessageLookupByLibrary.simpleMessage("Storage"),
         "storage_class": MessageLookupByLibrary.simpleMessage("StorageClass"),
         "storage_class_text": m28,
+        "subscriptions_expired_at": m29,
+        "subscriptions_iap_desc": MessageLookupByLibrary.simpleMessage(
+            "If not cancelled, the subscription will be renewed automatically. Payment will be charged to the iTunes account when the purchase is confirmed. Subscriptions are automatically renewed unless automatic renewal is closed at least 24 hours before the end of the current term. The account will charge a renewal fee within 24 hours prior to the end of the current period and determine the renewal fee. Subscriptions can be managed by the user and auto-renewal can be turned off after purchase by going to the user\'\'s account settings. Any unused portion of the free trial period, if provided, will be forfeited when the user purchases a subscription to the publication."),
+        "subscriptions_lifetime":
+            MessageLookupByLibrary.simpleMessage("Lifetime"),
+        "subscriptions_monthly":
+            MessageLookupByLibrary.simpleMessage("Monthly"),
+        "subscriptions_purchased":
+            MessageLookupByLibrary.simpleMessage("Purchased"),
+        "subscriptions_restorePurchases_failed": m30,
+        "subscriptions_restore_purchases":
+            MessageLookupByLibrary.simpleMessage("Restore Purchases"),
+        "subscriptions_restore_success":
+            MessageLookupByLibrary.simpleMessage("Resotre success."),
+        "subscriptions_yearly": MessageLookupByLibrary.simpleMessage("Yearly"),
+        "success": MessageLookupByLibrary.simpleMessage("Success"),
         "theme_auto": MessageLookupByLibrary.simpleMessage("auto"),
         "theme_dark": MessageLookupByLibrary.simpleMessage("dark mode"),
         "theme_light": MessageLookupByLibrary.simpleMessage("light mode"),
-        "totals": m29,
+        "totals": m31,
         "version": MessageLookupByLibrary.simpleMessage("version"),
-        "will_delete": m30,
+        "will_delete": m32,
         "workloads": MessageLookupByLibrary.simpleMessage("Workloads")
       };
 }

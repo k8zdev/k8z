@@ -68,6 +68,8 @@ dependencies:
   firebase_crashlytics: ^3.4.15
   firebase_analytics: ^10.8.6
   archive: ^3.4.10
+  purchases_flutter: ^6.21.1
+  url_launcher: ^6.2.5
 
 dependency_overrides:
   meta: 1.11.0

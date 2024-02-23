@@ -11,14 +11,17 @@ import 'package:k8zdev/dao/dao.dart';
 import 'package:k8zdev/generated/l10n.dart';
 import 'package:k8zdev/providers/current_cluster.dart';
 import 'package:k8zdev/providers/lang.dart';
+import 'package:k8zdev/providers/revenuecat_customer.dart';
 import 'package:k8zdev/providers/talker.dart';
 import 'package:k8zdev/providers/theme.dart';
 import 'package:k8zdev/router.dart';
 import 'package:k8zdev/services/k8z_native.dart';
+import 'package:k8zdev/services/revenuecat.dart';
 import 'package:k8zdev/services/stash.dart';
 import 'package:k8zdev/theme/kung.dart';
 import 'package:k8zdev/widgets/inherited.dart';
 import 'package:provider/provider.dart';
+import 'package:purchases_flutter/purchases_flutter.dart';
 import 'package:window_manager/window_manager.dart';
 import 'package:talker_flutter/talker_flutter.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
@@ -29,6 +32,7 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await initStash();
   await initStore();
+  await initRevenueCatState();
   var rootIsolateToken = RootIsolateToken.instance!;
   Isolate.spawn(_localServer, rootIsolateToken);
 
@@ -69,6 +73,13 @@ void main() async {
   var themeMode = ThemeModeProvider()..init();
   var talkerMode = TalkerModeProvider()..init();
   var currentCluster = CurrentCluster()..init();
+  var customerInfo = RevenueCatCustomer()..init();
+
+  await customerInfo.fetchCusterInfo();
+  Purchases.addCustomerInfoUpdateListener((info) {
+    customerInfo.updateCustomerInfo(info);
+  });
+
   runApp(
     MultiProvider(
       providers: [
@@ -76,6 +87,7 @@ void main() async {
         ChangeNotifierProvider<ThemeModeProvider>.value(value: themeMode),
         ChangeNotifierProvider<TalkerModeProvider>.value(value: talkerMode),
         ChangeNotifierProvider<CurrentCluster>.value(value: currentCluster),
+        ChangeNotifierProvider<RevenueCatCustomer>.value(value: customerInfo),
       ],
       child: TalkerWrapper(
         talker: talker,
@@ -121,6 +133,8 @@ class _MyAppState extends State<MyApp> {
   @override
   void dispose() {
     _connectivitySubscription.cancel();
+    Purchases.removeCustomerInfoUpdateListener((customerInfo) {});
+
     super.dispose();
   }
 

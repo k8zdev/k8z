@@ -354,12 +354,13 @@
       "secrets": {}
     }
   },
-  "storage_class_text": "{name}\n分配器: {provisioner}\n回收策略: {reclaimPolicy}\n存储卷绑定模式: {volumeBindingMode}\n允许卷扩展: {allowVolumeExpansion}",
+  "storage_class_text": "{name}\n分配器: {provisioner}\n回收策略: {reclaimPolicy}\n存储卷绑定模式: {volumeBindingMode}\n允许卷扩展: {allowVolumeExpansion}\n挂载参数: {mountOptions}",
   "@storage_class_text": {
     "placeholders": {
       "name": {},
       "provisioner": {},
       "reclaimPolicy": {},
+      "mountOptions": {},
       "volumeBindingMode": {},
       "allowVolumeExpansion": {}
     }
@@ -385,11 +386,12 @@
       "capacity": {},
       "accessModes": {},
       "status": {},
-      "storageClass": {},
-      "reason": {}
+      "volume": {},
+      "storageClass": {}
     }
   },
   "applications": "应用程序",
+  "@applications": {},
   "helm": "Helm",
   "@helm": {},
   "releases": "Releases",
@@ -404,6 +406,44 @@
       "updated": {},
       "status": {},
       "chart": {}
+    }
+  },
+  "eula": "EULA",
+  "@eula": {},
+  "privacy_policy": "隐私政策",
+  "@privacy_policy": {},
+  "sponsors": "赞助",
+  "@sponsors": {},
+  "sponsorme": "赞助我",
+  "@sponsorme": {},
+  "sponsor_desc": "赞助我以便于我可以继续开发维护这款应用程序。",
+  "@sponsor_desc": {},
+  "subscriptions_monthly": "每月",
+  "@subscriptions_monthly": {},
+  "subscriptions_yearly": "每年",
+  "@subscriptions_yearly": {},
+  "subscriptions_lifetime": "终身",
+  "@subscriptions_lifetime": {},
+  "subscriptions_iap_desc": "如不取消, 订购将会自动续费。付款将在确认购买时向iTunes帐户收取。订阅自动续订, 除非自动续订在当前期限结束前至少24小时关闭。账户将在本期结束前的24小时内收取续费费用, 并确定续约费用。订购可由用户管理, 购买后可通过转到用户的帐户设置关闭自动续订。免费试用期的任何未使用部分（如果提供）在用户购买该出版物的订阅时将被没收。",
+  "@subscriptions_iap_desc": {},
+  "subscriptions_purchased": "已购买",
+  "@subscriptions_purchased": {},
+  "success": "成功",
+  "@success": {},
+  "subscriptions_restore_purchases": "恢复购买",
+  "@subscriptions_restore_purchases": {},
+  "subscriptions_restorePurchases_failed": "恢复购买失败, 错误: {error}",
+  "@subscriptions_restorePurchases_failed": {
+    "placeholders": {
+      "error": {}
+    }
+  },
+  "subscriptions_restore_success": "恢复成功",
+  "@subscriptions_restore_success": {},
+  "subscriptions_expired_at": "赞助过期时间: ${date}",
+  "@subscriptions_expired_at": {
+    "placeholders": {
+      "date": {}
     }
   }
 }
