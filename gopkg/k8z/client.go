@@ -25,16 +25,16 @@ clusters:
     insecure-skip-tls-verify: ` + fmt.Sprintf("%v", insecure) + `
     certificate-authority-data: ` + ca + `
     server: ` + server + `
-  name: ` + contextName + `
+  name: k8z-cluster
 contexts:
 - context:
-    cluster: k8z
-    user: k8z
-  name: ` + contextName + `
-current-context: ` + contextName + `
+    cluster: k8z-cluster
+    user: k8z-user
+  name: k8zctx
+current-context: k8zctx
 preferences: {}
 users:
-- name: k8z
+- name: k8z-user
   user:
     client-certificate-data: ` + clientCert + `
     client-key-data: ` + clientKey + `
