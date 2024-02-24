@@ -13,6 +13,7 @@ import 'package:k8zdev/providers/current_cluster.dart';
 import 'package:k8zdev/providers/lang.dart';
 import 'package:k8zdev/providers/revenuecat_customer.dart';
 import 'package:k8zdev/providers/talker.dart';
+import 'package:k8zdev/providers/terminals.dart';
 import 'package:k8zdev/providers/theme.dart';
 import 'package:k8zdev/router.dart';
 import 'package:k8zdev/services/k8z_native.dart';
@@ -88,6 +89,7 @@ void main() async {
         ChangeNotifierProvider<TalkerModeProvider>.value(value: talkerMode),
         ChangeNotifierProvider<CurrentCluster>.value(value: currentCluster),
         ChangeNotifierProvider<RevenueCatCustomer>.value(value: customerInfo),
+        ChangeNotifierProvider(create: (_) => TerminalProvider()),
       ],
       child: TalkerWrapper(
         talker: talker,

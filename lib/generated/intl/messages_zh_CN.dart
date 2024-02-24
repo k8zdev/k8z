@@ -99,9 +99,11 @@ class MessageLookup extends MessageLookupByLibrary {
 
   static String m30(error) => "恢复购买失败, 错误: ${error}";
 
-  static String m31(number) => "总计: ${number}";
+  static String m31(number) => "已打开 ${number} 个终端";
 
-  static String m32(type, name) => "将要删除 ${type} ${name}";
+  static String m32(number) => "总计: ${number}";
+
+  static String m33(type, name) => "将要删除 ${type} ${name}";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
@@ -117,6 +119,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "config": MessageLookupByLibrary.simpleMessage("配置"),
         "config_map_text": m0,
         "config_maps": MessageLookupByLibrary.simpleMessage("ConfigMaps"),
+        "container": MessageLookupByLibrary.simpleMessage("容器"),
         "container_runtime": m1,
         "cpu": MessageLookupByLibrary.simpleMessage("CPU"),
         "crds": MessageLookupByLibrary.simpleMessage("自定资源定义"),
@@ -151,6 +154,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "general_language_ja": MessageLookupByLibrary.simpleMessage("日本语"),
         "general_language_null": MessageLookupByLibrary.simpleMessage("跟随系统"),
         "general_language_zh": MessageLookupByLibrary.simpleMessage("中文"),
+        "get_terminal": MessageLookupByLibrary.simpleMessage("获取终端"),
         "helm": MessageLookupByLibrary.simpleMessage("Helm"),
         "ingress_text": m10,
         "ingresses": MessageLookupByLibrary.simpleMessage("入口 (ingresses)"),
@@ -222,12 +226,13 @@ class MessageLookup extends MessageLookupByLibrary {
         "subscriptions_yearly": MessageLookupByLibrary.simpleMessage("每年"),
         "success": MessageLookupByLibrary.simpleMessage("成功"),
         "terminal": MessageLookupByLibrary.simpleMessage("终端"),
+        "terminals_opened": m31,
         "theme_auto": MessageLookupByLibrary.simpleMessage("跟随系统"),
         "theme_dark": MessageLookupByLibrary.simpleMessage("深色模式"),
         "theme_light": MessageLookupByLibrary.simpleMessage("亮色模式"),
-        "totals": m31,
+        "totals": m32,
         "version": MessageLookupByLibrary.simpleMessage("版本"),
-        "will_delete": m32,
+        "will_delete": m33,
         "workloads": MessageLookupByLibrary.simpleMessage("负载")
       };
 }

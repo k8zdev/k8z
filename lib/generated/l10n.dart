@@ -1277,6 +1277,36 @@ class S {
       args: [],
     );
   }
+
+  /// `Container`
+  String get container {
+    return Intl.message(
+      'Container',
+      name: 'container',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Get Terminal`
+  String get get_terminal {
+    return Intl.message(
+      'Get Terminal',
+      name: 'get_terminal',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `{number} terminals opened`
+  String terminals_opened(Object number) {
+    return Intl.message(
+      '$number terminals opened',
+      name: 'terminals_opened',
+      desc: '',
+      args: [number],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

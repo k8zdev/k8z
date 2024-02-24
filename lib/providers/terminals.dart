@@ -31,8 +31,12 @@ class TerminalProvider with ChangeNotifier {
   void rm(int idx) {
     final t = _terminals[idx];
     if (t.stream != null) {
-      t.stream;
+      t.stream?.terminate();
     }
+    if (t.terminal != null) {
+      t.terminal?.terminate();
+    }
+    _terminals.removeAt(idx);
     notifyListeners();
   }
 }

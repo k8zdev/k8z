@@ -103,9 +103,11 @@ class MessageLookup extends MessageLookupByLibrary {
 
   static String m30(error) => "Restore Purchases Failed, ERROR: ${error}";
 
-  static String m31(number) => "Totals: ${number}";
+  static String m31(number) => "${number} terminals opened";
 
-  static String m32(type, name) => "will delete ${type} ${name}";
+  static String m32(number) => "Totals: ${number}";
+
+  static String m33(type, name) => "will delete ${type} ${name}";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
@@ -121,6 +123,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "config": MessageLookupByLibrary.simpleMessage("Config"),
         "config_map_text": m0,
         "config_maps": MessageLookupByLibrary.simpleMessage("ConfigMaps"),
+        "container": MessageLookupByLibrary.simpleMessage("Container"),
         "container_runtime": m1,
         "cpu": MessageLookupByLibrary.simpleMessage("CPU"),
         "crds":
@@ -161,6 +164,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "general_language_ja": MessageLookupByLibrary.simpleMessage("Japanese"),
         "general_language_null": MessageLookupByLibrary.simpleMessage("Auto"),
         "general_language_zh": MessageLookupByLibrary.simpleMessage("Chinese"),
+        "get_terminal": MessageLookupByLibrary.simpleMessage("Get Terminal"),
         "helm": MessageLookupByLibrary.simpleMessage("Helm"),
         "ingress_text": m10,
         "ingresses": MessageLookupByLibrary.simpleMessage("Ingresses"),
@@ -242,12 +246,13 @@ class MessageLookup extends MessageLookupByLibrary {
         "subscriptions_yearly": MessageLookupByLibrary.simpleMessage("Yearly"),
         "success": MessageLookupByLibrary.simpleMessage("Success"),
         "terminal": MessageLookupByLibrary.simpleMessage("Terminal"),
+        "terminals_opened": m31,
         "theme_auto": MessageLookupByLibrary.simpleMessage("auto"),
         "theme_dark": MessageLookupByLibrary.simpleMessage("dark mode"),
         "theme_light": MessageLookupByLibrary.simpleMessage("light mode"),
-        "totals": m31,
+        "totals": m32,
         "version": MessageLookupByLibrary.simpleMessage("version"),
-        "will_delete": m32,
+        "will_delete": m33,
         "workloads": MessageLookupByLibrary.simpleMessage("Workloads")
       };
 }

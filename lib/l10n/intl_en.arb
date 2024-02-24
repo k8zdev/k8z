@@ -459,5 +459,15 @@
   "terminal": "Terminal",
   "@terminal": {},
   "logs": "Logs",
-  "@logs": {}
+  "@logs": {},
+  "container": "Container",
+  "@container": {},
+  "get_terminal": "Get Terminal",
+  "@get_terminal": {},
+  "terminals_opened": "{number} terminals opened",
+  "@terminals_opened": {
+    "placeholders": {
+      "number": {}
+    }
+  }
 }

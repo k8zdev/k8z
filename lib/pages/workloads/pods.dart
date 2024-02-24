@@ -11,6 +11,8 @@ import 'package:k8zdev/generated/l10n.dart';
 import 'package:k8zdev/models/models.dart';
 import 'package:k8zdev/providers/current_cluster.dart';
 import 'package:k8zdev/services/k8z_service.dart';
+import 'package:k8zdev/widgets/get_terminal.dart';
+import 'package:k8zdev/widgets/modal.dart';
 import 'package:k8zdev/widgets/namespace.dart';
 import 'package:k8zdev/widgets/widgets.dart';
 import 'package:provider/provider.dart';
@@ -87,7 +89,7 @@ class _PodsPageState extends State<PodsPage> {
                     final restarts = getRestarts(pod);
                     final resources = getPodResources(pod);
                     final containers =
-                        spec?.containers.map((e) => e.name).toList().join(",");
+                        spec?.containers.map((e) => e.name).toList();
                     final ready =
                         '${pod.status?.containerStatuses.where((containerStatus) => containerStatus.ready).length ?? '0'}/${pod.spec?.containers.length ?? '0'}';
 
@@ -97,7 +99,7 @@ class _PodsPageState extends State<PodsPage> {
                         ready,
                         status,
                         restarts,
-                        containers!,
+                        containers!.join(','),
                         resources?.cpu ?? "-",
                         resources?.memory ?? "-");
 
@@ -125,7 +127,17 @@ class _PodsPageState extends State<PodsPage> {
                               padding: EdgeInsets.zero,
                             ),
                             SlidableAction(
-                              onPressed: (context) {},
+                              onPressed: (context) {
+                                showModal(
+                                  context,
+                                  GetTerminal(
+                                    name: metadata.name!,
+                                    namespace: ns,
+                                    containers: containers,
+                                    cluster: widget.cluster,
+                                  ),
+                                );
+                              },
                               backgroundColor: const Color(0xFF21B7CA),
                               foregroundColor: Colors.white,
                               icon: Icons.terminal,

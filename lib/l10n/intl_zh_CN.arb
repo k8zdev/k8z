@@ -449,5 +449,15 @@
   "terminal": "终端",
   "@terminal": {},
   "logs": "日志",
-  "@logs": {}
+  "@logs": {},
+  "container": "容器",
+  "@container": {},
+  "get_terminal": "获取终端",
+  "@get_terminal": {},
+  "terminals_opened": "已打开 {number} 个终端",
+  "@terminals_opened": {
+    "placeholders": {
+      "number": {}
+    }
+  }
 }
