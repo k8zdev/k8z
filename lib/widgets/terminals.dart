@@ -45,15 +45,21 @@ class _TerminalPanelState extends State<TerminalPanel> {
     final isKeyboardVisible = MediaQuery.of(context).viewInsets.bottom != 0;
     final terms = Provider.of<TerminalProvider>(context, listen: true);
 
-    MediaQuery.of(context).size.height * (isKeyboardVisible ? 1 : 0.8);
+    final size = MediaQuery.of(context).size;
+    final width = MediaQuery.of(context).size.width;
+    final height = size.height * (isKeyboardVisible ? 1 : 0.85);
 
     return Container(
+      padding: EdgeInsets.only(
+        bottom: MediaQuery.of(context).viewInsets.bottom,
+      ),
       constraints: BoxConstraints(
         minHeight: 400,
-        minWidth: MediaQuery.of(context).size.width,
-        maxHeight: MediaQuery.of(context).size.height * 0.8,
+        minWidth: width,
+        maxHeight: height,
       ),
       child: Column(
+        mainAxisSize: MainAxisSize.min,
         children: [
           // info
           Container(
