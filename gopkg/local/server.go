@@ -121,8 +121,6 @@ func ws(ctx *gin.Context) {
 		return
 	}
 
-	logrus.WithField("resetConfig", restConfig).Infoln("inited reset config")
-
 	var upgrader = websocket.Upgrader{}
 	upgrader.CheckOrigin = func(r *http.Request) bool { return true }
 
