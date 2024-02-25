@@ -11,6 +11,7 @@
 		331C808B294A63AB00263BE5 /* RunnerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 331C807B294A618700263BE5 /* RunnerTests.swift */; };
 		3B3967161E833CAA004F5970 /* AppFrameworkInfo.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3B3967151E833CAA004F5970 /* AppFrameworkInfo.plist */; };
 		5B911AFB2B71E7D700E9043A /* libk8z.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B911AFA2B71E7D700E9043A /* libk8z.a */; };
+		5BD2A2312B8A70D700248351 /* libresolv.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 5BD2A2302B8A70D700248351 /* libresolv.tbd */; };
 		61397EC840929D25EE564003 /* Pods_RunnerTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 78CAE931D5AA126C08D33984 /* Pods_RunnerTests.framework */; };
 		74858FAF1ED2DC5600515810 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74858FAE1ED2DC5600515810 /* AppDelegate.swift */; };
 		83DDCBEF522B617A9DA72DAE /* Pods_Runner.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 40FE4BF707B202F0A5F6A41D /* Pods_Runner.framework */; };
@@ -64,6 +65,7 @@
 		5B911AF42B71DD3700E9043A /* libk8z.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libk8z.a; path = Runner/libs/libk8z.a; sourceTree = "<group>"; };
 		5B911AF92B71E7D700E9043A /* libk8z.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = libk8z.h; sourceTree = "<group>"; };
 		5B911AFA2B71E7D700E9043A /* libk8z.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libk8z.a; sourceTree = "<group>"; };
+		5BD2A2302B8A70D700248351 /* libresolv.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libresolv.tbd; path = usr/lib/libresolv.tbd; sourceTree = SDKROOT; };
 		74858FAD1ED2DC5600515810 /* Runner-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Runner-Bridging-Header.h"; sourceTree = "<group>"; };
 		74858FAE1ED2DC5600515810 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		78CAE931D5AA126C08D33984 /* Pods_RunnerTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RunnerTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -94,6 +96,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5BD2A2312B8A70D700248351 /* libresolv.tbd in Frameworks */,
 				83DDCBEF522B617A9DA72DAE /* Pods_Runner.framework in Frameworks */,
 				5B911AFB2B71E7D700E9043A /* libk8z.a in Frameworks */,
 			);
@@ -183,6 +186,7 @@
 		C45E16949D2A5816750BBF76 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				5BD2A2302B8A70D700248351 /* libresolv.tbd */,
 				5B911AF42B71DD3700E9043A /* libk8z.a */,
 				5B911AF32B71DD3700E9043A /* libk8z.h */,
 				40FE4BF707B202F0A5F6A41D /* Pods_Runner.framework */,
