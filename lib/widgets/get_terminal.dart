@@ -28,7 +28,7 @@ class GetTerminal extends StatefulWidget {
 
 class _GetTerminalState extends State<GetTerminal> {
   String _container = '';
-  String _shell = 'sh';
+  String _shell = 'zsh';
   bool _loading = false;
   final _terminalFormKey = GlobalKey<FormState>();
 
@@ -145,6 +145,7 @@ class _GetTerminalState extends State<GetTerminal> {
                       });
                     },
                     items: [
+                      'zsh',
                       'sh',
                       'bash',
                       'pwsh',

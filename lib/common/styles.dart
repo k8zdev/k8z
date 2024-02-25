@@ -42,7 +42,7 @@ const purchaseExtraStyle = TextStyle(
 
 String getMonospaceFontFamily() {
   if (Platform.isIOS || Platform.isMacOS) {
-    return 'Courier';
+    return 'DroidSansMono';
   }
 
   return 'monospace';

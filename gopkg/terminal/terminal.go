@@ -123,7 +123,7 @@ func StartProcess(config *rest.Config, reqURL *url.URL, cmd []string, ptyHandler
 
 // IsValidShell checks if the user provided shell is an allowed one.
 func IsValidShell(shell string) bool {
-	for _, validShell := range []string{"bash", "sh", "pwsh", "cmd"} {
+	for _, validShell := range []string{"zsh", "bash", "sh", "pwsh", "cmd"} {
 		if validShell == shell {
 			return true
 		}

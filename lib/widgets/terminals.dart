@@ -115,6 +115,7 @@ class _TerminalPanelState extends State<TerminalPanel> {
                               terminal.value.terminal!.terminal,
                               textStyle: xterm.TerminalStyle(
                                 fontSize: 14,
+                                height: 1.2,
                                 fontFamily: getMonospaceFontFamily(),
                               ),
                             );

@@ -73,6 +73,7 @@ dependencies:
   flutter_slidable: ^3.0.1
   xterm: ^3.5.0
   web_socket_channel: ^2.4.2
+  chinese_font_library: ^1.1.0
 
 dependency_overrides:
   meta: 1.11.0

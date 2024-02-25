@@ -1,4 +1,5 @@
 // ignore_for_file: use_build_context_synchronously
+import 'package:chinese_font_library/chinese_font_library.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -24,6 +25,7 @@ class SettingsPage extends StatefulWidget {
 
 class _SettingsPageState extends State<SettingsPage> {
   bool _forceDebug = false;
+  String _fontDownloading = "";
 
   @override
   void initState() {
@@ -106,6 +108,27 @@ class _SettingsPageState extends State<SettingsPage> {
     );
   }
 
+  SettingsTile loadNerdFont(S lang) {
+    return SettingsTile(
+      leading: const Icon(Icons.download),
+      title: Text(lang.download_nerd_font),
+      value: Text(_fontDownloading),
+      onPressed: (context) async {
+        final stopwatch = Stopwatch()..start();
+
+        await DynamicFont.url(
+          fontFamily: "DroidSansMono",
+          url:
+              'https://raw.githubusercontent.com/k8zdev/resources/main/fonts/DroidSansMNerdFont-Regular.otf',
+        ).load();
+        stopwatch.stop();
+        setState(() {
+          _fontDownloading = lang.done_in_ms(stopwatch.elapsedMilliseconds);
+        });
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     var lang = S.of(context);
@@ -175,6 +198,7 @@ class _SettingsPageState extends State<SettingsPage> {
                 },
               ),
             ),
+            loadNerdFont(lang),
             SettingsTile(
               leading: GestureDetector(
                 onLongPress: () => setState(() => _forceDebug = !_forceDebug),
