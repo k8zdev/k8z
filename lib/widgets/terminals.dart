@@ -1,6 +1,5 @@
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 import 'package:k8zdev/common/styles.dart';
 import 'package:k8zdev/generated/l10n.dart';
 import 'package:k8zdev/providers/terminals.dart';
@@ -56,26 +55,25 @@ class _TerminalPanelState extends State<TerminalPanel> {
       ),
       child: Column(
         children: [
+          // info
+          Container(
+            padding: defaultEdge,
+            child: Row(
+              children: [
+                const Icon(Icons.terminal),
+                Text(lang.terminals_opened(terms.terminals.length))
+              ],
+            ),
+          ),
+          // panels
           Flexible(
             child: DefaultTabController(
               length: terms.terminals.length,
               child: Column(
                 children: [
-                  // info
-                  Container(
-                    padding: defaultEdge,
-                    child: Row(
-                      children: [
-                        const Icon(Icons.terminal),
-                        Text(lang.terminals_opened(terms.terminals.length))
-                      ],
-                    ),
-                  ),
                   // tabbar
                   ClipRRect(
-                    borderRadius: const BorderRadius.all(
-                      Radius.circular(3),
-                    ),
+                    borderRadius: const BorderRadius.all(Radius.circular(3)),
                     child: TabBar(
                       isScrollable: true,
                       labelColor: Colors.black54,
@@ -88,7 +86,7 @@ class _TerminalPanelState extends State<TerminalPanel> {
                               onDoubleTap: () {
                                 terms.rm(terminal.key);
                                 if (terms.terminals.isEmpty) {
-                                  context.pop();
+                                  Navigator.pop(context);
                                 }
                               },
                               child: Text(
@@ -101,14 +99,12 @@ class _TerminalPanelState extends State<TerminalPanel> {
                     ),
                   ),
 
-                  const Divider(height: 10),
                   // panel
                   Expanded(
                     child: TabBarView(
-                      children: terms.terminals.asMap().entries.mapIndexed(
-                        (index, terminal) {
-                          if (terminal.value.terminal != null &&
-                              terminal.value.type == TerminalType.terminal) {
+                      children: terms.terminals.asMap().entries.map((terminal) {
+                        if (terminal.value.terminal != null) {
+                          if (terminal.value.type == TerminalType.terminal) {
                             return xtermui.TerminalView(
                               terminal.value.terminal!.terminal,
                               textStyle: xterm.TerminalStyle(
@@ -117,9 +113,11 @@ class _TerminalPanelState extends State<TerminalPanel> {
                               ),
                             );
                           }
-                          return Container();
-                        },
-                      ).toList(),
+                        }
+                        return Center(
+                          child: Text(terminal.value.name),
+                        );
+                      }).toList(),
                     ),
                   ),
                 ],

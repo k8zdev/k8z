@@ -88,7 +88,6 @@ class _GetTerminalState extends State<GetTerminal> {
   @override
   Widget build(BuildContext context) {
     final items = widget.containers.map((value) {
-      talker.warning("value: $value");
       return DropdownMenuItem(
         value: value,
         child: Text(value),
