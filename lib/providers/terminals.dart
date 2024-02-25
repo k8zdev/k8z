@@ -63,21 +63,6 @@ class Terminal {
   });
 }
 
-final xterminal = xterm.Terminal(
-  maxLines: 10000,
-  platform: Platform.isAndroid
-      ? xtermcore.TerminalTargetPlatform.android
-      : Platform.isIOS
-          ? xtermcore.TerminalTargetPlatform.ios
-          : Platform.isMacOS
-              ? xtermcore.TerminalTargetPlatform.macos
-              : Platform.isLinux
-                  ? xtermcore.TerminalTargetPlatform.linux
-                  : Platform.isWindows
-                      ? xtermcore.TerminalTargetPlatform.windows
-                      : xtermcore.TerminalTargetPlatform.unknown,
-);
-
 class TerminalData {
   String op;
   String data;
@@ -121,7 +106,20 @@ class StreamBackend {
 
   StreamBackend(IOWebSocketChannel sc) {
     socket = sc;
-    terminal = xterminal;
+    terminal = xterm.Terminal(
+      maxLines: 10000,
+      platform: Platform.isAndroid
+          ? xtermcore.TerminalTargetPlatform.android
+          : Platform.isIOS
+              ? xtermcore.TerminalTargetPlatform.ios
+              : Platform.isMacOS
+                  ? xtermcore.TerminalTargetPlatform.macos
+                  : Platform.isLinux
+                      ? xtermcore.TerminalTargetPlatform.linux
+                      : Platform.isWindows
+                          ? xtermcore.TerminalTargetPlatform.windows
+                          : xtermcore.TerminalTargetPlatform.unknown,
+    );
 
     socket.stream.listen(
       (data) {
@@ -147,7 +145,20 @@ class TerminalBackend {
 
   TerminalBackend(IOWebSocketChannel sc) {
     socket = sc;
-    terminal = xterminal;
+    terminal = xterm.Terminal(
+      maxLines: 10000,
+      platform: Platform.isAndroid
+          ? xtermcore.TerminalTargetPlatform.android
+          : Platform.isIOS
+              ? xtermcore.TerminalTargetPlatform.ios
+              : Platform.isMacOS
+                  ? xtermcore.TerminalTargetPlatform.macos
+                  : Platform.isLinux
+                      ? xtermcore.TerminalTargetPlatform.linux
+                      : Platform.isWindows
+                          ? xtermcore.TerminalTargetPlatform.windows
+                          : xtermcore.TerminalTargetPlatform.unknown,
+    );
 
     socket.stream.listen(
       (event) {
