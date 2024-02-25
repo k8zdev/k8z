@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:k8zdev/common/styles.dart';
 import 'package:k8zdev/generated/l10n.dart';
 import 'package:k8zdev/providers/terminals.dart';
+import 'package:k8zdev/widgets/virtual_keyboard.dart';
 import 'package:provider/provider.dart';
 import 'package:xterm/ui.dart' as xtermui;
 import 'package:xterm/xterm.dart' as xterm;
@@ -105,18 +106,34 @@ class _TerminalPanelState extends State<TerminalPanel> {
                     ),
                   ),
 
+                  //
+
                   // panel
                   Expanded(
                     child: TabBarView(
-                      children: terms.terminals.asMap().entries.map((terminal) {
+                      children: terms.terminals
+                          .asMap()
+                          .entries
+                          .mapIndexed((idx, terminal) {
                         if (terminal.value.terminal != null) {
                           if (terminal.value.type == TerminalType.terminal) {
-                            return xtermui.TerminalView(
+                            final keyboardView = VirtualKeyboardView(
+                                terms.terminals[idx].terminal!.keyboard);
+                            final terminalView = xtermui.TerminalView(
                               terminal.value.terminal!.terminal,
                               textStyle: xterm.TerminalStyle(
                                 fontSize: 14,
                                 height: 1.2,
                                 fontFamily: getMonospaceFontFamily(),
+                              ),
+                            );
+                            return Container(
+                              padding: EdgeInsets.zero,
+                              child: Column(
+                                children: [
+                                  keyboardView,
+                                  Expanded(child: terminalView)
+                                ],
                               ),
                             );
                           }

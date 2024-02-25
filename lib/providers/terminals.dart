@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:k8zdev/widgets/virtual_keyboard.dart';
 import 'package:xterm/xterm.dart' as xterm;
 import 'package:web_socket_channel/io.dart';
 import 'package:xterm/core.dart' as xtermcore;
@@ -140,13 +141,16 @@ class StreamBackend {
 }
 
 class TerminalBackend {
+  late VirtualKeyboard keyboard;
   late xterm.Terminal terminal;
   late IOWebSocketChannel socket;
 
   TerminalBackend(IOWebSocketChannel sc) {
     socket = sc;
+    keyboard = VirtualKeyboard(xterm.defaultInputHandler);
     terminal = xterm.Terminal(
       maxLines: 10000,
+      inputHandler: keyboard,
       platform: Platform.isAndroid
           ? xtermcore.TerminalTargetPlatform.android
           : Platform.isIOS
