@@ -118,7 +118,8 @@ class _TerminalPanelState extends State<TerminalPanel> {
                         if (terminal.value.terminal != null) {
                           if (terminal.value.type == TerminalType.terminal) {
                             final keyboardView = VirtualKeyboardView(
-                                terms.terminals[idx].terminal!.keyboard);
+                                terms.terminals[idx].terminal!.keyboard,
+                                terminal.value.terminal!.terminal);
                             final terminalView = xtermui.TerminalView(
                               terminal.value.terminal!.terminal,
                               textStyle: xterm.TerminalStyle(

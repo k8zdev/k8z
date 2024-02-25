@@ -3,16 +3,26 @@ import 'package:k8zdev/common/ops.dart';
 import 'package:xterm/xterm.dart';
 
 class VirtualKeyboardView extends StatelessWidget {
-  const VirtualKeyboardView(this.keyboard, {super.key});
+  const VirtualKeyboardView(this.keyboard, this.terminal, {super.key});
 
   final VirtualKeyboard keyboard;
+  final Terminal terminal;
 
   @override
   Widget build(BuildContext context) {
     return AnimatedBuilder(
       animation: keyboard,
       builder: (context, child) => ToggleButtons(
-        isSelected: [keyboard.ctrl, keyboard.alt, keyboard.shift],
+        isSelected: [
+          keyboard.ctrl,
+          keyboard.alt,
+          keyboard.shift,
+          false,
+          false,
+          false,
+          false,
+          false
+        ],
         onPressed: (index) {
           switch (index) {
             case 0:
@@ -24,12 +34,47 @@ class VirtualKeyboardView extends StatelessWidget {
             case 2:
               keyboard.shift = !keyboard.shift;
               break;
+            case 3:
+              keyboard.ctrl = false;
+              keyboard.alt = false;
+              keyboard.shift = false;
+              terminal.keyInput(TerminalKey.backspace);
+              break;
+            case 4:
+              keyboard.ctrl = false;
+              keyboard.alt = false;
+              keyboard.shift = false;
+              terminal.keyInput(TerminalKey.arrowLeft);
+              break;
+            case 5:
+              keyboard.ctrl = false;
+              keyboard.alt = false;
+              keyboard.shift = false;
+              terminal.keyInput(TerminalKey.arrowUp);
+              break;
+            case 6:
+              keyboard.ctrl = false;
+              keyboard.alt = false;
+              keyboard.shift = false;
+              terminal.keyInput(TerminalKey.arrowDown);
+              break;
+            case 7:
+              keyboard.ctrl = false;
+              keyboard.alt = false;
+              keyboard.shift = false;
+              terminal.keyInput(TerminalKey.arrowRight);
+              break;
           }
         },
         children: const [
           Text('Ctrl'),
           Text('Alt'),
           Text('Shift'),
+          Text('Delete'),
+          Text('←'),
+          Text('↑'),
+          Text('↓'),
+          Text('→'),
         ],
       ),
     );
