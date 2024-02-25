@@ -5,7 +5,9 @@ import 'package:icons_plus/icons_plus.dart';
 import 'package:k8zdev/common/styles.dart';
 import 'package:k8zdev/generated/l10n.dart';
 import 'package:k8zdev/common/helpers.dart';
+import 'package:k8zdev/providers/terminals.dart';
 import 'package:k8zdev/widgets/terminals.dart';
+import 'package:provider/provider.dart';
 
 class Landing extends StatefulWidget {
   const Landing({super.key, required this.child});
@@ -61,6 +63,7 @@ class _LandingState extends State<Landing> with SingleTickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     var lang = S.of(context);
+    final tp = Provider.of<TerminalProvider>(context, listen: false);
 
     return Scaffold(
       extendBody: true,
@@ -126,7 +129,8 @@ class _LandingState extends State<Landing> with SingleTickerProviderStateMixin {
           ),
         ),
       ),
-      floatingActionButton: floatingActionButton(context),
+      floatingActionButton:
+          tp.terminals.isEmpty ? Container() : floatingActionButton(context),
     );
   }
 }
