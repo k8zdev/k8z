@@ -5,7 +5,9 @@ import 'dart:io';
 import 'dart:isolate';
 
 import 'package:ffi/ffi.dart';
+import 'package:flutter/services.dart';
 import 'package:k8zdev/dao/kube.dart';
+import 'package:k8zdev/services/k8z_service.dart';
 
 // _BodyReturn defines struct of golang reutrn (body, error string)
 final class BodyReturnNative extends Struct {
@@ -263,8 +265,20 @@ class K8zNative {
     func();
   }
 
-  Future<void> startLocalServer() async {
-    _startLocalServer();
+  static Future<void> _localServer(RootIsolateToken rootIsolateToken) async {
+    // Register the background isolate with the root isolate.
+    BackgroundIsolateBinaryMessenger.ensureInitialized(rootIsolateToken);
+
+    K8zNative()._startLocalServer();
+  }
+
+  static Future<void> startLocalServer() async {
+    // Check if the local server is already started.
+    if (await K8zService.isStarted()) {
+      return;
+    }
+    var rootIsolateToken = RootIsolateToken.instance!;
+    await Isolate.spawn(_localServer, rootIsolateToken);
   }
 
   K8zRequestFn _k8zRequest() {

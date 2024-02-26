@@ -1,9 +1,7 @@
-import 'dart:isolate';
 import 'dart:async';
 import 'dart:io';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:k8zdev/common/const.dart';
 import 'package:k8zdev/common/ops.dart';
@@ -34,8 +32,7 @@ void main() async {
   await initStash();
   await initStore();
   await initRevenueCatState();
-  var rootIsolateToken = RootIsolateToken.instance!;
-  Isolate.spawn(_localServer, rootIsolateToken);
+  await K8zNative.startLocalServer();
 
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
@@ -100,15 +97,6 @@ void main() async {
       ),
     ),
   );
-}
-
-Future<void> _localServer(RootIsolateToken rootIsolateToken) async {
-  // Register the background isolate with the root isolate.
-  BackgroundIsolateBinaryMessenger.ensureInitialized(rootIsolateToken);
-
-  talker.warning("local server address: ${K8zNative().localServerAddr()}");
-
-  await K8zNative().startLocalServer();
 }
 
 class MyApp extends StatefulWidget {

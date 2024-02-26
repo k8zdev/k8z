@@ -4,6 +4,8 @@ import 'package:k8zdev/common/styles.dart';
 import 'package:k8zdev/dao/kube.dart';
 import 'package:k8zdev/generated/l10n.dart';
 import 'package:k8zdev/providers/terminals.dart';
+import 'package:k8zdev/services/k8z_native.dart';
+import 'package:k8zdev/services/k8z_service.dart';
 import 'package:k8zdev/widgets/terminals.dart';
 import 'package:provider/provider.dart';
 import 'package:web_socket_channel/io.dart';
@@ -41,6 +43,18 @@ class _GetTerminalState extends State<GetTerminal> {
   Future<void> _getTerminal(BuildContext context) async {
     try {
       setState(() => _loading = true);
+      // check local server is started
+      final isStared = await K8zService.isStarted();
+      // start local server if not started
+      if (!isStared) {
+        try {
+          await K8zNative.startLocalServer();
+        } catch (err) {
+          talker.error("start local server failed, error: $err");
+          rethrow;
+        }
+      }
+
       final socket = IOWebSocketChannel.connect(
         "ws://127.0.0.1:29257/ws?name=${widget.name}&namespace=${widget.namespace}&container=$_container&shell=$_shell",
         headers: <String, dynamic>{

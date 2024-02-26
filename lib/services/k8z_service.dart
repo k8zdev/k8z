@@ -1,6 +1,7 @@
 import 'package:k8zdev/common/ops.dart';
 import 'package:k8zdev/dao/kube.dart';
 import 'package:k8zdev/services/k8z_native.dart';
+import 'package:http/http.dart' as http;
 
 /// [K8zService] implements a service to interactiv with Kubernetes cluster.
 ///
@@ -15,6 +16,24 @@ class K8zService {
     this.proxy = "",
     this.timeout = 60,
   });
+
+  /// [isStarted] used to check local server is started.
+  /// The local server is used to proxy the request to the Kubernetes cluster.
+  static Future<bool> isStarted() async {
+    try {
+      var resp = await http.get(
+        Uri(scheme: "http", host: "localhost", port: 29257, path: "/ping"),
+      );
+      if (resp.statusCode == 200) {
+        return true;
+      }
+      talker.error(
+          "check local server failed, error:  status=${resp.statusCode},body=${resp.body}");
+    } catch (e) {
+      talker.error("check local server failed, error: $e");
+    }
+    return false;
+  }
 
   /// [checkHealth] used to check the Kubernetes cluster is health.
   ///
