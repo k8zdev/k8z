@@ -241,8 +241,12 @@ class _AppStorePaywallState extends State<AppStorePaywall> {
     return Wrap(
       children: <Widget>[
         Container(
-          alignment: Alignment.center,
-          child: Text(lang.sponsor_desc),
+          padding: const EdgeInsets.only(left: 16, right: 16),
+          alignment: Alignment.topCenter,
+          child: Text(
+            lang.sponsor_desc,
+            textAlign: TextAlign.center,
+          ),
         ),
         //
         Container(
