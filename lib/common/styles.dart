@@ -1,4 +1,3 @@
-import 'dart:io';
 import 'package:flutter/material.dart';
 
 const defaultEdge = EdgeInsets.fromLTRB(13, 6, 13, 6);
@@ -41,9 +40,5 @@ const purchaseExtraStyle = TextStyle(
 );
 
 String getMonospaceFontFamily() {
-  if (Platform.isIOS || Platform.isMacOS) {
-    return 'DroidSansMono';
-  }
-
-  return 'monospace';
+  return 'DroidSansMNerdFontMono';
 }
