@@ -1307,26 +1307,6 @@ class S {
       args: [number],
     );
   }
-
-  /// `Download Nerd Font`
-  String get download_nerd_font {
-    return Intl.message(
-      'Download Nerd Font',
-      name: 'download_nerd_font',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Done in {ms}ms`
-  String done_in_ms(Object ms) {
-    return Intl.message(
-      'Done in ${ms}ms',
-      name: 'done_in_ms',
-      desc: '',
-      args: [ms],
-    );
-  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

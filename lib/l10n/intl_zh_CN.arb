@@ -459,13 +459,5 @@
     "placeholders": {
       "number": {}
     }
-  },
-  "download_nerd_font": "下载 Nerd 字体",
-  "@download_nerd_font": {},
-  "done_in_ms": "{ms}ms 完成",
-  "@done_in_ms": {
-    "placeholders": {
-      "ms": {}
-    }
   }
 }

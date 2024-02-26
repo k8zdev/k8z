@@ -469,13 +469,5 @@
     "placeholders": {
       "number": {}
     }
-  },
-  "download_nerd_font": "Download Nerd Font",
-  "@download_nerd_font": {},
-  "done_in_ms": "Done in {ms}ms",
-  "@done_in_ms": {
-    "placeholders": {
-      "ms": {}
-    }
   }
 }
