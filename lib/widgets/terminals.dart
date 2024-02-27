@@ -127,6 +127,7 @@ class _TerminalPanelState extends State<TerminalPanel> {
                                 height: 1.2,
                                 fontFamily: getMonospaceFontFamily(),
                               ),
+                              deleteDetection: true,
                             );
                             return Container(
                               padding: EdgeInsets.zero,

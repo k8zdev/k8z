@@ -38,7 +38,7 @@ class VirtualKeyboardView extends StatelessWidget {
               keyboard.ctrl = false;
               keyboard.alt = false;
               keyboard.shift = false;
-              terminal.keyInput(TerminalKey.backspace);
+              terminal.keyInput(TerminalKey.tab);
               break;
             case 4:
               keyboard.ctrl = false;
@@ -70,7 +70,7 @@ class VirtualKeyboardView extends StatelessWidget {
           Text('Ctrl'),
           Text('Alt'),
           Text('Shift'),
-          Text('Delete'),
+          Text('Tab'),
           Text('←'),
           Text('↑'),
           Text('↓'),
