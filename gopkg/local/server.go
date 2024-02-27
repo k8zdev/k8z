@@ -1,20 +1,16 @@
 package local
 
 import (
-	"encoding/json"
 	"fmt"
 	"net/http"
-	"net/url"
-	"time"
 
 	"github.com/gin-gonic/gin"
 	"github.com/gorilla/websocket"
 	"github.com/k8zdev/k8z/gopkg/k8z"
-	"github.com/k8zdev/k8z/gopkg/terminal"
 	"github.com/sirupsen/logrus"
 	"k8s.io/apimachinery/pkg/types"
+	"k8s.io/client-go/kubernetes"
 	"k8s.io/client-go/rest"
-	"k8s.io/client-go/tools/remotecommand"
 )
 
 const Addr = ":29257"
@@ -29,7 +25,7 @@ func init() {
 		c.JSON(200, gin.H{"message": "pong"})
 	})
 	router.Any("/forward/*api", forward)
-	router.GET("/ws", ws)
+	router.GET("/shell", shell)
 }
 
 func Server() {
@@ -100,7 +96,7 @@ func forward(ctx *gin.Context) {
 	ctx.Data(200, "application/json", respBody)
 }
 
-func ws(ctx *gin.Context) {
+func ws(ctx *gin.Context) (wsconn *websocket.Conn, config *rest.Config, clientset *kubernetes.Clientset) {
 	var k8zHeader = &K8zHeader{}
 	var err = ctx.ShouldBindHeader(k8zHeader)
 	if err != nil {
@@ -111,7 +107,7 @@ func ws(ctx *gin.Context) {
 		return
 	}
 
-	restConfig, _, err := k8z.NewClient(k8zHeader.CtxName, k8zHeader.Server, k8zHeader.CAData, k8zHeader.Insecure == "true", k8zHeader.CertData, k8zHeader.KeyData, k8zHeader.Token, k8zHeader.Username, k8zHeader.Password, k8zHeader.Proxy, k8zHeader.Timeout)
+	restConfig, clientSet, err := k8z.NewClient(k8zHeader.CtxName, k8zHeader.Server, k8zHeader.CAData, k8zHeader.Insecure == "true", k8zHeader.CertData, k8zHeader.KeyData, k8zHeader.Token, k8zHeader.Username, k8zHeader.Password, k8zHeader.Proxy, k8zHeader.Timeout)
 	if err != nil {
 		logrus.WithError(err).Errorln("create client failed")
 		ctx.AbortWithStatusJSON(
@@ -124,7 +120,7 @@ func ws(ctx *gin.Context) {
 	var upgrader = websocket.Upgrader{}
 	upgrader.CheckOrigin = func(r *http.Request) bool { return true }
 
-	wsconn, err := upgrader.Upgrade(ctx.Writer, ctx.Request, nil)
+	wsconn, err = upgrader.Upgrade(ctx.Writer, ctx.Request, nil)
 	if err != nil {
 		ctx.AbortWithStatusJSON(
 			http.StatusBadRequest,
@@ -132,53 +128,5 @@ func ws(ctx *gin.Context) {
 		)
 		return
 	}
-
-	defer wsconn.Close()
-
-	// keep ws connection alive
-	wsconn.SetPongHandler(func(string) error { return nil })
-	go func() {
-		ticker := time.NewTicker(30 * time.Second)
-		defer ticker.Stop()
-
-		for range ticker.C {
-			if err := wsconn.WriteMessage(websocket.PingMessage, nil); err != nil {
-				return
-			}
-		}
-	}()
-
-	var name = ctx.Query("name")
-	var shell = ctx.Query("shell")
-	var namespace = ctx.Query("namespace")
-	var container = ctx.Query("container")
-
-	execapi, err := url.Parse(fmt.Sprintf("%s/api/v1/namespaces/%s/pods/%s/exec?container=%s&command=%s&stdin=true&stdout=true&stderr=true&tty=true", restConfig.Host, namespace, name, container, shell))
-	if err != nil {
-		msg, _ := json.Marshal(terminal.Message{
-			Op:   "stdout",
-			Data: fmt.Sprintf("Could not create request url: %s", err.Error()),
-		})
-		wsconn.WriteMessage(websocket.TextMessage, msg)
-		return
-	}
-
-	if !terminal.IsValidShell(shell) {
-		shell = "sh"
-	}
-	var cmd = []string{shell}
-	var session = &terminal.Session{
-		WebSocket: wsconn,
-		SizeChan:  make(chan remotecommand.TerminalSize),
-	}
-
-	err = terminal.StartProcess(restConfig, execapi, cmd, session)
-	if err != nil {
-		msg, _ := json.Marshal(terminal.Message{
-			Op:   "stdout",
-			Data: fmt.Sprintf("Could not create terminal: %s", err.Error()),
-		})
-		wsconn.WriteMessage(websocket.TextMessage, msg)
-		return
-	}
+	return wsconn, restConfig, clientSet
 }

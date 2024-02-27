@@ -56,7 +56,7 @@ class _GetTerminalState extends State<GetTerminal> {
       }
 
       final socket = IOWebSocketChannel.connect(
-        "ws://127.0.0.1:29257/ws?name=${widget.name}&namespace=${widget.namespace}&container=$_container&shell=$_shell",
+        "ws://127.0.0.1:29257/shell?name=${widget.name}&namespace=${widget.namespace}&container=$_container&shell=$_shell",
         headers: <String, dynamic>{
           'X-CONTEXT-NAME': widget.cluster.name,
           'X-CLUSTER-SERVER': widget.cluster.server,
