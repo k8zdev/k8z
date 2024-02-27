@@ -10,13 +10,28 @@ import 'package:k8zdev/widgets/terminals.dart';
 import 'package:provider/provider.dart';
 import 'package:web_socket_channel/io.dart';
 
-class GetTerminal extends StatefulWidget {
+const Map<String, int> sinceMap = {
+  '5 Minutes': 300,
+  '15 Minutes': 900,
+  '30 Minutes': 1800,
+  '1 Hour': 3600,
+  '3 Hours': 10800,
+  '6 Hours': 21600,
+  '12 Hours': 43200,
+  '1 Day': 86400,
+  '2 Days': 172800,
+  '1 Week': 604800,
+  '2 Weeks': 1209600,
+  '1 Month': 2592000,
+};
+
+class GetLogstream extends StatefulWidget {
   final String name;
   final String namespace;
   final List<String> containers;
   final K8zCluster cluster;
 
-  const GetTerminal({
+  const GetLogstream({
     super.key,
     required this.name,
     required this.namespace,
@@ -25,13 +40,14 @@ class GetTerminal extends StatefulWidget {
   });
 
   @override
-  State<GetTerminal> createState() => _GetTerminalState();
+  State<GetLogstream> createState() => _GetLogstreamState();
 }
 
-class _GetTerminalState extends State<GetTerminal> {
-  String _container = '';
-  String _shell = 'zsh';
+class _GetLogstreamState extends State<GetLogstream> {
+  int _tail = 100;
   bool _loading = false;
+  String _container = '';
+  String _since = '5 Minutes';
   final _terminalFormKey = GlobalKey<FormState>();
 
   @override
@@ -56,7 +72,7 @@ class _GetTerminalState extends State<GetTerminal> {
       }
 
       final socket = IOWebSocketChannel.connect(
-        "ws://127.0.0.1:29257/shell?name=${widget.name}&namespace=${widget.namespace}&container=$_container&shell=$_shell",
+        "ws://localhost:29257/stream?name=${widget.name}&namespace=${widget.namespace}&container=$_container&since=${sinceMap[_since]}&tail=$_tail",
         headers: <String, dynamic>{
           'X-CONTEXT-NAME': widget.cluster.name,
           'X-CLUSTER-SERVER': widget.cluster.server,
@@ -76,8 +92,8 @@ class _GetTerminalState extends State<GetTerminal> {
       var tp = Provider.of<TerminalProvider>(context, listen: false);
       tp.add(
         "${widget.name}/$_container",
-        TerminalType.terminal,
-        terminal: TerminalBackend(socket),
+        TerminalType.stream,
+        stream: StreamBackend(socket),
       );
 
       setState(() => _loading = false);
@@ -150,28 +166,54 @@ class _GetTerminalState extends State<GetTerminal> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  const Text('Shell'),
+                  const Text('Since'),
                   DropdownButton(
-                    value: _shell,
+                    value: _since,
                     underline: Container(height: 2),
                     onChanged: (String? value) {
                       setState(() {
-                        _shell = value ?? 'sh';
+                        _since = value ?? '5 Minutes';
                       });
                     },
-                    items: [
-                      'zsh',
-                      'sh',
-                      'bash',
-                      'pwsh',
-                      'cmd',
-                    ].map((value) {
+                    items: sinceMap.entries.map((value) {
                       return DropdownMenuItem(
-                        value: value,
-                        child: Text(value),
+                        value: value.key,
+                        child: Text(value.key),
                       );
                     }).toList(),
                   ),
+                ],
+              ),
+            ),
+
+            //
+            SizedBox(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  const Text('Since'),
+                  DropdownButton(
+                      value: _tail,
+                      underline: Container(height: 2),
+                      onChanged: (int? value) {
+                        setState(() {
+                          _tail = value ?? 100;
+                        });
+                      },
+                      items: [
+                        100,
+                        300,
+                        500,
+                        700,
+                        900,
+                        1000,
+                      ].map((value) {
+                        return DropdownMenuItem(
+                          value: value,
+                          child: Text(value.toString()),
+                        );
+                      }).toList()),
                 ],
               ),
             ),

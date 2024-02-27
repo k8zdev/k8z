@@ -140,6 +140,17 @@ class _TerminalPanelState extends State<TerminalPanel> {
                             );
                           }
                         }
+                        if (terminal.value.type == TerminalType.stream) {
+                          return Center(
+                            child: xtermui.TerminalView(
+                              terminal.value.stream!.terminal,
+                              textStyle: xterm.TerminalStyle(
+                                fontSize: 14,
+                                fontFamily: getMonospaceFontFamily(),
+                              ),
+                            ),
+                          );
+                        }
                         return Center(
                           child: Text(terminal.value.name),
                         );

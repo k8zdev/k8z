@@ -11,6 +11,7 @@ import 'package:k8zdev/generated/l10n.dart';
 import 'package:k8zdev/models/models.dart';
 import 'package:k8zdev/providers/current_cluster.dart';
 import 'package:k8zdev/services/k8z_service.dart';
+import 'package:k8zdev/widgets/get_logstream.dart';
 import 'package:k8zdev/widgets/get_terminal.dart';
 import 'package:k8zdev/widgets/modal.dart';
 import 'package:k8zdev/widgets/namespace.dart';
@@ -151,7 +152,17 @@ class _PodsPageState extends State<PodsPage> {
                           motion: const ScrollMotion(),
                           children: [
                             SlidableAction(
-                              onPressed: (context) {},
+                              onPressed: (context) {
+                                showModal(
+                                  context,
+                                  GetLogstream(
+                                    name: metadata.name!,
+                                    namespace: ns,
+                                    containers: containers,
+                                    cluster: widget.cluster,
+                                  ),
+                                );
+                              },
                               backgroundColor: const Color(0xFF21B7CA),
                               foregroundColor: Colors.white,
                               icon: Icons.list_alt,
