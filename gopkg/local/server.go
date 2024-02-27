@@ -26,6 +26,7 @@ func init() {
 	})
 	router.Any("/forward/*api", forward)
 	router.GET("/shell", shell)
+	router.GET("/stream", logstream)
 }
 
 func Server() {
