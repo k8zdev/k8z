@@ -148,6 +148,7 @@ class _TerminalPanelState extends State<TerminalPanel> {
                                 fontSize: 14,
                                 fontFamily: getMonospaceFontFamily(),
                               ),
+                              readOnly: true,
                             ),
                           );
                         }
