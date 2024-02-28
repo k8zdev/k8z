@@ -108,7 +108,11 @@ func ws(ctx *gin.Context) (wsconn *websocket.Conn, config *rest.Config, clientse
 		return
 	}
 
-	restConfig, clientSet, err := k8z.NewClient(k8zHeader.CtxName, k8zHeader.Server, k8zHeader.CAData, k8zHeader.Insecure == "true", k8zHeader.CertData, k8zHeader.KeyData, k8zHeader.Token, k8zHeader.Username, k8zHeader.Password, k8zHeader.Proxy, k8zHeader.Timeout)
+	restConfig, clientSet, err := k8z.NewClient(
+		k8zHeader.CtxName, k8zHeader.Server, k8zHeader.CAData, k8zHeader.Insecure == "true",
+		k8zHeader.CertData, k8zHeader.KeyData, k8zHeader.Token, k8zHeader.Username,
+		k8zHeader.Password, k8zHeader.Proxy, 0,
+	)
 	if err != nil {
 		logrus.WithError(err).Errorln("create client failed")
 		ctx.AbortWithStatusJSON(
