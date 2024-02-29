@@ -1,3 +1,4 @@
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 
 extension DarkMode on BuildContext {
@@ -64,4 +65,17 @@ const podOkStatusList = ["Running", "Succeeded"];
 
 bool isOkStatus(String status) {
   return podOkStatusList.contains(status);
+}
+
+Future<void> logScreenView({
+  String? screenClass,
+  String? screenName,
+  Map<String, Object?>? parameters,
+  AnalyticsCallOptions? callOptions,
+}) async {
+  FirebaseAnalytics.instance.logScreenView(
+      screenName: screenName,
+      screenClass: screenClass,
+      parameters: parameters,
+      callOptions: callOptions);
 }
