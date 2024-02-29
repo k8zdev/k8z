@@ -219,6 +219,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "service_text": m26,
         "services": MessageLookupByLibrary.simpleMessage("Services"),
         "settings": MessageLookupByLibrary.simpleMessage("Settings"),
+        "since": MessageLookupByLibrary.simpleMessage("Since"),
         "sponsor_desc": MessageLookupByLibrary.simpleMessage(
             "Sponsor me so that I can continue to develop and maintain this app."),
         "sponsorme": MessageLookupByLibrary.simpleMessage("Sponsor Me"),
@@ -245,6 +246,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Resotre success."),
         "subscriptions_yearly": MessageLookupByLibrary.simpleMessage("Yearly"),
         "success": MessageLookupByLibrary.simpleMessage("Success"),
+        "tail_lines": MessageLookupByLibrary.simpleMessage("Tail Lines"),
         "terminal": MessageLookupByLibrary.simpleMessage("Terminal"),
         "terminals_opened": m31,
         "theme_auto": MessageLookupByLibrary.simpleMessage("auto"),

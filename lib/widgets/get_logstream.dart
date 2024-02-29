@@ -166,7 +166,7 @@ class _GetLogstreamState extends State<GetLogstream> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  const Text('Since'),
+                  Text(lang.since),
                   DropdownButton(
                     value: _since,
                     underline: Container(height: 2),
@@ -192,7 +192,7 @@ class _GetLogstreamState extends State<GetLogstream> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  const Text('Since'),
+                  Text(lang.tail_lines),
                   DropdownButton(
                       value: _tail,
                       underline: Container(height: 2),

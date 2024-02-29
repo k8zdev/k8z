@@ -1307,6 +1307,26 @@ class S {
       args: [number],
     );
   }
+
+  /// `Since`
+  String get since {
+    return Intl.message(
+      'Since',
+      name: 'since',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Tail Lines`
+  String get tail_lines {
+    return Intl.message(
+      'Tail Lines',
+      name: 'tail_lines',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

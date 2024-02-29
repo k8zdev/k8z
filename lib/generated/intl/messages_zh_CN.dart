@@ -202,6 +202,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "service_text": m26,
         "services": MessageLookupByLibrary.simpleMessage("服务 (services)"),
         "settings": MessageLookupByLibrary.simpleMessage("设置"),
+        "since": MessageLookupByLibrary.simpleMessage("自"),
         "sponsor_desc":
             MessageLookupByLibrary.simpleMessage("赞助我以便于我可以继续开发维护这款应用程序。"),
         "sponsorme": MessageLookupByLibrary.simpleMessage("赞助我"),
@@ -225,6 +226,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("恢复成功"),
         "subscriptions_yearly": MessageLookupByLibrary.simpleMessage("每年"),
         "success": MessageLookupByLibrary.simpleMessage("成功"),
+        "tail_lines": MessageLookupByLibrary.simpleMessage("尾部行数"),
         "terminal": MessageLookupByLibrary.simpleMessage("终端"),
         "terminals_opened": m31,
         "theme_auto": MessageLookupByLibrary.simpleMessage("跟随系统"),

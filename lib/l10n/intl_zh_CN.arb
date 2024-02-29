@@ -459,5 +459,9 @@
     "placeholders": {
       "number": {}
     }
-  }
+  },
+  "since": "自",
+  "@since": {},
+  "tail_lines": "尾部行数",
+  "@tail_lines": {}
 }

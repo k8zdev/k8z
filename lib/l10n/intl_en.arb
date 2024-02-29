@@ -469,5 +469,9 @@
     "placeholders": {
       "number": {}
     }
-  }
+  },
+  "since": "Since",
+  "@since": {},
+  "tail_lines": "Tail Lines",
+  "@tail_lines": {}
 }
