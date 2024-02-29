@@ -10,7 +10,7 @@ class VirtualKeyboardView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return AnimatedBuilder(
+    final body = AnimatedBuilder(
       animation: keyboard,
       builder: (context, child) => ToggleButtons(
         isSelected: [
@@ -77,6 +77,10 @@ class VirtualKeyboardView extends StatelessWidget {
           Text('→'),
         ],
       ),
+    );
+    return SingleChildScrollView(
+      scrollDirection: Axis.horizontal,
+      child: body,
     );
   }
 }
