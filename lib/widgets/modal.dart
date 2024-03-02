@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-void showModal(BuildContext context, Widget widget) {
+void showModal(BuildContext context, Widget widget, {int minHeight = 400}) {
   showModalBottomSheet(
     context: context,
     isDismissible: true,
@@ -13,7 +13,7 @@ void showModal(BuildContext context, Widget widget) {
     builder: (BuildContext context) {
       return Container(
         constraints: BoxConstraints(
-          minHeight: 400,
+          minHeight: minHeight.toDouble(),
           minWidth: MediaQuery.of(context).size.width,
           maxHeight: MediaQuery.of(context).size.height * 0.8,
         ),

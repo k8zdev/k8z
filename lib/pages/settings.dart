@@ -9,6 +9,9 @@ import 'package:k8zdev/generated/l10n.dart';
 import 'package:k8zdev/providers/lang.dart';
 import 'package:k8zdev/providers/talker.dart';
 import 'package:k8zdev/providers/theme.dart';
+import 'package:k8zdev/providers/timeout.dart';
+import 'package:k8zdev/widgets/modal.dart';
+import 'package:k8zdev/widgets/set_api_timeout.dart';
 import 'package:material_dialogs/widgets/buttons/icon_outline_button.dart';
 import 'package:provider/provider.dart';
 import 'package:settings_ui/settings_ui.dart';
@@ -176,6 +179,17 @@ class _SettingsPageState extends State<SettingsPage> {
                 },
               ),
             ),
+            // update timeout
+            SettingsTile.navigation(
+              leading: const Icon(Icons.timer_outlined),
+              title: Text(lang.api_timeout),
+              value: Text(lang
+                  .n_seconds(Provider.of<TimeoutProvider>(context).timeout)),
+              onPressed: (context) {
+                showModal(context, const ApiTimeoutWidget(), minHeight: 150);
+              },
+            ),
+
             SettingsTile(
               leading: GestureDetector(
                 onLongPress: () => setState(() => _forceDebug = !_forceDebug),

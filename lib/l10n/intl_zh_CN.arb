@@ -463,5 +463,15 @@
   "since": "自",
   "@since": {},
   "tail_lines": "尾部行数",
-  "@tail_lines": {}
+  "@tail_lines": {},
+  "api_timeout": "API 超时",
+  "@api_timeout": {},
+  "n_seconds": "{n} 秒",
+  "@n_seconds": {
+    "placeholders": {
+      "n": {
+        "type": "num"
+      }
+    }
+  }
 }

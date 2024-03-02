@@ -473,5 +473,15 @@
   "since": "Since",
   "@since": {},
   "tail_lines": "Tail Lines",
-  "@tail_lines": {}
+  "@tail_lines": {},
+  "api_timeout": "API Timeout",
+  "@api_timeout": {},
+  "n_seconds": "{n} s",
+  "@n_seconds": {
+    "placeholders": {
+      "n": {
+        "type": "num"
+      }
+    }
+  }
 }

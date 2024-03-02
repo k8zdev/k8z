@@ -1327,6 +1327,26 @@ class S {
       args: [],
     );
   }
+
+  /// `API Timeout`
+  String get api_timeout {
+    return Intl.message(
+      'API Timeout',
+      name: 'api_timeout',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `{n} s`
+  String n_seconds(num n) {
+    return Intl.message(
+      '$n s',
+      name: 'n_seconds',
+      desc: '',
+      args: [n],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {
