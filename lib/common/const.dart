@@ -20,3 +20,9 @@ final stdeulaUrl = Uri(
   host: "www.apple.com",
   path: "/legal/internet-services/itunes/dev/stdeula/",
 );
+
+final githubUrl = Uri(
+  scheme: "https",
+  host: "github.com",
+  path: "/k8zdev/k8z",
+);

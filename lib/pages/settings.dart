@@ -14,6 +14,7 @@ import 'package:provider/provider.dart';
 import 'package:settings_ui/settings_ui.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:material_dialogs/dialogs.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class SettingsPage extends StatefulWidget {
   const SettingsPage({super.key});
@@ -181,6 +182,9 @@ class _SettingsPageState extends State<SettingsPage> {
                 child: const Icon(Icons.electrical_services_rounded),
               ),
               title: Text(lang.appName),
+              onPressed: (context) {
+                launchUrl(githubUrl);
+              },
             ),
             if (talkerEnabled)
               SettingsTile.navigation(
