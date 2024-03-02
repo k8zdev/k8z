@@ -60,10 +60,10 @@ class S {
     );
   }
 
-  /// `version`
+  /// `Version`
   String get version {
     return Intl.message(
-      'version',
+      'Version',
       name: 'version',
       desc: '',
       args: [],
@@ -90,20 +90,20 @@ class S {
     );
   }
 
-  /// `cancel`
+  /// `Cancel`
   String get cancel {
     return Intl.message(
-      'cancel',
+      'Cancel',
       name: 'cancel',
       desc: '',
       args: [],
     );
   }
 
-  /// `delete`
+  /// `Delete`
   String get delete {
     return Intl.message(
-      'delete',
+      'Delete',
       name: 'delete',
       desc: '',
       args: [],
@@ -360,40 +360,40 @@ class S {
     );
   }
 
-  /// `appearance`
+  /// `Appearance`
   String get appearance {
     return Intl.message(
-      'appearance',
+      'Appearance',
       name: 'appearance',
       desc: '',
       args: [],
     );
   }
 
-  /// `auto`
+  /// `Auto`
   String get theme_auto {
     return Intl.message(
-      'auto',
+      'Auto',
       name: 'theme_auto',
       desc: '',
       args: [],
     );
   }
 
-  /// `dark mode`
+  /// `Dark mode`
   String get theme_dark {
     return Intl.message(
-      'dark mode',
+      'Dark mode',
       name: 'theme_dark',
       desc: '',
       args: [],
     );
   }
 
-  /// `light mode`
+  /// `Light mode`
   String get theme_light {
     return Intl.message(
-      'light mode',
+      'Light mode',
       name: 'theme_light',
       desc: '',
       args: [],
@@ -410,20 +410,20 @@ class S {
     );
   }
 
-  /// `general`
+  /// `General`
   String get general {
     return Intl.message(
-      'general',
+      'General',
       name: 'general',
       desc: '',
       args: [],
     );
   }
 
-  /// `language`
+  /// `Language`
   String get general_language {
     return Intl.message(
-      'language',
+      'Language',
       name: 'general_language',
       desc: '',
       args: [],
@@ -1138,10 +1138,10 @@ class S {
     );
   }
 
-  /// `Sponsor Me`
+  /// `Sponsor me`
   String get sponsorme {
     return Intl.message(
-      'Sponsor Me',
+      'Sponsor me',
       name: 'sponsorme',
       desc: '',
       args: [],
