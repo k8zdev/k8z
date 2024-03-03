@@ -65,6 +65,7 @@ class _OverviewMetricState extends State<OverviewMetric> {
         : '?fieldSelector=metadata.name=${widget.nodeName}';
     final nodesData = await K8zService(context, cluster: widget.cluster!)
         .get('/api/v1/nodes$nodesFilter');
+    if (nodesData.error.isNotEmpty) throw Exception(nodesData.error);
     final nodesList = IoK8sApiCoreV1NodeList.fromJson(nodesData.body);
 
     // 2. fetch pods list.
@@ -74,12 +75,14 @@ class _OverviewMetricState extends State<OverviewMetric> {
     // ignore: use_build_context_synchronously
     final podsData = await K8zService(context, cluster: widget.cluster!)
         .get('/api/v1/pods$podsFilter');
+    if (podsData.error.isNotEmpty) throw Exception(nodesData.error);
     final podsList = IoK8sApiCoreV1PodList.fromJson(podsData.body);
 
     // 3. fetch node's metrics.
     // ignore: use_build_context_synchronously
     final nodeMetricsData = await K8zService(context, cluster: widget.cluster!)
         .get('/apis/metrics.k8s.io/v1beta1/nodes$nodesFilter');
+    if (nodeMetricsData.error.isNotEmpty) throw Exception(nodesData.error);
     final nodeMetricsList =
         ApisMetricsV1beta1NodeMetricsList.fromJson(nodeMetricsData.body);
 
