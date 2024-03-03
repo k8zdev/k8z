@@ -44,36 +44,48 @@ class _NamespacesPageState extends State<NamespacesPage> {
               child: Text(lang.error),
             );
           } else {
-            final nssList =
-                IoK8sApiCoreV1NamespaceList.fromJson(snapshot.data.body);
+            if (snapshot.data.error.isNotEmpty) {
+              trailing = Container();
+              title = Text(lang.error);
+              list = [
+                SettingsTile(
+                  title: Text(
+                    snapshot.data.error,
+                    style: const TextStyle(color: Colors.grey),
+                  ),
+                )
+              ];
+            } else {
+              final nssList =
+                  IoK8sApiCoreV1NamespaceList.fromJson(snapshot.data.body);
 
-            totals = lang.items_number(nssList?.items.length ?? 0);
+              totals = lang.items_number(nssList?.items.length ?? 0);
 
-            list = nssList?.items.mapIndexed(
-                  (index, ns) {
-                    talker.debug("ns: ${ns.metadata}\n");
+              list = nssList?.items.mapIndexed(
+                    (index, ns) {
+                      talker.debug("ns: ${ns.metadata}\n");
 
-                    var metadata = ns.metadata;
-                    var now = DateTime.now();
-                    var creation = metadata?.creationTimestamp ?? now;
-                    var age = now.difference(creation).pretty;
-                    return SettingsTile(
-                      title: Text(metadata?.name ?? "<noe>"),
-                      trailing: Row(
-                        children: [
-                          Text(age),
-                          const Divider(indent: 12),
-                          ns.status?.phase == "Active"
-                              ? runningIcon
-                              : errorIcon,
-                        ],
-                      ),
-                    );
-                  },
-                ).toList() ??
-                [];
+                      var metadata = ns.metadata;
+                      var now = DateTime.now();
+                      var creation = metadata?.creationTimestamp ?? now;
+                      var age = now.difference(creation).pretty;
+                      return SettingsTile(
+                        title: Text(metadata?.name ?? "<noe>"),
+                        trailing: Row(
+                          children: [
+                            Text(age),
+                            const Divider(indent: 12),
+                            ns.status?.phase == "Active"
+                                ? runningIcon
+                                : errorIcon,
+                          ],
+                        ),
+                      );
+                    },
+                  ).toList() ??
+                  [];
+            }
           }
-
           talker.debug("list ${list.length}");
 
           return SettingsSection(

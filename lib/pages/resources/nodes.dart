@@ -45,104 +45,119 @@ class _NodesPageState extends State<NodesPage> {
             title = Text(snapshot.data?.error ?? "");
             trailing = errorIcon;
           } else {
-            var data = snapshot.data;
-            var body = data?.body;
+            if (snapshot.data != null && snapshot.data!.error.isNotEmpty) {
+              trailing = Container();
+              title = Text(lang.error);
+              list = [
+                SettingsTile(
+                  title: Text(
+                    snapshot.data!.error,
+                    style: const TextStyle(color: Colors.grey),
+                  ),
+                )
+              ];
+            } else {
+              var data = snapshot.data;
+              var body = data?.body;
 
-            final nodesList = IoK8sApiCoreV1NodeList.fromJson(body);
+              final nodesList = IoK8sApiCoreV1NodeList.fromJson(body);
 
-            totals = lang.items_number(nodesList?.items.length ?? 0);
+              totals = lang.items_number(nodesList?.items.length ?? 0);
 
-            list = nodesList?.items.mapIndexed(
-                  (index, node) {
-                    var metadata = node.metadata;
-                    var labels = metadata?.labels;
-                    var nodeInfo = node.status?.nodeInfo;
-                    var status = node.status?.conditions
-                        .where((condition) => condition.status == 'True')
-                        .map((condition) => condition.type);
-                    var running = status != null &&
-                        status.where((e) => e == 'Ready').isNotEmpty;
-                    var roles = nodeRoles(labels ?? {});
-                    var now = DateTime.now();
-                    var creation = metadata?.creationTimestamp ?? now;
-                    var age = now.difference(creation).pretty;
-                    var arch = nodeInfo?.architecture;
-                    var version = nodeInfo?.kubeletVersion;
-                    var osImage = nodeInfo?.osImage;
-                    var os = nodeInfo?.operatingSystem;
-                    var kernel = nodeInfo?.kernelVersion;
-                    var runtime = nodeInfo?.containerRuntimeVersion;
-                    var addresses = node.status?.addresses;
-                    var internal = "<none>";
-                    var iip = addresses
-                        ?.where((e) => e.type == "InternalIP")
-                        .toList();
-                    if (iip!.isNotEmpty) {
-                      internal = iip.first.address;
-                    }
-                    var external = "<none>";
-                    var eip = addresses
-                        ?.where((e) => e.type == "ExternalIP")
-                        .toList();
-                    if (eip!.isNotEmpty) {
-                      external = eip.first.address;
-                    }
+              list = nodesList?.items.mapIndexed(
+                    (index, node) {
+                      var metadata = node.metadata;
+                      var labels = metadata?.labels;
+                      var nodeInfo = node.status?.nodeInfo;
+                      var status = node.status?.conditions
+                          .where((condition) => condition.status == 'True')
+                          .map((condition) => condition.type);
+                      var running = status != null &&
+                          status.where((e) => e == 'Ready').isNotEmpty;
+                      var roles = nodeRoles(labels ?? {});
+                      var now = DateTime.now();
+                      var creation = metadata?.creationTimestamp ?? now;
+                      var age = now.difference(creation).pretty;
+                      var arch = nodeInfo?.architecture;
+                      var version = nodeInfo?.kubeletVersion;
+                      var osImage = nodeInfo?.osImage;
+                      var os = nodeInfo?.operatingSystem;
+                      var kernel = nodeInfo?.kernelVersion;
+                      var runtime = nodeInfo?.containerRuntimeVersion;
+                      var addresses = node.status?.addresses;
+                      var internal = "<none>";
+                      var iip = addresses
+                          ?.where((e) => e.type == "InternalIP")
+                          .toList();
+                      if (iip!.isNotEmpty) {
+                        internal = iip.first.address;
+                      }
+                      var external = "<none>";
+                      var eip = addresses
+                          ?.where((e) => e.type == "ExternalIP")
+                          .toList();
+                      if (eip!.isNotEmpty) {
+                        external = eip.first.address;
+                      }
 
-                    return SettingsTile(
-                      title: Table(
-                        columnWidths: const {
-                          0: FlexColumnWidth(120),
-                        },
-                        children: [
-                          TableRow(children: [
-                            Text(metadata?.name ?? ""),
-                          ]),
-                          const TableRow(
-                            children: [
-                              SizedBox(height: 6),
-                            ],
-                          ),
-                          TableRow(children: [
-                            Text(lang.node_roles(roles), style: smallTextStyle),
-                          ]),
-                          TableRow(children: [
-                            Text(lang.node_os_image(osImage!),
-                                style: smallTextStyle),
-                          ]),
-                          TableRow(children: [
-                            Text(lang.node_arch(arch!), style: smallTextStyle),
-                          ]),
-                          TableRow(children: [
-                            Text(lang.node_version(version!),
-                                style: smallTextStyle),
-                          ]),
-                          TableRow(children: [
-                            Text(lang.node_kernel(os!, kernel!),
-                                style: smallTextStyle),
-                          ]),
-                          TableRow(children: [
-                            Text(lang.internel_ip(internal),
-                                style: smallTextStyle),
-                          ]),
-                          TableRow(children: [
-                            Text(lang.external_ip(external),
-                                style: smallTextStyle),
-                          ]),
-                          TableRow(children: [
-                            Text(lang.container_runtime(runtime!),
-                                style: smallTextStyle),
-                          ]),
-                        ],
-                      ),
-                      trailing: Row(children: [
-                        Text(age),
-                        const Divider(indent: 12),
-                        running ? runningIcon : errorIcon,
-                      ]),
-                    );
-                  },
-                ).toList() ??
-                [];
+                      return SettingsTile(
+                        title: Table(
+                          columnWidths: const {
+                            0: FlexColumnWidth(120),
+                          },
+                          children: [
+                            TableRow(children: [
+                              Text(metadata?.name ?? ""),
+                            ]),
+                            const TableRow(
+                              children: [
+                                SizedBox(height: 6),
+                              ],
+                            ),
+                            TableRow(children: [
+                              Text(lang.node_roles(roles),
+                                  style: smallTextStyle),
+                            ]),
+                            TableRow(children: [
+                              Text(lang.node_os_image(osImage!),
+                                  style: smallTextStyle),
+                            ]),
+                            TableRow(children: [
+                              Text(lang.node_arch(arch!),
+                                  style: smallTextStyle),
+                            ]),
+                            TableRow(children: [
+                              Text(lang.node_version(version!),
+                                  style: smallTextStyle),
+                            ]),
+                            TableRow(children: [
+                              Text(lang.node_kernel(os!, kernel!),
+                                  style: smallTextStyle),
+                            ]),
+                            TableRow(children: [
+                              Text(lang.internel_ip(internal),
+                                  style: smallTextStyle),
+                            ]),
+                            TableRow(children: [
+                              Text(lang.external_ip(external),
+                                  style: smallTextStyle),
+                            ]),
+                            TableRow(children: [
+                              Text(lang.container_runtime(runtime!),
+                                  style: smallTextStyle),
+                            ]),
+                          ],
+                        ),
+                        trailing: Row(children: [
+                          Text(age),
+                          const Divider(indent: 12),
+                          running ? runningIcon : errorIcon,
+                        ]),
+                      );
+                    },
+                  ).toList() ??
+                  [];
+            }
           }
 
           return SettingsSection(

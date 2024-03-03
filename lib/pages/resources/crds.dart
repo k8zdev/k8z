@@ -45,56 +45,68 @@ class _CrdsPageState extends State<CrdsPage> {
               child: Text(lang.error),
             );
           } else {
-            final crdsList =
-                IoK8sApiextensionsApiserverPkgApisApiextensionsV1CustomResourceDefinitionList
-                    .fromJson(snapshot.data.body);
+            if (snapshot.data.error.isNotEmpty) {
+              trailing = Container();
+              title = Text(lang.error);
+              list = [
+                SettingsTile(
+                  title: Text(
+                    snapshot.data.error,
+                    style: const TextStyle(color: Colors.grey),
+                  ),
+                )
+              ];
+            } else {
+              final crdsList =
+                  IoK8sApiextensionsApiserverPkgApisApiextensionsV1CustomResourceDefinitionList
+                      .fromJson(snapshot.data.body);
 
-            var crdsItems = crdsList?.items;
+              var crdsItems = crdsList?.items;
 
-            totals = lang.items_number(crdsItems?.length ?? 0);
+              totals = lang.items_number(crdsItems?.length ?? 0);
 
-            if (crdsItems != null) {
-              crdsItems.sort(
-                (a, b) {
-                  if (a.metadata?.creationTimestamp != null &&
-                      b.metadata?.creationTimestamp != null) {
-                    return b.metadata!.creationTimestamp!
-                        .compareTo(a.metadata!.creationTimestamp!);
-                  }
-                  return 0;
-                },
-              );
-            }
-            list = crdsItems?.mapIndexed(
-                  (index, crd) {
-                    var metadata = crd.metadata;
-                    var now = DateTime.now();
-                    var creation = metadata?.creationTimestamp ?? now;
-                    var age = now.difference(creation).pretty;
-
-                    var spec = crd.spec;
-                    var names = spec.names;
-                    var shortNames = names.shortNames.join(",");
-                    var text = lang.crds_text(
-                      metadata?.name ?? "",
-                      names.kind,
-                      spec.scope,
-                      shortNames,
-                    );
-
-                    return SettingsTile(
-                      title: Text(text, style: smallTextStyle),
-                      trailing: Row(
-                        children: [
-                          Text(age),
-                        ],
-                      ),
-                    );
+              if (crdsItems != null) {
+                crdsItems.sort(
+                  (a, b) {
+                    if (a.metadata?.creationTimestamp != null &&
+                        b.metadata?.creationTimestamp != null) {
+                      return b.metadata!.creationTimestamp!
+                          .compareTo(a.metadata!.creationTimestamp!);
+                    }
+                    return 0;
                   },
-                ).toList() ??
-                [];
-          }
+                );
+              }
+              list = crdsItems?.mapIndexed(
+                    (index, crd) {
+                      var metadata = crd.metadata;
+                      var now = DateTime.now();
+                      var creation = metadata?.creationTimestamp ?? now;
+                      var age = now.difference(creation).pretty;
 
+                      var spec = crd.spec;
+                      var names = spec.names;
+                      var shortNames = names.shortNames.join(",");
+                      var text = lang.crds_text(
+                        metadata?.name ?? "",
+                        names.kind,
+                        spec.scope,
+                        shortNames,
+                      );
+
+                      return SettingsTile(
+                        title: Text(text, style: smallTextStyle),
+                        trailing: Row(
+                          children: [
+                            Text(age),
+                          ],
+                        ),
+                      );
+                    },
+                  ).toList() ??
+                  [];
+            }
+          }
           talker.debug("list ${list.length}");
 
           return SettingsSection(
