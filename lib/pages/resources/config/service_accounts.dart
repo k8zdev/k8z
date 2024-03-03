@@ -53,54 +53,67 @@ class _ServiceAccountsPageState extends State<ServiceAccountsPage> {
               child: Text(lang.error),
             );
           } else {
-            talker.debug(
-                "length: ${snapshot.data.body.length}, error: ${snapshot.data.error}");
-            final data =
-                IoK8sApiCoreV1ServiceAccountList.fromJson(snapshot.data.body);
+            if (snapshot.data.error.isNotEmpty) {
+              trailing = Container();
+              title = Text(lang.error);
+              list = [
+                SettingsTile(
+                  title: Text(
+                    snapshot.data.error,
+                    style: const TextStyle(color: Colors.grey),
+                  ),
+                )
+              ];
+            } else {
+              talker.debug(
+                  "length: ${snapshot.data.body.length}, error: ${snapshot.data.error}");
+              final data =
+                  IoK8sApiCoreV1ServiceAccountList.fromJson(snapshot.data.body);
 
-            final items = data?.items;
+              final items = data?.items;
 
-            totals = lang.items_number(items?.length ?? 0);
+              totals = lang.items_number(items?.length ?? 0);
 
-            if (items != null) {
-              items.sort(
-                (a, b) {
-                  if (a.metadata?.creationTimestamp != null &&
-                      b.metadata?.creationTimestamp != null) {
-                    return b.metadata!.creationTimestamp!
-                        .compareTo(a.metadata!.creationTimestamp!);
-                  }
-                  return 0;
-                },
-              );
-            }
-            list = items?.mapIndexed(
-                  (index, item) {
-                    final metadata = item.metadata;
-                    final name = metadata?.name ?? '';
-                    final ns = metadata?.namespace ?? '-';
-
-                    final secretsNumber = item.secrets.length;
-
-                    final now = DateTime.now();
-                    final ctime = metadata?.creationTimestamp ?? now;
-                    final age = now.difference(ctime).pretty;
-
-                    final text =
-                        lang.service_account_text(name, ns, secretsNumber);
-
-                    return SettingsTile(
-                      title: Text(text, style: smallTextStyle),
-                      trailing: Row(
-                        children: [
-                          Text(age),
-                          const Divider(indent: 2),
-                        ],
-                      ),
-                    );
+              if (items != null) {
+                items.sort(
+                  (a, b) {
+                    if (a.metadata?.creationTimestamp != null &&
+                        b.metadata?.creationTimestamp != null) {
+                      return b.metadata!.creationTimestamp!
+                          .compareTo(a.metadata!.creationTimestamp!);
+                    }
+                    return 0;
                   },
-                ).toList() ??
-                [];
+                );
+              }
+              list = items?.mapIndexed(
+                    (index, item) {
+                      final metadata = item.metadata;
+                      final name = metadata?.name ?? '';
+                      final ns = metadata?.namespace ?? '-';
+
+                      final secretsNumber = item.secrets.length;
+
+                      final now = DateTime.now();
+                      final ctime = metadata?.creationTimestamp ?? now;
+                      final age = now.difference(ctime).pretty;
+
+                      final text =
+                          lang.service_account_text(name, ns, secretsNumber);
+
+                      return SettingsTile(
+                        title: Text(text, style: smallTextStyle),
+                        trailing: Row(
+                          children: [
+                            Text(age),
+                            const Divider(indent: 2),
+                          ],
+                        ),
+                      );
+                    },
+                  ).toList() ??
+                  [];
+            }
           }
 
           talker.debug("list ${list.length}");

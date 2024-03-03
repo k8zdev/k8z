@@ -59,82 +59,96 @@ class _HelmReleasesPageState extends State<HelmReleasesPage> {
               child: Text(lang.error),
             );
           } else {
-            talker.debug(
-                "length: ${snapshot.data.body.length}, error: ${snapshot.data.error}");
-            final data = IoK8sApiCoreV1SecretList.fromJson(snapshot.data.body);
+            if (snapshot.data.error.isNotEmpty) {
+              trailing = Container();
+              title = Text(lang.error);
+              list = [
+                SettingsTile(
+                  title: Text(
+                    snapshot.data.error,
+                    style: const TextStyle(color: Colors.grey),
+                  ),
+                )
+              ];
+            } else {
+              talker.debug(
+                  "length: ${snapshot.data.body.length}, error: ${snapshot.data.error}");
+              final data =
+                  IoK8sApiCoreV1SecretList.fromJson(snapshot.data.body);
 
-            final items = data?.items;
+              final items = data?.items;
 
-            if (items != null) {
-              items.sort(
-                (a, b) {
-                  if (a.metadata?.creationTimestamp != null &&
-                      b.metadata?.creationTimestamp != null) {
-                    return b.metadata!.creationTimestamp!
-                        .compareTo(a.metadata!.creationTimestamp!);
-                  }
-                  return 0;
-                },
-              );
-            }
+              if (items != null) {
+                items.sort(
+                  (a, b) {
+                    if (a.metadata?.creationTimestamp != null &&
+                        b.metadata?.creationTimestamp != null) {
+                      return b.metadata!.creationTimestamp!
+                          .compareTo(a.metadata!.creationTimestamp!);
+                    }
+                    return 0;
+                  },
+                );
+              }
 
-            final groupedItems =
-                groupBy(items!.toSet(), (IoK8sApiCoreV1Secret item) {
-              final metadata = item.metadata;
-              final labels = metadata?.labels;
-              return labels?['name'] ?? '';
-            });
-
-            List<IoK8sApiCoreV1Secret> uniqueItems = [];
-
-            groupedItems.forEach((key, value) {
-              value.sort((a, b) => b.metadata!.labels['version']!
-                  .compareTo(a.metadata!.labels['version'] ?? '0'));
-              uniqueItems.add(value.first);
-            });
-            totals = lang.items_number(uniqueItems.length);
-
-            list = uniqueItems.mapIndexed(
-              (index, item) {
+              final groupedItems =
+                  groupBy(items!.toSet(), (IoK8sApiCoreV1Secret item) {
                 final metadata = item.metadata;
                 final labels = metadata?.labels;
-                final name = labels?['name'] ?? '';
-                final status = labels?['status'] ?? '';
-                final revision = labels?['version'] ?? '';
-                final ns = metadata?.namespace ?? '-';
-                final releaseRaw = base64.decode(item.data['release'] ?? '');
-                final releaseData = base64.decode(utf8.decode(releaseRaw));
-                final release =
-                    utf8.decode(GZipDecoder().decodeBytes(releaseData));
-                final releaseJson = json.decode(release);
-                final String releaseUpdated =
-                    releaseJson?['info']['last_deployed'] ?? "";
-                var chartMeta = releaseJson?['chart']['metadata'];
-                final String releaseChart =
-                    "${chartMeta['name']}-${chartMeta['version']}";
-                final String releaseAppVersion = chartMeta['appVersion'] ?? "";
+                return labels?['name'] ?? '';
+              });
 
-                final now = DateTime.now();
-                final ctime = metadata?.creationTimestamp ?? now;
-                final age = now.difference(ctime).pretty;
+              List<IoK8sApiCoreV1Secret> uniqueItems = [];
 
-                final text = lang.release_text(name, ns, revision,
-                    releaseAppVersion, releaseUpdated, status, releaseChart);
+              groupedItems.forEach((key, value) {
+                value.sort((a, b) => b.metadata!.labels['version']!
+                    .compareTo(a.metadata!.labels['version'] ?? '0'));
+                uniqueItems.add(value.first);
+              });
+              totals = lang.items_number(uniqueItems.length);
 
-                return SettingsTile(
-                  title: Text(text, style: smallTextStyle),
-                  trailing: Row(
-                    children: [
-                      Text(age),
-                      const Divider(indent: 2),
-                    ],
-                  ),
-                );
-              },
-            ).toList();
-            // list = [];
+              list = uniqueItems.mapIndexed(
+                (index, item) {
+                  final metadata = item.metadata;
+                  final labels = metadata?.labels;
+                  final name = labels?['name'] ?? '';
+                  final status = labels?['status'] ?? '';
+                  final revision = labels?['version'] ?? '';
+                  final ns = metadata?.namespace ?? '-';
+                  final releaseRaw = base64.decode(item.data['release'] ?? '');
+                  final releaseData = base64.decode(utf8.decode(releaseRaw));
+                  final release =
+                      utf8.decode(GZipDecoder().decodeBytes(releaseData));
+                  final releaseJson = json.decode(release);
+                  final String releaseUpdated =
+                      releaseJson?['info']['last_deployed'] ?? "";
+                  var chartMeta = releaseJson?['chart']['metadata'];
+                  final String releaseChart =
+                      "${chartMeta['name']}-${chartMeta['version']}";
+                  final String releaseAppVersion =
+                      chartMeta['appVersion'] ?? "";
+
+                  final now = DateTime.now();
+                  final ctime = metadata?.creationTimestamp ?? now;
+                  final age = now.difference(ctime).pretty;
+
+                  final text = lang.release_text(name, ns, revision,
+                      releaseAppVersion, releaseUpdated, status, releaseChart);
+
+                  return SettingsTile(
+                    title: Text(text, style: smallTextStyle),
+                    trailing: Row(
+                      children: [
+                        Text(age),
+                        const Divider(indent: 2),
+                      ],
+                    ),
+                  );
+                },
+              ).toList();
+              // list = [];
+            }
           }
-
           talker.debug("list ${list.length}");
 
           return SettingsSection(
