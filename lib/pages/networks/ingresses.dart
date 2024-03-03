@@ -62,71 +62,83 @@ class _IngressesPageState extends State<IngressesPage> {
               child: Text(lang.error),
             );
           } else {
-            talker.debug(
-                "length: ${snapshot.data.body.length}, error: ${snapshot.data.error}");
-            final daemonSetList =
-                IoK8sApiNetworkingV1IngressList.fromJson(snapshot.data.body);
+            if (snapshot.data.error.isNotEmpty) {
+              trailing = Container();
+              title = Text(lang.error);
+              list = [
+                SettingsTile(
+                  title: Text(
+                    snapshot.data.error,
+                    style: const TextStyle(color: Colors.grey),
+                  ),
+                )
+              ];
+            } else {
+              talker.debug(
+                  "length: ${snapshot.data.body.length}, error: ${snapshot.data.error}");
+              final daemonSetList =
+                  IoK8sApiNetworkingV1IngressList.fromJson(snapshot.data.body);
 
-            final items = daemonSetList?.items;
+              final items = daemonSetList?.items;
 
-            totals = lang.items_number(items?.length ?? 0);
+              totals = lang.items_number(items?.length ?? 0);
 
-            if (items != null) {
-              items.sort(
-                (a, b) {
-                  if (a.metadata?.creationTimestamp != null &&
-                      b.metadata?.creationTimestamp != null) {
-                    return b.metadata!.creationTimestamp!
-                        .compareTo(a.metadata!.creationTimestamp!);
-                  }
-                  return 0;
-                },
-              );
-            }
-            list = items?.mapIndexed(
-                  (index, item) {
-                    final metadata = item.metadata;
-                    final name = metadata?.name ?? '';
-                    final ns = metadata?.namespace ?? '-';
-                    final spec = item.spec;
-
-                    final hosts = spec?.rules.map((e) => e.host).join(',');
-                    final ports = spec?.rules
-                        .map(
-                          (e) => e.http?.paths.map(
-                            (e2) =>
-                                "${e2.backend.service?.port?.number.toString()}",
-                          ),
-                        )
-                        .join(',');
-                    final className = spec?.ingressClassName ?? '-';
-                    final address = item.status?.loadBalancer?.ingress
-                        .map((e) => e.ip)
-                        .join(',');
-
-                    final now = DateTime.now();
-                    final ctime = metadata?.creationTimestamp ?? now;
-                    final age = now.difference(ctime).pretty;
-
-                    final text = lang.ingress_text(name, ns, className,
-                        hosts ?? '-', address ?? '-', ports ?? '-');
-                    final icon = getStatus(hosts, address);
-
-                    return SettingsTile(
-                      title: Text(text, style: smallTextStyle),
-                      trailing: Row(
-                        children: [
-                          Text(age),
-                          const Divider(indent: 2),
-                          icon,
-                        ],
-                      ),
-                    );
+              if (items != null) {
+                items.sort(
+                  (a, b) {
+                    if (a.metadata?.creationTimestamp != null &&
+                        b.metadata?.creationTimestamp != null) {
+                      return b.metadata!.creationTimestamp!
+                          .compareTo(a.metadata!.creationTimestamp!);
+                    }
+                    return 0;
                   },
-                ).toList() ??
-                [];
-          }
+                );
+              }
+              list = items?.mapIndexed(
+                    (index, item) {
+                      final metadata = item.metadata;
+                      final name = metadata?.name ?? '';
+                      final ns = metadata?.namespace ?? '-';
+                      final spec = item.spec;
 
+                      final hosts = spec?.rules.map((e) => e.host).join(',');
+                      final ports = spec?.rules
+                          .map(
+                            (e) => e.http?.paths.map(
+                              (e2) =>
+                                  "${e2.backend.service?.port?.number.toString()}",
+                            ),
+                          )
+                          .join(',');
+                      final className = spec?.ingressClassName ?? '-';
+                      final address = item.status?.loadBalancer?.ingress
+                          .map((e) => e.ip)
+                          .join(',');
+
+                      final now = DateTime.now();
+                      final ctime = metadata?.creationTimestamp ?? now;
+                      final age = now.difference(ctime).pretty;
+
+                      final text = lang.ingress_text(name, ns, className,
+                          hosts ?? '-', address ?? '-', ports ?? '-');
+                      final icon = getStatus(hosts, address);
+
+                      return SettingsTile(
+                        title: Text(text, style: smallTextStyle),
+                        trailing: Row(
+                          children: [
+                            Text(age),
+                            const Divider(indent: 2),
+                            icon,
+                          ],
+                        ),
+                      );
+                    },
+                  ).toList() ??
+                  [];
+            }
+          }
           talker.debug("list ${list.length}");
 
           return SettingsSection(
