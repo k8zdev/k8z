@@ -48,62 +48,75 @@ class _PvsPageState extends State<PvsPage> {
               child: Text(lang.error),
             );
           } else {
-            talker.debug(
-                "length: ${snapshot.data.body.length}, error: ${snapshot.data.error}");
-            final data =
-                IoK8sApiCoreV1PersistentVolumeList.fromJson(snapshot.data.body);
+            if (snapshot.data.error.isNotEmpty) {
+              trailing = Container();
+              title = Text(lang.error);
+              list = [
+                SettingsTile(
+                  title: Text(
+                    snapshot.data.error,
+                    style: const TextStyle(color: Colors.grey),
+                  ),
+                )
+              ];
+            } else {
+              talker.debug(
+                  "length: ${snapshot.data.body.length}, error: ${snapshot.data.error}");
+              final data = IoK8sApiCoreV1PersistentVolumeList.fromJson(
+                  snapshot.data.body);
 
-            final items = data?.items;
+              final items = data?.items;
 
-            totals = lang.items_number(items?.length ?? 0);
+              totals = lang.items_number(items?.length ?? 0);
 
-            if (items != null) {
-              items.sort(
-                (a, b) {
-                  if (a.metadata?.creationTimestamp != null &&
-                      b.metadata?.creationTimestamp != null) {
-                    return b.metadata!.creationTimestamp!
-                        .compareTo(a.metadata!.creationTimestamp!);
-                  }
-                  return 0;
-                },
-              );
-            }
-            list = items?.mapIndexed(
-                  (index, item) {
-                    final metadata = item.metadata;
-                    final name = metadata?.name ?? '';
-                    final capacity = item.spec?.capacity['storage'] ?? "";
-                    final accessModes = item.spec?.accessModes.join(',') ?? "";
-                    final reclaimPolicy =
-                        item.spec?.persistentVolumeReclaimPolicy ?? "";
-                    final status = item.status?.phase ?? "";
-                    final claim =
-                        "${item.spec?.claimRef?.namespace}/${item.spec?.claimRef?.name}";
-                    final storageClass = item.spec?.storageClassName ?? "";
-                    final reason = item.status?.reason ?? "";
-
-                    final now = DateTime.now();
-                    final ctime = metadata?.creationTimestamp ?? now;
-                    final age = now.difference(ctime).pretty;
-
-                    final text = lang.pv_text(name, capacity, accessModes,
-                        reclaimPolicy, status, claim, storageClass, reason);
-
-                    return SettingsTile(
-                      title: Text(text, style: smallTextStyle),
-                      trailing: Row(
-                        children: [
-                          Text(age),
-                          const Divider(indent: 2),
-                        ],
-                      ),
-                    );
+              if (items != null) {
+                items.sort(
+                  (a, b) {
+                    if (a.metadata?.creationTimestamp != null &&
+                        b.metadata?.creationTimestamp != null) {
+                      return b.metadata!.creationTimestamp!
+                          .compareTo(a.metadata!.creationTimestamp!);
+                    }
+                    return 0;
                   },
-                ).toList() ??
-                [];
-          }
+                );
+              }
+              list = items?.mapIndexed(
+                    (index, item) {
+                      final metadata = item.metadata;
+                      final name = metadata?.name ?? '';
+                      final capacity = item.spec?.capacity['storage'] ?? "";
+                      final accessModes =
+                          item.spec?.accessModes.join(',') ?? "";
+                      final reclaimPolicy =
+                          item.spec?.persistentVolumeReclaimPolicy ?? "";
+                      final status = item.status?.phase ?? "";
+                      final claim =
+                          "${item.spec?.claimRef?.namespace}/${item.spec?.claimRef?.name}";
+                      final storageClass = item.spec?.storageClassName ?? "";
+                      final reason = item.status?.reason ?? "";
 
+                      final now = DateTime.now();
+                      final ctime = metadata?.creationTimestamp ?? now;
+                      final age = now.difference(ctime).pretty;
+
+                      final text = lang.pv_text(name, capacity, accessModes,
+                          reclaimPolicy, status, claim, storageClass, reason);
+
+                      return SettingsTile(
+                        title: Text(text, style: smallTextStyle),
+                        trailing: Row(
+                          children: [
+                            Text(age),
+                            const Divider(indent: 2),
+                          ],
+                        ),
+                      );
+                    },
+                  ).toList() ??
+                  [];
+            }
+          }
           talker.debug("list ${list.length}");
 
           return SettingsSection(
