@@ -49,6 +49,9 @@ class _ClusterHomePageState extends State<ClusterHomePage> {
                   child: Text(lang.error),
                 );
               }
+              if (snapshot.data!.error.isNotEmpty) {
+                return Text(lang.error);
+              }
               var data = snapshot.data;
               var body = data?.body ?? "";
               var message = data?.error ?? "";
@@ -76,6 +79,9 @@ class _ClusterHomePageState extends State<ClusterHomePage> {
                   .checkHealth();
             }(),
             builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return smallProgressIndicator;
+              }
               var running = snapshot.data ?? false;
               var style =
                   TextStyle(color: running ? Colors.green : Colors.redAccent);
@@ -124,6 +130,20 @@ class _ClusterHomePageState extends State<ClusterHomePage> {
             trailing = Tooltip(
               message: snapshot.error.toString(),
               child: Text(lang.error),
+            );
+          }
+
+          if (snapshot.data != null && snapshot.data?.error.isNotEmpty) {
+            return SettingsSection(
+              title: Text(lang.nodes),
+              tiles: [
+                SettingsTile(
+                  title: Text(
+                    snapshot.data.error.toString(),
+                    style: const TextStyle(color: Colors.grey),
+                  ),
+                )
+              ],
             );
           }
 
@@ -186,6 +206,20 @@ class _ClusterHomePageState extends State<ClusterHomePage> {
               child: Text(lang.error),
             );
           } else {
+            if (snapshot.data.error.isNotEmpty) {
+              return SettingsSection(
+                title: Text(lang.nodes),
+                tiles: [
+                  SettingsTile(
+                    title: Text(
+                      snapshot.data.error.toString(),
+                      style: const TextStyle(color: Colors.grey),
+                    ),
+                  )
+                ],
+              );
+            }
+
             var data = snapshot.data;
             var body = data?.body;
             var message = data?.error ?? "";
