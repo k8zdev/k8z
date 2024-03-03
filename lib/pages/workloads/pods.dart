@@ -58,128 +58,141 @@ class _PodsPageState extends State<PodsPage> {
               child: Text(lang.error),
             );
           } else {
-            talker.debug(snapshot.data.body.length);
-            final podList = IoK8sApiCoreV1PodList.fromJson(snapshot.data.body);
+            if (snapshot.data.error.isNotEmpty) {
+              trailing = Container();
+              title = Text(lang.error);
+              list = [
+                SettingsTile(
+                  title: Text(
+                    snapshot.data.error,
+                    style: const TextStyle(color: Colors.grey),
+                  ),
+                )
+              ];
+            } else {
+              talker.debug(snapshot.data.body.length);
+              final podList =
+                  IoK8sApiCoreV1PodList.fromJson(snapshot.data.body);
 
-            var podsItems = podList?.items;
+              var podsItems = podList?.items;
 
-            totals = lang.items_number(podsItems?.length ?? 0);
+              totals = lang.items_number(podsItems?.length ?? 0);
 
-            if (podsItems != null) {
-              podsItems.sort(
-                (a, b) {
-                  if (a.metadata?.creationTimestamp != null &&
-                      b.metadata?.creationTimestamp != null) {
-                    return b.metadata!.creationTimestamp!
-                        .compareTo(a.metadata!.creationTimestamp!);
-                  }
-                  return 0;
-                },
-              );
-            }
-            list = podsItems?.mapIndexed(
-                  (index, pod) {
-                    final metadata = pod.metadata;
-                    final now = DateTime.now();
-                    final creation = metadata?.creationTimestamp ?? now;
-                    final age = now.difference(creation).pretty;
-                    final (status, icon) = getPodStatus(pod);
-                    final ns = metadata?.namespace ?? '-';
-
-                    final spec = pod.spec;
-                    final restarts = getRestarts(pod);
-                    final resources = getPodResources(pod);
-                    final containers =
-                        spec?.containers.map((e) => e.name).toList();
-                    final ready =
-                        '${pod.status?.containerStatuses.where((containerStatus) => containerStatus.ready).length ?? '0'}/${pod.spec?.containers.length ?? '0'}';
-
-                    final text = lang.pod_text(
-                        metadata!.name!,
-                        ns,
-                        ready,
-                        status,
-                        restarts,
-                        containers!.join(','),
-                        resources?.cpu ?? "-",
-                        resources?.memory ?? "-");
-
-                    final tile = SettingsTile(
-                      title: Text(text, style: smallTextStyle),
-                      trailing: Row(
-                        children: [
-                          Text(age),
-                          const Divider(indent: 2),
-                          icon,
-                        ],
-                      ),
-                    );
-                    return CustomSettingsTile(
-                      child: Slidable(
-                        startActionPane: ActionPane(
-                          motion: const ScrollMotion(),
-                          children: [
-                            SlidableAction(
-                              onPressed: (context) {},
-                              backgroundColor: const Color(0xFFFE4A49),
-                              foregroundColor: Colors.white,
-                              icon: Icons.delete,
-                              label: lang.delete,
-                              padding: EdgeInsets.zero,
-                            ),
-                            SlidableAction(
-                              onPressed: (context) {
-                                showModal(
-                                  context,
-                                  GetTerminal(
-                                    name: metadata.name!,
-                                    namespace: ns,
-                                    containers: containers,
-                                    cluster: widget.cluster,
-                                  ),
-                                );
-                              },
-                              backgroundColor: const Color(0xFF21B7CA),
-                              foregroundColor: Colors.white,
-                              icon: Icons.terminal,
-                              spacing: 8,
-                              label: lang.terminal,
-                              padding: EdgeInsets.zero,
-                            ),
-                          ],
-                        ),
-                        endActionPane: ActionPane(
-                          motion: const ScrollMotion(),
-                          children: [
-                            SlidableAction(
-                              onPressed: (context) {
-                                showModal(
-                                  context,
-                                  GetLogstream(
-                                    name: metadata.name!,
-                                    namespace: ns,
-                                    containers: containers,
-                                    cluster: widget.cluster,
-                                  ),
-                                );
-                              },
-                              backgroundColor: const Color(0xFF21B7CA),
-                              foregroundColor: Colors.white,
-                              icon: Icons.list_alt,
-                              spacing: 8,
-                              label: lang.logs,
-                              padding: EdgeInsets.zero,
-                            ),
-                          ],
-                        ),
-                        child: tile,
-                      ),
-                    );
+              if (podsItems != null) {
+                podsItems.sort(
+                  (a, b) {
+                    if (a.metadata?.creationTimestamp != null &&
+                        b.metadata?.creationTimestamp != null) {
+                      return b.metadata!.creationTimestamp!
+                          .compareTo(a.metadata!.creationTimestamp!);
+                    }
+                    return 0;
                   },
-                ).toList() ??
-                [];
-          }
+                );
+              }
+              list = podsItems?.mapIndexed(
+                    (index, pod) {
+                      final metadata = pod.metadata;
+                      final now = DateTime.now();
+                      final creation = metadata?.creationTimestamp ?? now;
+                      final age = now.difference(creation).pretty;
+                      final (status, icon) = getPodStatus(pod);
+                      final ns = metadata?.namespace ?? '-';
 
+                      final spec = pod.spec;
+                      final restarts = getRestarts(pod);
+                      final resources = getPodResources(pod);
+                      final containers =
+                          spec?.containers.map((e) => e.name).toList();
+                      final ready =
+                          '${pod.status?.containerStatuses.where((containerStatus) => containerStatus.ready).length ?? '0'}/${pod.spec?.containers.length ?? '0'}';
+
+                      final text = lang.pod_text(
+                          metadata!.name!,
+                          ns,
+                          ready,
+                          status,
+                          restarts,
+                          containers!.join(','),
+                          resources?.cpu ?? "-",
+                          resources?.memory ?? "-");
+
+                      final tile = SettingsTile(
+                        title: Text(text, style: smallTextStyle),
+                        trailing: Row(
+                          children: [
+                            Text(age),
+                            const Divider(indent: 2),
+                            icon,
+                          ],
+                        ),
+                      );
+                      return CustomSettingsTile(
+                        child: Slidable(
+                          startActionPane: ActionPane(
+                            motion: const ScrollMotion(),
+                            children: [
+                              SlidableAction(
+                                onPressed: (context) {},
+                                backgroundColor: const Color(0xFFFE4A49),
+                                foregroundColor: Colors.white,
+                                icon: Icons.delete,
+                                label: lang.delete,
+                                padding: EdgeInsets.zero,
+                              ),
+                              SlidableAction(
+                                onPressed: (context) {
+                                  showModal(
+                                    context,
+                                    GetTerminal(
+                                      name: metadata.name!,
+                                      namespace: ns,
+                                      containers: containers,
+                                      cluster: widget.cluster,
+                                    ),
+                                  );
+                                },
+                                backgroundColor: const Color(0xFF21B7CA),
+                                foregroundColor: Colors.white,
+                                icon: Icons.terminal,
+                                spacing: 8,
+                                label: lang.terminal,
+                                padding: EdgeInsets.zero,
+                              ),
+                            ],
+                          ),
+                          endActionPane: ActionPane(
+                            motion: const ScrollMotion(),
+                            children: [
+                              SlidableAction(
+                                onPressed: (context) {
+                                  showModal(
+                                    context,
+                                    GetLogstream(
+                                      name: metadata.name!,
+                                      namespace: ns,
+                                      containers: containers,
+                                      cluster: widget.cluster,
+                                    ),
+                                  );
+                                },
+                                backgroundColor: const Color(0xFF21B7CA),
+                                foregroundColor: Colors.white,
+                                icon: Icons.list_alt,
+                                spacing: 8,
+                                label: lang.logs,
+                                padding: EdgeInsets.zero,
+                              ),
+                            ],
+                          ),
+                          child: tile,
+                        ),
+                      );
+                    },
+                  ).toList() ??
+                  [];
+            }
+          }
           talker.debug("list ${list.length}");
 
           return SettingsSection(
