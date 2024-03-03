@@ -69,42 +69,43 @@ class CurrentNamespace extends StatelessWidget {
               child: Text(lang.error),
             );
           } else {
-            final nssList =
-                IoK8sApiCoreV1NamespaceList.fromJson(snapshot.data.body);
+            if (snapshot.data.error.isNotEmpty) {
+              trailing = Container();
+              title = Text(lang.error);
+              list = [
+                SettingsTile(
+                  title: Text(
+                    snapshot.data.error,
+                    style: const TextStyle(color: Colors.grey),
+                  ),
+                )
+              ];
+            } else {
+              final nssList =
+                  IoK8sApiCoreV1NamespaceList.fromJson(snapshot.data.body);
 
-            totals = lang.items_number(nssList?.items.length ?? 0);
+              totals = lang.items_number(nssList?.items.length ?? 0);
 
-            list = nssList?.items.mapIndexed(
-                  (index, ns) {
-                    talker.debug("ns: ${ns.metadata}\n");
-                    var name = ns.metadata?.name ?? "";
-                    return SettingsTile(
-                      title: Text(name),
-                      trailing: Radio(
-                        value: name,
-                        groupValue: cluster.namespace,
-                        onChanged: (value) {
-                          ccProvider.updateNamespace(value);
+              list = nssList?.items.mapIndexed(
+                    (index, ns) {
+                      talker.debug("ns: ${ns.metadata}\n");
+                      var name = ns.metadata?.name ?? "";
+                      return SettingsTile(
+                        title: Text(name),
+                        trailing: Radio(
+                          value: name,
+                          groupValue: cluster.namespace,
+                          onChanged: (value) {
+                            ccProvider.updateNamespace(value);
 
-                          Navigator.pop(context);
-                        },
-                      ),
-                    );
-                    // return SettingsTile(
-                    //   title: Text(metadata?.name ?? "<noe>"),
-                    //   trailing: Row(
-                    //     children: [
-                    //       Text(age),
-                    //       const Divider(indent: 12),
-                    //       ns.status?.phase == "Active"
-                    //           ? runningIcon
-                    //           : errorIcon,
-                    //     ],
-                    //   ),
-                    // );
-                  },
-                ).toList() ??
-                [];
+                            Navigator.pop(context);
+                          },
+                        ),
+                      );
+                    },
+                  ).toList() ??
+                  [];
+            }
           }
 
           talker.debug("list ${list.length}");
