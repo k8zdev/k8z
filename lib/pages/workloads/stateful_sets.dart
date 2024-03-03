@@ -45,7 +45,7 @@ class _StatefulSetsPageState extends State<StatefulSetsPage> {
               : "/namespaces/${c?.namespace ?? ""}";
 
           // await Future.delayed(const Duration(seconds: 1));
-          return await K8zService(cluster: widget.cluster)
+          return await K8zService(context, cluster: widget.cluster)
               .get("/apis/apps/v1$namespaced/statefulsets");
         }(),
         builder: (BuildContext context, AsyncSnapshot snapshot) {

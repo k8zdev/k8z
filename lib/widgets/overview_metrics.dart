@@ -63,7 +63,7 @@ class _OverviewMetricState extends State<OverviewMetric> {
     var nodesFilter = widget.nodeName == null
         ? ''
         : '?fieldSelector=metadata.name=${widget.nodeName}';
-    final nodesData = await K8zService(cluster: widget.cluster!)
+    final nodesData = await K8zService(context, cluster: widget.cluster!)
         .get('/api/v1/nodes$nodesFilter');
     final nodesList = IoK8sApiCoreV1NodeList.fromJson(nodesData.body);
 
@@ -71,12 +71,14 @@ class _OverviewMetricState extends State<OverviewMetric> {
     final podsFilter = widget.nodeName == null
         ? ''
         : '?fieldSelector=spec.nodeName=${widget.nodeName}';
-    final podsData = await K8zService(cluster: widget.cluster!)
+    // ignore: use_build_context_synchronously
+    final podsData = await K8zService(context, cluster: widget.cluster!)
         .get('/api/v1/pods$podsFilter');
     final podsList = IoK8sApiCoreV1PodList.fromJson(podsData.body);
 
     // 3. fetch node's metrics.
-    final nodeMetricsData = await K8zService(cluster: widget.cluster!)
+    // ignore: use_build_context_synchronously
+    final nodeMetricsData = await K8zService(context, cluster: widget.cluster!)
         .get('/apis/metrics.k8s.io/v1beta1/nodes$nodesFilter');
     final nodeMetricsList =
         ApisMetricsV1beta1NodeMetricsList.fromJson(nodeMetricsData.body);

@@ -43,12 +43,13 @@ class CurrentNamespace extends StatelessWidget {
   final K8zCluster cluster;
   const CurrentNamespace({super.key, required this.cluster});
 
-  AbstractSettingsSection namespaces(S lang, CurrentCluster ccProvider) {
+  AbstractSettingsSection namespaces(
+      BuildContext context, S lang, CurrentCluster ccProvider) {
     return CustomSettingsSection(
       child: FutureBuilder(
         future: () async {
           // await Future.delayed(const Duration(seconds: 1));
-          return await K8zService(cluster: cluster)
+          return await K8zService(context, cluster: cluster)
               .get("/api/v1/namespaces?limit=500");
         }(),
         builder: (BuildContext context, AsyncSnapshot snapshot) {
@@ -151,7 +152,7 @@ class CurrentNamespace extends StatelessWidget {
             ],
           ),
           //
-          namespaces(lang, ccProvider),
+          namespaces(context, lang, ccProvider),
         ],
       ),
     );

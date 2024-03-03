@@ -37,7 +37,8 @@ class _ClusterHomePageState extends State<ClusterHomePage> {
           title: Text(lang.version),
           trailing: FutureBuilder<JsonReturn>(
             future: () async {
-              return await K8zService(cluster: widget.cluster).get("/version");
+              return await K8zService(context, cluster: widget.cluster)
+                  .get("/version");
             }(),
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
@@ -71,7 +72,8 @@ class _ClusterHomePageState extends State<ClusterHomePage> {
           title: Text(lang.status),
           trailing: FutureBuilder(
             future: () async {
-              return await K8zService(cluster: widget.cluster).checkHealth();
+              return await K8zService(context, cluster: widget.cluster)
+                  .checkHealth();
             }(),
             builder: (context, snapshot) {
               var running = snapshot.data ?? false;
@@ -109,7 +111,7 @@ class _ClusterHomePageState extends State<ClusterHomePage> {
       child: FutureBuilder(
         future: () async {
           // await Future.delayed(const Duration(seconds: 1));
-          return await K8zService(cluster: widget.cluster)
+          return await K8zService(context, cluster: widget.cluster)
               .get("/api/v1/nodes?limit=3");
         }(),
         builder: (BuildContext context, AsyncSnapshot snapshot) {
@@ -168,7 +170,7 @@ class _ClusterHomePageState extends State<ClusterHomePage> {
       child: FutureBuilder(
         future: () async {
           // await Future.delayed(const Duration(seconds: 1));
-          return await K8zService(cluster: widget.cluster).get(
+          return await K8zService(context, cluster: widget.cluster).get(
               "/api/v1/events?fieldSelector=type=Warning&limit=$eventNumber");
         }(),
         builder: (BuildContext context, AsyncSnapshot snapshot) {

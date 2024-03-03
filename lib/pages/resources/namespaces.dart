@@ -24,7 +24,7 @@ class _NamespacesPageState extends State<NamespacesPage> {
       child: FutureBuilder(
         future: () async {
           // await Future.delayed(const Duration(seconds: 1));
-          return await K8zService(cluster: widget.cluster)
+          return await K8zService(context, cluster: widget.cluster)
               .get("/api/v1/namespaces?limit=500");
         }(),
         builder: (BuildContext context, AsyncSnapshot snapshot) {

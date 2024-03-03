@@ -33,7 +33,7 @@ class _ConfigMapsPageState extends State<ConfigMapsPage> {
               : "/namespaces/${c?.namespace ?? ""}";
 
           // await Future.delayed(const Duration(seconds: 1));
-          return await K8zService(cluster: widget.cluster)
+          return await K8zService(context, cluster: widget.cluster)
               .get("/api/v1$namespaced/configmaps");
         }(),
         builder: (BuildContext context, AsyncSnapshot snapshot) {

@@ -25,7 +25,7 @@ class _CrdsPageState extends State<CrdsPage> {
       child: FutureBuilder(
         future: () async {
           // await Future.delayed(const Duration(seconds: 1));
-          return await K8zService(cluster: widget.cluster).get(
+          return await K8zService(context, cluster: widget.cluster).get(
               "/apis/apiextensions.k8s.io/v1/customresourcedefinitions?limit=500");
         }(),
         builder: (BuildContext context, AsyncSnapshot snapshot) {

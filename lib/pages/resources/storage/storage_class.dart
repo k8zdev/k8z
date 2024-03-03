@@ -24,7 +24,7 @@ class _StorageClassPageState extends State<StorageClassPage> {
       child: FutureBuilder(
         future: () async {
           // await Future.delayed(const Duration(seconds: 1));
-          return await K8zService(cluster: widget.cluster)
+          return await K8zService(context, cluster: widget.cluster)
               .get("/apis/storage.k8s.io/v1/storageclasses");
         }(),
         builder: (BuildContext context, AsyncSnapshot snapshot) {

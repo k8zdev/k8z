@@ -42,7 +42,7 @@ class _IngressesPageState extends State<IngressesPage> {
               : "/namespaces/${c?.namespace ?? ""}";
 
           // await Future.delayed(const Duration(seconds: 1));
-          return await K8zService(cluster: widget.cluster)
+          return await K8zService(context, cluster: widget.cluster)
               .get("/apis/networking.k8s.io/v1$namespaced/ingresses");
         }(),
         builder: (BuildContext context, AsyncSnapshot snapshot) {
