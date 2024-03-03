@@ -1,7 +1,10 @@
+import 'package:flutter/material.dart';
 import 'package:k8zdev/common/ops.dart';
 import 'package:k8zdev/dao/kube.dart';
+import 'package:k8zdev/providers/timeout.dart';
 import 'package:k8zdev/services/k8z_native.dart';
 import 'package:http/http.dart' as http;
+import 'package:provider/provider.dart';
 
 /// [K8zService] implements a service to interactiv with Kubernetes cluster.
 ///
@@ -11,11 +14,17 @@ class K8zService {
   String proxy;
   int timeout;
 
-  K8zService({
+  K8zService(
+    BuildContext context, {
     required this.cluster,
     this.proxy = "",
     this.timeout = 60,
-  });
+  }) {
+    final timeoutProvider =
+        Provider.of<TimeoutProvider>(context, listen: false);
+    final timeout = timeoutProvider.timeout;
+    this.timeout = timeout;
+  }
 
   /// [isStarted] used to check local server is started.
   /// The local server is used to proxy the request to the Kubernetes cluster.

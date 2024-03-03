@@ -18,15 +18,17 @@ final class BodyReturnNative extends Struct {
 class BodyReturn {
   String body;
   String error;
+  Duration duration;
 
-  BodyReturn({required this.body, required this.error});
+  BodyReturn({required this.body, required this.error, required this.duration});
 }
 
 class JsonReturn {
   Map<String, dynamic> body;
   String error;
+  Duration duration;
 
-  JsonReturn({required this.body, required this.error});
+  JsonReturn({required this.body, required this.error, required this.duration});
 }
 
 // FreePointer free pointer mem.
@@ -126,6 +128,7 @@ class _IsolateK8zRequestArgs {
 }
 
 void _isolateK8zRequest(_IsolateK8zRequestArgs args) {
+  final reqStart = DateTime.now();
   final Pointer<Utf8> serverPtr = args.server.toNativeUtf8();
   final int serverLen = args.server.length;
   final Pointer<Utf8> caDataPtr = args.caData.toNativeUtf8();
@@ -181,9 +184,13 @@ void _isolateK8zRequest(_IsolateK8zRequestArgs args) {
     bodyLen,
   );
 
+  final duration = DateTime.now().difference(reqStart);
+
   var resp = BodyReturn(
-      body: K8zNative().ptr2String(result.body),
-      error: K8zNative().ptr2String(result.error));
+    body: K8zNative().ptr2String(result.body),
+    error: K8zNative().ptr2String(result.error),
+    duration: duration,
+  );
   args.respPort.send(resp);
 
   // free
@@ -369,10 +376,14 @@ class K8zNative {
       body: body,
     );
     if (resp.error.isNotEmpty) {
-      return JsonReturn(body: {}, error: resp.error);
+      return JsonReturn(body: {}, error: resp.error, duration: resp.duration);
     }
 
-    return JsonReturn(body: jsonDecode(resp.body), error: resp.error);
+    return JsonReturn(
+      body: jsonDecode(resp.body),
+      error: resp.error,
+      duration: resp.duration,
+    );
   }
 
   Future<BodyReturn> k8zRequestRaw(
