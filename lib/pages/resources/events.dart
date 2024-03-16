@@ -39,6 +39,7 @@ class _EventsPageState extends State<EventsPage> {
         builder: (BuildContext context, AsyncSnapshot snapshot) {
           var list = [];
           String totals = "";
+          String duration = "";
           var title = Text(lang.name);
           Widget trailing = Text(lang.status);
 
@@ -70,6 +71,8 @@ class _EventsPageState extends State<EventsPage> {
               var eventItems = eventslist?.items;
 
               totals = lang.items_number(eventItems?.length ?? 0);
+              Duration rd = snapshot.data.duration;
+              duration = lang.api_request_duration(rd.prettyMs);
 
               if (eventslist != null) {
                 eventItems?.sort(
@@ -119,7 +122,7 @@ class _EventsPageState extends State<EventsPage> {
           talker.debug("list ${list.length}");
 
           return SettingsSection(
-            title: Text(lang.events + totals),
+            title: Text(lang.events + totals + duration),
             tiles: [
               SettingsTile.navigation(
                 title: title,

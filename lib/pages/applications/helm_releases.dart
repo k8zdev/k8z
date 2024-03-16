@@ -41,6 +41,7 @@ class _HelmReleasesPageState extends State<HelmReleasesPage> {
         builder: (BuildContext context, AsyncSnapshot snapshot) {
           var list = [];
           String totals = "";
+          String duration = "";
           Widget title = const Text("");
           Widget trailing = Text(lang.age);
 
@@ -106,6 +107,8 @@ class _HelmReleasesPageState extends State<HelmReleasesPage> {
                 uniqueItems.add(value.first);
               });
               totals = lang.items_number(uniqueItems.length);
+              Duration rd = snapshot.data.duration;
+              duration = lang.api_request_duration(rd.prettyMs);
 
               list = uniqueItems.mapIndexed(
                 (index, item) {
@@ -152,7 +155,7 @@ class _HelmReleasesPageState extends State<HelmReleasesPage> {
           talker.debug("list ${list.length}");
 
           return SettingsSection(
-            title: Text(lang.releases + totals),
+            title: Text(lang.releases + totals + duration),
             tiles: [
               SettingsTile.navigation(
                 title: title,

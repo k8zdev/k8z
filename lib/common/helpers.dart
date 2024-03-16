@@ -72,11 +72,11 @@ extension PrettyFormat on Duration {
 
     var seconds = this.inSeconds % 60;
     if (seconds != 0 && !stop) {
-      components.add('$seconds s');
+      components.add('${seconds}s');
     }
     var milliseconds = this.inMilliseconds % 1000;
     if (components.isEmpty || milliseconds != 0) {
-      components.add('$milliseconds ms');
+      components.add('${milliseconds}ms');
     }
     return components.join();
   }

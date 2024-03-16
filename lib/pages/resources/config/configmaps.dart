@@ -39,6 +39,7 @@ class _ConfigMapsPageState extends State<ConfigMapsPage> {
         builder: (BuildContext context, AsyncSnapshot snapshot) {
           var list = [];
           String totals = "";
+          String duration = "";
           Widget title = const Text("");
           Widget trailing = Text(lang.age);
 
@@ -73,6 +74,8 @@ class _ConfigMapsPageState extends State<ConfigMapsPage> {
               final items = data?.items;
 
               totals = lang.items_number(items?.length ?? 0);
+              Duration rd = snapshot.data.duration;
+              duration = lang.api_request_duration(rd.prettyMs);
 
               if (items != null) {
                 items.sort(
@@ -116,7 +119,7 @@ class _ConfigMapsPageState extends State<ConfigMapsPage> {
           talker.debug("list ${list.length}");
 
           return SettingsSection(
-            title: Text(lang.config_maps + totals),
+            title: Text(lang.config_maps + totals + duration),
             tiles: [
               SettingsTile.navigation(
                 title: title,

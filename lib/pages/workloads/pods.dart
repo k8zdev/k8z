@@ -44,6 +44,7 @@ class _PodsPageState extends State<PodsPage> {
         builder: (BuildContext context, AsyncSnapshot snapshot) {
           var list = [];
           String totals = "";
+          String duration = "";
           Widget title = Container();
           Widget trailing = Container();
 
@@ -77,6 +78,8 @@ class _PodsPageState extends State<PodsPage> {
               var podsItems = podList?.items;
 
               totals = lang.items_number(podsItems?.length ?? 0);
+              Duration rd = snapshot.data.duration;
+              duration = lang.api_request_duration(rd.prettyMs);
 
               if (podsItems != null) {
                 podsItems.sort(
@@ -196,7 +199,7 @@ class _PodsPageState extends State<PodsPage> {
           talker.debug("list ${list.length}");
 
           return SettingsSection(
-            title: Text(lang.pods + totals),
+            title: Text(lang.pods + totals + duration),
             tiles: [
               SettingsTile.navigation(
                 title: title,

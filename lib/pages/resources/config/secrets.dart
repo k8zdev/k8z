@@ -39,6 +39,7 @@ class _SecretsPageState extends State<SecretsPage> {
         builder: (BuildContext context, AsyncSnapshot snapshot) {
           var list = [];
           String totals = "";
+          String duration = "";
           Widget title = const Text("");
           Widget trailing = Text(lang.age);
           if (snapshot.connectionState == ConnectionState.waiting) {
@@ -72,6 +73,8 @@ class _SecretsPageState extends State<SecretsPage> {
               final items = data?.items;
 
               totals = lang.items_number(items?.length ?? 0);
+              Duration rd = snapshot.data.duration;
+              duration = lang.api_request_duration(rd.prettyMs);
 
               if (items != null) {
                 items.sort(
@@ -118,7 +121,7 @@ class _SecretsPageState extends State<SecretsPage> {
           talker.debug("list ${list.length}");
 
           return SettingsSection(
-            title: Text(lang.secrets + totals),
+            title: Text(lang.secrets + totals + duration),
             tiles: [
               SettingsTile.navigation(
                 title: title,

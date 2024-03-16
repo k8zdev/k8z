@@ -54,6 +54,7 @@ class _DaemonSetsPageState extends State<DaemonSetsPage> {
         builder: (BuildContext context, AsyncSnapshot snapshot) {
           var list = [];
           String totals = "";
+          String duration = "";
           Widget title = Container();
           Widget trailing = Container();
 
@@ -88,6 +89,8 @@ class _DaemonSetsPageState extends State<DaemonSetsPage> {
               final items = daemonSetList?.items;
 
               totals = lang.items_number(items?.length ?? 0);
+              Duration rd = snapshot.data.duration;
+              duration = lang.api_request_duration(rd.prettyMs);
 
               if (items != null) {
                 items.sort(
@@ -145,7 +148,7 @@ class _DaemonSetsPageState extends State<DaemonSetsPage> {
           talker.debug("list ${list.length}");
 
           return SettingsSection(
-            title: Text(lang.daemon_sets + totals),
+            title: Text(lang.daemon_sets + totals + duration),
             tiles: [
               SettingsTile.navigation(
                 title: title,

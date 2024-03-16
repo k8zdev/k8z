@@ -31,6 +31,7 @@ class _NodesPageState extends State<NodesPage> {
         builder: (BuildContext context, AsyncSnapshot<JsonReturn> snapshot) {
           var list = [];
           String totals = "";
+          String duration = "";
           Widget title = Text(lang.name);
           Widget trailing = Text(lang.status);
 
@@ -63,6 +64,8 @@ class _NodesPageState extends State<NodesPage> {
               final nodesList = IoK8sApiCoreV1NodeList.fromJson(body);
 
               totals = lang.items_number(nodesList?.items.length ?? 0);
+              Duration rd = snapshot.data!.duration;
+              duration = lang.api_request_duration(rd.prettyMs);
 
               list = nodesList?.items.mapIndexed(
                     (index, node) {
@@ -161,7 +164,7 @@ class _NodesPageState extends State<NodesPage> {
           }
 
           return SettingsSection(
-            title: Text(lang.nodes + totals),
+            title: Text(lang.nodes + totals + duration),
             tiles: [
               SettingsTile.navigation(
                 title: title,

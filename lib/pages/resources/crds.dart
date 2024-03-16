@@ -31,6 +31,7 @@ class _CrdsPageState extends State<CrdsPage> {
         builder: (BuildContext context, AsyncSnapshot snapshot) {
           var list = [];
           String totals = "";
+          String duration = "";
           Widget title = const Text("");
           Widget trailing = Text(lang.age);
 
@@ -64,6 +65,8 @@ class _CrdsPageState extends State<CrdsPage> {
               var crdsItems = crdsList?.items;
 
               totals = lang.items_number(crdsItems?.length ?? 0);
+              Duration rd = snapshot.data.duration;
+              duration = lang.api_request_duration(rd.prettyMs);
 
               if (crdsItems != null) {
                 crdsItems.sort(
@@ -110,7 +113,7 @@ class _CrdsPageState extends State<CrdsPage> {
           talker.debug("list ${list.length}");
 
           return SettingsSection(
-            title: Text(lang.crds + totals),
+            title: Text(lang.crds + totals + duration),
             tiles: [
               SettingsTile.navigation(
                 title: title,

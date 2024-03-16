@@ -30,6 +30,7 @@ class _StorageClassPageState extends State<StorageClassPage> {
         builder: (BuildContext context, AsyncSnapshot snapshot) {
           var list = [];
           String totals = "";
+          String duration = "";
           Widget title = const Text("");
           Widget trailing = Text(lang.age);
 
@@ -68,6 +69,8 @@ class _StorageClassPageState extends State<StorageClassPage> {
               final items = data?.items;
 
               totals = lang.items_number(items?.length ?? 0);
+              Duration rd = snapshot.data.duration;
+              duration = lang.api_request_duration(rd.prettyMs);
 
               if (items != null) {
                 items.sort(
@@ -120,7 +123,7 @@ class _StorageClassPageState extends State<StorageClassPage> {
           talker.debug("list ${list.length}");
 
           return SettingsSection(
-            title: Text(lang.storage_class + totals),
+            title: Text(lang.storage_class + totals + duration),
             tiles: [
               SettingsTile.navigation(
                 title: title,
