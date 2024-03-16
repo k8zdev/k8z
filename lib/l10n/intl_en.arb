@@ -483,5 +483,11 @@
         "type": "num"
       }
     }
+  },
+  "api_request_duration": "\t\tduration: {duration}",
+  "@api_request_duration": {
+    "placeholders": {
+      "duration": {}
+    }
   }
 }

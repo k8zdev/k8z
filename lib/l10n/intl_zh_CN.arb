@@ -473,5 +473,11 @@
         "type": "num"
       }
     }
+  },
+  "api_request_duration": "\t\t耗时: {duration}",
+  "@api_request_duration": {
+    "placeholders": {
+      "duration": {}
+    }
   }
 }

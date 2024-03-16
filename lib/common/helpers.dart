@@ -59,6 +59,27 @@ extension PrettyFormat on Duration {
     }
     return components.join();
   }
+
+  String get prettyMs {
+    var stop = false;
+    var components = <String>[];
+
+    var minutes = this.inMinutes % 60;
+    if (minutes != 0 && !stop) {
+      stop = true;
+      components.add('${minutes}m');
+    }
+
+    var seconds = this.inSeconds % 60;
+    if (seconds != 0 && !stop) {
+      components.add('$seconds s');
+    }
+    var milliseconds = this.inMilliseconds % 1000;
+    if (components.isEmpty || milliseconds != 0) {
+      components.add('$milliseconds ms');
+    }
+    return components.join();
+  }
 }
 
 const podOkStatusList = ["Running", "Succeeded"];

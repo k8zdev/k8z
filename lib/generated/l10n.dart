@@ -1347,6 +1347,16 @@ class S {
       args: [n],
     );
   }
+
+  /// `\t\tduration: {duration}`
+  String api_request_duration(Object duration) {
+    return Intl.message(
+      '\t\tduration: $duration',
+      name: 'api_request_duration',
+      desc: '',
+      args: [duration],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

@@ -39,6 +39,7 @@ class _ServiceAccountsPageState extends State<ServiceAccountsPage> {
         builder: (BuildContext context, AsyncSnapshot snapshot) {
           var list = [];
           String totals = "";
+          String duration = "";
           Widget title = const Text("");
           Widget trailing = Text(lang.age);
 
@@ -73,6 +74,8 @@ class _ServiceAccountsPageState extends State<ServiceAccountsPage> {
               final items = data?.items;
 
               totals = lang.items_number(items?.length ?? 0);
+              Duration rd = snapshot.data.duration;
+              duration = lang.api_request_duration(rd.prettyMs);
 
               if (items != null) {
                 items.sort(
@@ -119,7 +122,7 @@ class _ServiceAccountsPageState extends State<ServiceAccountsPage> {
           talker.debug("list ${list.length}");
 
           return SettingsSection(
-            title: Text(lang.service_accounts + totals),
+            title: Text(lang.service_accounts + totals + duration),
             tiles: [
               SettingsTile.navigation(
                 title: title,
