@@ -119,7 +119,7 @@ class _ServiceAccountsPageState extends State<ServiceAccountsPage> {
           talker.debug("list ${list.length}");
 
           return SettingsSection(
-            title: Text(lang.secrets + totals),
+            title: Text(lang.service_accounts + totals),
             tiles: [
               SettingsTile.navigation(
                 title: title,
