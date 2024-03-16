@@ -1,5 +1,6 @@
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
+import 'package:k8zdev/common/helpers.dart';
 import 'package:k8zdev/common/ops.dart';
 import 'package:k8zdev/dao/kube.dart';
 import 'package:k8zdev/generated/l10n.dart';
@@ -55,6 +56,7 @@ class CurrentNamespace extends StatelessWidget {
         builder: (BuildContext context, AsyncSnapshot snapshot) {
           var list = [];
           String totals = "";
+          String duration = "";
           var title = Text(lang.name);
           Widget trailing = Text(lang.status);
 
@@ -85,6 +87,8 @@ class CurrentNamespace extends StatelessWidget {
                   IoK8sApiCoreV1NamespaceList.fromJson(snapshot.data.body);
 
               totals = lang.items_number(nssList?.items.length ?? 0);
+              Duration rd = snapshot.data.duration;
+              duration = lang.api_request_duration(rd.prettyMs);
 
               list = nssList?.items.mapIndexed(
                     (index, ns) {
@@ -111,7 +115,7 @@ class CurrentNamespace extends StatelessWidget {
           talker.debug("list ${list.length}");
 
           return SettingsSection(
-            title: Text(lang.namespaces + totals),
+            title: Text(lang.namespaces + totals + duration),
             tiles: [
               SettingsTile.navigation(
                 title: title,
