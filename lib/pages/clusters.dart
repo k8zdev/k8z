@@ -1,4 +1,6 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:go_router/go_router.dart';
 import 'package:k8zdev/common/const.dart';
 import 'package:k8zdev/common/ops.dart';
@@ -19,17 +21,101 @@ class ClustersPage extends StatefulWidget {
 }
 
 class _ClustersPageState extends State<ClustersPage> {
+  Future<void> onDeletePress(BuildContext context, K8zCluster cluster) async {
+    final lang = S.of(context);
+    var ccProvider = Provider.of<CurrentCluster>(context, listen: false);
+    showDialog(
+        context: context,
+        builder: (context) {
+          return CupertinoAlertDialog(
+            title: Text(lang.arsure),
+            content: Text(
+              lang.will_delete(lang.clusters, cluster.name),
+            ),
+            actions: [
+              CupertinoDialogAction(
+                isDefaultAction: false,
+                child: Text(lang.cancel),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+              CupertinoDialogAction(
+                isDefaultAction: true,
+                child: Text(lang.ok),
+                onPressed: () async {
+                  try {
+                    if (ccProvider.current?.name == cluster.name) {
+                      ccProvider.setCurrent(null);
+                    }
+                    await K8zCluster.delete(cluster);
+                    // ignore: use_build_context_synchronously
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        showCloseIcon: true,
+                        closeIconColor: Colors.white,
+                        backgroundColor: Colors.green,
+                        content: Text(
+                          lang.deleted(cluster.name),
+                        ),
+                      ),
+                    );
+                  } catch (err) {
+                    // ignore: use_build_context_synchronously
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        showCloseIcon: true,
+                        closeIconColor: Colors.white,
+                        backgroundColor: Colors.red,
+                        content: Text(
+                          lang.delete_failed(err.toString()),
+                        ),
+                      ),
+                    );
+                  }
+                  // ignore: use_build_context_synchronously
+                  Navigator.of(context).pop();
+                  setState(() {});
+                },
+              )
+            ],
+          );
+        });
+  }
+
   List<AbstractSettingsTile> genClusterChilds(List<K8zCluster> clusters) {
+    final lang = S.of(context);
     final current = Provider.of<CurrentCluster>(context, listen: false).current;
     return clusters.map((cluster) {
-      return SettingsTile.navigation(
+      final tile = SettingsTile.navigation(
         title: Text(cluster.name),
+        value: (current?.name == cluster.name) ? const Text("current") : null,
         leading: Icon(Icons.computer,
             color:
                 (current?.name == cluster.name) ? Colors.green : Colors.grey),
         onPressed: (context) {
           GoRouter.of(context).pushNamed("cluster_home", extra: cluster);
         },
+      );
+      return CustomSettingsTile(
+        child: Slidable(
+          startActionPane: ActionPane(
+            motion: const ScrollMotion(),
+            children: [
+              SlidableAction(
+                onPressed: (context) async {
+                  await onDeletePress(context, cluster);
+                },
+                backgroundColor: const Color(0xFFFE4A49),
+                foregroundColor: Colors.white,
+                icon: Icons.delete,
+                label: lang.delete,
+                padding: EdgeInsets.zero,
+              ),
+            ],
+          ),
+          child: tile,
+        ),
       );
     }).toList();
   }
