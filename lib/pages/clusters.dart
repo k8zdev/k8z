@@ -85,10 +85,14 @@ class _ClustersPageState extends State<ClustersPage> {
 
   List<AbstractSettingsTile> genClusterChilds(List<K8zCluster> clusters) {
     final lang = S.of(context);
+    var ccProvider = Provider.of<CurrentCluster>(context, listen: false);
     final current = Provider.of<CurrentCluster>(context, listen: false).current;
     return clusters.map((cluster) {
       final tile = SettingsTile.navigation(
-        title: Text(cluster.name),
+        title: Text(
+          cluster.name,
+          style: const TextStyle(height: 1.5),
+        ),
         value: (current?.name == cluster.name) ? const Text("current") : null,
         leading: Icon(Icons.computer,
             color:
@@ -110,6 +114,17 @@ class _ClustersPageState extends State<ClustersPage> {
                 foregroundColor: Colors.white,
                 icon: Icons.delete,
                 label: lang.delete,
+                padding: EdgeInsets.zero,
+              ),
+              SlidableAction(
+                onPressed: (context) async {
+                  ccProvider.setCurrent(cluster);
+                  setState(() {});
+                },
+                backgroundColor: Colors.green,
+                foregroundColor: Colors.white,
+                icon: Icons.open_in_browser_outlined,
+                label: lang.current_cluster,
                 padding: EdgeInsets.zero,
               ),
             ],
