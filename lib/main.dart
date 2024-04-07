@@ -88,7 +88,7 @@ void main() async {
         ChangeNotifierProvider<CurrentCluster>.value(value: currentCluster),
         ChangeNotifierProvider<RevenueCatCustomer>.value(value: customerInfo),
         ChangeNotifierProvider(create: (_) => TerminalProvider()),
-        ChangeNotifierProvider(create: (_) => TimeoutProvider()),
+        ChangeNotifierProvider(create: (_) => TimeoutProvider()..init()),
       ],
       child: TalkerWrapper(
         talker: talker,

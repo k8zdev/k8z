@@ -8,6 +8,11 @@ class TimeoutProvider extends ChangeNotifier {
 
   int get timeout => _timeout;
 
+  init() async {
+    var timeout = await vget<int>(key) ?? 300;
+    _timeout = timeout;
+  }
+
   void update(int seconds) {
     _timeout = seconds;
     vset(key, seconds);
