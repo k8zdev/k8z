@@ -1,6 +1,5 @@
 # k8zdev
-[![docs](https://img.shields.io/badge/k8z.dev-docs-red)](https://k8z.dev/docs?_utm=github) | ![GitHub last commit](https://img.shields.io/github/last-commit/k8zdev/k8z) | ![GitHub commit activity](https://img.shields.io/github/commit-activity/t/k8zdev/k8z) | ![GitHub Issues or Pull Requests](https://img.shields.io/github/issues/k8zdev/k8z)
-
+[![docs](https://img.shields.io/badge/k8z.dev-docs-red)](https://k8z.dev/docs?_utm=github) | ![GitHub last commit](https://img.shields.io/github/last-commit/k8zdev/k8z) | ![GitHub commit activity](https://img.shields.io/github/commit-activity/t/k8zdev/k8z) | ![GitHub Issues or Pull Requests](https://img.shields.io/github/issues/k8zdev/k8z) | ![K8Z GitHub Downloads (all assets, all releases)](https://img.shields.io/github/downloads/k8zdev/k8z/total)
 
 
 
