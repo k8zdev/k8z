@@ -48,3 +48,7 @@ decrypt:
 	 --output ${PWD}/lib/common/secrets.dart ${PWD}/lib/common/secrets.dart.gpg
 	echo "Decrypt secrets done"
 
+.PHONY: dmg
+dmg:
+	@echo Building DMG...
+	@hack/build_macos_dmg.sh
