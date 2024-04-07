@@ -95,8 +95,37 @@ Future<void> logScreenView({
   AnalyticsCallOptions? callOptions,
 }) async {
   FirebaseAnalytics.instance.logScreenView(
-      screenName: screenName,
-      screenClass: screenClass,
-      parameters: parameters,
-      callOptions: callOptions);
+    screenName: screenName,
+    screenClass: screenClass,
+    parameters: parameters,
+    callOptions: callOptions,
+  );
+}
+
+Future<void> logEvent(
+  String name, {
+  Map<String, Object?>? parameters,
+  AnalyticsCallOptions? callOptions,
+}) async {
+  FirebaseAnalytics.instance.logEvent(
+    name: name,
+    parameters: parameters,
+    callOptions: callOptions,
+  );
+}
+
+Future<void> logPurchase(
+    {String? currency = "CNY",
+    double? value,
+    List<AnalyticsEventItem>? items,
+    String? transactionId,
+    Map<String, Object?>? parameters,
+    AnalyticsCallOptions? callOptions}) async {
+  FirebaseAnalytics.instance.logPurchase(
+    currency: currency,
+    value: value,
+    transactionId: transactionId,
+    parameters: parameters,
+    callOptions: callOptions,
+  );
 }

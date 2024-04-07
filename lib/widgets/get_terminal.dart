@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:k8zdev/common/helpers.dart';
 import 'package:k8zdev/common/ops.dart';
 import 'package:k8zdev/common/styles.dart';
 import 'package:k8zdev/dao/kube.dart';
@@ -41,6 +42,7 @@ class _GetTerminalState extends State<GetTerminal> {
   }
 
   Future<void> _getTerminal(BuildContext context) async {
+    logEvent("getTerminal", parameters: {"type": "shell"});
     try {
       setState(() => _loading = true);
       // check local server is started

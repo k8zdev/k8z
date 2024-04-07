@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';
 import 'package:k8zdev/common/const.dart';
+import 'package:k8zdev/common/helpers.dart';
 import 'package:k8zdev/common/ops.dart';
 import 'package:k8zdev/common/secrets.dart';
 import 'package:k8zdev/common/styles.dart';
@@ -159,6 +160,7 @@ class _AppStorePaywallState extends State<AppStorePaywall> {
           onPressed: () async {
             setState(() => _loading = true);
             try {
+              logEvent("restorePurchases");
               CustomerInfo info = await Purchases.restorePurchases();
 
               customer.updateCustomerInfo(info);
@@ -295,6 +297,7 @@ class _AppStorePaywallState extends State<AppStorePaywall> {
             onPressed: () async {
               setState(() => _loading = true);
               try {
+                logEvent("purchasePackage");
                 CustomerInfo info = await Purchases.purchasePackage(
                     _offering!.availablePackages[_selectedIndex]);
                 // update
