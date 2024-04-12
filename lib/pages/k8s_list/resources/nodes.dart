@@ -8,6 +8,7 @@ import 'package:k8zdev/generated/l10n.dart';
 import 'package:k8zdev/models/models.dart';
 import 'package:k8zdev/services/k8z_native.dart';
 import 'package:k8zdev/services/k8z_service.dart';
+import 'package:k8zdev/widgets/settings_tile.dart';
 import 'package:k8zdev/widgets/widgets.dart';
 import 'package:settings_ui/settings_ui.dart';
 
@@ -20,13 +21,16 @@ class NodesPage extends StatefulWidget {
 }
 
 class _NodesPageState extends State<NodesPage> {
+  final _path = "/api/v1";
+  final _resource = "nodes";
+
   AbstractSettingsSection nodes(S lang) {
     return CustomSettingsSection(
       child: FutureBuilder(
         future: () async {
           // await Future.delayed(const Duration(seconds: 1));
           return await K8zService(context, cluster: widget.cluster)
-              .get("/api/v1/nodes?limit=500");
+              .get("$_path/$_resource?limit=500");
         }(),
         builder: (BuildContext context, AsyncSnapshot<JsonReturn> snapshot) {
           var list = [];
@@ -103,7 +107,7 @@ class _NodesPageState extends State<NodesPage> {
                         external = eip.first.address;
                       }
 
-                      return SettingsTile(
+                      final tile = SettingsTile(
                         title: Table(
                           columnWidths: const {
                             0: FlexColumnWidth(120),
@@ -156,6 +160,15 @@ class _NodesPageState extends State<NodesPage> {
                           const Divider(indent: 12),
                           running ? runningIcon : errorIcon,
                         ]),
+                      );
+
+                      return metadataSettingsTile(
+                        context,
+                        tile,
+                        node.metadata!.name!,
+                        node.metadata!.namespace,
+                        _path,
+                        _resource,
                       );
                     },
                   ).toList() ??

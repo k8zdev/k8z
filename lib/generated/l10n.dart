@@ -1357,6 +1357,36 @@ class S {
       args: [duration],
     );
   }
+
+  /// `labels`
+  String get labels {
+    return Intl.message(
+      'labels',
+      name: 'labels',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `annotations`
+  String get annotations {
+    return Intl.message(
+      'annotations',
+      name: 'annotations',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `metadata`
+  String get metadata {
+    return Intl.message(
+      'metadata',
+      name: 'metadata',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

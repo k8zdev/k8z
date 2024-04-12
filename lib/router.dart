@@ -4,6 +4,7 @@ import 'package:k8zdev/common/helpers.dart';
 import 'package:k8zdev/common/ops.dart';
 import 'package:k8zdev/dao/kube.dart';
 import 'package:k8zdev/generated/l10n.dart';
+import 'package:k8zdev/pages/k8s_detail/details_page.dart';
 import 'package:k8zdev/pages/k8s_list/applications/helm_releases.dart';
 import 'package:k8zdev/pages/k8s_list/cluster/select_clusters.dart';
 import 'package:k8zdev/pages/k8s_list/cluster/create.dart';
@@ -410,6 +411,32 @@ final router = GoRouter(
               },
             ),
           ],
+        ),
+        GoRoute(
+          path: "/details/:path/:namespace/:resource/:name",
+          name: "details",
+          pageBuilder: (context, state) {
+            logScreenView(screenName: 'DetailsPage');
+
+            talker.info(state.pathParameters);
+
+            // namespace param empty will case route miss
+            // if it is empty or null, should set to "_".
+            var namespace = state.pathParameters['namespace'];
+            if (namespace == "_") {
+              namespace = "";
+            }
+
+            return NoTransitionPage(
+              child: ResourceDetailsPage(
+                title: "",
+                path: state.pathParameters['path']!,
+                namespace: namespace,
+                resource: state.pathParameters['resource']!,
+                name: state.pathParameters['name']!,
+              ),
+            );
+          },
         ),
       ],
     ),

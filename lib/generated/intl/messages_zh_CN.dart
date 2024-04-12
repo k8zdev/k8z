@@ -114,6 +114,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "add_cluster": MessageLookupByLibrary.simpleMessage("添加集群"),
         "age": MessageLookupByLibrary.simpleMessage("年龄"),
         "all": MessageLookupByLibrary.simpleMessage("全部"),
+        "annotations": MessageLookupByLibrary.simpleMessage("注解"),
         "api_request_duration": m0,
         "api_timeout": MessageLookupByLibrary.simpleMessage("API 超时"),
         "appName": MessageLookupByLibrary.simpleMessage("k8z"),
@@ -166,6 +167,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "ingresses": MessageLookupByLibrary.simpleMessage("入口 (ingresses)"),
         "internel_ip": m12,
         "items_number": m13,
+        "labels": MessageLookupByLibrary.simpleMessage("标签"),
         "last_warning_events": m14,
         "load_file": MessageLookupByLibrary.simpleMessage("加载文件"),
         "load_metrics_error": m15,
@@ -174,6 +176,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "manual_load_kubeconfig":
             MessageLookupByLibrary.simpleMessage("加载 kubeconfig 文件"),
         "memory": MessageLookupByLibrary.simpleMessage("Memory"),
+        "metadata": MessageLookupByLibrary.simpleMessage("元数据"),
         "more": MessageLookupByLibrary.simpleMessage("更多"),
         "n_seconds": m16,
         "name": MessageLookupByLibrary.simpleMessage("名称"),

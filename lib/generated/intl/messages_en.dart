@@ -118,6 +118,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "add_cluster": MessageLookupByLibrary.simpleMessage("Add cluster"),
         "age": MessageLookupByLibrary.simpleMessage("Age"),
         "all": MessageLookupByLibrary.simpleMessage("All"),
+        "annotations": MessageLookupByLibrary.simpleMessage("annotations"),
         "api_request_duration": m0,
         "api_timeout": MessageLookupByLibrary.simpleMessage("API Timeout"),
         "appName": MessageLookupByLibrary.simpleMessage("k8z"),
@@ -176,6 +177,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "ingresses": MessageLookupByLibrary.simpleMessage("Ingresses"),
         "internel_ip": m12,
         "items_number": m13,
+        "labels": MessageLookupByLibrary.simpleMessage("labels"),
         "last_warning_events": m14,
         "load_file": MessageLookupByLibrary.simpleMessage("load file"),
         "load_metrics_error": m15,
@@ -185,6 +187,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "manual_load_kubeconfig":
             MessageLookupByLibrary.simpleMessage("Load kubeconfig file"),
         "memory": MessageLookupByLibrary.simpleMessage("Memory"),
+        "metadata": MessageLookupByLibrary.simpleMessage("metadata"),
         "more": MessageLookupByLibrary.simpleMessage("More"),
         "n_seconds": m16,
         "name": MessageLookupByLibrary.simpleMessage("Name"),

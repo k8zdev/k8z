@@ -10,6 +10,7 @@ import 'package:k8zdev/models/models.dart';
 import 'package:k8zdev/providers/current_cluster.dart';
 import 'package:k8zdev/services/k8z_service.dart';
 import 'package:k8zdev/widgets/namespace.dart';
+import 'package:k8zdev/widgets/settings_tile.dart';
 import 'package:k8zdev/widgets/widgets.dart';
 import 'package:provider/provider.dart';
 import 'package:settings_ui/settings_ui.dart';
@@ -23,6 +24,9 @@ class DaemonSetsPage extends StatefulWidget {
 }
 
 class _DaemonSetsPageState extends State<DaemonSetsPage> {
+  final _path = "/apis/apps/v1";
+  final _resource = "daemonsets";
+
   Widget getStatus(int desired, int current, int ready, int upToDate,
       int available, int missed) {
     if (missed > 0) {
@@ -49,7 +53,7 @@ class _DaemonSetsPageState extends State<DaemonSetsPage> {
 
           // await Future.delayed(const Duration(seconds: 1));
           return await K8zService(context, cluster: widget.cluster)
-              .get("/apis/apps/v1$namespaced/daemonsets");
+              .get("$_path$namespaced/$_resource");
         }(),
         builder: (BuildContext context, AsyncSnapshot snapshot) {
           var list = [];
@@ -130,7 +134,7 @@ class _DaemonSetsPageState extends State<DaemonSetsPage> {
                       final icon = getStatus(
                           desired, current, ready, upToDate, available, missed);
 
-                      return SettingsTile(
+                      final tile = SettingsTile(
                         title: Text(text, style: smallTextStyle),
                         trailing: Row(
                           children: [
@@ -139,6 +143,15 @@ class _DaemonSetsPageState extends State<DaemonSetsPage> {
                             icon,
                           ],
                         ),
+                      );
+
+                      return metadataSettingsTile(
+                        context,
+                        tile,
+                        item.metadata!.name!,
+                        item.metadata!.namespace!,
+                        _path,
+                        _resource,
                       );
                     },
                   ).toList() ??

@@ -8,6 +8,7 @@ import 'package:k8zdev/dao/kube.dart';
 import 'package:k8zdev/generated/l10n.dart';
 import 'package:k8zdev/models/models.dart';
 import 'package:k8zdev/services/k8z_service.dart';
+import 'package:k8zdev/widgets/settings_tile.dart';
 import 'package:settings_ui/settings_ui.dart';
 
 class PvsPage extends StatefulWidget {
@@ -19,13 +20,16 @@ class PvsPage extends StatefulWidget {
 }
 
 class _PvsPageState extends State<PvsPage> {
+  final String _path = "/api/v1";
+  final String _resource = "persistentvolumes";
+
   AbstractSettingsSection buildPvList(S lang) {
     return CustomSettingsSection(
       child: FutureBuilder(
         future: () async {
           // await Future.delayed(const Duration(seconds: 1));
           return await K8zService(context, cluster: widget.cluster)
-              .get("/api/v1/persistentvolumes");
+              .get("$_path/$_resource");
         }(),
         builder: (BuildContext context, AsyncSnapshot snapshot) {
           var list = [];
@@ -106,7 +110,7 @@ class _PvsPageState extends State<PvsPage> {
                       final text = lang.pv_text(name, capacity, accessModes,
                           reclaimPolicy, status, claim, storageClass, reason);
 
-                      return SettingsTile(
+                      final tile = SettingsTile(
                         title: Text(text, style: smallTextStyle),
                         trailing: Row(
                           children: [
@@ -114,6 +118,15 @@ class _PvsPageState extends State<PvsPage> {
                             const Divider(indent: 2),
                           ],
                         ),
+                      );
+
+                      return metadataSettingsTile(
+                        context,
+                        tile,
+                        item.metadata!.name!,
+                        item.metadata!.namespace,
+                        _path,
+                        _resource,
                       );
                     },
                   ).toList() ??

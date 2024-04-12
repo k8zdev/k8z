@@ -85,7 +85,9 @@ class _GetTerminalState extends State<GetTerminal> {
       setState(() => _loading = false);
 
       if (mounted) {
+        // ignore: use_build_context_synchronously
         Navigator.pop(context);
+        // ignore: use_build_context_synchronously
         showTerminals(context);
       }
     } catch (err) {

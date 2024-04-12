@@ -10,6 +10,7 @@ import 'package:k8zdev/models/models.dart';
 import 'package:k8zdev/providers/current_cluster.dart';
 import 'package:k8zdev/services/k8z_service.dart';
 import 'package:k8zdev/widgets/namespace.dart';
+import 'package:k8zdev/widgets/settings_tile.dart';
 import 'package:k8zdev/widgets/widgets.dart';
 import 'package:provider/provider.dart';
 import 'package:settings_ui/settings_ui.dart';
@@ -23,6 +24,9 @@ class StatefulSetsPage extends StatefulWidget {
 }
 
 class _StatefulSetsPageState extends State<StatefulSetsPage> {
+  final _path = "/apis/apps/v1";
+  final _resource = "statefulsets";
+
   Widget getStatus(int replicas, int ready, int upToDate) {
     if (replicas == 0 || ready == 0 || upToDate == 0) {
       return quizIcon;
@@ -46,7 +50,7 @@ class _StatefulSetsPageState extends State<StatefulSetsPage> {
 
           // await Future.delayed(const Duration(seconds: 1));
           return await K8zService(context, cluster: widget.cluster)
-              .get("/apis/apps/v1$namespaced/statefulsets");
+              .get("$_path$namespaced/$_resource");
         }(),
         builder: (BuildContext context, AsyncSnapshot snapshot) {
           var list = [];
@@ -119,7 +123,7 @@ class _StatefulSetsPageState extends State<StatefulSetsPage> {
                           name, ns, ready, upToDate, available);
                       var icon = getStatus(replicas, ready, upToDate);
 
-                      return SettingsTile(
+                      final tile = SettingsTile(
                         title: Text(text, style: smallTextStyle),
                         trailing: Row(
                           children: [
@@ -128,6 +132,15 @@ class _StatefulSetsPageState extends State<StatefulSetsPage> {
                             icon,
                           ],
                         ),
+                      );
+
+                      return metadataSettingsTile(
+                        context,
+                        tile,
+                        item.metadata!.name!,
+                        item.metadata!.namespace!,
+                        _path,
+                        _resource,
                       );
                     },
                   ).toList() ??

@@ -8,6 +8,7 @@ import 'package:k8zdev/dao/kube.dart';
 import 'package:k8zdev/generated/l10n.dart';
 import 'package:k8zdev/models/models.dart';
 import 'package:k8zdev/services/k8z_service.dart';
+import 'package:k8zdev/widgets/settings_tile.dart';
 import 'package:k8zdev/widgets/widgets.dart';
 import 'package:settings_ui/settings_ui.dart';
 
@@ -20,13 +21,16 @@ class CrdsPage extends StatefulWidget {
 }
 
 class _CrdsPageState extends State<CrdsPage> {
+  final _path = "/apis/apiextensions.k8s.io/v1";
+  final _resource = "customresourcedefinitions";
+
   AbstractSettingsSection buildCrdsList(S lang) {
     return CustomSettingsSection(
       child: FutureBuilder(
         future: () async {
           // await Future.delayed(const Duration(seconds: 1));
-          return await K8zService(context, cluster: widget.cluster).get(
-              "/apis/apiextensions.k8s.io/v1/customresourcedefinitions?limit=500");
+          return await K8zService(context, cluster: widget.cluster)
+              .get("$_path/$_resource?limit=500");
         }(),
         builder: (BuildContext context, AsyncSnapshot snapshot) {
           var list = [];
@@ -97,13 +101,22 @@ class _CrdsPageState extends State<CrdsPage> {
                         shortNames,
                       );
 
-                      return SettingsTile(
+                      final tile = SettingsTile(
                         title: Text(text, style: smallTextStyle),
                         trailing: Row(
                           children: [
                             Text(age),
                           ],
                         ),
+                      );
+
+                      return metadataSettingsTile(
+                        context,
+                        tile,
+                        crd.metadata!.name!,
+                        crd.metadata!.namespace,
+                        _path,
+                        _resource,
                       );
                     },
                   ).toList() ??

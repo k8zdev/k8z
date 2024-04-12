@@ -379,8 +379,9 @@ class K8zNative {
       return JsonReturn(body: {}, error: resp.error, duration: resp.duration);
     }
 
+    final jsonBody = jsonDecode(resp.body);
     return JsonReturn(
-      body: jsonDecode(resp.body),
+      body: jsonBody,
       error: resp.error,
       duration: resp.duration,
     );

@@ -8,6 +8,7 @@ import 'package:k8zdev/dao/kube.dart';
 import 'package:k8zdev/generated/l10n.dart';
 import 'package:k8zdev/models/models.dart';
 import 'package:k8zdev/services/k8z_service.dart';
+import 'package:k8zdev/widgets/settings_tile.dart';
 import 'package:settings_ui/settings_ui.dart';
 
 class StorageClassPage extends StatefulWidget {
@@ -19,13 +20,16 @@ class StorageClassPage extends StatefulWidget {
 }
 
 class _StorageClassPageState extends State<StorageClassPage> {
+  final String _path = "/apis/storage.k8s.io/v1";
+  final String _resource = "storageclasses";
+
   AbstractSettingsSection buildStorageClassList(S lang) {
     return CustomSettingsSection(
       child: FutureBuilder(
         future: () async {
           // await Future.delayed(const Duration(seconds: 1));
           return await K8zService(context, cluster: widget.cluster)
-              .get("/apis/storage.k8s.io/v1/storageclasses");
+              .get("$_path/$_resource");
         }(),
         builder: (BuildContext context, AsyncSnapshot snapshot) {
           var list = [];
@@ -106,7 +110,7 @@ class _StorageClassPageState extends State<StorageClassPage> {
                           volumeBindingMode ?? "",
                           allowVolumeExpansion ?? false);
 
-                      return SettingsTile(
+                      final tile = SettingsTile(
                         title: Text(text, style: smallTextStyle),
                         trailing: Row(
                           children: [
@@ -114,6 +118,15 @@ class _StorageClassPageState extends State<StorageClassPage> {
                             const Divider(indent: 2),
                           ],
                         ),
+                      );
+
+                      return metadataSettingsTile(
+                        context,
+                        tile,
+                        item.metadata!.name!,
+                        item.metadata!.namespace,
+                        _path,
+                        _resource,
                       );
                     },
                   ).toList() ??

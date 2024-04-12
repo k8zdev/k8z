@@ -489,5 +489,11 @@
     "placeholders": {
       "duration": {}
     }
-  }
+  },
+  "labels": "labels",
+  "@labels": {},
+  "annotations": "annotations",
+  "@annotations": {},
+  "metadata": "metadata",
+  "@metadata": {}
 }

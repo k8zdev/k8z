@@ -10,6 +10,7 @@ import 'package:k8zdev/models/models.dart';
 import 'package:k8zdev/providers/current_cluster.dart';
 import 'package:k8zdev/services/k8z_service.dart';
 import 'package:k8zdev/widgets/namespace.dart';
+import 'package:k8zdev/widgets/settings_tile.dart';
 import 'package:provider/provider.dart';
 import 'package:settings_ui/settings_ui.dart';
 
@@ -22,6 +23,9 @@ class PvcsPage extends StatefulWidget {
 }
 
 class _PvcsPageState extends State<PvcsPage> {
+  final String _path = "/api/v1";
+  final String _resource = "persistentvolumeclaims";
+
   AbstractSettingsSection buildPvcList(S lang) {
     return CustomSettingsSection(
       child: FutureBuilder(
@@ -33,7 +37,7 @@ class _PvcsPageState extends State<PvcsPage> {
 
           // await Future.delayed(const Duration(seconds: 1));
           return await K8zService(context, cluster: widget.cluster)
-              .get("/api/v1$namespaced/persistentvolumeclaims");
+              .get("$_path$namespaced/$_resource");
         }(),
         builder: (BuildContext context, AsyncSnapshot snapshot) {
           var list = [];
@@ -112,7 +116,7 @@ class _PvcsPageState extends State<PvcsPage> {
                       final text = lang.pvc_text(name, ns, status, volumeName,
                           capacity, accessModes, storageClass);
 
-                      return SettingsTile(
+                      final tile = SettingsTile(
                         title: Text(text, style: smallTextStyle),
                         trailing: Row(
                           children: [
@@ -120,6 +124,14 @@ class _PvcsPageState extends State<PvcsPage> {
                             const Divider(indent: 2),
                           ],
                         ),
+                      );
+                      return metadataSettingsTile(
+                        context,
+                        tile,
+                        item.metadata!.name!,
+                        item.metadata!.namespace!,
+                        _path,
+                        _resource,
                       );
                     },
                   ).toList() ??

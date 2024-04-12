@@ -479,5 +479,11 @@
     "placeholders": {
       "duration": {}
     }
-  }
+  },
+  "labels": "标签",
+  "@labels": {},
+  "annotations": "注解",
+  "@annotations": {},
+  "metadata": "元数据",
+  "@metadata": {}
 }

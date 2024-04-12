@@ -1,6 +1,7 @@
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:go_router/go_router.dart';
 import 'package:k8zdev/common/const.dart';
 import 'package:k8zdev/common/helpers.dart';
 import 'package:k8zdev/common/ops.dart';
@@ -28,6 +29,9 @@ class PodsPage extends StatefulWidget {
 }
 
 class _PodsPageState extends State<PodsPage> {
+  final String _path = "/api/v1";
+  final String _resource = "pods";
+
   AbstractSettingsSection buildPodList(S lang) {
     return CustomSettingsSection(
       child: FutureBuilder(
@@ -36,10 +40,10 @@ class _PodsPageState extends State<PodsPage> {
           final namespaced = c?.namespace.isEmpty ?? true
               ? ""
               : "/namespaces/${c?.namespace ?? ""}";
+          final api = "$_path$namespaced/$_resource";
 
           // await Future.delayed(const Duration(seconds: 1));
-          return await K8zService(context, cluster: widget.cluster)
-              .get("/api/v1$namespaced/pods");
+          return await K8zService(context, cluster: widget.cluster).get(api);
         }(),
         builder: (BuildContext context, AsyncSnapshot snapshot) {
           var list = [];
@@ -130,65 +134,83 @@ class _PodsPageState extends State<PodsPage> {
                           ],
                         ),
                       );
+
+                      final startActionPane = ActionPane(
+                        motion: const ScrollMotion(),
+                        children: [
+                          SlidableAction(
+                            onPressed: (context) {},
+                            backgroundColor: const Color(0xFFFE4A49),
+                            foregroundColor: Colors.white,
+                            icon: Icons.delete,
+                            label: lang.delete,
+                            padding: EdgeInsets.zero,
+                          ),
+                          SlidableAction(
+                            onPressed: (context) {
+                              showModal(
+                                context,
+                                GetTerminal(
+                                  name: metadata.name!,
+                                  namespace: ns,
+                                  containers: containers,
+                                  cluster: widget.cluster,
+                                ),
+                              );
+                            },
+                            backgroundColor: const Color(0xFF21B7CA),
+                            foregroundColor: Colors.white,
+                            icon: Icons.terminal,
+                            spacing: 8,
+                            label: lang.terminal,
+                            padding: EdgeInsets.zero,
+                          ),
+                        ],
+                      );
+
+                      final endActionPane = ActionPane(
+                        motion: const ScrollMotion(),
+                        children: [
+                          SlidableAction(
+                            onPressed: (context) {
+                              showModal(
+                                context,
+                                GetLogstream(
+                                  name: metadata.name!,
+                                  namespace: ns,
+                                  containers: containers,
+                                  cluster: widget.cluster,
+                                ),
+                              );
+                            },
+                            backgroundColor: const Color(0xFF21B7CA),
+                            foregroundColor: Colors.white,
+                            icon: Icons.list_alt,
+                            spacing: 8,
+                            label: lang.logs,
+                            padding: EdgeInsets.zero,
+                          ),
+                        ],
+                      );
+
                       return CustomSettingsTile(
                         child: Slidable(
-                          startActionPane: ActionPane(
-                            motion: const ScrollMotion(),
-                            children: [
-                              SlidableAction(
-                                onPressed: (context) {},
-                                backgroundColor: const Color(0xFFFE4A49),
-                                foregroundColor: Colors.white,
-                                icon: Icons.delete,
-                                label: lang.delete,
-                                padding: EdgeInsets.zero,
-                              ),
-                              SlidableAction(
-                                onPressed: (context) {
-                                  showModal(
-                                    context,
-                                    GetTerminal(
-                                      name: metadata.name!,
-                                      namespace: ns,
-                                      containers: containers,
-                                      cluster: widget.cluster,
-                                    ),
-                                  );
+                          endActionPane: endActionPane,
+                          startActionPane: startActionPane,
+                          child: GestureDetector(
+                            child: AbsorbPointer(child: tile),
+                            onTap: () {
+                              GoRouter.of(context).pushNamed(
+                                "details",
+                                pathParameters: {
+                                  "path": _path,
+                                  "namespace": pod.metadata!.namespace!,
+                                  "resource": _resource,
+                                  "name": pod.metadata!.name!,
                                 },
-                                backgroundColor: const Color(0xFF21B7CA),
-                                foregroundColor: Colors.white,
-                                icon: Icons.terminal,
-                                spacing: 8,
-                                label: lang.terminal,
-                                padding: EdgeInsets.zero,
-                              ),
-                            ],
+                              );
+                            },
                           ),
-                          endActionPane: ActionPane(
-                            motion: const ScrollMotion(),
-                            children: [
-                              SlidableAction(
-                                onPressed: (context) {
-                                  showModal(
-                                    context,
-                                    GetLogstream(
-                                      name: metadata.name!,
-                                      namespace: ns,
-                                      containers: containers,
-                                      cluster: widget.cluster,
-                                    ),
-                                  );
-                                },
-                                backgroundColor: const Color(0xFF21B7CA),
-                                foregroundColor: Colors.white,
-                                icon: Icons.list_alt,
-                                spacing: 8,
-                                label: lang.logs,
-                                padding: EdgeInsets.zero,
-                              ),
-                            ],
-                          ),
-                          child: tile,
                         ),
                       );
                     },

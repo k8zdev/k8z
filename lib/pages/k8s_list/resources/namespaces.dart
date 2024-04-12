@@ -7,6 +7,7 @@ import 'package:k8zdev/dao/kube.dart';
 import 'package:k8zdev/generated/l10n.dart';
 import 'package:k8zdev/models/models.dart';
 import 'package:k8zdev/services/k8z_service.dart';
+import 'package:k8zdev/widgets/settings_tile.dart';
 import 'package:k8zdev/widgets/widgets.dart';
 import 'package:settings_ui/settings_ui.dart';
 
@@ -19,13 +20,16 @@ class NamespacesPage extends StatefulWidget {
 }
 
 class _NamespacesPageState extends State<NamespacesPage> {
+  final _path = "/api/v1";
+  final _resource = "namespaces";
+
   AbstractSettingsSection namespaces(S lang) {
     return CustomSettingsSection(
       child: FutureBuilder(
         future: () async {
           // await Future.delayed(const Duration(seconds: 1));
           return await K8zService(context, cluster: widget.cluster)
-              .get("/api/v1/namespaces?limit=500");
+              .get("$_path/$_resource?limit=500");
         }(),
         builder: (BuildContext context, AsyncSnapshot snapshot) {
           var list = [];
@@ -72,7 +76,7 @@ class _NamespacesPageState extends State<NamespacesPage> {
                       var now = DateTime.now();
                       var creation = metadata?.creationTimestamp ?? now;
                       var age = now.difference(creation).pretty;
-                      return SettingsTile(
+                      final tile = SettingsTile(
                         title: Text(metadata?.name ?? "<noe>"),
                         trailing: Row(
                           children: [
@@ -83,6 +87,15 @@ class _NamespacesPageState extends State<NamespacesPage> {
                                 : errorIcon,
                           ],
                         ),
+                      );
+
+                      return metadataSettingsTile(
+                        context,
+                        tile,
+                        ns.metadata!.name!,
+                        ns.metadata!.namespace,
+                        _path,
+                        _resource,
                       );
                     },
                   ).toList() ??

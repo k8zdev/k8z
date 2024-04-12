@@ -40,8 +40,8 @@ class _AppStorePaywallState extends State<AppStorePaywall> {
     try {
       var offerings = await Purchases.getOfferings();
       if (offerings.all.isEmpty) {
-        // ignore: use_build_context_synchronously
         await showDialog(
+          // ignore: use_build_context_synchronously
           context: context,
           builder: (BuildContext context) => ShowDialogToDismiss(
             title: "Error",
@@ -56,8 +56,8 @@ class _AppStorePaywallState extends State<AppStorePaywall> {
       });
     } on PlatformException catch (e) {
       talker.error("RC get offerings failed.", e);
-      // ignore: use_build_context_synchronously
       await showDialog(
+        // ignore: use_build_context_synchronously
         context: context,
         builder: (BuildContext context) => ShowDialogToDismiss(
             title: "Error",
@@ -165,8 +165,8 @@ class _AppStorePaywallState extends State<AppStorePaywall> {
 
               customer.updateCustomerInfo(info);
 
-              // ignore: use_build_context_synchronously
               showDialog(
+                // ignore: use_build_context_synchronously
                 context: context,
                 builder: (BuildContext context) => ShowDialogToDismiss(
                   title: lang.success,
@@ -179,8 +179,8 @@ class _AppStorePaywallState extends State<AppStorePaywall> {
             } on PlatformException catch (err) {
               // Error restoring purchases
               talker.error("restore failed", {"error": err.message});
-              // ignore: use_build_context_synchronously
               showDialog(
+                // ignore: use_build_context_synchronously
                 context: context,
                 builder: (BuildContext context) => ShowDialogToDismiss(
                   title: lang.error,

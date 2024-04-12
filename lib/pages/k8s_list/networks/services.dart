@@ -10,6 +10,7 @@ import 'package:k8zdev/models/models.dart';
 import 'package:k8zdev/providers/current_cluster.dart';
 import 'package:k8zdev/services/k8z_service.dart';
 import 'package:k8zdev/widgets/namespace.dart';
+import 'package:k8zdev/widgets/settings_tile.dart';
 import 'package:k8zdev/widgets/widgets.dart';
 import 'package:provider/provider.dart';
 import 'package:settings_ui/settings_ui.dart';
@@ -23,6 +24,9 @@ class ServicesPage extends StatefulWidget {
 }
 
 class _ServicesPageState extends State<ServicesPage> {
+  final _path = "/api/v1";
+  final _resource = "services";
+
   AbstractSettingsSection buildServiceList(S lang) {
     return CustomSettingsSection(
       child: FutureBuilder(
@@ -34,7 +38,7 @@ class _ServicesPageState extends State<ServicesPage> {
 
           // await Future.delayed(const Duration(seconds: 1));
           return await K8zService(context, cluster: widget.cluster)
-              .get("/api/v1$namespaced/services");
+              .get("$_path$namespaced/$_resource");
         }(),
         builder: (BuildContext context, AsyncSnapshot snapshot) {
           var list = [];
@@ -109,7 +113,7 @@ class _ServicesPageState extends State<ServicesPage> {
                       final text = lang.service_text(
                           name, ns, sType, clusterIP, externalIPs, ports ?? "");
 
-                      return SettingsTile(
+                      final tile = SettingsTile(
                         title: Text(text, style: smallTextStyle),
                         trailing: Row(
                           children: [
@@ -117,6 +121,15 @@ class _ServicesPageState extends State<ServicesPage> {
                             const Divider(indent: 2),
                           ],
                         ),
+                      );
+
+                      return metadataSettingsTile(
+                        context,
+                        tile,
+                        item.metadata!.name!,
+                        item.metadata!.namespace,
+                        _path,
+                        _resource,
                       );
                     },
                   ).toList() ??

@@ -13,6 +13,7 @@ import 'package:k8zdev/models/models.dart';
 import 'package:k8zdev/providers/current_cluster.dart';
 import 'package:k8zdev/services/k8z_service.dart';
 import 'package:k8zdev/widgets/namespace.dart';
+import 'package:k8zdev/widgets/settings_tile.dart';
 import 'package:provider/provider.dart';
 import 'package:settings_ui/settings_ui.dart';
 
@@ -25,6 +26,9 @@ class HelmReleasesPage extends StatefulWidget {
 }
 
 class _HelmReleasesPageState extends State<HelmReleasesPage> {
+  final String _path = "/api/v1";
+  final String _resource = "secrets";
+
   AbstractSettingsSection buildHelmReleasesList(S lang) {
     return CustomSettingsSection(
       child: FutureBuilder(
@@ -36,7 +40,7 @@ class _HelmReleasesPageState extends State<HelmReleasesPage> {
 
           // await Future.delayed(const Duration(seconds: 1));
           return await K8zService(context, cluster: widget.cluster)
-              .get("/api/v1$namespaced/secrets?labelSelector=owner%3Dhelm");
+              .get("$_path$namespaced/$_resource?labelSelector=owner%3Dhelm");
         }(),
         builder: (BuildContext context, AsyncSnapshot snapshot) {
           var list = [];
@@ -138,7 +142,7 @@ class _HelmReleasesPageState extends State<HelmReleasesPage> {
                   final text = lang.release_text(name, ns, revision,
                       releaseAppVersion, releaseUpdated, status, releaseChart);
 
-                  return SettingsTile(
+                  final tile = SettingsTile(
                     title: Text(text, style: smallTextStyle),
                     trailing: Row(
                       children: [
@@ -146,6 +150,15 @@ class _HelmReleasesPageState extends State<HelmReleasesPage> {
                         const Divider(indent: 2),
                       ],
                     ),
+                  );
+
+                  return metadataSettingsTile(
+                    context,
+                    tile,
+                    item.metadata!.name!,
+                    item.metadata!.namespace!,
+                    _path,
+                    _resource,
                   );
                 },
               ).toList();

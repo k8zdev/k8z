@@ -798,6 +798,14 @@ packages:
       url: "https://mirrors.tuna.tsinghua.edu.cn/dart-pub/"
     source: hosted
     version: "3.3.1"
+  simple_tags:
+    dependency: "direct main"
+    description:
+      name: simple_tags
+      sha256: "7d037a93982223081fb98286ea17078d22f08a7f21b2b7757919fd63265bc598"
+      url: "https://mirrors.tuna.tsinghua.edu.cn/dart-pub/"
+    source: hosted
+    version: "0.0.6"
   sky_engine:
     dependency: transitive
     description: flutter
