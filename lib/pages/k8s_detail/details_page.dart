@@ -1,6 +1,7 @@
 import 'package:auto_hyphenating_text/auto_hyphenating_text.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:k8zdev/common/const.dart';
 import 'package:k8zdev/common/ops.dart';
 import 'package:k8zdev/dao/kube.dart';
@@ -15,6 +16,39 @@ import 'package:provider/provider.dart';
 import 'package:settings_ui/settings_ui.dart';
 import 'package:simple_tags/simple_tags.dart';
 
+enum Actions {
+  delete,
+  more,
+  scale,
+  restart,
+  yaml,
+}
+
+mapAtcions(String resource) {
+  switch (resource) {
+    case "helm_releases":
+    case "endpoints":
+    case "ingresses":
+    case "services":
+    case "configmaps":
+    case "secrets":
+    case "serviceaccounts":
+    case "crds":
+    case "events":
+    case "namespaces":
+    case "nodes":
+    case "pvcs":
+    case "pvs":
+    case "storageclass":
+    case "daemonsets":
+    case "deployments":
+    case "pods":
+    case "statefulsets":
+    default:
+      return [Actions.delete, Actions.yaml];
+  }
+}
+
 class ResourceDetailsPage extends StatefulWidget {
   // /apis/apps/v1/namespaces/example_ns/deployments/app-10010
   final String title;
@@ -22,7 +56,6 @@ class ResourceDetailsPage extends StatefulWidget {
   final String? namespace; // e.g. example_ns
   final String resource; // e.g. deployments
   final String name; // e.g. app-10010
-  // final String raw;
   const ResourceDetailsPage({
     super.key,
     this.title = "-",
@@ -39,16 +72,21 @@ class ResourceDetailsPage extends StatefulWidget {
 class _ResourceDetailsPageState extends State<ResourceDetailsPage> {
   late String langCode;
   late K8zCluster? cluster;
+  late String itemUrl;
   late Future<JsonReturn> _futureFetchItem;
 
   @override
   void initState() {
-    super.initState();
     cluster = Provider.of<CurrentCluster>(context, listen: false).current;
     langCode = Provider.of<CurrentLocale>(context, listen: false)
             .locale
             ?.languageCode ??
         "en";
+    itemUrl = widget.namespace.isNullOrEmpty
+        ? '${widget.path}/${widget.resource}/${widget.name}'
+        : '${widget.path}/namespaces/${widget.namespace}/${widget.resource}/${widget.name}';
+    talker.debug("item url: $itemUrl");
+    super.initState();
   }
 
   @override
@@ -75,6 +113,63 @@ class _ResourceDetailsPageState extends State<ResourceDetailsPage> {
     );
   }
 
+  List<Widget> getActions(S lang, List<Actions>? actions, JsonReturn resp) {
+    final map = {
+      Actions.yaml: TextButton(
+        onPressed: () {
+          GoRouter.of(context).pushNamed(
+            "details_yaml",
+            extra: resp,
+            pathParameters: {
+              "file": "${widget.namespace}_${widget.resource}_${widget.name}",
+              "itemUrl": itemUrl,
+            },
+          );
+        },
+        child: const Column(
+          children: [
+            Icon(Icons.edit_note),
+            Text("Yaml"),
+          ],
+        ),
+      ),
+      Actions.restart: const TextButton(
+        onPressed: null,
+        child: Column(
+          children: [
+            Icon(Icons.restart_alt),
+            Text("Restart"),
+          ],
+        ),
+      ),
+      Actions.delete: const TextButton(
+        onPressed: null,
+        child: Column(
+          children: [
+            Icon(Icons.delete),
+            Text("Delete"),
+          ],
+        ),
+      ),
+      Actions.more: TextButton(
+        onPressed: null,
+        child: Column(
+          children: [
+            const Icon(Icons.more_horiz),
+            Text(lang.more),
+          ],
+        ),
+      ),
+    };
+    List<Widget> list = [];
+
+    actions?.forEach((action) {
+      list.add(map[action] ?? Container());
+    });
+
+    return list;
+  }
+
   Future<JsonReturn> _fetchItem() async {
     if (!mounted) {
       talker.error("null mounted");
@@ -85,11 +180,6 @@ class _ResourceDetailsPageState extends State<ResourceDetailsPage> {
       talker.error("null cluster");
       return JsonReturn(body: {}, error: "", duration: Duration.zero);
     }
-
-    final itemUrl = widget.namespace.isNullOrEmpty
-        ? '${widget.path}/${widget.resource}/${widget.name}'
-        : '${widget.path}/namespaces/${widget.namespace}/${widget.resource}/${widget.name}';
-    talker.debug("item url: $itemUrl");
 
     return await K8zService(context, cluster: cluster!).get(itemUrl);
   }
@@ -128,7 +218,8 @@ class _ResourceDetailsPageState extends State<ResourceDetailsPage> {
     );
   }
 
-  buildMetaSection(S lang, IoK8sApimachineryPkgApisMetaV1ObjectMeta metadata) {
+  buildMetaSection(S lang, IoK8sApimachineryPkgApisMetaV1ObjectMeta metadata,
+      JsonReturn resp) {
     final labels = metadata.labels.entries.mapIndexed((index, element) {
       return "${element.key}=${element.value}";
     }).toList();
@@ -143,6 +234,14 @@ class _ResourceDetailsPageState extends State<ResourceDetailsPage> {
     return SettingsSection(
       title: Text(lang.metadata),
       tiles: [
+        SettingsTile(
+          title: CustomSettingsTile(
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: getActions(lang, mapAtcions(widget.resource), resp),
+            ),
+          ),
+        ),
         SettingsTile(
           leading: leadingText(lang.name),
           title: Text(metadata.name ?? ""),
@@ -207,7 +306,7 @@ class _ResourceDetailsPageState extends State<ResourceDetailsPage> {
                 }
                 return SettingsList(
                   sections: [
-                    buildMetaSection(lang, metadata!),
+                    buildMetaSection(lang, metadata!, data),
                   ],
                 );
             }
