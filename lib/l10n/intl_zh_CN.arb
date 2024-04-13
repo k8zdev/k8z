@@ -487,5 +487,15 @@
   "annotations": "注解",
   "@annotations": {},
   "metadata": "元数据",
-  "@metadata": {}
+  "@metadata": {},
+  "resource_yaml": "资源 Yaml",
+  "@resource_yaml": {},
+  "export": "导出",
+  "@export": {},
+  "exported": "已导出到 {path}",
+  "@exported": {
+    "placeholders": {
+      "path": {}
+    }
+  }
 }

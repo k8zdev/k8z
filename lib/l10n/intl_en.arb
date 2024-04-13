@@ -497,5 +497,15 @@
   "annotations": "Annotations",
   "@annotations": {},
   "metadata": "metadata",
-  "@metadata": {}
+  "@metadata": {},
+  "resource_yaml": "Resource Yaml",
+  "@resource_yaml": {},
+  "export": "Export",
+  "@export": {},
+  "exported": "Exported to {path}",
+  "@exported": {
+    "placeholders": {
+      "path": {}
+    }
+  }
 }

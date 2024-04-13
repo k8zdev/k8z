@@ -1397,6 +1397,36 @@ class S {
       args: [],
     );
   }
+
+  /// `Resource Yaml`
+  String get resource_yaml {
+    return Intl.message(
+      'Resource Yaml',
+      name: 'resource_yaml',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Export`
+  String get export {
+    return Intl.message(
+      'Export',
+      name: 'export',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Exported to {path}`
+  String exported(Object path) {
+    return Intl.message(
+      'Exported to $path',
+      name: 'exported',
+      desc: '',
+      args: [path],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

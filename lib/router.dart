@@ -5,6 +5,7 @@ import 'package:k8zdev/common/ops.dart';
 import 'package:k8zdev/dao/kube.dart';
 import 'package:k8zdev/generated/l10n.dart';
 import 'package:k8zdev/pages/k8s_detail/details_page.dart';
+import 'package:k8zdev/pages/k8s_detail/yaml_page.dart';
 import 'package:k8zdev/pages/k8s_list/applications/helm_releases.dart';
 import 'package:k8zdev/pages/k8s_list/cluster/select_clusters.dart';
 import 'package:k8zdev/pages/k8s_list/cluster/create.dart';
@@ -33,6 +34,7 @@ import 'package:k8zdev/pages/k8s_list/workloads/deployments.dart';
 import 'package:k8zdev/pages/k8s_list/workloads/pods.dart';
 import 'package:k8zdev/pages/k8s_list/workloads/stateful_sets.dart';
 import 'package:k8zdev/providers/current_cluster.dart';
+import 'package:k8zdev/services/k8z_native.dart';
 import 'package:provider/provider.dart';
 import 'package:sqlite_viewer/sqlite_viewer.dart';
 import 'package:talker_flutter/talker_flutter.dart';
@@ -434,6 +436,20 @@ final router = GoRouter(
                 namespace: namespace,
                 resource: state.pathParameters['resource']!,
                 name: state.pathParameters['name']!,
+              ),
+            );
+          },
+        ),
+        GoRoute(
+          path: "/details/yaml/:file/:itemUrl",
+          name: "details_yaml",
+          pageBuilder: (context, state) {
+            final resp = state.extra as JsonReturn;
+            return NoTransitionPage(
+              child: YamlPage(
+                fileName: state.pathParameters['file']!,
+                itemUrl: state.pathParameters['itemUrl']!,
+                resp: resp,
               ),
             );
           },

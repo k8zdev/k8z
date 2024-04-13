@@ -77,6 +77,7 @@ dependencies:
   http: ^1.2.0
   simple_tags: ^0.0.6
   auto_hyphenating_text: ^0.2.0
+  json2yaml: ^3.0.1
 
 dependency_overrides:
   meta: 1.11.0
