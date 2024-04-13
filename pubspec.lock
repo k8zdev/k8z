@@ -41,6 +41,14 @@ packages:
       url: "https://mirrors.tuna.tsinghua.edu.cn/dart-pub/"
     source: hosted
     version: "2.11.0"
+  auto_hyphenating_text:
+    dependency: "direct main"
+    description:
+      name: auto_hyphenating_text
+      sha256: "89789cc5ba035289299b9ee98e921487473b600c0ee6d414736370165571abb8"
+      url: "https://mirrors.tuna.tsinghua.edu.cn/dart-pub/"
+    source: hosted
+    version: "0.2.0"
   boolean_selector:
     dependency: transitive
     description:
@@ -462,6 +470,14 @@ packages:
       url: "https://mirrors.tuna.tsinghua.edu.cn/dart-pub/"
     source: hosted
     version: "4.0.2"
+  hyphenator_impure:
+    dependency: transitive
+    description:
+      name: hyphenator_impure
+      sha256: d943b55c01f90fd794beab853645efa9f816619feca0b4a784529e1a5dffa5fd
+      url: "https://mirrors.tuna.tsinghua.edu.cn/dart-pub/"
+    source: hosted
+    version: "0.1.3"
   icons_launcher:
     dependency: "direct dev"
     description:

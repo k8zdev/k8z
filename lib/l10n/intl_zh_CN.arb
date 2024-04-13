@@ -40,6 +40,8 @@
   "@services": {},
   "resources": "资源",
   "@resources": {},
+  "namespace": "名字空间",
+  "@namespace": {},
   "namespaces": "名字空间",
   "@namespaces": {},
   "crds": "自定资源定义",

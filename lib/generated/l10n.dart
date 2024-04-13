@@ -250,6 +250,16 @@ class S {
     );
   }
 
+  /// `Namespace`
+  String get namespace {
+    return Intl.message(
+      'Namespace',
+      name: 'namespace',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Namespaces`
   String get namespaces {
     return Intl.message(
@@ -1358,20 +1368,20 @@ class S {
     );
   }
 
-  /// `labels`
+  /// `Labels`
   String get labels {
     return Intl.message(
-      'labels',
+      'Labels',
       name: 'labels',
       desc: '',
       args: [],
     );
   }
 
-  /// `annotations`
+  /// `Annotations`
   String get annotations {
     return Intl.message(
-      'annotations',
+      'Annotations',
       name: 'annotations',
       desc: '',
       args: [],

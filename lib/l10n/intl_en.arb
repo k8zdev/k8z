@@ -40,6 +40,8 @@
   "@services": {},
   "resources": "Resources",
   "@resources": {},
+  "namespace": "Namespace",
+  "@namespace": {},
   "namespaces": "Namespaces",
   "@namespaces": {},
   "crds": "CustomResourceDefinition",
@@ -490,9 +492,9 @@
       "duration": {}
     }
   },
-  "labels": "labels",
+  "labels": "Labels",
   "@labels": {},
-  "annotations": "annotations",
+  "annotations": "Annotations",
   "@annotations": {},
   "metadata": "metadata",
   "@metadata": {}

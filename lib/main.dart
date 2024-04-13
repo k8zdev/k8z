@@ -27,11 +27,13 @@ import 'package:talker_flutter/talker_flutter.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
+import 'package:auto_hyphenating_text/auto_hyphenating_text.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await initStash();
   await initStore();
+  await initHyphenation();
   await initRevenueCatState();
   await K8zNative.startLocalServer();
 

@@ -1,3 +1,4 @@
+import 'package:auto_hyphenating_text/auto_hyphenating_text.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:k8zdev/common/const.dart';
@@ -6,6 +7,7 @@ import 'package:k8zdev/dao/kube.dart';
 import 'package:k8zdev/generated/l10n.dart';
 import 'package:k8zdev/models/models.dart';
 import 'package:k8zdev/providers/current_cluster.dart';
+import 'package:k8zdev/providers/lang.dart';
 import 'package:k8zdev/services/k8z_native.dart';
 import 'package:k8zdev/services/k8z_service.dart';
 import 'package:kubeconfig/kubeconfig.dart';
@@ -35,13 +37,18 @@ class ResourceDetailsPage extends StatefulWidget {
 }
 
 class _ResourceDetailsPageState extends State<ResourceDetailsPage> {
+  late String langCode;
   late K8zCluster? cluster;
   late Future<JsonReturn> _futureFetchItem;
 
   @override
   void initState() {
-    cluster = Provider.of<CurrentCluster>(context, listen: false).current;
     super.initState();
+    cluster = Provider.of<CurrentCluster>(context, listen: false).current;
+    langCode = Provider.of<CurrentLocale>(context, listen: false)
+            .locale
+            ?.languageCode ??
+        "en";
   }
 
   @override
@@ -50,6 +57,22 @@ class _ResourceDetailsPageState extends State<ResourceDetailsPage> {
     setState(() {
       _futureFetchItem = _fetchItem();
     });
+  }
+
+  leadingText(String label) {
+    late double len;
+    switch (langCode) {
+      case "zh":
+        len = 32;
+      default:
+        len = 52;
+    }
+    return SizedBox(
+      width: len,
+      child: AutoHyphenatingText(
+        label,
+      ),
+    );
   }
 
   Future<JsonReturn> _fetchItem() async {
@@ -121,20 +144,20 @@ class _ResourceDetailsPageState extends State<ResourceDetailsPage> {
       title: Text(lang.metadata),
       tiles: [
         SettingsTile(
-          leading: Text(lang.name),
+          leading: leadingText(lang.name),
           title: Text(metadata.name ?? ""),
         ),
         if (!metadata.namespace.isNullOrEmpty)
           SettingsTile(
-            leading: Text(lang.namespaces),
+            leading: leadingText(lang.namespace),
             title: Text(metadata.namespace ?? ""),
           ),
         SettingsTile(
-          leading: Text(lang.labels),
+          leading: leadingText(lang.labels),
           title: tags(labels),
         ),
         SettingsTile(
-          leading: Text(lang.annotations),
+          leading: leadingText(lang.annotations),
           title: tags(annotations),
         ),
       ],

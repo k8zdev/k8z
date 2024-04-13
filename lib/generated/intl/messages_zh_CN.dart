@@ -180,6 +180,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "more": MessageLookupByLibrary.simpleMessage("更多"),
         "n_seconds": m16,
         "name": MessageLookupByLibrary.simpleMessage("名称"),
+        "namespace": MessageLookupByLibrary.simpleMessage("名字空间"),
         "namespaces": MessageLookupByLibrary.simpleMessage("名字空间"),
         "next_step": MessageLookupByLibrary.simpleMessage("下一步"),
         "no_current_cluster": MessageLookupByLibrary.simpleMessage("没有选择任何集群"),
