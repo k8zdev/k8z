@@ -29,6 +29,12 @@ class JsonReturn {
   Duration duration;
 
   JsonReturn({required this.body, required this.error, required this.duration});
+
+  Map<String, dynamic> toJson() => {
+        'error': error,
+        'body': body,
+        "duration": duration.inMilliseconds,
+      };
 }
 
 // FreePointer free pointer mem.
