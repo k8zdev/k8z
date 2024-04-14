@@ -507,5 +507,13 @@
     }
   },
   "apply": "应用",
-  "@apply": {}
+  "@apply": {},
+  "scale_ok": "扩缩容成功",
+  "@scale_ok": {},
+  "scale_failed": "扩缩容失败, 错误: {error}",
+  "@scale_failed": {
+    "placeholders": {
+      "error": {}
+    }
+  }
 }

@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:auto_hyphenating_text/auto_hyphenating_text.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
@@ -174,7 +176,37 @@ class _ResourceDetailsPageState extends State<ResourceDetailsPage> {
             Container(
               margin: const EdgeInsets.symmetric(horizontal: 32),
               child: OutlinedButton.icon(
-                onPressed: () {},
+                onPressed: () async {
+                  final payload =
+                      '[{"op":"replace","path":"/spec/replicas","value":$except}]';
+
+                  final resp = await K8zService(context, cluster: cluster!)
+                      .patch(itemUrl, payload);
+
+                  var bgcolor = Colors.green;
+                  var msg = lang.scale_ok;
+                  if (resp.error != "") {
+                    bgcolor = Colors.red;
+                    msg = lang.scale_failed(resp.error);
+                  }
+                  await Future.delayed(const Duration(milliseconds: 100));
+                  // ignore: use_build_context_synchronously
+                  Navigator.of(context).pop();
+                  // ignore: use_build_context_synchronously
+                  GoRouter.of(context).pop();
+                  // ignore: use_build_context_synchronously
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      showCloseIcon: true,
+                      closeIconColor: Colors.white,
+                      backgroundColor: bgcolor,
+                      content: Text(msg),
+                    ),
+                  );
+
+                  talker.debug(
+                      "scale resp, url=$itemUrl, error=${resp.error}, duration=${resp.duration}, body=${resp.body}");
+                },
                 icon: const Icon(Icons.done),
                 label: Text(lang.apply),
                 style: OutlinedButton.styleFrom(
@@ -335,6 +367,10 @@ class _ResourceDetailsPageState extends State<ResourceDetailsPage> {
         SettingsTile(
           leading: leadingText(lang.name),
           title: Text(metadata.name ?? ""),
+        ),
+        SettingsTile(
+          leading: leadingText("lang.generation"),
+          title: Text(metadata.generation.toString()),
         ),
         if (!metadata.namespace.isNullOrEmpty)
           SettingsTile(

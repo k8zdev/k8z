@@ -517,5 +517,13 @@
     }
   },
   "apply": "Apply",
-  "@apply": {}
+  "@apply": {},
+  "scale_ok": "scale success",
+  "@scale_ok": {},
+  "scale_failed": "scale failed, error: {error}",
+  "@scale_failed": {
+    "placeholders": {
+      "error": {}
+    }
+  }
 }

@@ -1457,6 +1457,26 @@ class S {
       args: [],
     );
   }
+
+  /// `scale success`
+  String get scale_ok {
+    return Intl.message(
+      'scale success',
+      name: 'scale_ok',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `scale failed, error: {error}`
+  String scale_failed(Object error) {
+    return Intl.message(
+      'scale failed, error: $error',
+      name: 'scale_failed',
+      desc: '',
+      args: [error],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

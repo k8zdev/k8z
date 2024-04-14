@@ -89,33 +89,35 @@ class MessageLookup extends MessageLookupByLibrary {
   static String m26(name, ns, revision, appVer, updated, status, chart) =>
       "${name}\nNamespace: ${ns}\nRevision: ${revision}\nApp Version: ${appVer}\nUpdated: ${updated}\nStatus: ${status}\nChart: ${chart}";
 
-  static String m27(N) => "Scale to ${N} replica(s)";
+  static String m27(error) => "scale failed, error: ${error}";
 
-  static String m28(name, ns, type, data) =>
+  static String m28(N) => "Scale to ${N} replica(s)";
+
+  static String m29(name, ns, type, data) =>
       "${name}\nNamespace: ${ns}\nType: ${type}\nData: ${data}";
 
-  static String m29(name, ns, secrets) =>
+  static String m30(name, ns, secrets) =>
       "${name}\nNamespace: ${ns}\nSecret: ${secrets}";
 
-  static String m30(name, ns, type, clusterIP, externalIP, ports) =>
+  static String m31(name, ns, type, clusterIP, externalIP, ports) =>
       "${name}\nNamespace: ${ns}\nType: ${type}\nCluster IP: ${clusterIP}\nExternal IP: ${externalIP}\nPorts: ${ports}";
 
-  static String m31(name, ns, ready, upToDate, available) =>
+  static String m32(name, ns, ready, upToDate, available) =>
       "${name}\nNamespace: ${ns}\nReady: ${ready}\nUp to date: ${upToDate}\nAvailable: ${available}\n";
 
-  static String m32(name, provisioner, reclaimPolicy, mountOptions,
+  static String m33(name, provisioner, reclaimPolicy, mountOptions,
           volumeBindingMode, allowVolumeExpansion) =>
       "${name}\nProvisioner: ${provisioner}\nReclaim Policy: ${reclaimPolicy}\nVolume Binding Mode: ${volumeBindingMode}\nAllow Volume Expansion: ${allowVolumeExpansion}\nMountOptions: ${mountOptions}";
 
-  static String m33(date) => "Sponsor expired: \$${date}";
+  static String m34(date) => "Sponsor expired: \$${date}";
 
-  static String m34(error) => "Restore Purchases Failed, ERROR: ${error}";
+  static String m35(error) => "Restore Purchases Failed, ERROR: ${error}";
 
-  static String m35(number) => "${number} terminals opened";
+  static String m36(number) => "${number} terminals opened";
 
-  static String m36(number) => "Totals: ${number}";
+  static String m37(number) => "Totals: ${number}";
 
-  static String m37(type, name) => "will delete ${type} ${name}";
+  static String m38(type, name) => "will delete ${type} ${name}";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
@@ -229,15 +231,17 @@ class MessageLookup extends MessageLookupByLibrary {
         "running": MessageLookupByLibrary.simpleMessage("Running"),
         "save_clusters": MessageLookupByLibrary.simpleMessage("save clusters"),
         "scale": MessageLookupByLibrary.simpleMessage("Scale"),
-        "scale_to": m27,
-        "secret_text": m28,
+        "scale_failed": m27,
+        "scale_ok": MessageLookupByLibrary.simpleMessage("scale success"),
+        "scale_to": m28,
+        "secret_text": m29,
         "secrets": MessageLookupByLibrary.simpleMessage("Secrets"),
         "select_clusters":
             MessageLookupByLibrary.simpleMessage("Select cluster(s)"),
-        "service_account_text": m29,
+        "service_account_text": m30,
         "service_accounts":
             MessageLookupByLibrary.simpleMessage("ServiceAccounts"),
-        "service_text": m30,
+        "service_text": m31,
         "services": MessageLookupByLibrary.simpleMessage("Services"),
         "settings": MessageLookupByLibrary.simpleMessage("Settings"),
         "since": MessageLookupByLibrary.simpleMessage("Since"),
@@ -245,13 +249,13 @@ class MessageLookup extends MessageLookupByLibrary {
             "Sponsor me so that I can continue to develop and maintain this app."),
         "sponsorme": MessageLookupByLibrary.simpleMessage("Sponsor me"),
         "sponsors": MessageLookupByLibrary.simpleMessage("Sponsors"),
-        "stateful_set_text": m31,
+        "stateful_set_text": m32,
         "stateful_sets": MessageLookupByLibrary.simpleMessage("StatefulSets"),
         "status": MessageLookupByLibrary.simpleMessage("Status"),
         "storage": MessageLookupByLibrary.simpleMessage("Storage"),
         "storage_class": MessageLookupByLibrary.simpleMessage("StorageClass"),
-        "storage_class_text": m32,
-        "subscriptions_expired_at": m33,
+        "storage_class_text": m33,
+        "subscriptions_expired_at": m34,
         "subscriptions_iap_desc": MessageLookupByLibrary.simpleMessage(
             "If not cancelled, the subscription will be renewed automatically. Payment will be charged to the iTunes account when the purchase is confirmed. Subscriptions are automatically renewed unless automatic renewal is closed at least 24 hours before the end of the current term. The account will charge a renewal fee within 24 hours prior to the end of the current period and determine the renewal fee. Subscriptions can be managed by the user and auto-renewal can be turned off after purchase by going to the user\'\'s account settings. Any unused portion of the free trial period, if provided, will be forfeited when the user purchases a subscription to the publication."),
         "subscriptions_lifetime":
@@ -260,7 +264,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Monthly"),
         "subscriptions_purchased":
             MessageLookupByLibrary.simpleMessage("Purchased"),
-        "subscriptions_restorePurchases_failed": m34,
+        "subscriptions_restorePurchases_failed": m35,
         "subscriptions_restore_purchases":
             MessageLookupByLibrary.simpleMessage("Restore Purchases"),
         "subscriptions_restore_success":
@@ -269,13 +273,13 @@ class MessageLookup extends MessageLookupByLibrary {
         "success": MessageLookupByLibrary.simpleMessage("Success"),
         "tail_lines": MessageLookupByLibrary.simpleMessage("Tail Lines"),
         "terminal": MessageLookupByLibrary.simpleMessage("Terminal"),
-        "terminals_opened": m35,
+        "terminals_opened": m36,
         "theme_auto": MessageLookupByLibrary.simpleMessage("Auto"),
         "theme_dark": MessageLookupByLibrary.simpleMessage("Dark mode"),
         "theme_light": MessageLookupByLibrary.simpleMessage("Light mode"),
-        "totals": m36,
+        "totals": m37,
         "version": MessageLookupByLibrary.simpleMessage("Version"),
-        "will_delete": m37,
+        "will_delete": m38,
         "workloads": MessageLookupByLibrary.simpleMessage("Workloads")
       };
 }
