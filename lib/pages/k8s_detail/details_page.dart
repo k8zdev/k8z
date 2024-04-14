@@ -11,7 +11,9 @@ import 'package:k8zdev/providers/current_cluster.dart';
 import 'package:k8zdev/providers/lang.dart';
 import 'package:k8zdev/services/k8z_native.dart';
 import 'package:k8zdev/services/k8z_service.dart';
+import 'package:k8zdev/widgets/modal.dart';
 import 'package:kubeconfig/kubeconfig.dart';
+import 'package:numberpicker/numberpicker.dart';
 import 'package:provider/provider.dart';
 import 'package:settings_ui/settings_ui.dart';
 import 'package:simple_tags/simple_tags.dart';
@@ -26,24 +28,27 @@ enum Actions {
 
 mapAtcions(String resource) {
   switch (resource) {
-    case "helm_releases":
-    case "endpoints":
-    case "ingresses":
-    case "services":
-    case "configmaps":
-    case "secrets":
-    case "serviceaccounts":
-    case "crds":
-    case "events":
-    case "namespaces":
-    case "nodes":
-    case "pvcs":
-    case "pvs":
-    case "storageclass":
+    // case "helm_releases":
+    // case "endpoints":
+    // case "ingresses":
+    // case "services":
+    // case "configmaps":
+    // case "secrets":
+    // case "serviceaccounts":
+    // case "crds":
+    // case "events":
+    // case "namespaces":
+    // case "nodes":
+    // case "pvcs":
+    // case "pvs":
+    // case "storageclass":
     case "daemonsets":
+      return [Actions.delete, Actions.scale, Actions.yaml];
     case "deployments":
-    case "pods":
+      return [Actions.delete, Actions.scale, Actions.yaml];
+    // case "pods":
     case "statefulsets":
+      return [Actions.delete, Actions.scale, Actions.yaml];
     default:
       return [Actions.delete, Actions.yaml];
   }
@@ -113,6 +118,76 @@ class _ResourceDetailsPageState extends State<ResourceDetailsPage> {
     );
   }
 
+  Widget scaleWidget(int replicas) {
+    var except = replicas;
+    final lang = S.of(context);
+    return StatefulBuilder(
+      builder: (BuildContext context, setState) {
+        return Column(
+          children: [
+            NumberPicker(
+              value: except,
+              minValue: 0,
+              maxValue: 200,
+              step: 1,
+              itemHeight: 50,
+              axis: Axis.horizontal,
+              onChanged: (value) => setState(() => except = value),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(16),
+                border: Border.all(color: Colors.black26),
+              ),
+            ),
+
+            const Divider(height: 20, color: Colors.transparent),
+
+            // buttons
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                IconButton(
+                  icon: const Icon(Icons.exposure_zero),
+                  onPressed: () => setState(() {
+                    except = 0;
+                  }),
+                ),
+                IconButton(
+                  icon: const Icon(Icons.remove),
+                  onPressed: () => setState(() {
+                    final newValue = except - 1;
+                    except = newValue.clamp(0, 200);
+                  }),
+                ),
+                Text(lang.scale_to(except)),
+                IconButton(
+                  icon: const Icon(Icons.add),
+                  onPressed: () => setState(() {
+                    final newValue = except + 1;
+                    except = newValue.clamp(0, 200);
+                  }),
+                ),
+              ],
+            ),
+
+            // apply
+            const Divider(height: 20, color: Colors.transparent),
+            Container(
+              margin: const EdgeInsets.symmetric(horizontal: 32),
+              child: OutlinedButton.icon(
+                onPressed: () {},
+                icon: const Icon(Icons.done),
+                label: Text(lang.apply),
+                style: OutlinedButton.styleFrom(
+                  minimumSize: const Size.fromHeight(50),
+                ),
+              ),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   List<Widget> getActions(S lang, List<Actions>? actions, JsonReturn resp) {
     final map = {
       Actions.yaml: TextButton(
@@ -148,6 +223,21 @@ class _ResourceDetailsPageState extends State<ResourceDetailsPage> {
           children: [
             Icon(Icons.delete),
             Text("Delete"),
+          ],
+        ),
+      ),
+      Actions.scale: TextButton(
+        onPressed: () {
+          showModal(
+            context,
+            scaleWidget(resp.body["spec"]["replicas"]),
+            minHeight: 200,
+          );
+        },
+        child: Column(
+          children: [
+            const Icon(Icons.add_circle_sharp),
+            Text(lang.scale),
           ],
         ),
       ),

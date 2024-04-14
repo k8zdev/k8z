@@ -1427,6 +1427,36 @@ class S {
       args: [path],
     );
   }
+
+  /// `Scale`
+  String get scale {
+    return Intl.message(
+      'Scale',
+      name: 'scale',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Scale to {N} replica(s)`
+  String scale_to(Object N) {
+    return Intl.message(
+      'Scale to $N replica(s)',
+      name: 'scale_to',
+      desc: '',
+      args: [N],
+    );
+  }
+
+  /// `Apply`
+  String get apply {
+    return Intl.message(
+      'Apply',
+      name: 'apply',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

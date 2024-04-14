@@ -497,5 +497,15 @@
     "placeholders": {
       "path": {}
     }
-  }
+  },
+  "scale": "缩放",
+  "@scale": {},
+  "scale_to": "缩放至 {N} 副本",
+  "@scale_to": {
+    "placeholders": {
+      "N": {}
+    }
+  },
+  "apply": "应用",
+  "@apply": {}
 }

@@ -85,31 +85,33 @@ class MessageLookup extends MessageLookupByLibrary {
   static String m26(name, ns, revision, appVer, updated, status, chart) =>
       "${name}\n名字空间: ${ns}\nRevision: ${revision}\n程序版本: ${appVer}\n更新: ${updated}\n状态: ${status}\nChart: ${chart}";
 
-  static String m27(name, ns, type, data) =>
+  static String m27(N) => "缩放至 ${N} 副本";
+
+  static String m28(name, ns, type, data) =>
       "${name}\n名字空间: ${ns}\n类型: ${type}\n数据: ${data}";
 
-  static String m28(name, ns, secrets) =>
+  static String m29(name, ns, secrets) =>
       "${name}\n名字空间: ${ns}\n秘钥: ${secrets}";
 
-  static String m29(name, ns, type, clusterIP, externalIP, ports) =>
+  static String m30(name, ns, type, clusterIP, externalIP, ports) =>
       "${name}\n名字空间: ${ns}\n类: ${type}\n集群 IP: ${clusterIP}\n外部 IP: ${externalIP}\n端口: ${ports}";
 
-  static String m30(name, ns, ready, upToDate, available) =>
+  static String m31(name, ns, ready, upToDate, available) =>
       "${name}\n名字空间: ${ns}\n就绪: ${ready}\nUp to date: ${upToDate}\n可用: ${available}";
 
-  static String m31(name, provisioner, reclaimPolicy, mountOptions,
+  static String m32(name, provisioner, reclaimPolicy, mountOptions,
           volumeBindingMode, allowVolumeExpansion) =>
       "${name}\n分配器: ${provisioner}\n回收策略: ${reclaimPolicy}\n存储卷绑定模式: ${volumeBindingMode}\n允许卷扩展: ${allowVolumeExpansion}\n挂载参数: ${mountOptions}";
 
-  static String m32(date) => "赞助过期时间: \$${date}";
+  static String m33(date) => "赞助过期时间: \$${date}";
 
-  static String m33(error) => "恢复购买失败, 错误: ${error}";
+  static String m34(error) => "恢复购买失败, 错误: ${error}";
 
-  static String m34(number) => "已打开 ${number} 个终端";
+  static String m35(number) => "已打开 ${number} 个终端";
 
-  static String m35(number) => "总计: ${number}";
+  static String m36(number) => "总计: ${number}";
 
-  static String m36(type, name) => "将要删除 ${type} ${name}";
+  static String m37(type, name) => "将要删除 ${type} ${name}";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
@@ -122,6 +124,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "appName": MessageLookupByLibrary.simpleMessage("k8z"),
         "appearance": MessageLookupByLibrary.simpleMessage("外观"),
         "applications": MessageLookupByLibrary.simpleMessage("应用程序"),
+        "apply": MessageLookupByLibrary.simpleMessage("应用"),
         "arsure": MessageLookupByLibrary.simpleMessage("你确认吗?"),
         "cancel": MessageLookupByLibrary.simpleMessage("取消"),
         "clusters": MessageLookupByLibrary.simpleMessage("集群"),
@@ -210,12 +213,14 @@ class MessageLookup extends MessageLookupByLibrary {
         "resources": MessageLookupByLibrary.simpleMessage("资源"),
         "running": MessageLookupByLibrary.simpleMessage("运行中"),
         "save_clusters": MessageLookupByLibrary.simpleMessage("保存集群"),
-        "secret_text": m27,
+        "scale": MessageLookupByLibrary.simpleMessage("缩放"),
+        "scale_to": m27,
+        "secret_text": m28,
         "secrets": MessageLookupByLibrary.simpleMessage("Secrets"),
         "select_clusters": MessageLookupByLibrary.simpleMessage("选择需要的集群"),
-        "service_account_text": m28,
+        "service_account_text": m29,
         "service_accounts": MessageLookupByLibrary.simpleMessage("服务账号"),
-        "service_text": m29,
+        "service_text": m30,
         "services": MessageLookupByLibrary.simpleMessage("服务 (services)"),
         "settings": MessageLookupByLibrary.simpleMessage("设置"),
         "since": MessageLookupByLibrary.simpleMessage("自"),
@@ -223,19 +228,19 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("赞助我以便于我可以继续开发维护这款应用程序。"),
         "sponsorme": MessageLookupByLibrary.simpleMessage("赞助我"),
         "sponsors": MessageLookupByLibrary.simpleMessage("赞助"),
-        "stateful_set_text": m30,
+        "stateful_set_text": m31,
         "stateful_sets": MessageLookupByLibrary.simpleMessage("StatefulSets"),
         "status": MessageLookupByLibrary.simpleMessage("状态"),
         "storage": MessageLookupByLibrary.simpleMessage("存储"),
         "storage_class": MessageLookupByLibrary.simpleMessage("存储类"),
-        "storage_class_text": m31,
-        "subscriptions_expired_at": m32,
+        "storage_class_text": m32,
+        "subscriptions_expired_at": m33,
         "subscriptions_iap_desc": MessageLookupByLibrary.simpleMessage(
             "如不取消, 订购将会自动续费。付款将在确认购买时向iTunes帐户收取。订阅自动续订, 除非自动续订在当前期限结束前至少24小时关闭。账户将在本期结束前的24小时内收取续费费用, 并确定续约费用。订购可由用户管理, 购买后可通过转到用户的帐户设置关闭自动续订。免费试用期的任何未使用部分（如果提供）在用户购买该出版物的订阅时将被没收。"),
         "subscriptions_lifetime": MessageLookupByLibrary.simpleMessage("终身"),
         "subscriptions_monthly": MessageLookupByLibrary.simpleMessage("每月"),
         "subscriptions_purchased": MessageLookupByLibrary.simpleMessage("已购买"),
-        "subscriptions_restorePurchases_failed": m33,
+        "subscriptions_restorePurchases_failed": m34,
         "subscriptions_restore_purchases":
             MessageLookupByLibrary.simpleMessage("恢复购买"),
         "subscriptions_restore_success":
@@ -244,13 +249,13 @@ class MessageLookup extends MessageLookupByLibrary {
         "success": MessageLookupByLibrary.simpleMessage("成功"),
         "tail_lines": MessageLookupByLibrary.simpleMessage("尾部行数"),
         "terminal": MessageLookupByLibrary.simpleMessage("终端"),
-        "terminals_opened": m34,
+        "terminals_opened": m35,
         "theme_auto": MessageLookupByLibrary.simpleMessage("跟随系统"),
         "theme_dark": MessageLookupByLibrary.simpleMessage("深色模式"),
         "theme_light": MessageLookupByLibrary.simpleMessage("亮色模式"),
-        "totals": m35,
+        "totals": m36,
         "version": MessageLookupByLibrary.simpleMessage("版本"),
-        "will_delete": m36,
+        "will_delete": m37,
         "workloads": MessageLookupByLibrary.simpleMessage("负载")
       };
 }

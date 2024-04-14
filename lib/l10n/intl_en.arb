@@ -507,5 +507,15 @@
     "placeholders": {
       "path": {}
     }
-  }
+  },
+  "scale": "Scale",
+  "@scale": {},
+  "scale_to": "Scale to {N} replica(s)",
+  "@scale_to": {
+    "placeholders": {
+      "N": {}
+    }
+  },
+  "apply": "Apply",
+  "@apply": {}
 }
