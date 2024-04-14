@@ -2,6 +2,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:in_app_review/in_app_review.dart';
 import 'package:k8zdev/common/const.dart';
 import 'package:k8zdev/common/ops.dart';
 import 'package:k8zdev/dao/dao.dart';
@@ -212,12 +213,31 @@ class _SettingsPageState extends State<SettingsPage> {
         ),
 
         SettingsSection(
-          title: Text(lang.sponsors),
+          title: Text(lang.support),
           tiles: [
+            // sponsor me
             SettingsTile.navigation(
               title: Text(lang.sponsorme),
+              leading: const Icon(Icons.monetization_on_outlined),
               onPressed: (context) =>
                   GoRouter.of(context).pushNamed("appstore"),
+            ),
+            // feedback
+            SettingsTile.navigation(
+              title: Text(lang.feedback),
+              leading: const Icon(Icons.rate_review_outlined),
+              onPressed: (context) async {
+                final inAppReview = InAppReview.instance;
+                await inAppReview.openStoreListing(appStoreId: "6478047741");
+              },
+            ),
+            // docs
+            SettingsTile.navigation(
+              title: Text(lang.documents),
+              leading: const Icon(Icons.help_center_outlined),
+              onPressed: (context) async {
+                await launchUrl(docUrl);
+              },
             ),
           ],
         ),

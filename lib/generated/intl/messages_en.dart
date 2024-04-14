@@ -159,6 +159,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "deployments": MessageLookupByLibrary.simpleMessage("Deployments"),
         "discovery_and_lb": MessageLookupByLibrary.simpleMessage(
             "Discovery and Load Balancing"),
+        "documents": MessageLookupByLibrary.simpleMessage("Documents"),
         "edit": MessageLookupByLibrary.simpleMessage("Edit"),
         "empyt_context": MessageLookupByLibrary.simpleMessage(
             "can not get cluster kubeconfig, contexts maybe empty"),
@@ -171,6 +172,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "export": MessageLookupByLibrary.simpleMessage("Export"),
         "exported": m10,
         "external_ip": m11,
+        "feedback": MessageLookupByLibrary.simpleMessage("Feedback"),
         "general": MessageLookupByLibrary.simpleMessage("General"),
         "general_debug": MessageLookupByLibrary.simpleMessage("debug"),
         "general_debug_sqlview":
@@ -248,7 +250,6 @@ class MessageLookup extends MessageLookupByLibrary {
         "sponsor_desc": MessageLookupByLibrary.simpleMessage(
             "Sponsor me so that I can continue to develop and maintain this app."),
         "sponsorme": MessageLookupByLibrary.simpleMessage("Sponsor me"),
-        "sponsors": MessageLookupByLibrary.simpleMessage("Sponsors"),
         "stateful_set_text": m32,
         "stateful_sets": MessageLookupByLibrary.simpleMessage("StatefulSets"),
         "status": MessageLookupByLibrary.simpleMessage("Status"),
@@ -271,6 +272,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Resotre success."),
         "subscriptions_yearly": MessageLookupByLibrary.simpleMessage("Yearly"),
         "success": MessageLookupByLibrary.simpleMessage("Success"),
+        "support": MessageLookupByLibrary.simpleMessage("Support"),
         "tail_lines": MessageLookupByLibrary.simpleMessage("Tail Lines"),
         "terminal": MessageLookupByLibrary.simpleMessage("Terminal"),
         "terminals_opened": m36,

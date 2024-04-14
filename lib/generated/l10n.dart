@@ -1138,16 +1138,6 @@ class S {
     );
   }
 
-  /// `Sponsors`
-  String get sponsors {
-    return Intl.message(
-      'Sponsors',
-      name: 'sponsors',
-      desc: '',
-      args: [],
-    );
-  }
-
   /// `Sponsor me`
   String get sponsorme {
     return Intl.message(
@@ -1475,6 +1465,36 @@ class S {
       name: 'scale_failed',
       desc: '',
       args: [error],
+    );
+  }
+
+  /// `Support`
+  String get support {
+    return Intl.message(
+      'Support',
+      name: 'support',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Feedback`
+  String get feedback {
+    return Intl.message(
+      'Feedback',
+      name: 'feedback',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Documents`
+  String get documents {
+    return Intl.message(
+      'Documents',
+      name: 'documents',
+      desc: '',
+      args: [],
     );
   }
 }

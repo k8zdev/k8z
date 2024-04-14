@@ -15,6 +15,13 @@ final privacyUrl = Uri(
   path: "/docs/privacy/",
 );
 
+final docUrl = Uri(
+  scheme: "https",
+  host: "k8z.dev",
+  path: "/docs/",
+  query: "_f=app",
+);
+
 final stdeulaUrl = Uri(
   scheme: "https",
   host: "www.apple.com",

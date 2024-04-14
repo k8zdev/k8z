@@ -150,6 +150,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "deployment_text": m7,
         "deployments": MessageLookupByLibrary.simpleMessage("Deployments"),
         "discovery_and_lb": MessageLookupByLibrary.simpleMessage("服务发现与负载均衡"),
+        "documents": MessageLookupByLibrary.simpleMessage("文档"),
         "edit": MessageLookupByLibrary.simpleMessage("编辑"),
         "empyt_context": MessageLookupByLibrary.simpleMessage(
             "无法从 kubeconfig 读取集群信息, contexts 字段可能为空"),
@@ -162,6 +163,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "export": MessageLookupByLibrary.simpleMessage("导出"),
         "exported": m10,
         "external_ip": m11,
+        "feedback": MessageLookupByLibrary.simpleMessage("反馈"),
         "general": MessageLookupByLibrary.simpleMessage("常规"),
         "general_debug": MessageLookupByLibrary.simpleMessage("调试"),
         "general_debug_sqlview": MessageLookupByLibrary.simpleMessage("sql 视图"),
@@ -231,7 +233,6 @@ class MessageLookup extends MessageLookupByLibrary {
         "sponsor_desc":
             MessageLookupByLibrary.simpleMessage("赞助我以便于我可以继续开发维护这款应用程序。"),
         "sponsorme": MessageLookupByLibrary.simpleMessage("赞助我"),
-        "sponsors": MessageLookupByLibrary.simpleMessage("赞助"),
         "stateful_set_text": m32,
         "stateful_sets": MessageLookupByLibrary.simpleMessage("StatefulSets"),
         "status": MessageLookupByLibrary.simpleMessage("状态"),
@@ -251,6 +252,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("恢复成功"),
         "subscriptions_yearly": MessageLookupByLibrary.simpleMessage("每年"),
         "success": MessageLookupByLibrary.simpleMessage("成功"),
+        "support": MessageLookupByLibrary.simpleMessage("支持"),
         "tail_lines": MessageLookupByLibrary.simpleMessage("尾部行数"),
         "terminal": MessageLookupByLibrary.simpleMessage("终端"),
         "terminals_opened": m36,

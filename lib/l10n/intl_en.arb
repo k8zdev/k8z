@@ -424,8 +424,6 @@
   "@eula": {},
   "privacy_policy": "Privacy Policy",
   "@privacy_policy": {},
-  "sponsors": "Sponsors",
-  "@sponsors": {},
   "sponsorme": "Sponsor me",
   "@sponsorme": {},
   "sponsor_desc": "Sponsor me so that I can continue to develop and maintain this app.",
@@ -525,5 +523,11 @@
     "placeholders": {
       "error": {}
     }
-  }
+  },
+  "support": "Support",
+  "@support": {},
+  "feedback": "Feedback",
+  "@feedback": {},
+  "documents": "Documents",
+  "@documents": {}
 }

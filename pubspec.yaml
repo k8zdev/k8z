@@ -79,6 +79,7 @@ dependencies:
   auto_hyphenating_text: ^0.2.0
   json2yaml: ^3.0.1
   numberpicker: ^2.1.2
+  in_app_review: ^2.0.9
 
 dependency_overrides:
   meta: 1.11.0

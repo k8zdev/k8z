@@ -414,8 +414,6 @@
   "@eula": {},
   "privacy_policy": "隐私政策",
   "@privacy_policy": {},
-  "sponsors": "赞助",
-  "@sponsors": {},
   "sponsorme": "赞助我",
   "@sponsorme": {},
   "sponsor_desc": "赞助我以便于我可以继续开发维护这款应用程序。",
@@ -515,5 +513,11 @@
     "placeholders": {
       "error": {}
     }
-  }
+  },
+  "support": "支持",
+  "@support": {},
+  "feedback": "反馈",
+  "@feedback": {},
+  "documents": "文档",
+  "@documents": {}
 }

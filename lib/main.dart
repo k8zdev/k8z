@@ -28,6 +28,7 @@ import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
 import 'package:auto_hyphenating_text/auto_hyphenating_text.dart';
+import 'package:in_app_review/in_app_review.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -36,6 +37,12 @@ void main() async {
   await initHyphenation();
   await initRevenueCatState();
   await K8zNative.startLocalServer();
+
+  final inAppReview = InAppReview.instance;
+  if (await inAppReview.isAvailable()) {
+    talker.info("request review");
+    inAppReview.requestReview();
+  }
 
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
