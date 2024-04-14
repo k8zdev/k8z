@@ -149,7 +149,7 @@ func k8zRequest(server string, caData string,
 	case http.MethodDelete:
 		req = cli.Delete()
 	case http.MethodPatch:
-		req = cli.Patch(types.JSONPatchType)
+		req = cli.Patch(types.JSONPatchType).Body([]byte(body))
 	default:
 		req = cli.Verb(strings.ToUpper(method))
 	}
