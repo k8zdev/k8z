@@ -36,6 +36,16 @@ class _YamlPageState extends State<YamlPage> {
     );
   }
 
+  double buttonsHeight() {
+    if (Platform.isIOS) {
+      return 270;
+    }
+    if (Platform.isMacOS) {
+      return 200;
+    }
+    return 0;
+  }
+
   Future<File> exportFile(S lang) async {
     // ony for iOS
     final directory = await getApplicationDocumentsDirectory();
@@ -75,7 +85,6 @@ class _YamlPageState extends State<YamlPage> {
         const Divider(indent: 10),
       ],
     );
-    double buttonsHeight = 270;
 
     return Column(
       children: [
@@ -93,7 +102,7 @@ class _YamlPageState extends State<YamlPage> {
               showToolbar: false,
               editButtonName: lang.edit,
               heightOfContainer:
-                  availableHeight(context, appbarHeight + buttonsHeight),
+                  availableHeight(context, appbarHeight + buttonsHeight()),
             ),
           ),
           formatters: const ["yaml"],
