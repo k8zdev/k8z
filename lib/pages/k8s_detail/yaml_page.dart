@@ -38,9 +38,10 @@ class _YamlPageState extends State<YamlPage> {
 
   Future<File> exportFile(S lang) async {
     // ony for iOS
-    final docDir = await getApplicationDocumentsDirectory();
-    final file = await File("${docDir.path}/k8z/export/${widget.fileName}.yaml")
-        .create(recursive: true);
+    final directory = await getApplicationDocumentsDirectory();
+    final fileName = "exported/${widget.fileName}.yaml";
+    final file =
+        await File("${directory.path}/$fileName").create(recursive: true);
 
     final f = file.writeAsString(content, flush: true);
     // ignore: use_build_context_synchronously
@@ -50,7 +51,7 @@ class _YamlPageState extends State<YamlPage> {
         closeIconColor: Colors.white,
         backgroundColor: Colors.green,
         content: Text(
-          lang.exported(file.path),
+          lang.exported(fileName),
         ),
       ),
     );
@@ -74,7 +75,7 @@ class _YamlPageState extends State<YamlPage> {
         const Divider(indent: 10),
       ],
     );
-    double buttonsHeight = 190;
+    double buttonsHeight = 270;
 
     return Column(
       children: [
