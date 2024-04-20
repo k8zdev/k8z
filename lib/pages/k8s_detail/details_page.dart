@@ -368,10 +368,11 @@ class _ResourceDetailsPageState extends State<ResourceDetailsPage> {
           leading: leadingText(lang.name),
           title: Text(metadata.name ?? ""),
         ),
-        SettingsTile(
-          leading: leadingText("lang.generation"),
-          title: Text(metadata.generation.toString()),
-        ),
+        if (metadata.generation != null)
+          SettingsTile(
+            leading: leadingText(lang.generation),
+            title: Text(metadata.generation.toString()),
+          ),
         if (!metadata.namespace.isNullOrEmpty)
           SettingsTile(
             leading: leadingText(lang.namespace),

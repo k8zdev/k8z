@@ -172,6 +172,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "general_language_ja": MessageLookupByLibrary.simpleMessage("日本语"),
         "general_language_null": MessageLookupByLibrary.simpleMessage("跟随系统"),
         "general_language_zh": MessageLookupByLibrary.simpleMessage("中文"),
+        "generation": MessageLookupByLibrary.simpleMessage("世代"),
         "get_terminal": MessageLookupByLibrary.simpleMessage("获取终端"),
         "helm": MessageLookupByLibrary.simpleMessage("Helm"),
         "ingress_text": m12,

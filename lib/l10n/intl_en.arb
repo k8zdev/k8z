@@ -529,5 +529,7 @@
   "feedback": "Feedback",
   "@feedback": {},
   "documents": "Documents",
-  "@documents": {}
+  "@documents": {},
+  "generation": "Generation",
+  "@generation": {}
 }

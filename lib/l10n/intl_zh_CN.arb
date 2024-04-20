@@ -519,5 +519,7 @@
   "feedback": "反馈",
   "@feedback": {},
   "documents": "文档",
-  "@documents": {}
+  "@documents": {},
+  "generation": "世代",
+  "@generation": {}
 }

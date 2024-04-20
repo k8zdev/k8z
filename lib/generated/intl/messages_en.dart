@@ -182,6 +182,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "general_language_ja": MessageLookupByLibrary.simpleMessage("Japanese"),
         "general_language_null": MessageLookupByLibrary.simpleMessage("Auto"),
         "general_language_zh": MessageLookupByLibrary.simpleMessage("Chinese"),
+        "generation": MessageLookupByLibrary.simpleMessage("Generation"),
         "get_terminal": MessageLookupByLibrary.simpleMessage("Get Terminal"),
         "helm": MessageLookupByLibrary.simpleMessage("Helm"),
         "ingress_text": m12,
