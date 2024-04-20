@@ -539,5 +539,9 @@
   "uid": "Uid",
   "@uid": {},
   "finalizers": "Finalizers",
-  "@finalizers": {}
+  "@finalizers": {},
+  "empty": "empty",
+  "@empty": {},
+  "data": "Data",
+  "@data": {}
 }

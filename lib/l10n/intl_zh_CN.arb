@@ -529,5 +529,9 @@
   "uid": "uid",
   "@uid": {},
   "finalizers": "结束器",
-  "@finalizers": {}
+  "@finalizers": {},
+  "empty": "空",
+  "@empty": {},
+  "data": "数据",
+  "@data": {}
 }

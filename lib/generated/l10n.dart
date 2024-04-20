@@ -1547,6 +1547,26 @@ class S {
       args: [],
     );
   }
+
+  /// `empty`
+  String get empty {
+    return Intl.message(
+      'empty',
+      name: 'empty',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Data`
+  String get data {
+    return Intl.message(
+      'Data',
+      name: 'data',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

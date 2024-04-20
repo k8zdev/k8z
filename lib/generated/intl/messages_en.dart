@@ -147,6 +147,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Current cluster"),
         "daemon_set_text": m4,
         "daemon_sets": MessageLookupByLibrary.simpleMessage("DaemonSets"),
+        "data": MessageLookupByLibrary.simpleMessage("Data"),
         "debug_flushdb": MessageLookupByLibrary.simpleMessage("flush database"),
         "debug_flushdb_desc": MessageLookupByLibrary.simpleMessage(
             "will flush all data at database"),
@@ -161,6 +162,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "Discovery and Load Balancing"),
         "documents": MessageLookupByLibrary.simpleMessage("Documents"),
         "edit": MessageLookupByLibrary.simpleMessage("Edit"),
+        "empty": MessageLookupByLibrary.simpleMessage("empty"),
         "empyt_context": MessageLookupByLibrary.simpleMessage(
             "can not get cluster kubeconfig, contexts maybe empty"),
         "endpoint_text": m8,

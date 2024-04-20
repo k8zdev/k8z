@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:k8zdev/common/const.dart';
 import 'package:k8zdev/common/ops.dart';
+import 'package:k8zdev/common/styles.dart';
 import 'package:k8zdev/dao/kube.dart';
 import 'package:k8zdev/generated/l10n.dart';
 import 'package:k8zdev/models/models.dart';
@@ -412,6 +413,68 @@ class _ResourceDetailsPageState extends State<ResourceDetailsPage> {
     );
   }
 
+  List<AbstractSettingsTile> buildPodDetailSection() {
+    return [];
+  }
+
+  List<AbstractSettingsTile> buildConfigMapDetailSection(
+      IoK8sApiCoreV1ConfigMap? cm) {
+    final lang = S.of(context);
+    List<AbstractSettingsTile> tiles = [];
+
+    if (cm == null || cm.data.isEmpty) {
+      return [SettingsTile(title: Text(lang.empty))];
+    }
+
+    cm.data.entries.forEachIndexed((index, element) {
+      tiles.add(
+        SettingsTile.navigation(
+          title: leadingText(element.key),
+          value: Text(element.value),
+          trailing: IconButton(
+            onPressed: () {
+              // TODO
+            },
+            icon: const Icon(Icons.copy),
+          ),
+          onPressed: (context) {
+            showModal(
+              context,
+              Container(
+                margin: defaultEdge,
+                child: SingleChildScrollView(
+                  child: Text(element.value),
+                ),
+              ),
+            );
+          },
+        ),
+      );
+      //
+    });
+    return tiles;
+  }
+
+  SettingsSection buildDetailSection(S lang, JsonReturn resp) {
+    String title = "";
+    List<AbstractSettingsTile> tiles = [];
+    switch (widget.resource) {
+      // case "pod":
+      //   tiles = buildPodDetailSection();
+      case "configmaps":
+        title = lang.data;
+        final data = IoK8sApiCoreV1ConfigMap.fromJson(resp.body);
+        tiles = buildConfigMapDetailSection(data);
+        break;
+      default:
+        tiles = [SettingsTile(title: const Text("null"))];
+    }
+    return SettingsSection(
+      title: Text(title),
+      tiles: tiles,
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     var lang = S.of(context);
@@ -456,6 +519,7 @@ class _ResourceDetailsPageState extends State<ResourceDetailsPage> {
                 return SettingsList(
                   sections: [
                     buildMetaSection(lang, metadata!, data),
+                    buildDetailSection(lang, data),
                   ],
                 );
             }

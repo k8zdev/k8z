@@ -140,6 +140,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "crds_text": m3,
         "current_cluster": MessageLookupByLibrary.simpleMessage("当前群集"),
         "daemon_sets": MessageLookupByLibrary.simpleMessage("DaemonSets"),
+        "data": MessageLookupByLibrary.simpleMessage("数据"),
         "debug_flushdb": MessageLookupByLibrary.simpleMessage("清空数据库"),
         "debug_flushdb_desc":
             MessageLookupByLibrary.simpleMessage("将会清理所有数据库中的数据"),
@@ -152,6 +153,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "discovery_and_lb": MessageLookupByLibrary.simpleMessage("服务发现与负载均衡"),
         "documents": MessageLookupByLibrary.simpleMessage("文档"),
         "edit": MessageLookupByLibrary.simpleMessage("编辑"),
+        "empty": MessageLookupByLibrary.simpleMessage("空"),
         "empyt_context": MessageLookupByLibrary.simpleMessage(
             "无法从 kubeconfig 读取集群信息, contexts 字段可能为空"),
         "endpoint_text": m8,
