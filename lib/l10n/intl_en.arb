@@ -531,5 +531,13 @@
   "documents": "Documents",
   "@documents": {},
   "generation": "Generation",
-  "@generation": {}
+  "@generation": {},
+  "resourceVersion": "Version",
+  "@resourceVersion": {},
+  "selfLink": "SelfLink",
+  "@selfLink": {},
+  "uid": "Uid",
+  "@uid": {},
+  "finalizers": "Finalizers",
+  "@finalizers": {}
 }

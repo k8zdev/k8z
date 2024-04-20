@@ -1507,6 +1507,46 @@ class S {
       args: [],
     );
   }
+
+  /// `Version`
+  String get resourceVersion {
+    return Intl.message(
+      'Version',
+      name: 'resourceVersion',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `SelfLink`
+  String get selfLink {
+    return Intl.message(
+      'SelfLink',
+      name: 'selfLink',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Uid`
+  String get uid {
+    return Intl.message(
+      'Uid',
+      name: 'uid',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Finalizers`
+  String get finalizers {
+    return Intl.message(
+      'Finalizers',
+      name: 'finalizers',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

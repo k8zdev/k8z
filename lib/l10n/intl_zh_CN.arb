@@ -521,5 +521,13 @@
   "documents": "文档",
   "@documents": {},
   "generation": "世代",
-  "@generation": {}
+  "@generation": {},
+  "resourceVersion": "资源版本",
+  "@resourceVersion": {},
+  "selfLink": "selfLink",
+  "@selfLink": {},
+  "uid": "uid",
+  "@uid": {},
+  "finalizers": "结束器",
+  "@finalizers": {}
 }

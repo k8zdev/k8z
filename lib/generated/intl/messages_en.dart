@@ -173,6 +173,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "exported": m10,
         "external_ip": m11,
         "feedback": MessageLookupByLibrary.simpleMessage("Feedback"),
+        "finalizers": MessageLookupByLibrary.simpleMessage("Finalizers"),
         "general": MessageLookupByLibrary.simpleMessage("General"),
         "general_debug": MessageLookupByLibrary.simpleMessage("debug"),
         "general_debug_sqlview":
@@ -229,6 +230,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "pvs": MessageLookupByLibrary.simpleMessage("Persistent Volumes"),
         "release_text": m26,
         "releases": MessageLookupByLibrary.simpleMessage("Releases"),
+        "resourceVersion": MessageLookupByLibrary.simpleMessage("Version"),
         "resource_yaml": MessageLookupByLibrary.simpleMessage("Resource Yaml"),
         "resources": MessageLookupByLibrary.simpleMessage("Resources"),
         "running": MessageLookupByLibrary.simpleMessage("Running"),
@@ -241,6 +243,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "secrets": MessageLookupByLibrary.simpleMessage("Secrets"),
         "select_clusters":
             MessageLookupByLibrary.simpleMessage("Select cluster(s)"),
+        "selfLink": MessageLookupByLibrary.simpleMessage("SelfLink"),
         "service_account_text": m30,
         "service_accounts":
             MessageLookupByLibrary.simpleMessage("ServiceAccounts"),
@@ -281,6 +284,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "theme_dark": MessageLookupByLibrary.simpleMessage("Dark mode"),
         "theme_light": MessageLookupByLibrary.simpleMessage("Light mode"),
         "totals": m37,
+        "uid": MessageLookupByLibrary.simpleMessage("Uid"),
         "version": MessageLookupByLibrary.simpleMessage("Version"),
         "will_delete": m38,
         "workloads": MessageLookupByLibrary.simpleMessage("Workloads")
