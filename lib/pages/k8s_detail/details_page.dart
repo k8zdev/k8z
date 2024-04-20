@@ -398,14 +398,16 @@ class _ResourceDetailsPageState extends State<ResourceDetailsPage> {
             leading: leadingText(lang.finalizers),
             title: tags(metadata.finalizers),
           ),
-        SettingsTile(
-          leading: leadingText(lang.labels),
-          title: tags(labels),
-        ),
-        SettingsTile(
-          leading: leadingText(lang.annotations),
-          title: tags(annotations),
-        ),
+        if (metadata.labels.isNotEmpty)
+          SettingsTile(
+            leading: leadingText(lang.labels),
+            title: tags(labels),
+          ),
+        if (metadata.annotations.isNotEmpty)
+          SettingsTile(
+            leading: leadingText(lang.annotations),
+            title: tags(annotations),
+          ),
       ],
     );
   }
