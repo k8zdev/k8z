@@ -13,6 +13,7 @@ import 'package:k8zdev/providers/lang.dart';
 import 'package:k8zdev/services/k8z_native.dart';
 import 'package:k8zdev/services/k8z_service.dart';
 import 'package:k8zdev/widgets/detail_widgets/configmap.dart';
+import 'package:k8zdev/widgets/detail_widgets/secret.dart';
 import 'package:k8zdev/widgets/modal.dart';
 import 'package:k8zdev/widgets/widgets.dart';
 import 'package:kubeconfig/kubeconfig.dart';
@@ -406,6 +407,11 @@ class _ResourceDetailsPageState extends State<ResourceDetailsPage> {
         final data = IoK8sApiCoreV1ConfigMap.fromJson(resp.body);
         tiles = buildConfigMapDetailSectionTiels(context, data, langCode);
         break;
+      case "secrets":
+        title = lang.data;
+        final secret = IoK8sApiCoreV1Secret.fromJson(resp.body);
+        tiles = buildSecretDetailSectionTiels(context, secret, langCode);
+
       default:
         tiles = [SettingsTile(title: buildingWidget)];
     }

@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:clipboard/clipboard.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
@@ -11,20 +13,20 @@ import 'package:k8zdev/widgets/modal.dart';
 import 'package:k8zdev/widgets/widgets.dart';
 import 'package:settings_ui/settings_ui.dart';
 
-List<AbstractSettingsTile> buildConfigMapDetailSectionTiels(
+List<AbstractSettingsTile> buildSecretDetailSectionTiels(
   BuildContext context,
-  IoK8sApiCoreV1ConfigMap? cm,
+  IoK8sApiCoreV1Secret? secret,
   String langCode,
 ) {
   final lang = S.of(context);
 
   List<AbstractSettingsTile> tiles = [];
 
-  if (cm == null || cm.data.isEmpty) {
+  if (secret == null || secret.data.isEmpty) {
     return [SettingsTile(title: Text(lang.empty))];
   }
 
-  cm.data.entries.forEachIndexed((index, element) {
+  secret.data.entries.forEachIndexed((index, element) {
     tiles.add(
       SettingsTile.navigation(
         title: leadingText(element.key, langCode),
@@ -36,6 +38,7 @@ List<AbstractSettingsTile> buildConfigMapDetailSectionTiels(
           icon: const Icon(Icons.copy),
         ),
         onPressed: (context) {
+          final decoded = utf8.decode(base64Decode(element.value));
           showModal(
             context,
             Column(
@@ -62,14 +65,14 @@ List<AbstractSettingsTile> buildConfigMapDetailSectionTiels(
                     const Divider(indent: 10),
                     ElevatedButton.icon(
                       onPressed: () async {
-                        await FlutterClipboard.copy(element.value);
+                        await FlutterClipboard.copy(decoded);
                       },
                       icon: const Icon(
                         Icons.text_format,
                         size: 12,
                       ),
                       label: const Text(
-                        "copy value",
+                        "copy decoded",
                         style: TextStyle(fontSize: 12),
                       ),
                     ),
@@ -81,7 +84,7 @@ List<AbstractSettingsTile> buildConfigMapDetailSectionTiels(
                   child: SingleChildScrollView(
                     // can not selectable https://github.com/akvelon/dart-highlighting/pull/71/files
                     child: HighlightView(
-                      element.value,
+                      decoded,
                       languageId: yaml.id,
                       theme: githubDarkDimmedTheme,
                       padding: defaultEdge,
@@ -99,5 +102,6 @@ List<AbstractSettingsTile> buildConfigMapDetailSectionTiels(
     );
     //
   });
+
   return tiles;
 }
