@@ -1,12 +1,10 @@
 import 'dart:async';
 
-import 'package:auto_hyphenating_text/auto_hyphenating_text.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:k8zdev/common/const.dart';
 import 'package:k8zdev/common/ops.dart';
-import 'package:k8zdev/common/styles.dart';
 import 'package:k8zdev/dao/kube.dart';
 import 'package:k8zdev/generated/l10n.dart';
 import 'package:k8zdev/models/models.dart';
@@ -14,7 +12,9 @@ import 'package:k8zdev/providers/current_cluster.dart';
 import 'package:k8zdev/providers/lang.dart';
 import 'package:k8zdev/services/k8z_native.dart';
 import 'package:k8zdev/services/k8z_service.dart';
+import 'package:k8zdev/widgets/detail_widgets/configmap.dart';
 import 'package:k8zdev/widgets/modal.dart';
+import 'package:k8zdev/widgets/widgets.dart';
 import 'package:kubeconfig/kubeconfig.dart';
 import 'package:numberpicker/numberpicker.dart';
 import 'package:provider/provider.dart';
@@ -105,22 +105,6 @@ class _ResourceDetailsPageState extends State<ResourceDetailsPage> {
     });
   }
 
-  leadingText(String label) {
-    late double len;
-    switch (langCode) {
-      case "zh":
-        len = 32;
-      default:
-        len = 52;
-    }
-    return SizedBox(
-      width: len,
-      child: AutoHyphenatingText(
-        label,
-      ),
-    );
-  }
-
   Widget scaleWidget(int replicas) {
     var except = replicas;
     final lang = S.of(context);
@@ -190,7 +174,7 @@ class _ResourceDetailsPageState extends State<ResourceDetailsPage> {
                     bgcolor = Colors.red;
                     msg = lang.scale_failed(resp.error);
                   }
-                  await Future.delayed(const Duration(milliseconds: 100));
+                  await Future.delayed(const Duration(milliseconds: 500));
                   // ignore: use_build_context_synchronously
                   Navigator.of(context).pop();
                   // ignore: use_build_context_synchronously
@@ -366,108 +350,64 @@ class _ResourceDetailsPageState extends State<ResourceDetailsPage> {
           ),
         ),
         SettingsTile(
-          leading: leadingText(lang.name),
+          leading: leadingText(lang.name, langCode),
           title: Text(metadata.name ?? ""),
         ),
         if (!metadata.namespace.isNullOrEmpty)
           SettingsTile(
-            leading: leadingText(lang.namespace),
+            leading: leadingText(lang.namespace, langCode),
             title: Text(metadata.namespace ?? ""),
           ),
         if (metadata.generation != null)
           SettingsTile(
-            leading: leadingText(lang.generation),
+            leading: leadingText(lang.generation, langCode),
             title: Text(metadata.generation.toString()),
           ),
         if (!metadata.resourceVersion.isNullOrEmpty)
           SettingsTile(
-            leading: leadingText(lang.resourceVersion),
+            leading: leadingText(lang.resourceVersion, langCode),
             title: Text(metadata.resourceVersion ?? ""),
           ),
         if (!metadata.selfLink.isNullOrEmpty)
           SettingsTile(
-            leading: leadingText(lang.selfLink),
+            leading: leadingText(lang.selfLink, langCode),
             title: Text(metadata.selfLink ?? ""),
           ),
         if (!metadata.uid.isNullOrEmpty)
           SettingsTile(
-            leading: leadingText(lang.uid),
+            leading: leadingText(lang.uid, langCode),
             title: Text(metadata.uid ?? ""),
           ),
         if (metadata.finalizers.isNotEmpty)
           SettingsTile(
-            leading: leadingText(lang.finalizers),
+            leading: leadingText(lang.finalizers, langCode),
             title: tags(metadata.finalizers),
           ),
         if (metadata.labels.isNotEmpty)
           SettingsTile(
-            leading: leadingText(lang.labels),
+            leading: leadingText(lang.labels, langCode),
             title: tags(labels),
           ),
         if (metadata.annotations.isNotEmpty)
           SettingsTile(
-            leading: leadingText(lang.annotations),
+            leading: leadingText(lang.annotations, langCode),
             title: tags(annotations),
           ),
       ],
     );
   }
 
-  List<AbstractSettingsTile> buildPodDetailSection() {
-    return [];
-  }
-
-  List<AbstractSettingsTile> buildConfigMapDetailSection(
-      IoK8sApiCoreV1ConfigMap? cm) {
-    final lang = S.of(context);
-    List<AbstractSettingsTile> tiles = [];
-
-    if (cm == null || cm.data.isEmpty) {
-      return [SettingsTile(title: Text(lang.empty))];
-    }
-
-    cm.data.entries.forEachIndexed((index, element) {
-      tiles.add(
-        SettingsTile.navigation(
-          title: leadingText(element.key),
-          value: Text(element.value),
-          trailing: IconButton(
-            onPressed: () {
-              // TODO
-            },
-            icon: const Icon(Icons.copy),
-          ),
-          onPressed: (context) {
-            showModal(
-              context,
-              Container(
-                margin: defaultEdge,
-                child: SingleChildScrollView(
-                  child: Text(element.value),
-                ),
-              ),
-            );
-          },
-        ),
-      );
-      //
-    });
-    return tiles;
-  }
-
   SettingsSection buildDetailSection(S lang, JsonReturn resp) {
     String title = "";
     List<AbstractSettingsTile> tiles = [];
     switch (widget.resource) {
-      // case "pod":
-      //   tiles = buildPodDetailSection();
       case "configmaps":
         title = lang.data;
         final data = IoK8sApiCoreV1ConfigMap.fromJson(resp.body);
-        tiles = buildConfigMapDetailSection(data);
+        tiles = buildConfigMapDetailSectionTiels(context, data, langCode);
         break;
       default:
-        tiles = [SettingsTile(title: const Text("null"))];
+        tiles = [SettingsTile(title: buildingWidget)];
     }
     return SettingsSection(
       title: Text(title),

@@ -1,3 +1,4 @@
+import 'package:auto_hyphenating_text/auto_hyphenating_text.dart';
 import 'package:flutter/material.dart';
 import 'package:k8zdev/common/helpers.dart';
 import 'package:k8zdev/common/styles.dart';
@@ -54,3 +55,19 @@ const smallProgressIndicator = SizedBox(
   width: 16,
   child: CircularProgressIndicator(),
 );
+
+Widget leadingText(String label, langCode) {
+  late double len;
+  switch (langCode) {
+    case "zh":
+      len = 32;
+    default:
+      len = 52;
+  }
+  return SizedBox(
+    width: len,
+    child: AutoHyphenatingText(
+      label,
+    ),
+  );
+}

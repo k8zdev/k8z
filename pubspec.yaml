@@ -80,6 +80,9 @@ dependencies:
   json2yaml: ^3.0.1
   numberpicker: ^2.1.2
   in_app_review: ^2.0.9
+  clipboard: ^0.1.3
+  highlighting: ^0.9.0+11.8.0
+  flutter_highlighting: ^0.9.0+11.8.0
 
 dependency_overrides:
   meta: 1.11.0
