@@ -12,6 +12,7 @@ import 'package:k8zdev/providers/lang.dart';
 import 'package:k8zdev/services/k8z_native.dart';
 import 'package:k8zdev/services/k8z_service.dart';
 import 'package:k8zdev/widgets/detail_widgets/configmap.dart';
+import 'package:k8zdev/widgets/detail_widgets/pod.dart';
 import 'package:k8zdev/widgets/detail_widgets/secret.dart';
 import 'package:k8zdev/widgets/modal.dart';
 import 'package:k8zdev/widgets/widgets.dart';
@@ -407,6 +408,10 @@ class _ResourceDetailsPageState extends State<ResourceDetailsPage> {
         title = lang.data;
         final secret = IoK8sApiCoreV1Secret.fromJson(resp.body);
         tiles = buildSecretDetailSectionTiels(context, secret, langCode);
+      case "pods":
+        title = lang.spec;
+        final pod = IoK8sApiCoreV1Pod.fromJson(resp.body);
+        tiles = buildPodDetailSectionTiels(context, pod, langCode);
 
       default:
         tiles = [SettingsTile(title: buildingWidget)];
@@ -451,7 +456,6 @@ class _ResourceDetailsPageState extends State<ResourceDetailsPage> {
                 final metadata =
                     IoK8sApimachineryPkgApisMetaV1ObjectMeta.fromJson(
                         data!.body["metadata"]);
-                talker.debug("metadata: ${metadata?.annotations}");
 
                 if (!data.error.isNullOrEmpty) {
                   return Center(

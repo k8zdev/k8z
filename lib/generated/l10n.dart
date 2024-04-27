@@ -1567,6 +1567,156 @@ class S {
       args: [],
     );
   }
+
+  /// `Spec`
+  String get spec {
+    return Intl.message(
+      'Spec',
+      name: 'spec',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `DNS Policy`
+  String get dnsPolicy {
+    return Intl.message(
+      'DNS Policy',
+      name: 'dnsPolicy',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Host Network`
+  String get hostNetwork {
+    return Intl.message(
+      'Host Network',
+      name: 'hostNetwork',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Hostname`
+  String get hostname {
+    return Intl.message(
+      'Hostname',
+      name: 'hostname',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `ImagePullSecrets`
+  String get imagePullSecrets {
+    return Intl.message(
+      'ImagePullSecrets',
+      name: 'imagePullSecrets',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Containers`
+  String get containers {
+    return Intl.message(
+      'Containers',
+      name: 'containers',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Image`
+  String get image {
+    return Intl.message(
+      'Image',
+      name: 'image',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Image Pull Policy`
+  String get imagePullPolicy {
+    return Intl.message(
+      'Image Pull Policy',
+      name: 'imagePullPolicy',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Liveness Probe`
+  String get livenessProbe {
+    return Intl.message(
+      'Liveness Probe',
+      name: 'livenessProbe',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Readiness Probe`
+  String get readinessProbe {
+    return Intl.message(
+      'Readiness Probe',
+      name: 'readinessProbe',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Startup Probe`
+  String get startupProbe {
+    return Intl.message(
+      'Startup Probe',
+      name: 'startupProbe',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `InitContainers`
+  String get initContainers {
+    return Intl.message(
+      'InitContainers',
+      name: 'initContainers',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Ports`
+  String get ports {
+    return Intl.message(
+      'Ports',
+      name: 'ports',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Command`
+  String get command {
+    return Intl.message(
+      'Command',
+      name: 'command',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Arguments`
+  String get args {
+    return Intl.message(
+      'Arguments',
+      name: 'args',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

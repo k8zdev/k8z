@@ -131,14 +131,17 @@ class MessageLookup extends MessageLookupByLibrary {
         "appearance": MessageLookupByLibrary.simpleMessage("Appearance"),
         "applications": MessageLookupByLibrary.simpleMessage("Applications"),
         "apply": MessageLookupByLibrary.simpleMessage("Apply"),
+        "args": MessageLookupByLibrary.simpleMessage("Arguments"),
         "arsure": MessageLookupByLibrary.simpleMessage("are your sure?"),
         "cancel": MessageLookupByLibrary.simpleMessage("Cancel"),
         "clusters": MessageLookupByLibrary.simpleMessage("Clusters"),
+        "command": MessageLookupByLibrary.simpleMessage("Command"),
         "config": MessageLookupByLibrary.simpleMessage("Config"),
         "config_map_text": m1,
         "config_maps": MessageLookupByLibrary.simpleMessage("ConfigMaps"),
         "container": MessageLookupByLibrary.simpleMessage("Container"),
         "container_runtime": m2,
+        "containers": MessageLookupByLibrary.simpleMessage("Containers"),
         "cpu": MessageLookupByLibrary.simpleMessage("CPU"),
         "crds":
             MessageLookupByLibrary.simpleMessage("CustomResourceDefinition"),
@@ -160,6 +163,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "deployments": MessageLookupByLibrary.simpleMessage("Deployments"),
         "discovery_and_lb": MessageLookupByLibrary.simpleMessage(
             "Discovery and Load Balancing"),
+        "dnsPolicy": MessageLookupByLibrary.simpleMessage("DNS Policy"),
         "documents": MessageLookupByLibrary.simpleMessage("Documents"),
         "edit": MessageLookupByLibrary.simpleMessage("Edit"),
         "empty": MessageLookupByLibrary.simpleMessage("empty"),
@@ -188,12 +192,22 @@ class MessageLookup extends MessageLookupByLibrary {
         "generation": MessageLookupByLibrary.simpleMessage("Generation"),
         "get_terminal": MessageLookupByLibrary.simpleMessage("Get Terminal"),
         "helm": MessageLookupByLibrary.simpleMessage("Helm"),
+        "hostNetwork": MessageLookupByLibrary.simpleMessage("Host Network"),
+        "hostname": MessageLookupByLibrary.simpleMessage("Hostname"),
+        "image": MessageLookupByLibrary.simpleMessage("Image"),
+        "imagePullPolicy":
+            MessageLookupByLibrary.simpleMessage("Image Pull Policy"),
+        "imagePullSecrets":
+            MessageLookupByLibrary.simpleMessage("ImagePullSecrets"),
         "ingress_text": m12,
         "ingresses": MessageLookupByLibrary.simpleMessage("Ingresses"),
+        "initContainers":
+            MessageLookupByLibrary.simpleMessage("InitContainers"),
         "internel_ip": m13,
         "items_number": m14,
         "labels": MessageLookupByLibrary.simpleMessage("Labels"),
         "last_warning_events": m15,
+        "livenessProbe": MessageLookupByLibrary.simpleMessage("Liveness Probe"),
         "load_file": MessageLookupByLibrary.simpleMessage("load file"),
         "load_metrics_error": m16,
         "loading_metrics":
@@ -223,6 +237,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "overview": MessageLookupByLibrary.simpleMessage("Overview"),
         "pod_text": m23,
         "pods": MessageLookupByLibrary.simpleMessage("Pods"),
+        "ports": MessageLookupByLibrary.simpleMessage("Ports"),
         "privacy_policy":
             MessageLookupByLibrary.simpleMessage("Privacy Policy"),
         "pv_text": m24,
@@ -230,6 +245,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "pvcs":
             MessageLookupByLibrary.simpleMessage("Persistent Volume Claims"),
         "pvs": MessageLookupByLibrary.simpleMessage("Persistent Volumes"),
+        "readinessProbe":
+            MessageLookupByLibrary.simpleMessage("Readiness Probe"),
         "release_text": m26,
         "releases": MessageLookupByLibrary.simpleMessage("Releases"),
         "resourceVersion": MessageLookupByLibrary.simpleMessage("Version"),
@@ -253,9 +270,11 @@ class MessageLookup extends MessageLookupByLibrary {
         "services": MessageLookupByLibrary.simpleMessage("Services"),
         "settings": MessageLookupByLibrary.simpleMessage("Settings"),
         "since": MessageLookupByLibrary.simpleMessage("Since"),
+        "spec": MessageLookupByLibrary.simpleMessage("Spec"),
         "sponsor_desc": MessageLookupByLibrary.simpleMessage(
             "Sponsor me so that I can continue to develop and maintain this app."),
         "sponsorme": MessageLookupByLibrary.simpleMessage("Sponsor me"),
+        "startupProbe": MessageLookupByLibrary.simpleMessage("Startup Probe"),
         "stateful_set_text": m32,
         "stateful_sets": MessageLookupByLibrary.simpleMessage("StatefulSets"),
         "status": MessageLookupByLibrary.simpleMessage("Status"),

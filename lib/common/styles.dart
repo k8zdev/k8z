@@ -42,3 +42,8 @@ const purchaseExtraStyle = TextStyle(
 String getMonospaceFontFamily() {
   return 'DroidSansMNerdFontMono';
 }
+
+final tileValueStyle = TextStyle(
+  color: Colors.grey.shade500,
+  fontWeight: FontWeight.w600,
+);
