@@ -198,11 +198,11 @@ class MessageLookup extends MessageLookupByLibrary {
         "imagePullPolicy":
             MessageLookupByLibrary.simpleMessage("Image Pull Policy"),
         "imagePullSecrets":
-            MessageLookupByLibrary.simpleMessage("ImagePullSecrets"),
+            MessageLookupByLibrary.simpleMessage("Image Pull Secrets"),
         "ingress_text": m12,
         "ingresses": MessageLookupByLibrary.simpleMessage("Ingresses"),
         "initContainers":
-            MessageLookupByLibrary.simpleMessage("InitContainers"),
+            MessageLookupByLibrary.simpleMessage("Init Containers"),
         "internel_ip": m13,
         "items_number": m14,
         "labels": MessageLookupByLibrary.simpleMessage("Labels"),

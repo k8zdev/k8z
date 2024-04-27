@@ -29,6 +29,9 @@ class MessageLookup extends MessageLookupByLibrary {
   static String m3(name, kind, scope, shortNames) =>
       "${name}\n\n种类: ${kind}\n范围: ${scope}\n简称: ${shortNames}";
 
+  static String m4(name, ns, ready, upToDate, available) =>
+      "${name}\n名字空间: ${ns}\n就绪: ${ready}\nUp to date: ${upToDate}\n可用: ${available}\n";
+
   static String m5(error) => "删除失败, 错误: ${error}";
 
   static String m6(name) => "${name} 已删除";
@@ -142,6 +145,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "crds": MessageLookupByLibrary.simpleMessage("自定资源定义"),
         "crds_text": m3,
         "current_cluster": MessageLookupByLibrary.simpleMessage("当前群集"),
+        "daemon_set_text": m4,
         "daemon_sets": MessageLookupByLibrary.simpleMessage("DaemonSets"),
         "data": MessageLookupByLibrary.simpleMessage("数据"),
         "debug_flushdb": MessageLookupByLibrary.simpleMessage("清空数据库"),

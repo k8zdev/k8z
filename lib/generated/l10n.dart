@@ -1608,10 +1608,10 @@ class S {
     );
   }
 
-  /// `ImagePullSecrets`
+  /// `Image Pull Secrets`
   String get imagePullSecrets {
     return Intl.message(
-      'ImagePullSecrets',
+      'Image Pull Secrets',
       name: 'imagePullSecrets',
       desc: '',
       args: [],
@@ -1678,10 +1678,10 @@ class S {
     );
   }
 
-  /// `InitContainers`
+  /// `Init Containers`
   String get initContainers {
     return Intl.message(
-      'InitContainers',
+      'Init Containers',
       name: 'initContainers',
       desc: '',
       args: [],

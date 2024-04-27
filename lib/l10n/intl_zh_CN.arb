@@ -291,6 +291,16 @@
       "available": {}
     }
   },
+  "daemon_set_text": "{name}\n名字空间: {ns}\n就绪: {ready}\nUp to date: {upToDate}\n可用: {available}\n",
+  "@daemon_set_text": {
+    "placeholders": {
+      "name": {},
+      "ns": {},
+      "ready": {},
+      "upToDate": {},
+      "available": {}
+    }
+  },
   "stateful_set_text": "{name}\n名字空间: {ns}\n就绪: {ready}\nUp to date: {upToDate}\n可用: {available}",
   "@stateful_set_text": {
     "placeholders": {
