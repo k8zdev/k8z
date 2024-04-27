@@ -31,7 +31,6 @@ class _PvcsPageState extends State<PvcsPage> {
       child: FutureBuilder(
         future: () async {
           final c = Provider.of<CurrentCluster>(context).cluster;
-          ;
           final namespaced = c?.namespace.isEmpty ?? true
               ? ""
               : "/namespaces/${c?.namespace ?? ""}";

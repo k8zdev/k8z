@@ -45,5 +45,5 @@ String getMonospaceFontFamily() {
 
 final tileValueStyle = TextStyle(
   color: Colors.grey.shade500,
-  fontWeight: FontWeight.w600,
+  fontWeight: FontWeight.normal,
 );
