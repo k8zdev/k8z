@@ -13,7 +13,7 @@ import 'package:settings_ui/settings_ui.dart';
 
 AbstractSettingsSection namespaceFilter(BuildContext context) {
   final lang = S.of(context);
-  final cluster = Provider.of<CurrentCluster>(context, listen: true).current;
+  final cluster = CurrentCluster.current;
 
   return SettingsSection(tiles: [
     SettingsTile.navigation(

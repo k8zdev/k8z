@@ -17,7 +17,6 @@ import 'package:k8zdev/widgets/get_terminal.dart';
 import 'package:k8zdev/widgets/modal.dart';
 import 'package:k8zdev/widgets/namespace.dart';
 import 'package:k8zdev/widgets/widgets.dart';
-import 'package:provider/provider.dart';
 import 'package:settings_ui/settings_ui.dart';
 
 class PodsPage extends StatefulWidget {
@@ -36,7 +35,7 @@ class _PodsPageState extends State<PodsPage> {
     return CustomSettingsSection(
       child: FutureBuilder(
         future: () async {
-          final c = Provider.of<CurrentCluster>(context, listen: true).current;
+          final c = CurrentCluster.current;
           final namespaced = c?.namespace.isEmpty ?? true
               ? ""
               : "/namespaces/${c?.namespace ?? ""}";

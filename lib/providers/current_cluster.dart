@@ -8,8 +8,12 @@ import 'package:kubeconfig/kubeconfig.dart';
 const currentClusterKey = "app_default_cluster";
 
 class CurrentCluster with ChangeNotifier {
-  K8zCluster? _current;
-  K8zCluster? get current => _current;
+  static K8zCluster? _current;
+  static K8zCluster? get current {
+    assert(_current != null,
+        "No instance of K8zCluster.  Try to initialize the K8zCluster before accessing K8zCluster.current");
+    return _current;
+  }
 
   init() async {
     String? raw = await vget<String>(currentClusterKey);

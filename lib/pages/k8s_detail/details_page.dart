@@ -85,7 +85,7 @@ class _ResourceDetailsPageState extends State<ResourceDetailsPage> {
 
   @override
   void initState() {
-    cluster = Provider.of<CurrentCluster>(context, listen: false).current;
+    cluster = CurrentCluster.current;
     langCode = Provider.of<CurrentLocale>(context, listen: false).languageCode;
     itemUrl = widget.namespace.isNullOrEmpty
         ? '${widget.path}/${widget.resource}/${widget.name}'

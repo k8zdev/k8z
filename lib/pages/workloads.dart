@@ -4,7 +4,6 @@ import 'package:k8zdev/common/const.dart';
 import 'package:k8zdev/dao/kube.dart';
 import 'package:k8zdev/generated/l10n.dart';
 import 'package:k8zdev/providers/current_cluster.dart';
-import 'package:provider/provider.dart';
 import 'package:settings_ui/settings_ui.dart';
 
 class WorkloadsPage extends StatefulWidget {
@@ -15,10 +14,10 @@ class WorkloadsPage extends StatefulWidget {
 }
 
 class _WorkloadsPageState extends State<WorkloadsPage> {
-  late K8zCluster? cluster;
+  late K8zCluster? cluster = CurrentCluster.current;
+
   @override
   void initState() {
-    cluster = Provider.of<CurrentCluster>(context, listen: false).current;
     super.initState();
   }
 

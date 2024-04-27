@@ -29,7 +29,7 @@ class ClusterHomePage extends StatefulWidget {
 class _ClusterHomePageState extends State<ClusterHomePage> {
   final eventNumber = 5;
   SettingsSection overview(S lang, CurrentCluster ccProvider) {
-    final ns = ccProvider.current?.namespace ?? "";
+    final ns = CurrentCluster.current?.namespace ?? "";
     return SettingsSection(
       title: Text(lang.overview),
       tiles: [
@@ -91,7 +91,7 @@ class _ClusterHomePageState extends State<ClusterHomePage> {
           ),
         ),
         SettingsTile.switchTile(
-          initialValue: ccProvider.current?.name == widget.cluster.name,
+          initialValue: CurrentCluster.current?.name == widget.cluster.name,
           onToggle: (value) {
             K8zCluster? cluster;
             talker.info("to $value");
@@ -106,7 +106,7 @@ class _ClusterHomePageState extends State<ClusterHomePage> {
             title: Text(lang.namespaces),
             value: Text(ns.isEmpty ? lang.all : ns),
             onPressed: (context) {
-              showCurrentNamespace(context, ccProvider.current);
+              showCurrentNamespace(context, CurrentCluster.current);
             }),
       ],
     );
@@ -311,7 +311,8 @@ class _ClusterHomePageState extends State<ClusterHomePage> {
                       child: Text(lang.ok),
                       onPressed: () async {
                         try {
-                          if (ccProvider.current?.name == widget.cluster.name) {
+                          if (CurrentCluster.current?.name ==
+                              widget.cluster.name) {
                             ccProvider.setCurrent(null);
                           }
                           await K8zCluster.delete(widget.cluster);

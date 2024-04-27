@@ -35,7 +35,6 @@ import 'package:k8zdev/pages/k8s_list/workloads/pods.dart';
 import 'package:k8zdev/pages/k8s_list/workloads/stateful_sets.dart';
 import 'package:k8zdev/providers/current_cluster.dart';
 import 'package:k8zdev/services/k8z_native.dart';
-import 'package:provider/provider.dart';
 import 'package:sqlite_viewer/sqlite_viewer.dart';
 import 'package:talker_flutter/talker_flutter.dart';
 
@@ -121,8 +120,8 @@ final router = GoRouter(
           name: "workloads",
           pageBuilder: (context, state) {
             var lang = S.current;
-            var ccProvider = Provider.of<CurrentCluster>(context);
-            if (ccProvider.current == null) {
+            final cluster = CurrentCluster.current;
+            if (cluster == null) {
               logScreenView(
                 screenName: 'NotFoundPage',
                 parameters: {'vieweScreen': 'WorkloadsPage'},
@@ -146,7 +145,7 @@ final router = GoRouter(
               name: "helm_releases",
               pageBuilder: (context, state) {
                 logScreenView(screenName: 'HelmReleasesPage');
-                var cluster = state.extra as K8zCluster;
+                final cluster = state.extra as K8zCluster;
                 return NoTransitionPage(
                   child: HelmReleasesPage(cluster: cluster),
                 );
@@ -237,9 +236,9 @@ final router = GoRouter(
           path: "/resources",
           name: "resources",
           pageBuilder: (context, state) {
-            var lang = S.current;
-            var ccProvider = Provider.of<CurrentCluster>(context);
-            if (ccProvider.current == null) {
+            final lang = S.current;
+            final cluster = CurrentCluster.current;
+            if (cluster == null) {
               logScreenView(
                 screenName: 'NotFoundPage',
                 parameters: {'vieweScreen': 'WorkloadsPage'},

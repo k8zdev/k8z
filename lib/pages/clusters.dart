@@ -23,7 +23,8 @@ class ClustersPage extends StatefulWidget {
 class _ClustersPageState extends State<ClustersPage> {
   Future<void> onDeletePress(BuildContext context, K8zCluster cluster) async {
     final lang = S.of(context);
-    var ccProvider = Provider.of<CurrentCluster>(context, listen: false);
+    final current = CurrentCluster.current;
+    final ccProvider = Provider.of<CurrentCluster>(context, listen: false);
     showDialog(
         context: context,
         builder: (context) {
@@ -45,7 +46,7 @@ class _ClustersPageState extends State<ClustersPage> {
                 child: Text(lang.ok),
                 onPressed: () async {
                   try {
-                    if (ccProvider.current?.name == cluster.name) {
+                    if (current!.name == cluster.name) {
                       ccProvider.setCurrent(null);
                     }
                     await K8zCluster.delete(cluster);
@@ -85,8 +86,8 @@ class _ClustersPageState extends State<ClustersPage> {
 
   List<AbstractSettingsTile> genClusterChilds(List<K8zCluster> clusters) {
     final lang = S.of(context);
-    var ccProvider = Provider.of<CurrentCluster>(context, listen: false);
-    final current = Provider.of<CurrentCluster>(context, listen: false).current;
+    final current = CurrentCluster.current;
+    final ccProvider = Provider.of<CurrentCluster>(context, listen: false);
     return clusters.map((cluster) {
       final tile = SettingsTile.navigation(
         title: Text(
@@ -136,8 +137,7 @@ class _ClustersPageState extends State<ClustersPage> {
   }
 
   AbstractSettingsSection metrics() {
-    var ccProvider = Provider.of<CurrentCluster>(context, listen: false);
-    if (ccProvider.current == null) {
+    if (CurrentCluster.current == null) {
       return const CustomSettingsSection(
         child: Center(
           child: Row(children: [
@@ -147,7 +147,7 @@ class _ClustersPageState extends State<ClustersPage> {
       );
     }
     return CustomSettingsSection(
-      child: OverviewMetric(cluster: ccProvider.current!),
+      child: OverviewMetric(cluster: CurrentCluster.current!),
     );
   }
 
