@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -87,10 +86,7 @@ class _ResourceDetailsPageState extends State<ResourceDetailsPage> {
   @override
   void initState() {
     cluster = Provider.of<CurrentCluster>(context, listen: false).current;
-    langCode = Provider.of<CurrentLocale>(context, listen: false)
-            .locale
-            ?.languageCode ??
-        "en";
+    langCode = Provider.of<CurrentLocale>(context, listen: false).languageCode;
     itemUrl = widget.namespace.isNullOrEmpty
         ? '${widget.path}/${widget.resource}/${widget.name}'
         : '${widget.path}/namespaces/${widget.namespace}/${widget.resource}/${widget.name}';
