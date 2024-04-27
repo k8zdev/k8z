@@ -12,6 +12,7 @@ import 'package:k8zdev/services/k8z_service.dart';
 import 'package:k8zdev/widgets/namespace.dart';
 import 'package:k8zdev/widgets/settings_tile.dart';
 import 'package:k8zdev/widgets/widgets.dart';
+import 'package:provider/provider.dart';
 import 'package:settings_ui/settings_ui.dart';
 
 class ServiceAccountsPage extends StatefulWidget {
@@ -30,7 +31,7 @@ class _ServiceAccountsPageState extends State<ServiceAccountsPage> {
     return CustomSettingsSection(
       child: FutureBuilder(
         future: () async {
-          final c = CurrentCluster.current;
+          final c = Provider.of<CurrentCluster>(context).cluster;
           final namespaced = c?.namespace.isEmpty ?? true
               ? ""
               : "/namespaces/${c?.namespace ?? ""}";

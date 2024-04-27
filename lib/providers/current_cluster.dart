@@ -15,6 +15,10 @@ class CurrentCluster with ChangeNotifier {
     return _current;
   }
 
+  K8zCluster? get cluster {
+    return _current;
+  }
+
   init() async {
     String? raw = await vget<String>(currentClusterKey);
     if (raw.isNullOrEmpty || raw == null || raw == "null") {
@@ -26,7 +30,7 @@ class CurrentCluster with ChangeNotifier {
   }
 
   void setCurrent(K8zCluster? cluster) {
-    _current = cluster;
+    CurrentCluster._current = cluster;
     vset(currentClusterKey, jsonEncode(_current?.toJson()));
 
     notifyListeners();
