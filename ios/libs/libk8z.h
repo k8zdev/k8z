@@ -95,7 +95,7 @@ extern char* LocalServerAddr();
 // StartLocalServer starts an Go server.
 //
 extern void StartLocalServer();
-extern char* Json2yaml(char* p0);
+extern char* Json2yaml(char* src, int len);
 
 /* Return type for MultiParams */
 struct MultiParams_return {

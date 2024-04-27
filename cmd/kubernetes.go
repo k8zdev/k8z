@@ -6,8 +6,11 @@ import "C"
 
 import (
 	"context"
+	"encoding/json"
 	"fmt"
+	"log"
 	"net/http"
+	"reflect"
 	"strings"
 	"unsafe"
 
@@ -15,6 +18,7 @@ import (
 	"github.com/k8zdev/k8z/gopkg/local"
 	"k8s.io/apimachinery/pkg/types"
 	"k8s.io/client-go/rest"
+	"sigs.k8s.io/yaml"
 )
 
 // PinStatic do nothing, call it at swift just keep the static libarary be linked.
@@ -43,9 +47,62 @@ func StartLocalServer() {
 	go local.Server()
 }
 
+func removeNilFromMap(m map[string]interface{}) {
+	for key, value := range m {
+		if value == nil {
+			delete(m, key)
+		} else {
+			removeNilFromValue(reflect.ValueOf(value))
+		}
+	}
+}
+
+func removeNilFromValue(v reflect.Value) {
+	switch v.Kind() {
+	case reflect.Ptr:
+		removeNilFromValue(v.Elem())
+
+	case reflect.Struct:
+		removeNilFromStruct(v)
+
+	case reflect.Map:
+		if v.Type().Elem() == reflect.TypeOf((*interface{})(nil)).Elem() {
+			removeNilFromMap(v.Interface().(map[string]interface{}))
+		}
+
+	case reflect.Slice, reflect.Array:
+		for i := 0; i < v.Len(); i++ {
+			removeNilFromValue(v.Index(i))
+		}
+	}
+}
+
+func removeNilFromStruct(v reflect.Value) {
+	for i := 0; i < v.NumField(); i++ {
+		f := v.Field(i)
+		removeNilFromValue(f)
+	}
+}
+
 //export Json2yaml
-func Json2yaml(*C.char) *C.char {
-	return C.CString("")
+func Json2yaml(src *C.char, len C.int) *C.char {
+	var yamlBytes = []byte{}
+	var bytes = C.GoBytes(unsafe.Pointer(src), len)
+	var jsonObjs map[string]interface{}
+	var err = json.Unmarshal(bytes, &jsonObjs)
+	if err != nil {
+		log.Printf("covert json to yaml faild, error: %#v", err)
+		return C.CString("")
+	}
+
+	removeNilFromMap(jsonObjs)
+
+	yamlBytes, err = yaml.Marshal(jsonObjs)
+	if err != nil {
+		log.Printf("covert json to yaml faild, error: %#v", err)
+	}
+
+	return C.CString(string(yamlBytes))
 }
 
 //export MultiParams

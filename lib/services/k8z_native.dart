@@ -37,6 +37,10 @@ class JsonReturn {
       };
 }
 
+// Json2yaml
+typedef Json2yamlNative = Pointer<Utf8> Function(Pointer<Utf8> src, Uint32 len);
+typedef Json2yamlFn = Pointer<Utf8> Function(Pointer<Utf8>, int);
+
 // FreePointer free pointer mem.
 typedef FreePointerNative = Void Function(Pointer<Utf8>);
 typedef FreePointerFn = void Function(Pointer<Utf8>);
@@ -255,6 +259,19 @@ class K8zNative {
 
   void free(int ptr) {
     this._free(Pointer.fromAddress(ptr));
+  }
+
+  String _json2yaml(Pointer<Utf8> src, int len) {
+    Json2yamlFn func =
+        _library.lookupFunction<Json2yamlNative, Json2yamlFn>("Json2yaml");
+    final ptr = func(src, len);
+    return ptr2String(ptr);
+  }
+
+  static String json2yaml(String src) {
+    final Pointer<Utf8> srcPtr = src.toNativeUtf8();
+    final int srcLen = src.length;
+    return K8zNative()._json2yaml(srcPtr, srcLen);
   }
 
   String _localServerAddr() {

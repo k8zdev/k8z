@@ -12,6 +12,7 @@ import Flutter
       print("FreePointer address: \(String(describing: FreePointer))")
       print("FreePointer address: \(String(describing: LocalServerAddr))")
       print("FreePointer address: \(String(describing: StartLocalServer))")
+      print("FreePointer address: \(String(describing: Json2yaml))")
 
     GeneratedPluginRegistrant.register(with: self)
     return super.application(application, didFinishLaunchingWithOptions: launchOptions)
