@@ -45,7 +45,7 @@ SettingsTile copyTileValue(String name, String value, String langCode) {
 
 SettingsTile copyTileYaml(
   String name,
-  Map<String, dynamic>? value,
+  dynamic value,
   String langCode,
 ) {
   final yamlValue = K8zNative.json2yaml(jsonEncode(value));

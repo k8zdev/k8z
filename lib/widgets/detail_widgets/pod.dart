@@ -138,32 +138,26 @@ SettingsTile contianersTile(
 
                 if (container.command.isNotEmpty) {
                   podTiles.add(
-                    copyTileValue(
-                      lang.command,
-                      container.command.toString(),
-                      langCode,
-                    ),
+                    copyTileYaml(lang.command, container.command, langCode),
                   );
                 }
 
                 if (container.args.isNotEmpty) {
                   podTiles.add(
-                    copyTileValue(
-                      lang.args,
-                      container.args.toString(),
-                      langCode,
-                    ),
+                    copyTileYaml(lang.args, container.args, langCode),
+                  );
+                }
+
+                if (container.env.isNotEmpty) {
+                  podTiles.add(
+                    copyTileYaml("env", container.env, langCode),
                   );
                 }
 
                 // ports
                 if (container.ports.isNotEmpty) {
                   podTiles.add(
-                    copyTileYaml(
-                      lang.ports,
-                      {"ports": container.ports},
-                      langCode,
-                    ),
+                    copyTileYaml(lang.ports, container.ports, langCode),
                   );
                 }
 
