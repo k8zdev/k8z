@@ -47,40 +47,52 @@ func StartLocalServer() {
 	go local.Server()
 }
 
-func removeNilFromMap(m map[string]interface{}) {
-	for key, value := range m {
-		if value == nil {
-			delete(m, key)
-		} else {
-			removeNilFromValue(reflect.ValueOf(value))
-		}
-	}
-}
-
-func removeNilFromValue(v reflect.Value) {
+func isZero(v reflect.Value) bool {
 	switch v.Kind() {
-	case reflect.Ptr:
-		removeNilFromValue(v.Elem())
-
-	case reflect.Struct:
-		removeNilFromStruct(v)
-
-	case reflect.Map:
-		if v.Type().Elem() == reflect.TypeOf((*interface{})(nil)).Elem() {
-			removeNilFromMap(v.Interface().(map[string]interface{}))
-		}
-
-	case reflect.Slice, reflect.Array:
-		for i := 0; i < v.Len(); i++ {
-			removeNilFromValue(v.Index(i))
-		}
+	case reflect.Array, reflect.Map, reflect.Slice, reflect.String:
+		return v.Len() == 0
+	case reflect.Bool:
+		return !v.Bool()
+	case reflect.Int, reflect.Int8, reflect.Int16, reflect.Int32, reflect.Int64:
+		return v.Int() == 0
+	case reflect.Uint, reflect.Uint8, reflect.Uint16, reflect.Uint32, reflect.Uint64, reflect.Uintptr:
+		return v.Uint() == 0
+	case reflect.Float32, reflect.Float64:
+		return v.Float() == 0
+	case reflect.Interface, reflect.Ptr:
+		return v.IsNil()
 	}
+	return false
 }
 
-func removeNilFromStruct(v reflect.Value) {
-	for i := 0; i < v.NumField(); i++ {
-		f := v.Field(i)
-		removeNilFromValue(f)
+func omitEmptyFields(i interface{}) interface{} {
+	v := reflect.ValueOf(i)
+
+	switch v.Kind() {
+	case reflect.Map:
+		iter := v.MapRange()
+		newMap := reflect.MakeMap(v.Type())
+		for iter.Next() {
+			key := iter.Key()
+			val := iter.Value()
+			cleanedVal := omitEmptyFields(val.Interface())
+			if !isZero(reflect.ValueOf(cleanedVal)) {
+				newMap.SetMapIndex(key, reflect.ValueOf(cleanedVal))
+			}
+		}
+		return newMap.Interface()
+	case reflect.Slice:
+		newSlice := reflect.MakeSlice(v.Type(), 0, v.Len())
+		for i := 0; i < v.Len(); i++ {
+			val := v.Index(i)
+			cleanedVal := omitEmptyFields(val.Interface())
+			if !isZero(reflect.ValueOf(cleanedVal)) {
+				newSlice = reflect.Append(newSlice, reflect.ValueOf(cleanedVal))
+			}
+		}
+		return newSlice.Interface()
+	default:
+		return i
 	}
 }
 
@@ -88,18 +100,19 @@ func removeNilFromStruct(v reflect.Value) {
 func Json2yaml(src *C.char, len C.int) *C.char {
 	var yamlBytes = []byte{}
 	var bytes = C.GoBytes(unsafe.Pointer(src), len)
-	var jsonObjs map[string]interface{}
-	var err = json.Unmarshal(bytes, &jsonObjs)
+	var data interface{}
+	var err = json.Unmarshal(bytes, &data)
 	if err != nil {
-		log.Printf("covert json to yaml faild, error: %#v", err)
+		log.Printf("covert json to yaml faild, unmarshal json error: %#v", err)
 		return C.CString("")
 	}
 
-	removeNilFromMap(jsonObjs)
+	var omited = omitEmptyFields(data)
 
-	yamlBytes, err = yaml.Marshal(jsonObjs)
+	yamlBytes, err = yaml.Marshal(omited)
 	if err != nil {
-		log.Printf("covert json to yaml faild, error: %#v", err)
+		log.Printf("covert json to yaml faild, marshal yaml error: %#v", err)
+		return C.CString("")
 	}
 
 	return C.CString(string(yamlBytes))
