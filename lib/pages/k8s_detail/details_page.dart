@@ -28,6 +28,8 @@ enum Actions {
   scale,
   restart,
   yaml,
+  logs,
+  terminal,
 }
 
 mapAtcions(String resource) {
