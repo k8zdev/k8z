@@ -14,6 +14,8 @@ import 'package:k8zdev/services/k8z_service.dart';
 import 'package:k8zdev/widgets/detail_widgets/configmap.dart';
 import 'package:k8zdev/widgets/detail_widgets/pod.dart';
 import 'package:k8zdev/widgets/detail_widgets/secret.dart';
+import 'package:k8zdev/widgets/get_logstream.dart';
+import 'package:k8zdev/widgets/get_terminal.dart';
 import 'package:k8zdev/widgets/modal.dart';
 import 'package:k8zdev/widgets/widgets.dart';
 import 'package:kubeconfig/kubeconfig.dart';
@@ -52,7 +54,8 @@ mapAtcions(String resource) {
       return [Actions.delete, Actions.scale, Actions.yaml];
     case "deployments":
       return [Actions.delete, Actions.scale, Actions.yaml];
-    // case "pods":
+    case "pods":
+      return [Actions.delete, Actions.yaml, Actions.logs, Actions.terminal];
     case "statefulsets":
       return [Actions.delete, Actions.scale, Actions.yaml];
     default:
@@ -205,7 +208,8 @@ class _ResourceDetailsPageState extends State<ResourceDetailsPage> {
     );
   }
 
-  List<Widget> getActions(S lang, List<Actions>? actions, JsonReturn resp) {
+  List<Widget> getActions(
+      BuildContext context, S lang, List<Actions>? actions, JsonReturn resp) {
     final map = {
       Actions.yaml: TextButton(
         onPressed: () {
@@ -264,6 +268,52 @@ class _ResourceDetailsPageState extends State<ResourceDetailsPage> {
           children: [
             const Icon(Icons.more_horiz),
             Text(lang.more),
+          ],
+        ),
+      ),
+      Actions.logs: TextButton(
+        onPressed: () {
+          final pod = IoK8sApiCoreV1Pod.fromJson(resp.body);
+          final list =
+              pod?.spec?.containers.map((container) => container.name).toList();
+          showModal(
+            context,
+            GetLogstream(
+              name: widget.name,
+              namespace: widget.namespace ?? "default",
+              containers: list ?? [],
+              cluster: cluster!,
+            ),
+          );
+        },
+        child: Column(
+          children: [
+            const Icon(
+              Icons.list_alt,
+            ),
+            Text(lang.logs),
+          ],
+        ),
+      ),
+      Actions.terminal: TextButton(
+        onPressed: () {
+          final pod = IoK8sApiCoreV1Pod.fromJson(resp.body);
+          final list =
+              pod?.spec?.containers.map((container) => container.name).toList();
+          showModal(
+            context,
+            GetTerminal(
+              name: widget.name,
+              namespace: widget.namespace ?? "default",
+              containers: list ?? [],
+              cluster: cluster!,
+            ),
+          );
+        },
+        child: Column(
+          children: [
+            const Icon(Icons.terminal),
+            Text(lang.terminal),
           ],
         ),
       ),
@@ -345,7 +395,8 @@ class _ResourceDetailsPageState extends State<ResourceDetailsPage> {
           title: CustomSettingsTile(
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
-              children: getActions(lang, mapAtcions(widget.resource), resp),
+              children:
+                  getActions(context, lang, mapAtcions(widget.resource), resp),
             ),
           ),
         ),
