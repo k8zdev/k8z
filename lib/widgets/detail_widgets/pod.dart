@@ -1,4 +1,6 @@
+import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:k8zdev/common/styles.dart';
 import 'package:k8zdev/generated/l10n.dart';
 import 'package:k8zdev/models/models.dart';
@@ -24,12 +26,24 @@ List<AbstractSettingsTile> buildPodDetailSectionTiels(
 
   // initContainers
   tiles.add(
-    contianersTile(lang, lang.initContainers, langCode, spec.initContainers),
+    contianersTile(
+      lang,
+      lang.initContainers,
+      langCode,
+      spec.initContainers,
+      pod.status,
+    ),
   );
 
   // containers
   tiles.add(
-    contianersTile(lang, lang.containers, langCode, spec.containers),
+    contianersTile(
+      lang,
+      lang.containers,
+      langCode,
+      spec.containers,
+      pod.status,
+    ),
   );
 
   // dnsPolicy
@@ -106,7 +120,13 @@ SettingsTile contianersTile(
   String name,
   String langCode,
   List<IoK8sApiCoreV1Container> containers,
+  IoK8sApiCoreV1PodStatus? status,
 ) {
+  Map<String, IoK8sApiCoreV1ContainerStatus> containerStatuses = {};
+  status!.containerStatuses.forEachIndexed((index, element) {
+    containerStatuses
+        .addAll(<String, IoK8sApiCoreV1ContainerStatus>{element.name: element});
+  });
   return SettingsTile.navigation(
     title: const Text(""),
     leading: leadingText(name, langCode),
@@ -119,19 +139,32 @@ SettingsTile contianersTile(
             containers.forEach(
               (container) {
                 List<AbstractSettingsTile> podTiles = [];
-                // imagePullPolicy
                 podTiles.add(
                   copyTileValue(
-                    lang.imagePullPolicy,
-                    container.imagePullPolicy ?? "",
-                    langCode,
-                  ),
+                      "lang.container_id",
+                      containerStatuses[container.name]?.containerID ?? "",
+                      langCode),
                 );
+
                 // image
                 podTiles.add(
                   copyTileValue(
                     lang.image,
                     container.image ?? "",
+                    langCode,
+                  ),
+                );
+                podTiles.add(
+                  copyTileValue(
+                      "lang.image_id",
+                      containerStatuses[container.name]?.imageID ?? "",
+                      langCode),
+                );
+                // imagePullPolicy
+                podTiles.add(
+                  copyTileValue(
+                    lang.imagePullPolicy,
+                    container.imagePullPolicy ?? "",
                     langCode,
                   ),
                 );
@@ -193,6 +226,7 @@ SettingsTile contianersTile(
                 }
                 podsSections.add(
                   SettingsSection(
+                    margin: const EdgeInsetsDirectional.fromSTEB(16, 0, 16, 10),
                     title: Text(container.name),
                     tiles: podTiles,
                   ),
@@ -201,7 +235,10 @@ SettingsTile contianersTile(
             );
             showModal(
               context,
-              SettingsList(sections: podsSections),
+              SettingsList(
+                sections: podsSections,
+                contentPadding: EdgeInsets.zero,
+              ),
             );
           },
   );
