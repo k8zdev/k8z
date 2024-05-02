@@ -12,6 +12,7 @@ import 'package:k8zdev/generated/l10n.dart';
 import 'package:k8zdev/models/models.dart';
 import 'package:k8zdev/providers/current_cluster.dart';
 import 'package:k8zdev/services/k8z_service.dart';
+import 'package:k8zdev/widgets/delete_resource.dart';
 import 'package:k8zdev/widgets/get_logstream.dart';
 import 'package:k8zdev/widgets/get_terminal.dart';
 import 'package:k8zdev/widgets/modal.dart';
@@ -139,7 +140,19 @@ class _PodsPageState extends State<PodsPage> {
                         motion: const ScrollMotion(),
                         children: [
                           SlidableAction(
-                            onPressed: (context) {},
+                            onPressed: (context) {
+                              showModal(
+                                context,
+                                DeleteResource(
+                                  cluster: widget.cluster,
+                                  itemUrl:
+                                      "$_path/namespaces/${metadata.namespace}/$_resource/${metadata.name}",
+                                  name: metadata.name!,
+                                  namespace: metadata.namespace!,
+                                  resource: _resource,
+                                ),
+                              );
+                            },
                             backgroundColor: const Color(0xFFFE4A49),
                             foregroundColor: Colors.white,
                             icon: Icons.delete,
