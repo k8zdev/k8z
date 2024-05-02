@@ -1747,6 +1747,16 @@ class S {
       args: [],
     );
   }
+
+  /// `delete resource success.`
+  String get delete_ok {
+    return Intl.message(
+      'delete resource success.',
+      name: 'delete_ok',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:k8zdev/common/styles.dart';
 import 'package:k8zdev/dao/kube.dart';
 import 'package:k8zdev/generated/l10n.dart';
+import 'package:k8zdev/services/k8z_service.dart';
 import 'package:k8zdev/widgets/widgets.dart';
 import 'package:settings_ui/settings_ui.dart';
 
@@ -74,7 +76,31 @@ class _DeleteResourceState extends State<DeleteResource> {
                     ),
                     TextButton.icon(
                       icon: const Icon(Icons.delete),
-                      onPressed: () {},
+                      onPressed: () async {
+                        final resp =
+                            await K8zService(context, cluster: widget.cluster)
+                                .delete(widget.itemUrl, "");
+                        var bgcolor = Colors.green;
+                        var msg = lang.delete_ok;
+                        if (resp.error != "") {
+                          bgcolor = Colors.red;
+                          msg = lang.delete_failed(resp.error);
+                        }
+                        await Future.delayed(const Duration(milliseconds: 500));
+                        // ignore: use_build_context_synchronously
+                        Navigator.of(context).pop();
+                        // ignore: use_build_context_synchronously
+                        GoRouter.of(context).pop();
+                        // ignore: use_build_context_synchronously
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            showCloseIcon: true,
+                            closeIconColor: Colors.white,
+                            backgroundColor: bgcolor,
+                            content: Text(msg),
+                          ),
+                        );
+                      },
                       label: Text(lang.delete),
                     ),
                   ],

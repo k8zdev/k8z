@@ -579,5 +579,7 @@
   "resource_url": "Resource URL",
   "@resource_url": {},
   "creation_time": "Creation Time",
-  "@creation_time": {}
+  "@creation_time": {},
+  "delete_ok": "delete resource success.",
+  "@delete_ok": {}
 }

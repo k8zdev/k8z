@@ -159,6 +159,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("database flushed"),
         "delete": MessageLookupByLibrary.simpleMessage("Delete"),
         "delete_failed": m5,
+        "delete_ok":
+            MessageLookupByLibrary.simpleMessage("delete resource success."),
         "delete_resource": MessageLookupByLibrary.simpleMessage(
             "Are you sure delete the resource?"),
         "deleted": m6,

@@ -579,5 +579,7 @@
   "resource_url": "资源 URL",
   "@resource_url": {},
   "creation_time": "创建时间",
-  "@creation_time": {}
+  "@creation_time": {},
+  "delete_ok": "删除资源成功.",
+  "@delete_ok": {}
 }

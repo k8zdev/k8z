@@ -155,6 +155,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "debug_flushdb_done": MessageLookupByLibrary.simpleMessage("数据库已清空"),
         "delete": MessageLookupByLibrary.simpleMessage("删除"),
         "delete_failed": m5,
+        "delete_ok": MessageLookupByLibrary.simpleMessage("删除资源成功."),
         "delete_resource": MessageLookupByLibrary.simpleMessage("确认删除资源吗?"),
         "deleted": m6,
         "deployment_text": m7,
