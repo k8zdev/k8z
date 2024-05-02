@@ -144,6 +144,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "cpu": MessageLookupByLibrary.simpleMessage("CPU"),
         "crds": MessageLookupByLibrary.simpleMessage("自定资源定义"),
         "crds_text": m3,
+        "creation_time": MessageLookupByLibrary.simpleMessage("创建时间"),
         "current_cluster": MessageLookupByLibrary.simpleMessage("当前群集"),
         "daemon_set_text": m4,
         "daemon_sets": MessageLookupByLibrary.simpleMessage("DaemonSets"),

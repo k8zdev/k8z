@@ -1737,6 +1737,16 @@ class S {
       args: [],
     );
   }
+
+  /// `Creation Time`
+  String get creation_time {
+    return Intl.message(
+      'Creation Time',
+      name: 'creation_time',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

@@ -456,6 +456,10 @@ class _ResourceDetailsPageState extends State<ResourceDetailsPage> {
             leading: leadingText(lang.annotations, langCode),
             title: tags(annotations),
           ),
+        SettingsTile(
+          leading: leadingText(lang.creation_time, langCode),
+          title: Text(metadata.creationTimestamp?.toString() ?? ""),
+        ),
       ],
     );
   }

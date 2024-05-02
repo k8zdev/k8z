@@ -146,6 +146,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "crds":
             MessageLookupByLibrary.simpleMessage("CustomResourceDefinition"),
         "crds_text": m3,
+        "creation_time": MessageLookupByLibrary.simpleMessage("Creation Time"),
         "current_cluster":
             MessageLookupByLibrary.simpleMessage("Current cluster"),
         "daemon_set_text": m4,
