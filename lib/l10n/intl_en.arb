@@ -573,5 +573,9 @@
   "command": "Command",
   "@command": {},
   "args": "Arguments",
-  "@args": {}
+  "@args": {},
+  "delete_resource": "Are you sure delete the resource?",
+  "@delete_resource": {},
+  "resource_url": "Resource URL",
+  "@resource_url": {}
 }

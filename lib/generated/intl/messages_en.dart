@@ -158,6 +158,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("database flushed"),
         "delete": MessageLookupByLibrary.simpleMessage("Delete"),
         "delete_failed": m5,
+        "delete_resource": MessageLookupByLibrary.simpleMessage(
+            "Are you sure delete the resource?"),
         "deleted": m6,
         "deployment_text": m7,
         "deployments": MessageLookupByLibrary.simpleMessage("Deployments"),
@@ -250,6 +252,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "release_text": m26,
         "releases": MessageLookupByLibrary.simpleMessage("Releases"),
         "resourceVersion": MessageLookupByLibrary.simpleMessage("Version"),
+        "resource_url": MessageLookupByLibrary.simpleMessage("Resource URL"),
         "resource_yaml": MessageLookupByLibrary.simpleMessage("Resource Yaml"),
         "resources": MessageLookupByLibrary.simpleMessage("Resources"),
         "running": MessageLookupByLibrary.simpleMessage("Running"),

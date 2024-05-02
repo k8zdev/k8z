@@ -11,6 +11,7 @@ import 'package:k8zdev/providers/current_cluster.dart';
 import 'package:k8zdev/providers/lang.dart';
 import 'package:k8zdev/services/k8z_native.dart';
 import 'package:k8zdev/services/k8z_service.dart';
+import 'package:k8zdev/widgets/delete_resource.dart';
 import 'package:k8zdev/widgets/detail_widgets/configmap.dart';
 import 'package:k8zdev/widgets/detail_widgets/pod.dart';
 import 'package:k8zdev/widgets/detail_widgets/secret.dart';
@@ -238,9 +239,20 @@ class _ResourceDetailsPageState extends State<ResourceDetailsPage> {
           ],
         ),
       ),
-      Actions.delete: const TextButton(
-        onPressed: null,
-        child: Column(
+      Actions.delete: TextButton(
+        onPressed: () {
+          showModal(
+            context,
+            DeleteResource(
+              cluster: cluster!,
+              itemUrl: itemUrl,
+              name: widget.name,
+              namespace: widget.namespace!,
+              resource: widget.resource,
+            ),
+          );
+        },
+        child: const Column(
           children: [
             Icon(Icons.delete),
             Text("Delete"),

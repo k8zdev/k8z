@@ -1717,6 +1717,26 @@ class S {
       args: [],
     );
   }
+
+  /// `Are you sure delete the resource?`
+  String get delete_resource {
+    return Intl.message(
+      'Are you sure delete the resource?',
+      name: 'delete_resource',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Resource URL`
+  String get resource_url {
+    return Intl.message(
+      'Resource URL',
+      name: 'resource_url',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {
