@@ -71,3 +71,28 @@ Widget leadingText(String label, String langCode) {
     ),
   );
 }
+
+Widget maxWidthText(BuildContext context, String label,
+    {double rate = 0.5,
+    double maxWidth = double.infinity,
+    TextStyle? style,
+    bool hpyhenationg = false}) {
+  final size = MediaQuery.of(context).size;
+  var width = size.width * rate;
+  style ??= tileValueStyle;
+  if (maxWidth.isFinite && width > maxWidth) {
+    width = maxWidth;
+  }
+  return SizedBox(
+    width: width,
+    child: hpyhenationg
+        ? AutoHyphenatingText(
+            label,
+            style: style,
+          )
+        : Text(
+            label,
+            style: style,
+          ),
+  );
+}
