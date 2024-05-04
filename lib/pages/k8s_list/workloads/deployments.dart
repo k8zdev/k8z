@@ -43,7 +43,7 @@ class _DeploymentsPageState extends State<DeploymentsPage> {
       return JsonReturn(body: {}, error: "", duration: Duration.zero);
     }
 
-    final cluster = Provider.of<CurrentCluster>(context).cluster;
+    final cluster = Provider.of<CurrentCluster>(context, listen: false).cluster;
 
     if (cluster == null) {
       talker.error("null cluster");
@@ -53,9 +53,10 @@ class _DeploymentsPageState extends State<DeploymentsPage> {
     final namespaced =
         cluster.namespace.isEmpty ? "" : "/namespaces/${cluster.namespace}";
 
-    // await Future.delayed(const Duration(seconds: 1));
-    return await K8zService(context, cluster: widget.cluster)
+    final resp = await K8zService(context, cluster: widget.cluster)
         .get("$_path$namespaced/$_resource");
+
+    return resp;
   }
 
   Widget getStatus(
@@ -79,7 +80,7 @@ class _DeploymentsPageState extends State<DeploymentsPage> {
     return CustomSettingsSection(
       child: FutureBuilder(
         future: _futureFetchRes,
-        builder: (BuildContext context, AsyncSnapshot snapshot) {
+        builder: (BuildContext context, AsyncSnapshot<JsonReturn> snapshot) {
           var list = [];
           String totals = "";
           String duration = "";
@@ -97,28 +98,28 @@ class _DeploymentsPageState extends State<DeploymentsPage> {
               child: Text(lang.error),
             );
           } else {
-            if (snapshot.data.error.isNotEmpty) {
+            if (snapshot.data!.error.isNotEmpty) {
               trailing = Container();
               title = Text(lang.error);
               list = [
                 SettingsTile(
                   title: Text(
-                    snapshot.data.error,
+                    snapshot.data!.error,
                     style: const TextStyle(color: Colors.grey),
                   ),
                 )
               ];
             } else {
-              talker.debug(
-                  "length: ${snapshot.data.body.length}, error: ${snapshot.data.error}");
               final deploymentList =
-                  IoK8sApiAppsV1DeploymentList.fromJson(snapshot.data.body);
+                  IoK8sApiAppsV1DeploymentList.fromJson(snapshot.data?.body);
 
               final items = deploymentList?.items;
 
               totals = lang.items_number(items?.length ?? 0);
-              Duration rd = snapshot.data.duration;
+              Duration rd = snapshot.data?.duration ?? Duration.zero;
               duration = lang.api_request_duration(rd.prettyMs);
+              talker.debug(
+                  "length: ${snapshot.data!.body.length},duration: ${duration}ms");
 
               if (items != null) {
                 items.sort(
@@ -175,7 +176,8 @@ class _DeploymentsPageState extends State<DeploymentsPage> {
                   [];
             }
           }
-          talker.debug("list ${list.length}");
+          talker.debug(
+              "list ${list.length}, duration ${snapshot.data?.duration.inMilliseconds} ms");
 
           return SettingsSection(
             title: Text(lang.deployments + totals + duration),
@@ -199,11 +201,18 @@ class _DeploymentsPageState extends State<DeploymentsPage> {
       appBar: AppBar(title: Text(lang.deployments)),
       body: Container(
         margin: bottomEdge,
-        child: SettingsList(
-          sections: [
-            namespaceFilter(context),
-            buildDeploymentList(lang),
-          ],
+        child: RefreshIndicator(
+          child: SettingsList(
+            sections: [
+              namespaceFilter(context),
+              buildDeploymentList(lang),
+            ],
+          ),
+          onRefresh: () async {
+            setState(() {
+              _futureFetchRes = _fetchRes();
+            });
+          },
         ),
       ),
     );
