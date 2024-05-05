@@ -7,6 +7,7 @@ import 'package:k8zdev/common/styles.dart';
 import 'package:k8zdev/dao/kube.dart';
 import 'package:k8zdev/generated/l10n.dart';
 import 'package:k8zdev/models/models.dart';
+import 'package:k8zdev/services/k8z_native.dart';
 import 'package:k8zdev/services/k8z_service.dart';
 import 'package:k8zdev/widgets/settings_tile.dart';
 import 'package:k8zdev/widgets/widgets.dart';
@@ -23,15 +24,21 @@ class CrdsPage extends StatefulWidget {
 class _CrdsPageState extends State<CrdsPage> {
   final _path = "/apis/apiextensions.k8s.io/v1";
   final _resource = "customresourcedefinitions";
+  late Future<JsonReturn> _futureFetchRes;
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    setState(() {
+      _futureFetchRes =
+          fetchCurrentRes(context, _path, _resource, namespaced: false);
+    });
+  }
 
   AbstractSettingsSection buildCrdsList(S lang) {
     return CustomSettingsSection(
       child: FutureBuilder(
-        future: () async {
-          // await Future.delayed(const Duration(seconds: 1));
-          return await K8zService(context, cluster: widget.cluster)
-              .get("$_path/$_resource?limit=500");
-        }(),
+        future: _futureFetchRes,
         builder: (BuildContext context, AsyncSnapshot snapshot) {
           var list = [];
           String totals = "";
@@ -147,7 +154,13 @@ class _CrdsPageState extends State<CrdsPage> {
       appBar: AppBar(title: Text(lang.crds)),
       body: Container(
         margin: bottomEdge,
-        child: SettingsList(sections: [buildCrdsList(lang)]),
+        child: RefreshIndicator(
+          child: SettingsList(sections: [buildCrdsList(lang)]),
+          onRefresh: () async => setState(() {
+            _futureFetchRes = fetchCurrentRes(context, _path, _resource,
+                namespaced: false, listen: false);
+          }),
+        ),
       ),
     );
   }

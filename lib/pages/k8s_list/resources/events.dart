@@ -7,11 +7,10 @@ import 'package:k8zdev/common/styles.dart';
 import 'package:k8zdev/dao/kube.dart';
 import 'package:k8zdev/generated/l10n.dart';
 import 'package:k8zdev/models/models.dart';
-import 'package:k8zdev/providers/current_cluster.dart';
+import 'package:k8zdev/services/k8z_native.dart';
 import 'package:k8zdev/services/k8z_service.dart';
 import 'package:k8zdev/widgets/namespace.dart';
 import 'package:k8zdev/widgets/widgets.dart';
-import 'package:provider/provider.dart';
 import 'package:settings_ui/settings_ui.dart';
 
 class EventsPage extends StatefulWidget {
@@ -23,19 +22,22 @@ class EventsPage extends StatefulWidget {
 }
 
 class _EventsPageState extends State<EventsPage> {
+  final _path = "/api/v1";
+  final _resource = "events";
+  late Future<JsonReturn> _futureFetchRes;
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    setState(() {
+      _futureFetchRes = fetchCurrentRes(context, _path, _resource);
+    });
+  }
+
   AbstractSettingsSection buildEventsList(S lang) {
     return CustomSettingsSection(
       child: FutureBuilder(
-        future: () async {
-          final c = Provider.of<CurrentCluster>(context).cluster;
-          final namespaced = c?.namespace.isEmpty ?? true
-              ? ""
-              : "/namespaces/${c?.namespace ?? ""}";
-
-          // await Future.delayed(const Duration(seconds: 1));
-          return await K8zService(context, cluster: widget.cluster)
-              .get("/api/v1$namespaced/events?limit=500");
-        }(),
+        future: _futureFetchRes,
         builder: (BuildContext context, AsyncSnapshot snapshot) {
           var list = [];
           String totals = "";
@@ -143,11 +145,17 @@ class _EventsPageState extends State<EventsPage> {
       appBar: AppBar(title: Text(lang.events)),
       body: Container(
         margin: bottomEdge,
-        child: SettingsList(
-          sections: [
-            namespaceFilter(context),
-            buildEventsList(lang),
-          ],
+        child: RefreshIndicator(
+          child: SettingsList(
+            sections: [
+              namespaceFilter(context),
+              buildEventsList(lang),
+            ],
+          ),
+          onRefresh: () async => setState(() {
+            _futureFetchRes =
+                fetchCurrentRes(context, _path, _resource, listen: false);
+          }),
         ),
       ),
     );

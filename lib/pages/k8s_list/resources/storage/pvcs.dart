@@ -7,11 +7,10 @@ import 'package:k8zdev/common/styles.dart';
 import 'package:k8zdev/dao/kube.dart';
 import 'package:k8zdev/generated/l10n.dart';
 import 'package:k8zdev/models/models.dart';
-import 'package:k8zdev/providers/current_cluster.dart';
+import 'package:k8zdev/services/k8z_native.dart';
 import 'package:k8zdev/services/k8z_service.dart';
 import 'package:k8zdev/widgets/namespace.dart';
 import 'package:k8zdev/widgets/settings_tile.dart';
-import 'package:provider/provider.dart';
 import 'package:settings_ui/settings_ui.dart';
 
 class PvcsPage extends StatefulWidget {
@@ -25,20 +24,20 @@ class PvcsPage extends StatefulWidget {
 class _PvcsPageState extends State<PvcsPage> {
   final String _path = "/api/v1";
   final String _resource = "persistentvolumeclaims";
+  late Future<JsonReturn> _futureFetchRes;
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    setState(() {
+      _futureFetchRes = fetchCurrentRes(context, _path, _resource);
+    });
+  }
 
   AbstractSettingsSection buildPvcList(S lang) {
     return CustomSettingsSection(
       child: FutureBuilder(
-        future: () async {
-          final c = Provider.of<CurrentCluster>(context).cluster;
-          final namespaced = c?.namespace.isEmpty ?? true
-              ? ""
-              : "/namespaces/${c?.namespace ?? ""}";
-
-          // await Future.delayed(const Duration(seconds: 1));
-          return await K8zService(context, cluster: widget.cluster)
-              .get("$_path$namespaced/$_resource");
-        }(),
+        future: _futureFetchRes,
         builder: (BuildContext context, AsyncSnapshot snapshot) {
           var list = [];
           String totals = "";
@@ -159,15 +158,22 @@ class _PvcsPageState extends State<PvcsPage> {
   Widget build(BuildContext context) {
     var lang = S.of(context);
     return Scaffold(
-        appBar: AppBar(title: Text(lang.pvcs)),
-        body: Container(
-          padding: bottomEdge,
+      appBar: AppBar(title: Text(lang.pvcs)),
+      body: Container(
+        padding: bottomEdge,
+        child: RefreshIndicator(
           child: SettingsList(
             sections: [
               namespaceFilter(context),
               buildPvcList(lang),
             ],
           ),
-        ));
+          onRefresh: () async => setState(() {
+            _futureFetchRes =
+                fetchCurrentRes(context, _path, _resource, listen: false);
+          }),
+        ),
+      ),
+    );
   }
 }

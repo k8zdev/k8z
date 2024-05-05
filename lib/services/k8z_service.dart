@@ -88,7 +88,7 @@ class K8zService {
 
 Future<JsonReturn> fetchCurrentRes(
     BuildContext context, String path, String resource,
-    {namespaced = true, listen = true}) async {
+    {namespaced = true, listen = true, String? query}) async {
   final cluster = Provider.of<CurrentCluster>(context, listen: listen).cluster;
   if (cluster == null) {
     talker.error("null cluster");
@@ -101,6 +101,10 @@ Future<JsonReturn> fetchCurrentRes(
     api = "$path$ns/$resource";
   } else {
     api = "$path/$resource";
+  }
+
+  if (query!.isNotEmpty) {
+    api = "$api?$query";
   }
 
   final resp = await K8zService(context, cluster: cluster).get(api);

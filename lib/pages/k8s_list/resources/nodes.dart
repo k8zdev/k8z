@@ -23,15 +23,21 @@ class NodesPage extends StatefulWidget {
 class _NodesPageState extends State<NodesPage> {
   final _path = "/api/v1";
   final _resource = "nodes";
+  late Future<JsonReturn> _futureFetchRes;
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    setState(() {
+      _futureFetchRes =
+          fetchCurrentRes(context, _path, _resource, namespaced: false);
+    });
+  }
 
   AbstractSettingsSection nodes(S lang) {
     return CustomSettingsSection(
       child: FutureBuilder(
-        future: () async {
-          // await Future.delayed(const Duration(seconds: 1));
-          return await K8zService(context, cluster: widget.cluster)
-              .get("$_path/$_resource?limit=500");
-        }(),
+        future: _futureFetchRes,
         builder: (BuildContext context, AsyncSnapshot<JsonReturn> snapshot) {
           var list = [];
           String totals = "";
@@ -198,8 +204,14 @@ class _NodesPageState extends State<NodesPage> {
       appBar: AppBar(title: Text(lang.nodes)),
       body: Container(
         margin: bottomEdge,
-        child: SettingsList(
-          sections: [nodes(lang)],
+        child: RefreshIndicator(
+          child: SettingsList(
+            sections: [nodes(lang)],
+          ),
+          onRefresh: () async => setState(() {
+            _futureFetchRes = fetchCurrentRes(context, _path, _resource,
+                namespaced: false, listen: false);
+          }),
         ),
       ),
     );

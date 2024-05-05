@@ -10,11 +10,10 @@ import 'package:k8zdev/common/styles.dart';
 import 'package:k8zdev/dao/kube.dart';
 import 'package:k8zdev/generated/l10n.dart';
 import 'package:k8zdev/models/models.dart';
-import 'package:k8zdev/providers/current_cluster.dart';
+import 'package:k8zdev/services/k8z_native.dart';
 import 'package:k8zdev/services/k8z_service.dart';
 import 'package:k8zdev/widgets/namespace.dart';
 import 'package:k8zdev/widgets/settings_tile.dart';
-import 'package:provider/provider.dart';
 import 'package:settings_ui/settings_ui.dart';
 
 class HelmReleasesPage extends StatefulWidget {
@@ -28,20 +27,21 @@ class HelmReleasesPage extends StatefulWidget {
 class _HelmReleasesPageState extends State<HelmReleasesPage> {
   final String _path = "/api/v1";
   final String _resource = "secrets";
+  late Future<JsonReturn> _futureFetchRes;
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    setState(() {
+      _futureFetchRes = fetchCurrentRes(context, _path, _resource,
+          query: "labelSelector=owner%3Dhelm");
+    });
+  }
 
   AbstractSettingsSection buildHelmReleasesList(S lang) {
     return CustomSettingsSection(
       child: FutureBuilder(
-        future: () async {
-          final c = Provider.of<CurrentCluster>(context).cluster;
-          final namespaced = c?.namespace.isEmpty ?? true
-              ? ""
-              : "/namespaces/${c?.namespace ?? ""}";
-
-          // await Future.delayed(const Duration(seconds: 1));
-          return await K8zService(context, cluster: widget.cluster)
-              .get("$_path$namespaced/$_resource?labelSelector=owner%3Dhelm");
-        }(),
+        future: _futureFetchRes,
         builder: (BuildContext context, AsyncSnapshot snapshot) {
           var list = [];
           String totals = "";
@@ -189,11 +189,17 @@ class _HelmReleasesPageState extends State<HelmReleasesPage> {
       appBar: AppBar(title: Text(lang.releases)),
       body: Container(
         padding: bottomEdge,
-        child: SettingsList(
-          sections: [
-            namespaceFilter(context),
-            buildHelmReleasesList(lang),
-          ],
+        child: RefreshIndicator(
+          child: SettingsList(
+            sections: [
+              namespaceFilter(context),
+              buildHelmReleasesList(lang),
+            ],
+          ),
+          onRefresh: () async => setState(() {
+            _futureFetchRes = fetchCurrentRes(context, _path, _resource,
+                listen: false, query: "labelSelector=owner%3Dhelm");
+          }),
         ),
       ),
     );

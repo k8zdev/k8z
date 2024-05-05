@@ -7,6 +7,7 @@ import 'package:k8zdev/common/styles.dart';
 import 'package:k8zdev/dao/kube.dart';
 import 'package:k8zdev/generated/l10n.dart';
 import 'package:k8zdev/models/models.dart';
+import 'package:k8zdev/services/k8z_native.dart';
 import 'package:k8zdev/services/k8z_service.dart';
 import 'package:k8zdev/widgets/settings_tile.dart';
 import 'package:settings_ui/settings_ui.dart';
@@ -22,15 +23,21 @@ class PvsPage extends StatefulWidget {
 class _PvsPageState extends State<PvsPage> {
   final String _path = "/api/v1";
   final String _resource = "persistentvolumes";
+  late Future<JsonReturn> _futureFetchRes;
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    setState(() {
+      _futureFetchRes =
+          fetchCurrentRes(context, _path, _resource, namespaced: false);
+    });
+  }
 
   AbstractSettingsSection buildPvList(S lang) {
     return CustomSettingsSection(
       child: FutureBuilder(
-        future: () async {
-          // await Future.delayed(const Duration(seconds: 1));
-          return await K8zService(context, cluster: widget.cluster)
-              .get("$_path/$_resource");
-        }(),
+        future: _futureFetchRes,
         builder: (BuildContext context, AsyncSnapshot snapshot) {
           var list = [];
           String totals = "";
@@ -154,10 +161,17 @@ class _PvsPageState extends State<PvsPage> {
   Widget build(BuildContext context) {
     var lang = S.of(context);
     return Scaffold(
-        appBar: AppBar(title: Text(lang.pvs)),
-        body: Container(
-          padding: bottomEdge,
+      appBar: AppBar(title: Text(lang.pvs)),
+      body: Container(
+        padding: bottomEdge,
+        child: RefreshIndicator(
           child: SettingsList(sections: [buildPvList(lang)]),
-        ));
+          onRefresh: () async => setState(() {
+            _futureFetchRes = fetchCurrentRes(context, _path, _resource,
+                namespaced: false, listen: false);
+          }),
+        ),
+      ),
+    );
   }
 }
