@@ -10,7 +10,6 @@ import 'package:k8zdev/common/styles.dart';
 import 'package:k8zdev/dao/kube.dart';
 import 'package:k8zdev/generated/l10n.dart';
 import 'package:k8zdev/models/models.dart';
-import 'package:k8zdev/providers/current_cluster.dart';
 import 'package:k8zdev/services/k8z_native.dart';
 import 'package:k8zdev/services/k8z_service.dart';
 import 'package:k8zdev/widgets/delete_resource.dart';
@@ -19,7 +18,6 @@ import 'package:k8zdev/widgets/get_terminal.dart';
 import 'package:k8zdev/widgets/modal.dart';
 import 'package:k8zdev/widgets/namespace.dart';
 import 'package:k8zdev/widgets/widgets.dart';
-import 'package:provider/provider.dart';
 import 'package:settings_ui/settings_ui.dart';
 
 class PodsPage extends StatefulWidget {
@@ -39,30 +37,8 @@ class _PodsPageState extends State<PodsPage> {
   void didChangeDependencies() {
     super.didChangeDependencies();
     setState(() {
-      _futureFetchRes = _fetchRes();
+      _futureFetchRes = fetchCurrentRes(context, _path, _resource);
     });
-  }
-
-  Future<JsonReturn> _fetchRes() async {
-    if (!mounted) {
-      talker.error("null mounted");
-      return JsonReturn(body: {}, error: "", duration: Duration.zero);
-    }
-
-    final cluster = Provider.of<CurrentCluster>(context, listen: true).cluster;
-
-    if (cluster == null) {
-      talker.error("null cluster");
-      return JsonReturn(body: {}, error: "", duration: Duration.zero);
-    }
-
-    final namespaced =
-        cluster.namespace.isEmpty ? "" : "/namespaces/${cluster.namespace}";
-
-    final resp = await K8zService(context, cluster: cluster)
-        .get("$_path$namespaced/$_resource");
-
-    return resp;
   }
 
   AbstractSettingsSection buildPodList(S lang) {
@@ -286,7 +262,8 @@ class _PodsPageState extends State<PodsPage> {
             ],
           ),
           onRefresh: () async => setState(() {
-            _futureFetchRes = _fetchRes();
+            _futureFetchRes =
+                fetchCurrentRes(context, _path, _resource, listen: false);
           }),
         ),
       ),

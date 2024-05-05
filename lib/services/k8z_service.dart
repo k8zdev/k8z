@@ -1,10 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:k8zdev/common/ops.dart';
 import 'package:k8zdev/dao/kube.dart';
+import 'package:k8zdev/providers/current_cluster.dart';
 import 'package:k8zdev/providers/timeout.dart';
 import 'package:k8zdev/services/k8z_native.dart';
 import 'package:http/http.dart' as http;
 import 'package:provider/provider.dart';
+
+final noneCurrentCluster = ErrorDescription(
+  "cluster is null, and not get current cluster from context",
+);
 
 /// [K8zService] implements a service to interactiv with Kubernetes cluster.
 ///
@@ -79,4 +84,26 @@ class K8zService {
   Future<JsonReturn> post(String api, String body) async {
     return K8zNative().k8zRequest(cluster, proxy, timeout, "POST", api, body);
   }
+}
+
+Future<JsonReturn> fetchCurrentRes(
+    BuildContext context, String path, String resource,
+    {namespaced = true, listen = true}) async {
+  final cluster = Provider.of<CurrentCluster>(context, listen: listen).cluster;
+  if (cluster == null) {
+    talker.error("null cluster");
+    throw noneCurrentCluster;
+  }
+
+  String api;
+  if (namespaced && cluster.namespace.isNotEmpty) {
+    final ns = "/namespaces/${cluster.namespace}";
+    api = "$path$ns/$resource";
+  } else {
+    api = "$path/$resource";
+  }
+
+  final resp = await K8zService(context, cluster: cluster).get(api);
+
+  return resp;
 }
