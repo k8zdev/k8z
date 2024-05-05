@@ -31,10 +31,8 @@ class _WorkloadsPageState extends State<WorkloadsPage> {
         tiles: [
           SettingsTile.navigation(
             title: Text(lang.helm),
-            onPressed: (context) => GoRouter.of(context).pushNamed(
-              "helm_releases",
-              extra: cluster,
-            ),
+            onPressed: (context) =>
+                GoRouter.of(context).pushNamed("helm_releases"),
           ),
         ],
       ),
@@ -45,31 +43,22 @@ class _WorkloadsPageState extends State<WorkloadsPage> {
         tiles: [
           SettingsTile.navigation(
             title: Text(lang.pods),
-            onPressed: (context) => GoRouter.of(context).pushNamed(
-              "pods",
-              extra: cluster,
-            ),
+            onPressed: (context) => GoRouter.of(context).pushNamed("pods"),
           ),
           SettingsTile.navigation(
             title: Text(lang.daemon_sets),
-            onPressed: (context) => GoRouter.of(context).pushNamed(
-              "daemon_sets",
-              extra: cluster,
-            ),
+            onPressed: (context) =>
+                GoRouter.of(context).pushNamed("daemon_sets"),
           ),
           SettingsTile.navigation(
             title: Text(lang.deployments),
-            onPressed: (context) => GoRouter.of(context).pushNamed(
-              "deployments",
-              extra: cluster,
-            ),
+            onPressed: (context) =>
+                GoRouter.of(context).pushNamed("deployments"),
           ),
           SettingsTile.navigation(
             title: Text(lang.stateful_sets),
-            onPressed: (context) => GoRouter.of(context).pushNamed(
-              "stateful_sets",
-              extra: cluster,
-            ),
+            onPressed: (context) =>
+                GoRouter.of(context).pushNamed("stateful_sets"),
           ),
         ],
       ),
@@ -80,24 +69,15 @@ class _WorkloadsPageState extends State<WorkloadsPage> {
         tiles: [
           SettingsTile.navigation(
             title: Text(lang.endpoints),
-            onPressed: (context) => GoRouter.of(context).pushNamed(
-              "endpoints",
-              extra: cluster,
-            ),
+            onPressed: (context) => GoRouter.of(context).pushNamed("endpoints"),
           ),
           SettingsTile.navigation(
             title: Text(lang.ingresses),
-            onPressed: (context) => GoRouter.of(context).pushNamed(
-              "ingresses",
-              extra: cluster,
-            ),
+            onPressed: (context) => GoRouter.of(context).pushNamed("ingresses"),
           ),
           SettingsTile.navigation(
             title: Text(lang.services),
-            onPressed: (context) => GoRouter.of(context).pushNamed(
-              "services",
-              extra: cluster,
-            ),
+            onPressed: (context) => GoRouter.of(context).pushNamed("services"),
           ),
         ],
       ),

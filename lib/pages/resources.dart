@@ -27,29 +27,19 @@ class _ResourcesPageState extends State<ResourcesPage> {
       tiles: [
         SettingsTile.navigation(
           title: Text(lang.nodes),
-          onPressed: (context) =>
-              GoRouter.of(context).pushNamed("nodes", extra: cluster),
+          onPressed: (context) => GoRouter.of(context).pushNamed("nodes"),
         ),
         SettingsTile.navigation(
           title: Text(lang.events),
-          onPressed: (context) => GoRouter.of(context).pushNamed(
-            "events",
-            extra: cluster,
-          ),
+          onPressed: (context) => GoRouter.of(context).pushNamed("events"),
         ),
         SettingsTile.navigation(
           title: Text(lang.namespaces),
-          onPressed: (context) => GoRouter.of(context).pushNamed(
-            "namespaces",
-            extra: cluster,
-          ),
+          onPressed: (context) => GoRouter.of(context).pushNamed("namespaces"),
         ),
         SettingsTile.navigation(
           title: Text(lang.crds),
-          onPressed: (context) => GoRouter.of(context).pushNamed(
-            "crds",
-            extra: cluster,
-          ),
+          onPressed: (context) => GoRouter.of(context).pushNamed("crds"),
         ),
       ],
     );
@@ -61,24 +51,16 @@ class _ResourcesPageState extends State<ResourcesPage> {
       tiles: [
         SettingsTile.navigation(
           title: Text(lang.config_maps),
-          onPressed: (context) => GoRouter.of(context).pushNamed(
-            "config_maps",
-            extra: cluster,
-          ),
+          onPressed: (context) => GoRouter.of(context).pushNamed("config_maps"),
         ),
         SettingsTile.navigation(
           title: Text(lang.secrets),
-          onPressed: (context) => GoRouter.of(context).pushNamed(
-            "secrets",
-            extra: cluster,
-          ),
+          onPressed: (context) => GoRouter.of(context).pushNamed("secrets"),
         ),
         SettingsTile.navigation(
           title: Text(lang.service_accounts),
-          onPressed: (context) => GoRouter.of(context).pushNamed(
-            "service_accounts",
-            extra: cluster,
-          ),
+          onPressed: (context) =>
+              GoRouter.of(context).pushNamed("service_accounts"),
         ),
       ],
     );
@@ -90,24 +72,16 @@ class _ResourcesPageState extends State<ResourcesPage> {
       tiles: [
         SettingsTile.navigation(
           title: Text(lang.storage_class),
-          onPressed: (context) => GoRouter.of(context).pushNamed(
-            "storage_class",
-            extra: cluster,
-          ),
+          onPressed: (context) =>
+              GoRouter.of(context).pushNamed("storage_class"),
         ),
         SettingsTile.navigation(
           title: Text(lang.pvs),
-          onPressed: (context) => GoRouter.of(context).pushNamed(
-            "pvs",
-            extra: cluster,
-          ),
+          onPressed: (context) => GoRouter.of(context).pushNamed("pvs"),
         ),
         SettingsTile.navigation(
           title: Text(lang.pvcs),
-          onPressed: (context) => GoRouter.of(context).pushNamed(
-            "pvcs",
-            extra: cluster,
-          ),
+          onPressed: (context) => GoRouter.of(context).pushNamed("pvcs"),
         ),
       ],
     );

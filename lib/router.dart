@@ -35,6 +35,7 @@ import 'package:k8zdev/pages/k8s_list/workloads/pods.dart';
 import 'package:k8zdev/pages/k8s_list/workloads/stateful_sets.dart';
 import 'package:k8zdev/providers/current_cluster.dart';
 import 'package:k8zdev/services/k8z_native.dart';
+import 'package:provider/provider.dart';
 import 'package:sqlite_viewer/sqlite_viewer.dart';
 import 'package:talker_flutter/talker_flutter.dart';
 
@@ -77,7 +78,7 @@ final router = GoRouter(
               parentNavigatorKey: _rootNavigatorKey,
               builder: (context, state) {
                 logScreenView(screenName: 'ClusterHomePage');
-                var cluster = state.extra as K8zCluster;
+                final cluster = state.extra as K8zCluster;
                 talker.info("goto cluster home, server: ${cluster.server}");
                 return ClusterHomePage(cluster: cluster);
               },
@@ -109,7 +110,7 @@ final router = GoRouter(
               parentNavigatorKey: _rootNavigatorKey,
               builder: (context, state) {
                 logScreenView(screenName: 'ChoiceClustersSubPage');
-                var clusters = state.extra as List<K8zCluster>;
+                final clusters = state.extra as List<K8zCluster>;
                 return ChoiceClustersSubPage(clusters: clusters);
               },
             ),
@@ -145,9 +146,10 @@ final router = GoRouter(
               name: "helm_releases",
               pageBuilder: (context, state) {
                 logScreenView(screenName: 'HelmReleasesPage');
-                final cluster = state.extra as K8zCluster;
+                final cluster = CurrentCluster.current;
+
                 return NoTransitionPage(
-                  child: HelmReleasesPage(cluster: cluster),
+                  child: HelmReleasesPage(cluster: cluster!),
                 );
               },
             ),
@@ -157,9 +159,9 @@ final router = GoRouter(
               name: "pods",
               pageBuilder: (context, state) {
                 logScreenView(screenName: 'PodsPage');
-                var cluster = state.extra as K8zCluster;
+                final cluster = CurrentCluster.current;
                 return NoTransitionPage(
-                  child: PodsPage(cluster: cluster),
+                  child: PodsPage(cluster: cluster!),
                 );
               },
             ),
@@ -168,9 +170,10 @@ final router = GoRouter(
               name: "daemon_sets",
               pageBuilder: (context, state) {
                 logScreenView(screenName: 'DaemonSetsPage');
-                var cluster = state.extra as K8zCluster;
+                final cluster = CurrentCluster.current;
+
                 return NoTransitionPage(
-                  child: DaemonSetsPage(cluster: cluster),
+                  child: DaemonSetsPage(cluster: cluster!),
                 );
               },
             ),
@@ -179,9 +182,10 @@ final router = GoRouter(
               name: "deployments",
               pageBuilder: (context, state) {
                 logScreenView(screenName: 'DeploymentsPage');
-                var cluster = state.extra as K8zCluster;
+                final cluster = CurrentCluster.current;
+
                 return NoTransitionPage(
-                  child: DeploymentsPage(cluster: cluster),
+                  child: DeploymentsPage(cluster: cluster!),
                 );
               },
             ),
@@ -190,9 +194,10 @@ final router = GoRouter(
               name: "stateful_sets",
               pageBuilder: (context, state) {
                 logScreenView(screenName: 'StatefulSetsPage');
-                var cluster = state.extra as K8zCluster;
+                final cluster = CurrentCluster.current;
+
                 return NoTransitionPage(
-                  child: StatefulSetsPage(cluster: cluster),
+                  child: StatefulSetsPage(cluster: cluster!),
                 );
               },
             ),
@@ -202,9 +207,10 @@ final router = GoRouter(
               name: "endpoints",
               pageBuilder: (context, state) {
                 logScreenView(screenName: 'EndpointsPage');
-                var cluster = state.extra as K8zCluster;
+                final cluster = CurrentCluster.current;
+
                 return NoTransitionPage(
-                  child: EndpointsPage(cluster: cluster),
+                  child: EndpointsPage(cluster: cluster!),
                 );
               },
             ),
@@ -213,9 +219,10 @@ final router = GoRouter(
               name: "ingresses",
               pageBuilder: (context, state) {
                 logScreenView(screenName: 'IngressesPage');
-                var cluster = state.extra as K8zCluster;
+                final cluster = CurrentCluster.current;
+
                 return NoTransitionPage(
-                  child: IngressesPage(cluster: cluster),
+                  child: IngressesPage(cluster: cluster!),
                 );
               },
             ),
@@ -224,9 +231,10 @@ final router = GoRouter(
               name: "services",
               pageBuilder: (context, state) {
                 logScreenView(screenName: 'ServicesPage');
-                var cluster = state.extra as K8zCluster;
+                final cluster = CurrentCluster.current;
+
                 return NoTransitionPage(
-                  child: ServicesPage(cluster: cluster),
+                  child: ServicesPage(cluster: cluster!),
                 );
               },
             ),
@@ -262,9 +270,14 @@ final router = GoRouter(
               name: "nodes",
               pageBuilder: (context, state) {
                 logScreenView(screenName: 'NodesPage');
-                var cluster = state.extra as K8zCluster;
+                K8zCluster? cluster;
+                if (state.extra is K8zCluster) {
+                  cluster = state.extra as K8zCluster;
+                } else {
+                  cluster = CurrentCluster.current;
+                }
                 return NoTransitionPage(
-                  child: NodesPage(cluster: cluster),
+                  child: NodesPage(cluster: cluster!),
                 );
               },
             ),
@@ -273,9 +286,12 @@ final router = GoRouter(
                 name: "namespaces",
                 pageBuilder: (context, state) {
                   logScreenView(screenName: 'NamespacesPage');
-                  var cluster = state.extra as K8zCluster;
+                  final cluster =
+                      Provider.of<CurrentCluster>(context, listen: true)
+                          .cluster;
+
                   return NoTransitionPage(
-                    child: NamespacesPage(cluster: cluster),
+                    child: NamespacesPage(cluster: cluster!),
                   );
                 }),
             GoRoute(
@@ -283,9 +299,15 @@ final router = GoRouter(
               name: "events",
               pageBuilder: (context, state) {
                 logScreenView(screenName: 'EventsPage');
-                var cluster = state.extra as K8zCluster;
+                K8zCluster? cluster;
+                if (state.extra is K8zCluster) {
+                  cluster = state.extra as K8zCluster;
+                } else {
+                  cluster = CurrentCluster.current;
+                }
+
                 return NoTransitionPage(
-                  child: EventsPage(cluster: cluster),
+                  child: EventsPage(cluster: cluster!),
                 );
               },
             ),
@@ -294,9 +316,10 @@ final router = GoRouter(
               name: "crds",
               pageBuilder: (context, state) {
                 logScreenView(screenName: 'CrdsPage');
-                var cluster = state.extra as K8zCluster;
+                final cluster = CurrentCluster.current;
+
                 return NoTransitionPage(
-                  child: CrdsPage(cluster: cluster),
+                  child: CrdsPage(cluster: cluster!),
                 );
               },
             ),
@@ -306,9 +329,10 @@ final router = GoRouter(
               name: "config_maps",
               pageBuilder: (context, state) {
                 logScreenView(screenName: 'ConfigMapsPage');
-                var cluster = state.extra as K8zCluster;
+                final cluster = CurrentCluster.current;
+
                 return NoTransitionPage(
-                  child: ConfigMapsPage(cluster: cluster),
+                  child: ConfigMapsPage(cluster: cluster!),
                 );
               },
             ),
@@ -317,9 +341,10 @@ final router = GoRouter(
               name: "secrets",
               pageBuilder: (context, state) {
                 logScreenView(screenName: 'SecretsPage');
-                var cluster = state.extra as K8zCluster;
+                final cluster = CurrentCluster.current;
+
                 return NoTransitionPage(
-                  child: SecretsPage(cluster: cluster),
+                  child: SecretsPage(cluster: cluster!),
                 );
               },
             ),
@@ -328,9 +353,10 @@ final router = GoRouter(
               name: "service_accounts",
               pageBuilder: (context, state) {
                 logScreenView(screenName: 'ServiceAccountsPage');
-                var cluster = state.extra as K8zCluster;
+                final cluster = CurrentCluster.current;
+
                 return NoTransitionPage(
-                  child: ServiceAccountsPage(cluster: cluster),
+                  child: ServiceAccountsPage(cluster: cluster!),
                 );
               },
             ),
@@ -340,9 +366,10 @@ final router = GoRouter(
               name: "storage_class",
               pageBuilder: (context, state) {
                 logScreenView(screenName: 'StorageClassPage');
-                var cluster = state.extra as K8zCluster;
+                final cluster = CurrentCluster.current;
+
                 return NoTransitionPage(
-                  child: StorageClassPage(cluster: cluster),
+                  child: StorageClassPage(cluster: cluster!),
                 );
               },
             ),
@@ -351,9 +378,10 @@ final router = GoRouter(
               name: "pvs",
               pageBuilder: (context, state) {
                 logScreenView(screenName: 'PvsPage');
-                var cluster = state.extra as K8zCluster;
+                final cluster = CurrentCluster.current;
+
                 return NoTransitionPage(
-                  child: PvsPage(cluster: cluster),
+                  child: PvsPage(cluster: cluster!),
                 );
               },
             ),
@@ -362,9 +390,10 @@ final router = GoRouter(
               name: "pvcs",
               pageBuilder: (context, state) {
                 logScreenView(screenName: 'PvcsPage');
-                var cluster = state.extra as K8zCluster;
+                final cluster = CurrentCluster.current;
+
                 return NoTransitionPage(
-                  child: PvcsPage(cluster: cluster),
+                  child: PvcsPage(cluster: cluster!),
                 );
               },
             ),
