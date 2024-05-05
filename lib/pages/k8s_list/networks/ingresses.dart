@@ -7,12 +7,11 @@ import 'package:k8zdev/common/styles.dart';
 import 'package:k8zdev/dao/kube.dart';
 import 'package:k8zdev/generated/l10n.dart';
 import 'package:k8zdev/models/models.dart';
-import 'package:k8zdev/providers/current_cluster.dart';
+import 'package:k8zdev/services/k8z_native.dart';
 import 'package:k8zdev/services/k8z_service.dart';
 import 'package:k8zdev/widgets/namespace.dart';
 import 'package:k8zdev/widgets/settings_tile.dart';
 import 'package:k8zdev/widgets/widgets.dart';
-import 'package:provider/provider.dart';
 import 'package:settings_ui/settings_ui.dart';
 
 class IngressesPage extends StatefulWidget {
@@ -26,6 +25,32 @@ class IngressesPage extends StatefulWidget {
 class _IngressesPageState extends State<IngressesPage> {
   final _path = "/apis/networking.k8s.io/v1";
   final _resource = "ingresses";
+  late Future<JsonReturn> _futureFetchRes;
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    setState(() {
+      _futureFetchRes = _fetchRes();
+    });
+  }
+
+  Future<JsonReturn> _fetchRes() async {
+    if (!mounted) {
+      talker.error("null mounted");
+      return JsonReturn(body: {}, error: "", duration: Duration.zero);
+    }
+
+    final namespaced = widget.cluster.namespace.isEmpty
+        ? ""
+        : "/namespaces/${widget.cluster.namespace}";
+
+    // await Future.delayed(const Duration(seconds: 1));
+    final resp = await K8zService(context, cluster: widget.cluster)
+        .get("$_path$namespaced/$_resource");
+
+    return resp;
+  }
 
   Widget getStatus(String? hosts, String? address) {
     return (hosts == null ||
@@ -39,16 +64,7 @@ class _IngressesPageState extends State<IngressesPage> {
   AbstractSettingsSection buildIngressList(S lang) {
     return CustomSettingsSection(
       child: FutureBuilder(
-        future: () async {
-          final c = Provider.of<CurrentCluster>(context).cluster;
-          final namespaced = c?.namespace.isEmpty ?? true
-              ? ""
-              : "/namespaces/${c?.namespace ?? ""}";
-
-          // await Future.delayed(const Duration(seconds: 1));
-          return await K8zService(context, cluster: widget.cluster)
-              .get("$_path$namespaced/$_resource");
-        }(),
+        future: _futureFetchRes,
         builder: (BuildContext context, AsyncSnapshot snapshot) {
           var list = [];
           String totals = "";
@@ -179,11 +195,16 @@ class _IngressesPageState extends State<IngressesPage> {
       appBar: AppBar(title: Text(lang.ingresses)),
       body: Container(
         margin: bottomEdge,
-        child: SettingsList(
-          sections: [
-            namespaceFilter(context),
-            buildIngressList(lang),
-          ],
+        child: RefreshIndicator(
+          child: SettingsList(
+            sections: [
+              namespaceFilter(context),
+              buildIngressList(lang),
+            ],
+          ),
+          onRefresh: () async => setState(() {
+            _futureFetchRes = _fetchRes();
+          }),
         ),
       ),
     );
