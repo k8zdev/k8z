@@ -43,7 +43,7 @@ class _DeploymentsPageState extends State<DeploymentsPage> {
       return JsonReturn(body: {}, error: "", duration: Duration.zero);
     }
 
-    final cluster = Provider.of<CurrentCluster>(context, listen: false).cluster;
+    final cluster = Provider.of<CurrentCluster>(context, listen: true).cluster;
 
     if (cluster == null) {
       talker.error("null cluster");
@@ -53,7 +53,7 @@ class _DeploymentsPageState extends State<DeploymentsPage> {
     final namespaced =
         cluster.namespace.isEmpty ? "" : "/namespaces/${cluster.namespace}";
 
-    final resp = await K8zService(context, cluster: widget.cluster)
+    final resp = await K8zService(context, cluster: cluster)
         .get("$_path$namespaced/$_resource");
 
     return resp;
