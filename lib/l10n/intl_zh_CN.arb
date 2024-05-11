@@ -581,5 +581,9 @@
   "creation_time": "创建时间",
   "@creation_time": {},
   "delete_ok": "删除资源成功.",
-  "@delete_ok": {}
+  "@delete_ok": {},
+  "container_id": "容器 ID",
+  "@container_id": {},
+  "image_id": "镜像 ID",
+  "@image_id": {}
 }

@@ -581,5 +581,9 @@
   "creation_time": "Creation Time",
   "@creation_time": {},
   "delete_ok": "delete resource success.",
-  "@delete_ok": {}
+  "@delete_ok": {},
+  "container_id": "Container ID",
+  "@container_id": {},
+  "image_id": "Image ID",
+  "@image_id": {}
 }

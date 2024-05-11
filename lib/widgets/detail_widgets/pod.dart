@@ -141,7 +141,7 @@ SettingsTile contianersTile(
                 List<AbstractSettingsTile> podTiles = [];
                 podTiles.add(
                   copyTileValue(
-                      "lang.container_id",
+                      lang.container_id,
                       containerStatuses[container.name]?.containerID ?? "",
                       langCode),
                 );
@@ -156,7 +156,7 @@ SettingsTile contianersTile(
                 );
                 podTiles.add(
                   copyTileValue(
-                      "lang.image_id",
+                      lang.image_id,
                       containerStatuses[container.name]?.imageID ?? "",
                       langCode),
                 );

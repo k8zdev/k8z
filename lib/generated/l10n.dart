@@ -1757,6 +1757,26 @@ class S {
       args: [],
     );
   }
+
+  /// `Container ID`
+  String get container_id {
+    return Intl.message(
+      'Container ID',
+      name: 'container_id',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Image ID`
+  String get image_id {
+    return Intl.message(
+      'Image ID',
+      name: 'image_id',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

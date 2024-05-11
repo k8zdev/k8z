@@ -140,6 +140,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "config_map_text": m1,
         "config_maps": MessageLookupByLibrary.simpleMessage("ConfigMaps"),
         "container": MessageLookupByLibrary.simpleMessage("Container"),
+        "container_id": MessageLookupByLibrary.simpleMessage("Container ID"),
         "container_runtime": m2,
         "containers": MessageLookupByLibrary.simpleMessage("Containers"),
         "cpu": MessageLookupByLibrary.simpleMessage("CPU"),
@@ -204,6 +205,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Image Pull Policy"),
         "imagePullSecrets":
             MessageLookupByLibrary.simpleMessage("Image Pull Secrets"),
+        "image_id": MessageLookupByLibrary.simpleMessage("Image ID"),
         "ingress_text": m12,
         "ingresses": MessageLookupByLibrary.simpleMessage("Ingresses"),
         "initContainers":
