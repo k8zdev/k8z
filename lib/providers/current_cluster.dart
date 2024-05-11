@@ -10,8 +10,6 @@ const currentClusterKey = "app_default_cluster";
 class CurrentCluster with ChangeNotifier {
   static K8zCluster? _current;
   static K8zCluster? get current {
-    assert(_current != null,
-        "No instance of K8zCluster.  Try to initialize the K8zCluster before accessing K8zCluster.current");
     return _current;
   }
 

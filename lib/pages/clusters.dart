@@ -138,11 +138,21 @@ class _ClustersPageState extends State<ClustersPage> {
 
   AbstractSettingsSection metrics() {
     if (CurrentCluster.current == null) {
-      return const CustomSettingsSection(
+      final lang = S.current;
+      return CustomSettingsSection(
         child: Center(
-          child: Row(children: [
-            Icon(Icons.build_circle),
-          ]),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const Icon(
+                Icons.not_interested_rounded,
+                color: Colors.grey,
+                size: 28,
+              ),
+              Text(lang.no_current_cluster),
+            ],
+          ),
+          // child: Icon(Icons.access_alarms),
         ),
       );
     }

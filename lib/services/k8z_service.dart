@@ -103,7 +103,7 @@ Future<JsonReturn> fetchCurrentRes(
     api = "$path/$resource";
   }
 
-  if (query!.isNotEmpty) {
+  if (query != null && query.isNotEmpty) {
     api = "$api?$query";
   }
 

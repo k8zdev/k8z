@@ -82,7 +82,9 @@ class _OverviewMetricState extends State<OverviewMetric> {
     // ignore: use_build_context_synchronously
     final nodeMetricsData = await K8zService(context, cluster: widget.cluster!)
         .get('/apis/metrics.k8s.io/v1beta1/nodes$nodesFilter');
-    if (nodeMetricsData.error.isNotEmpty) throw Exception(nodesData.error);
+    if (nodeMetricsData.error.isNotEmpty) {
+      throw nodeMetricsData.error;
+    }
     final nodeMetricsList =
         ApisMetricsV1beta1NodeMetricsList.fromJson(nodeMetricsData.body);
 
