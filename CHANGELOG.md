@@ -1,5 +1,13 @@
 # CHANGELOG
 
+## v1.3.0
+1. add more Actions type for details page: logs and terminal, show creation time on the detail page.
+2. add logs, terminal action button to pod detail to show logs and terminal modal.
+3. implement modal widget to confirm delete resource, and real delete resource when confirmed.
+4. add container id and image id to pod sections.
+5. implement delete pod feature for pods list slidable pane.
+6. implement pull down to refresh deployments list, network resources list, DS、STS、Pods, applications, config and storage resources list.
+
 ## v1.2.0
 1. Iterative upgrade resource details page:
 	1. Add resourceVersion, selfLink, uid, finalizers tiles.
