@@ -1,5 +1,19 @@
 # CHANGELOG
 
+## v1.2.0
+1. Iterative upgrade resource details page:
+	1. Add resourceVersion, selfLink, uid, finalizers tiles.
+	2. Hidden labels, annotations tiles on detail page if null.
+	3. Implements rendering of data in configmap, highlights data content, and adds the function of copying to clipboard.
+	4. Implement secret data item tiles, decode and display base64 format, and support copying field keys, encrypted data and decoded data to the clipboard.
+	5. Implement pod spec tiles, including: init container, container, DNS policy, host network, host name, image pull secret.
+	6. Displays a list of image pull secret names in a modal.
+	7. Use a modal box to display the image pulling strategy, image, command, parameter, environment variable, port, readiness probe, startup probe, and survival probe of the pod spec initial container and each container in the container.
+
+2. Bug fixes and improvements:
+	1. When automatically matching the system language, the language code cannot be obtained correctly.
+	2. Refactor the current cluster provider.
+
 ## v1.1.0
 1. fix: timeout config not persist saved.
 2. fix: current cluster is null will panic.
