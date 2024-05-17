@@ -52,7 +52,7 @@ mapAtcions(String resource) {
     // case "pvs":
     // case "storageclass":
     case "daemonsets":
-      return [Actions.delete, Actions.scale, Actions.yaml];
+      return [Actions.delete, Actions.yaml];
     case "deployments":
       return [Actions.delete, Actions.scale, Actions.yaml];
     case "pods":
