@@ -60,6 +60,11 @@ class _WorkloadsPageState extends State<WorkloadsPage> {
             onPressed: (context) =>
                 GoRouter.of(context).pushNamed("stateful_sets"),
           ),
+          SettingsTile.navigation(
+            title: Text(lang.replicasets),
+            onPressed: (context) =>
+                GoRouter.of(context).pushNamed("replicasets"),
+          ),
         ],
       ),
 

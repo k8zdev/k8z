@@ -1777,6 +1777,27 @@ class S {
       args: [],
     );
   }
+
+  /// `ReplicaSets`
+  String get replicasets {
+    return Intl.message(
+      'ReplicaSets',
+      name: 'replicasets',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `{name}\nNamespace: {ns}\nCurrent: {current}\nReady: {ready}\nAvailable: {available}\n`
+  String replicasets_text(
+      Object name, Object ns, Object current, Object ready, Object available) {
+    return Intl.message(
+      '$name\nNamespace: $ns\nCurrent: $current\nReady: $ready\nAvailable: $available\n',
+      name: 'replicasets_text',
+      desc: '',
+      args: [name, ns, current, ready, available],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

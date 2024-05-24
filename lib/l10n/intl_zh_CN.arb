@@ -585,5 +585,17 @@
   "container_id": "容器 ID",
   "@container_id": {},
   "image_id": "镜像 ID",
-  "@image_id": {}
+  "@image_id": {},
+  "replicasets": "副本集合 (RS)",
+  "@replicasets": {},
+  "replicasets_text": "{name}\n名字空间: {ns}\n当前: {current}\n就绪: {ready}\n可用: {available}\n",
+  "@replicasets_text": {
+    "placeholders": {
+      "name": {},
+      "ns": {},
+      "current": {},
+      "ready": {},
+      "available": {}
+    }
+  }
 }

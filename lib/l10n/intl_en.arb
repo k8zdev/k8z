@@ -585,5 +585,17 @@
   "container_id": "Container ID",
   "@container_id": {},
   "image_id": "Image ID",
-  "@image_id": {}
+  "@image_id": {},
+  "replicasets": "ReplicaSets",
+  "@replicasets": {},
+  "replicasets_text": "{name}\nNamespace: {ns}\nCurrent: {current}\nReady: {ready}\nAvailable: {available}\n",
+  "@replicasets_text": {
+    "placeholders": {
+      "name": {},
+      "ns": {},
+      "current": {},
+      "ready": {},
+      "available": {}
+    }
+  }
 }

@@ -15,6 +15,7 @@ import 'package:k8zdev/pages/clusters.dart';
 import 'package:k8zdev/pages/k8s_list/networks/endpoints.dart';
 import 'package:k8zdev/pages/k8s_list/networks/ingresses.dart';
 import 'package:k8zdev/pages/k8s_list/networks/services.dart';
+import 'package:k8zdev/pages/k8s_list/workloads/replica_set.dart';
 import 'package:k8zdev/pages/not_found.dart';
 import 'package:k8zdev/pages/paywalls/appstore_sponsors.dart';
 import 'package:k8zdev/pages/resources.dart';
@@ -198,6 +199,18 @@ final router = GoRouter(
 
                 return NoTransitionPage(
                   child: StatefulSetsPage(cluster: cluster!),
+                );
+              },
+            ),
+            GoRoute(
+              path: "replicasets",
+              name: "replicasets",
+              pageBuilder: (context, state) {
+                logScreenView(screenName: 'ReplicaSetsPage');
+                final cluster = CurrentCluster.current;
+
+                return NoTransitionPage(
+                  child: ReplicaSetsPage(cluster: cluster!),
                 );
               },
             ),
