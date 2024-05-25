@@ -480,7 +480,21 @@ class _ResourceDetailsPageState extends State<ResourceDetailsPage> {
       case "pods":
         title = lang.spec;
         final pod = IoK8sApiCoreV1Pod.fromJson(resp.body);
-        tiles = buildPodDetailSectionTiels(context, pod, langCode);
+        tiles = buildPodDetailSectionTiels(
+            context, pod?.spec, pod?.status, langCode);
+
+      case "replicasets":
+        title = lang.spec;
+        final rs = IoK8sApiAppsV1ReplicaSet.fromJson(resp.body);
+        final cond1 = rs == null;
+        final spec = rs?.spec?.template?.spec;
+        final cond2 = rs?.spec?.template?.spec == null;
+
+        if (cond1 || cond2) {
+          tiles = buildPodDetailSectionTiels(context, null, null, langCode);
+        } else {
+          tiles = buildPodDetailSectionTiels(context, spec, null, langCode);
+        }
 
       default:
         tiles = [SettingsTile(title: buildingWidget)];

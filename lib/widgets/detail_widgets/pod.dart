@@ -12,28 +12,30 @@ import 'package:settings_ui/settings_ui.dart';
 
 List<AbstractSettingsTile> buildPodDetailSectionTiels(
   BuildContext context,
-  IoK8sApiCoreV1Pod? pod,
+  IoK8sApiCoreV1PodSpec? spec,
+  IoK8sApiCoreV1PodStatus? status,
   String langCode,
 ) {
   final lang = S.of(context);
 
   List<AbstractSettingsTile> tiles = [];
 
-  final spec = pod?.spec;
-  if (pod == null || spec == null) {
+  if (spec == null) {
     return [SettingsTile(title: Text(lang.empty))];
   }
 
   // initContainers
-  tiles.add(
-    contianersTile(
-      lang,
-      lang.initContainers,
-      langCode,
-      spec.initContainers,
-      pod.status,
-    ),
-  );
+  if (spec.initContainers.isNotEmpty) {
+    tiles.add(
+      contianersTile(
+        lang,
+        lang.initContainers,
+        langCode,
+        spec.initContainers,
+        status,
+      ),
+    );
+  }
 
   // containers
   tiles.add(
@@ -42,7 +44,7 @@ List<AbstractSettingsTile> buildPodDetailSectionTiels(
       lang.containers,
       langCode,
       spec.containers,
-      pod.status,
+      status,
     ),
   );
 
@@ -86,31 +88,34 @@ List<AbstractSettingsTile> buildPodDetailSectionTiels(
   }
 
   // imagePullSecrets
-  tiles.add(
-    SettingsTile.navigation(
-      title: const Text(""),
-      leading: leadingText(lang.imagePullSecrets, langCode),
-      value: Text(spec.imagePullSecrets.length.toString()),
-      onPressed: (spec.imagePullSecrets.isEmpty)
-          ? null
-          : (context) {
-              List<AbstractSettingsTile> iPsTiles = [
-                SettingsTile(title: Center(child: Text(lang.imagePullSecrets)))
-              ];
-              spec.imagePullSecrets.forEach(
-                (element) {
-                  iPsTiles.add(
-                    copyTile(element.name!),
-                  );
-                },
-              );
-              showModal(
-                context,
-                SettingsList(sections: [SettingsSection(tiles: iPsTiles)]),
-              );
-            },
-    ),
-  );
+  if (spec.imagePullSecrets.isNotEmpty) {
+    tiles.add(
+      SettingsTile.navigation(
+        title: const Text(""),
+        leading: leadingText(lang.imagePullSecrets, langCode),
+        value: Text(spec.imagePullSecrets.length.toString()),
+        onPressed: (spec.imagePullSecrets.isEmpty)
+            ? null
+            : (context) {
+                List<AbstractSettingsTile> iPsTiles = [
+                  SettingsTile(
+                      title: Center(child: Text(lang.imagePullSecrets)))
+                ];
+                spec.imagePullSecrets.forEach(
+                  (element) {
+                    iPsTiles.add(
+                      copyTile(element.name!),
+                    );
+                  },
+                );
+                showModal(
+                  context,
+                  SettingsList(sections: [SettingsSection(tiles: iPsTiles)]),
+                );
+              },
+      ),
+    );
+  }
 
   return tiles;
 }
@@ -123,7 +128,7 @@ SettingsTile contianersTile(
   IoK8sApiCoreV1PodStatus? status,
 ) {
   Map<String, IoK8sApiCoreV1ContainerStatus> containerStatuses = {};
-  status!.containerStatuses.forEachIndexed((index, element) {
+  status?.containerStatuses.forEachIndexed((index, element) {
     containerStatuses
         .addAll(<String, IoK8sApiCoreV1ContainerStatus>{element.name: element});
   });
@@ -139,12 +144,14 @@ SettingsTile contianersTile(
             containers.forEach(
               (container) {
                 List<AbstractSettingsTile> podTiles = [];
-                podTiles.add(
-                  copyTileValue(
-                      lang.container_id,
-                      containerStatuses[container.name]?.containerID ?? "",
-                      langCode),
-                );
+                if (containerStatuses[container.name]?.containerID != null) {
+                  podTiles.add(
+                    copyTileValue(
+                        lang.container_id,
+                        containerStatuses[container.name]?.containerID ?? "",
+                        langCode),
+                  );
+                }
 
                 // image
                 podTiles.add(
@@ -154,12 +161,14 @@ SettingsTile contianersTile(
                     langCode,
                   ),
                 );
-                podTiles.add(
-                  copyTileValue(
-                      lang.image_id,
-                      containerStatuses[container.name]?.imageID ?? "",
-                      langCode),
-                );
+                if (containerStatuses[container.name]?.imageID != null) {
+                  podTiles.add(
+                    copyTileValue(
+                        lang.image_id,
+                        containerStatuses[container.name]?.imageID ?? "",
+                        langCode),
+                  );
+                }
                 // imagePullPolicy
                 podTiles.add(
                   copyTileValue(
