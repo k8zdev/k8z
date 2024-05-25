@@ -597,5 +597,15 @@
       "ready": {},
       "available": {}
     }
-  }
+  },
+  "owner": "属主",
+  "@owner": {},
+  "apiVersion": "API版本",
+  "@apiVersion": {},
+  "blockOwnerDeletion": "阻塞属主删除",
+  "@blockOwnerDeletion": {},
+  "controller": "控制器",
+  "@controller": {},
+  "kind": "种类",
+  "@kind": {}
 }

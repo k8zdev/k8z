@@ -26,9 +26,10 @@ SettingsTile copyTile(String name, {String? value}) {
   );
 }
 
-SettingsTile copyTileValue(String name, String value, String langCode) {
+SettingsTile copyTileValue(String name, String value, String langCode,
+    {zhLen, enLen}) {
   return SettingsTile(
-    leading: leadingText(name, langCode),
+    leading: leadingText(name, langCode, zhLen: zhLen, enLen: enLen),
     title: Text(
       value,
       style: tileValueStyle,

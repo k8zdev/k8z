@@ -1798,6 +1798,56 @@ class S {
       args: [name, ns, current, ready, available],
     );
   }
+
+  /// `Owner`
+  String get owner {
+    return Intl.message(
+      'Owner',
+      name: 'owner',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `apiVersion`
+  String get apiVersion {
+    return Intl.message(
+      'apiVersion',
+      name: 'apiVersion',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `blockOwnerDeletion`
+  String get blockOwnerDeletion {
+    return Intl.message(
+      'blockOwnerDeletion',
+      name: 'blockOwnerDeletion',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `controller`
+  String get controller {
+    return Intl.message(
+      'controller',
+      name: 'controller',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `kind`
+  String get kind {
+    return Intl.message(
+      'kind',
+      name: 'kind',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

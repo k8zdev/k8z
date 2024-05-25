@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:k8zdev/common/const.dart';
 import 'package:k8zdev/common/ops.dart';
+import 'package:k8zdev/common/styles.dart';
 import 'package:k8zdev/dao/kube.dart';
 import 'package:k8zdev/generated/l10n.dart';
 import 'package:k8zdev/models/models.dart';
@@ -18,6 +19,7 @@ import 'package:k8zdev/widgets/detail_widgets/secret.dart';
 import 'package:k8zdev/widgets/get_logstream.dart';
 import 'package:k8zdev/widgets/get_terminal.dart';
 import 'package:k8zdev/widgets/modal.dart';
+import 'package:k8zdev/widgets/tiles.dart';
 import 'package:k8zdev/widgets/widgets.dart';
 import 'package:kubeconfig/kubeconfig.dart';
 import 'package:numberpicker/numberpicker.dart';
@@ -400,6 +402,8 @@ class _ResourceDetailsPageState extends State<ResourceDetailsPage> {
     }).toList();
     annotations.sort((a, b) => a.length.compareTo(b.length));
 
+    final ownerReferences = metadata.ownerReferences;
+
     return SettingsSection(
       title: Text(lang.metadata),
       tiles: [
@@ -420,6 +424,83 @@ class _ResourceDetailsPageState extends State<ResourceDetailsPage> {
           SettingsTile(
             leading: leadingText(lang.namespace, langCode),
             title: Text(metadata.namespace ?? ""),
+          ),
+        if (ownerReferences.isNotEmpty)
+          SettingsTile.navigation(
+            title: Text(
+                "${ownerReferences.first.kind}/${ownerReferences.first.name}"),
+            leading: leadingText(lang.owner, langCode),
+            value: Text(
+              "${ownerReferences.length}",
+              style: tileValueStyle,
+            ),
+            onPressed: (context) {
+              List<AbstractSettingsSection> ownerSections = [];
+              ownerReferences.forEach((owner) {
+                List<AbstractSettingsTile> ownerTiles = [];
+                ownerTiles.add(
+                  copyTileValue(
+                    lang.apiVersion,
+                    owner.apiVersion,
+                    langCode,
+                    enLen: 82.0,
+                  ),
+                );
+                ownerTiles.add(
+                  copyTileValue(
+                    lang.blockOwnerDeletion,
+                    "${owner.blockOwnerDeletion}",
+                    langCode,
+                    zhLen: 52.0,
+                    enLen: 82.0,
+                  ),
+                );
+                ownerTiles.add(
+                  copyTileValue(
+                    lang.controller,
+                    "${owner.controller}",
+                    langCode,
+                    zhLen: 52.0,
+                    enLen: 82.0,
+                  ),
+                );
+                ownerTiles.add(
+                  copyTileValue(
+                    lang.kind,
+                    owner.kind,
+                    langCode,
+                  ),
+                );
+                ownerTiles.add(
+                  copyTileValue(
+                    lang.name,
+                    owner.name,
+                    langCode,
+                  ),
+                );
+                ownerTiles.add(
+                  copyTileValue(
+                    lang.uid,
+                    owner.uid,
+                    langCode,
+                  ),
+                );
+                ownerSections.add(
+                  SettingsSection(
+                    margin: const EdgeInsetsDirectional.fromSTEB(16, 0, 16, 10),
+                    title: Text(owner.name),
+                    tiles: ownerTiles,
+                  ),
+                );
+              });
+              showModal(
+                context,
+                SettingsList(
+                  sections: ownerSections,
+                  contentPadding: EdgeInsets.zero,
+                ),
+              );
+            },
           ),
         if (metadata.generation != null)
           SettingsTile(

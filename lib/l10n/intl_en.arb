@@ -597,5 +597,15 @@
       "ready": {},
       "available": {}
     }
-  }
+  },
+  "owner": "Owner",
+  "@owner": {},
+  "apiVersion": "apiVersion",
+  "@apiVersion": {},
+  "blockOwnerDeletion": "blockOwnerDeletion",
+  "@blockOwnerDeletion": {},
+  "controller": "controller",
+  "@controller": {},
+  "kind": "kind",
+  "@kind": {}
 }
