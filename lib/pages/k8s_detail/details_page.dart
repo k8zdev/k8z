@@ -483,12 +483,48 @@ class _ResourceDetailsPageState extends State<ResourceDetailsPage> {
         tiles = buildPodDetailSectionTiels(
             context, pod?.spec, pod?.status, langCode);
 
+      case "daemonsets":
+        title = lang.spec;
+        final ds = IoK8sApiAppsV1DaemonSet.fromJson(resp.body);
+        final cond1 = ds == null;
+        final spec = ds?.spec?.template.spec;
+        final cond2 = spec == null;
+        if (cond1 || cond2) {
+          tiles = buildPodDetailSectionTiels(context, null, null, langCode);
+        } else {
+          tiles = buildPodDetailSectionTiels(context, spec, null, langCode);
+        }
+
+      case "deployments":
+        title = lang.spec;
+        final dp = IoK8sApiAppsV1Deployment.fromJson(resp.body);
+        final cond1 = dp == null;
+        final spec = dp?.spec?.template.spec;
+        final cond2 = spec == null;
+        if (cond1 || cond2) {
+          tiles = buildPodDetailSectionTiels(context, null, null, langCode);
+        } else {
+          tiles = buildPodDetailSectionTiels(context, spec, null, langCode);
+        }
+
+      case "statefulsets":
+        title = lang.spec;
+        final sts = IoK8sApiAppsV1StatefulSet.fromJson(resp.body);
+        final cond1 = sts == null;
+        final spec = sts?.spec?.template.spec;
+        final cond2 = spec == null;
+        if (cond1 || cond2) {
+          tiles = buildPodDetailSectionTiels(context, null, null, langCode);
+        } else {
+          tiles = buildPodDetailSectionTiels(context, spec, null, langCode);
+        }
+
       case "replicasets":
         title = lang.spec;
         final rs = IoK8sApiAppsV1ReplicaSet.fromJson(resp.body);
         final cond1 = rs == null;
         final spec = rs?.spec?.template?.spec;
-        final cond2 = rs?.spec?.template?.spec == null;
+        final cond2 = spec == null;
 
         if (cond1 || cond2) {
           tiles = buildPodDetailSectionTiels(context, null, null, langCode);
