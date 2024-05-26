@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:io';
 import 'package:firebase_analytics/firebase_analytics.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:k8zdev/common/const.dart';
@@ -39,7 +40,7 @@ void main() async {
   await K8zNative.startLocalServer();
 
   final inAppReview = InAppReview.instance;
-  if (await inAppReview.isAvailable()) {
+  if (await inAppReview.isAvailable() && !kDebugMode) {
     talker.info("request review");
     inAppReview.requestReview();
   }
