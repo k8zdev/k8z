@@ -607,5 +607,9 @@
   "controller": "controller",
   "@controller": {},
   "kind": "kind",
-  "@kind": {}
+  "@kind": {},
+  "subsets": "Subsets",
+  "@subsets": {},
+  "addresses": "Addresses",
+  "@addresses": {}
 }

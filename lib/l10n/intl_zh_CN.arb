@@ -607,5 +607,9 @@
   "controller": "控制器",
   "@controller": {},
   "kind": "种类",
-  "@kind": {}
+  "@kind": {},
+  "subsets": "子集",
+  "@subsets": {},
+  "addresses": "地址",
+  "@addresses": {}
 }

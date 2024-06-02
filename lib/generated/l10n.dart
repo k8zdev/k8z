@@ -1848,6 +1848,26 @@ class S {
       args: [],
     );
   }
+
+  /// `Subsets`
+  String get subsets {
+    return Intl.message(
+      'Subsets',
+      name: 'subsets',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Addresses`
+  String get addresses {
+    return Intl.message(
+      'Addresses',
+      name: 'addresses',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

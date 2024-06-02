@@ -613,6 +613,35 @@ class _ResourceDetailsPageState extends State<ResourceDetailsPage> {
           tiles = buildPodDetailSectionTiels(context, spec, null, langCode);
         }
 
+      case "endpoints":
+        title = lang.subsets;
+        final ep = IoK8sApiCoreV1Endpoints.fromJson(resp.body);
+        final cond1 = ep != null;
+        final cond2 = ep?.subsets != null;
+        if (cond1 && cond2) {
+          tiles = [
+            copyTileValue(
+              lang.addresses,
+              ep.subsets
+                  .map((subset) =>
+                      subset.addresses.map((address) => address.ip).join(", "))
+                  .join(", "),
+              langCode,
+            ),
+            copyTileValue(
+              lang.ports,
+              ep.subsets
+                  .map((subset) => subset.ports
+                      .map((port) => "${port.port}/${port.protocol}")
+                      .join(", "))
+                  .join(", "),
+              langCode,
+            ),
+          ];
+        } else {
+          tiles = [SettingsTile(title: emptyWidget)];
+        }
+
       default:
         tiles = [SettingsTile(title: buildingWidget)];
     }

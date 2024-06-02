@@ -125,6 +125,7 @@ class MessageLookup extends MessageLookupByLibrary {
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "add_cluster": MessageLookupByLibrary.simpleMessage("Add cluster"),
+        "addresses": MessageLookupByLibrary.simpleMessage("Addresses"),
         "age": MessageLookupByLibrary.simpleMessage("Age"),
         "all": MessageLookupByLibrary.simpleMessage("All"),
         "annotations": MessageLookupByLibrary.simpleMessage("Annotations"),
@@ -315,6 +316,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "subscriptions_restore_success":
             MessageLookupByLibrary.simpleMessage("Resotre success."),
         "subscriptions_yearly": MessageLookupByLibrary.simpleMessage("Yearly"),
+        "subsets": MessageLookupByLibrary.simpleMessage("Subsets"),
         "success": MessageLookupByLibrary.simpleMessage("Success"),
         "support": MessageLookupByLibrary.simpleMessage("Support"),
         "tail_lines": MessageLookupByLibrary.simpleMessage("Tail Lines"),

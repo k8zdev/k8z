@@ -50,6 +50,14 @@ final buildingWidget = Center(
   ),
 );
 
+final emptyWidget = Center(
+  child: TextButton.icon(
+    onPressed: null,
+    icon: const Icon(Icons.hourglass_empty),
+    label: const Text("Empty"),
+  ),
+);
+
 const smallProgressIndicator = SizedBox(
   height: 16,
   width: 16,
