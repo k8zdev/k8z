@@ -1868,6 +1868,76 @@ class S {
       args: [],
     );
   }
+
+  /// `Cluster IP`
+  String get cluster_ip {
+    return Intl.message(
+      'Cluster IP',
+      name: 'cluster_ip',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `External Name`
+  String get external_name {
+    return Intl.message(
+      'External Name',
+      name: 'external_name',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `External IPs`
+  String get external_ips {
+    return Intl.message(
+      'External IPs',
+      name: 'external_ips',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Load Balancer IP`
+  String get load_balancer_ip {
+    return Intl.message(
+      'Load Balancer IP',
+      name: 'load_balancer_ip',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Selector`
+  String get selector {
+    return Intl.message(
+      'Selector',
+      name: 'selector',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Session Affinity`
+  String get session_affinity {
+    return Intl.message(
+      'Session Affinity',
+      name: 'session_affinity',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Type`
+  String get type {
+    return Intl.message(
+      'Type',
+      name: 'type',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

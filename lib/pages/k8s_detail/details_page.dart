@@ -16,6 +16,7 @@ import 'package:k8zdev/widgets/delete_resource.dart';
 import 'package:k8zdev/widgets/detail_widgets/configmap.dart';
 import 'package:k8zdev/widgets/detail_widgets/pod.dart';
 import 'package:k8zdev/widgets/detail_widgets/secret.dart';
+import 'package:k8zdev/widgets/detail_widgets/services.dart';
 import 'package:k8zdev/widgets/get_logstream.dart';
 import 'package:k8zdev/widgets/get_terminal.dart';
 import 'package:k8zdev/widgets/modal.dart';
@@ -641,6 +642,11 @@ class _ResourceDetailsPageState extends State<ResourceDetailsPage> {
         } else {
           tiles = [SettingsTile(title: emptyWidget)];
         }
+
+      case "services":
+        title = lang.spec;
+        final svc = IoK8sApiCoreV1Service.fromJson(resp.body);
+        tiles = buildServicesTiles(context, svc?.spec, svc?.status, langCode);
 
       default:
         tiles = [SettingsTile(title: buildingWidget)];

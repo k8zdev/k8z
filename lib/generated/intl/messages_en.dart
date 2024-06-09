@@ -141,6 +141,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "blockOwnerDeletion":
             MessageLookupByLibrary.simpleMessage("blockOwnerDeletion"),
         "cancel": MessageLookupByLibrary.simpleMessage("Cancel"),
+        "cluster_ip": MessageLookupByLibrary.simpleMessage("Cluster IP"),
         "clusters": MessageLookupByLibrary.simpleMessage("Clusters"),
         "command": MessageLookupByLibrary.simpleMessage("Command"),
         "config": MessageLookupByLibrary.simpleMessage("Config"),
@@ -192,6 +193,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "export": MessageLookupByLibrary.simpleMessage("Export"),
         "exported": m10,
         "external_ip": m11,
+        "external_ips": MessageLookupByLibrary.simpleMessage("External IPs"),
+        "external_name": MessageLookupByLibrary.simpleMessage("External Name"),
         "feedback": MessageLookupByLibrary.simpleMessage("Feedback"),
         "finalizers": MessageLookupByLibrary.simpleMessage("Finalizers"),
         "general": MessageLookupByLibrary.simpleMessage("General"),
@@ -224,6 +227,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "labels": MessageLookupByLibrary.simpleMessage("Labels"),
         "last_warning_events": m15,
         "livenessProbe": MessageLookupByLibrary.simpleMessage("Liveness Probe"),
+        "load_balancer_ip":
+            MessageLookupByLibrary.simpleMessage("Load Balancer IP"),
         "load_file": MessageLookupByLibrary.simpleMessage("load file"),
         "load_metrics_error": m16,
         "loading_metrics":
@@ -282,12 +287,15 @@ class MessageLookup extends MessageLookupByLibrary {
         "secrets": MessageLookupByLibrary.simpleMessage("Secrets"),
         "select_clusters":
             MessageLookupByLibrary.simpleMessage("Select cluster(s)"),
+        "selector": MessageLookupByLibrary.simpleMessage("Selector"),
         "selfLink": MessageLookupByLibrary.simpleMessage("SelfLink"),
         "service_account_text": m31,
         "service_accounts":
             MessageLookupByLibrary.simpleMessage("ServiceAccounts"),
         "service_text": m32,
         "services": MessageLookupByLibrary.simpleMessage("Services"),
+        "session_affinity":
+            MessageLookupByLibrary.simpleMessage("Session Affinity"),
         "settings": MessageLookupByLibrary.simpleMessage("Settings"),
         "since": MessageLookupByLibrary.simpleMessage("Since"),
         "spec": MessageLookupByLibrary.simpleMessage("Spec"),
@@ -326,6 +334,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "theme_dark": MessageLookupByLibrary.simpleMessage("Dark mode"),
         "theme_light": MessageLookupByLibrary.simpleMessage("Light mode"),
         "totals": m38,
+        "type": MessageLookupByLibrary.simpleMessage("Type"),
         "uid": MessageLookupByLibrary.simpleMessage("Uid"),
         "version": MessageLookupByLibrary.simpleMessage("Version"),
         "will_delete": m39,

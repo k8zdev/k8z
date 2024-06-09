@@ -611,5 +611,19 @@
   "subsets": "Subsets",
   "@subsets": {},
   "addresses": "Addresses",
-  "@addresses": {}
+  "@addresses": {},
+  "cluster_ip": "Cluster IP",
+  "@cluster_ip": {},
+  "external_name": "External Name",
+  "@external_name": {},
+  "external_ips": "External IPs",
+  "@external_ips": {},
+  "load_balancer_ip": "Load Balancer IP",
+  "@load_balancer_ip": {},
+  "selector": "Selector",
+  "@selector": {},
+  "session_affinity": "Session Affinity",
+  "@session_affinity": {},
+  "type": "Type",
+  "@type": {}
 }

@@ -64,13 +64,14 @@ const smallProgressIndicator = SizedBox(
   child: CircularProgressIndicator(),
 );
 
-Widget leadingText(String label, String langCode, {zhLen, enLen}) {
+Widget leadingText(String label, String langCode,
+    {double? zhLen = 32, double? enLen = 52}) {
   late double len;
   switch (langCode) {
     case "zh":
-      len = zhLen ?? 32.0;
+      len = zhLen ?? 32;
     default:
-      len = enLen ?? 52.0;
+      len = enLen ?? 52;
   }
   return SizedBox(
     width: len,

@@ -27,9 +27,9 @@ SettingsTile copyTile(String name, {String? value}) {
 }
 
 SettingsTile copyTileValue(String name, String value, String langCode,
-    {zhLen, enLen}) {
+    {double? zhLen, double? enLen}) {
   return SettingsTile(
-    leading: leadingText(name, langCode, zhLen: zhLen, enLen: enLen),
+    leading: leadingText(name, langCode, zhLen: zhLen!, enLen: enLen),
     title: Text(
       value,
       style: tileValueStyle,
@@ -44,15 +44,12 @@ SettingsTile copyTileValue(String name, String value, String langCode,
   );
 }
 
-SettingsTile copyTileYaml(
-  String name,
-  dynamic value,
-  String langCode,
-) {
+SettingsTile copyTileYaml(String name, dynamic value, String langCode,
+    {double? zhLen, double? enLen}) {
   final yamlValue = K8zNative.json2yaml(jsonEncode(value));
 
   return SettingsTile(
-    leading: leadingText(name, langCode),
+    leading: leadingText(name, langCode, enLen: enLen, zhLen: zhLen),
     title: HighlightView(
       yamlValue,
       languageId: yaml.id,

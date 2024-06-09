@@ -611,5 +611,19 @@
   "subsets": "子集",
   "@subsets": {},
   "addresses": "地址",
-  "@addresses": {}
+  "@addresses": {},
+  "cluster_ip": "集群 IP",
+  "@cluster_ip": {},
+  "external_name": "外部名称",
+  "@external_name": {},
+  "external_ips": "外部 IPs",
+  "@external_ips": {},
+  "load_balancer_ip": "负载均衡器 IP",
+  "@load_balancer_ip": {},
+  "selector": "选择器",
+  "@selector": {},
+  "session_affinity": "会话亲和性",
+  "@session_affinity": {},
+  "type": "类型",
+  "@type": {}
 }
