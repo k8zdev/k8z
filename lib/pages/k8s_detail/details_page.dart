@@ -644,9 +644,21 @@ class _ResourceDetailsPageState extends State<ResourceDetailsPage> {
         }
 
       case "services":
-        title = lang.spec;
+        title = lang.services;
         final svc = IoK8sApiCoreV1Service.fromJson(resp.body);
         tiles = buildServicesTiles(context, svc?.spec, svc?.status, langCode);
+
+      case "namespaces":
+        final ns = IoK8sApiCoreV1Namespace.fromJson(resp.body);
+        tiles = [
+          copyTileValue(
+            lang.finalizers,
+            ns!.spec!.finalizers.map((finalizer) => finalizer).join(", "),
+            langCode,
+            enLen: 72,
+            zhLen: 45,
+          ),
+        ];
 
       default:
         tiles = [SettingsTile(title: buildingWidget)];
