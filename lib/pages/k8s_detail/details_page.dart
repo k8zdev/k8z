@@ -660,6 +660,24 @@ class _ResourceDetailsPageState extends State<ResourceDetailsPage> {
           ),
         ];
 
+      case "serviceaccounts":
+        title = lang.service_accounts;
+        final sa = IoK8sApiCoreV1ServiceAccount.fromJson(resp.body);
+        tiles = [
+          copyTileValue(
+            lang.secrets,
+            sa!.secrets.map((e) => e.name).join(", "),
+            langCode,
+            zhLen: 52,
+          ),
+          copyTileValue(
+            lang.imagePullSecrets,
+            sa.imagePullSecrets.map((ips) => "${ips.name}").join(", "),
+            langCode,
+            zhLen: 48,
+          ),
+        ];
+
       default:
         tiles = [SettingsTile(title: buildingWidget)];
     }
