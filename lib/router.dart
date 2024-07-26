@@ -37,7 +37,7 @@ import 'package:k8zdev/pages/k8s_list/workloads/stateful_sets.dart';
 import 'package:k8zdev/providers/current_cluster.dart';
 import 'package:k8zdev/services/k8z_native.dart';
 import 'package:provider/provider.dart';
-import 'package:sqlite_viewer/sqlite_viewer.dart';
+import 'package:sqlite_viewer2/sqlite_viewer.dart';
 import 'package:talker_flutter/talker_flutter.dart';
 
 // pages

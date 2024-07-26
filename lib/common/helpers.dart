@@ -91,7 +91,7 @@ bool isOkStatus(String status) {
 Future<void> logScreenView({
   String? screenClass,
   String? screenName,
-  Map<String, Object?>? parameters,
+  Map<String, Object>? parameters,
   AnalyticsCallOptions? callOptions,
 }) async {
   FirebaseAnalytics.instance.logScreenView(
@@ -104,7 +104,7 @@ Future<void> logScreenView({
 
 Future<void> logEvent(
   String name, {
-  Map<String, Object?>? parameters,
+  Map<String, Object>? parameters,
   AnalyticsCallOptions? callOptions,
 }) async {
   FirebaseAnalytics.instance.logEvent(
@@ -119,7 +119,7 @@ Future<void> logPurchase(
     double? value,
     List<AnalyticsEventItem>? items,
     String? transactionId,
-    Map<String, Object?>? parameters,
+    Map<String, Object>? parameters,
     AnalyticsCallOptions? callOptions}) async {
   FirebaseAnalytics.instance.logPurchase(
     currency: currency,
