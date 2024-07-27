@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:io';
+import 'package:collection/collection.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -120,14 +121,22 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   var _networkStatus = noneNetwork;
-  late StreamSubscription<ConnectivityResult> _connectivitySubscription;
+  late StreamSubscription<List<ConnectivityResult>> _connectivitySubscription;
 
   @override
   void initState() {
     super.initState();
     _connectivitySubscription = Connectivity().onConnectivityChanged.listen(
-      (ConnectivityResult networkStatus) {
-        updateNetworkStatus(networkStatus);
+      (List<ConnectivityResult> status) {
+        status.forEachIndexed((idx, sts) {
+          talker.debug("[$idx] $sts");
+          bool hasWifi = status.contains(ConnectivityResult.wifi);
+          bool hasEth = status.contains(ConnectivityResult.ethernet);
+          bool hasMobile = status.contains(ConnectivityResult.mobile);
+          if (hasWifi || hasEth || hasMobile) {
+            updateNetworkStatus(status[idx]);
+          }
+        });
       },
     );
   }

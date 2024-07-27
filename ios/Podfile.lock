@@ -1,7 +1,7 @@
 PODS:
   - connectivity_plus (0.0.1):
     - Flutter
-    - ReachabilitySwift
+    - FlutterMacOS
   - file_selector_ios (0.0.1):
     - Flutter
   - Firebase/Analytics (10.28.0):
@@ -148,7 +148,6 @@ PODS:
     - PurchasesHybridCommon (= 11.1.0)
   - PurchasesHybridCommon (11.1.0):
     - RevenueCat (= 4.43.2)
-  - ReachabilitySwift (5.2.3)
   - RevenueCat (4.43.2)
   - share_plus (0.0.1):
     - Flutter
@@ -159,7 +158,7 @@ PODS:
     - Flutter
 
 DEPENDENCIES:
-  - connectivity_plus (from `.symlinks/plugins/connectivity_plus/ios`)
+  - connectivity_plus (from `.symlinks/plugins/connectivity_plus/darwin`)
   - file_selector_ios (from `.symlinks/plugins/file_selector_ios/ios`)
   - Firebase/Analytics
   - firebase_analytics (from `.symlinks/plugins/firebase_analytics/ios`)
@@ -192,12 +191,11 @@ SPEC REPOS:
     - PromisesObjC
     - PromisesSwift
     - PurchasesHybridCommon
-    - ReachabilitySwift
     - RevenueCat
 
 EXTERNAL SOURCES:
   connectivity_plus:
-    :path: ".symlinks/plugins/connectivity_plus/ios"
+    :path: ".symlinks/plugins/connectivity_plus/darwin"
   file_selector_ios:
     :path: ".symlinks/plugins/file_selector_ios/ios"
   firebase_analytics:
@@ -224,7 +222,7 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/url_launcher_ios/ios"
 
 SPEC CHECKSUMS:
-  connectivity_plus: bf0076dd84a130856aa636df1c71ccaff908fa1d
+  connectivity_plus: ddd7f30999e1faaef5967c23d5b6d503d10434db
   file_selector_ios: f0670c1064a8c8450e38145d8043160105d0b97c
   Firebase: 5121c624121af81cbc81df3bda414b3c28c4f3c3
   firebase_analytics: e51d02e2da883fd058f2a4f151f6a80acdfe67aa
@@ -250,7 +248,6 @@ SPEC CHECKSUMS:
   PromisesSwift: 9d77319bbe72ebf6d872900551f7eeba9bce2851
   purchases_flutter: 42d5544e7730ea89a88cc2f008b7c700fd147052
   PurchasesHybridCommon: 4022d5944cb30ec44ba5159e42aa161fe0e30175
-  ReachabilitySwift: 7f151ff156cea1481a8411701195ac6a984f4979
   RevenueCat: 3d934653b7e8b09af88fd47e9e84cfaf5d0a89ba
   share_plus: 8875f4f2500512ea181eef553c3e27dba5135aad
   sqflite: 673a0e54cc04b7d6dba8d24fb8095b31c3a99eec

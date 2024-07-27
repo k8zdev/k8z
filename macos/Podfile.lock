@@ -1,7 +1,7 @@
 PODS:
   - connectivity_plus (0.0.1):
+    - Flutter
     - FlutterMacOS
-    - ReachabilitySwift
   - file_selector_macos (0.0.1):
     - FlutterMacOS
   - Firebase/Analytics (10.28.0):
@@ -149,7 +149,6 @@ PODS:
     - PurchasesHybridCommon (= 11.1.0)
   - PurchasesHybridCommon (11.1.0):
     - RevenueCat (= 4.43.2)
-  - ReachabilitySwift (5.2.3)
   - RevenueCat (4.43.2)
   - screen_retriever (0.0.1):
     - FlutterMacOS
@@ -164,7 +163,7 @@ PODS:
     - FlutterMacOS
 
 DEPENDENCIES:
-  - connectivity_plus (from `Flutter/ephemeral/.symlinks/plugins/connectivity_plus/macos`)
+  - connectivity_plus (from `Flutter/ephemeral/.symlinks/plugins/connectivity_plus/darwin`)
   - file_selector_macos (from `Flutter/ephemeral/.symlinks/plugins/file_selector_macos/macos`)
   - firebase_analytics (from `Flutter/ephemeral/.symlinks/plugins/firebase_analytics/macos`)
   - firebase_core (from `Flutter/ephemeral/.symlinks/plugins/firebase_core/macos`)
@@ -198,12 +197,11 @@ SPEC REPOS:
     - PromisesObjC
     - PromisesSwift
     - PurchasesHybridCommon
-    - ReachabilitySwift
     - RevenueCat
 
 EXTERNAL SOURCES:
   connectivity_plus:
-    :path: Flutter/ephemeral/.symlinks/plugins/connectivity_plus/macos
+    :path: Flutter/ephemeral/.symlinks/plugins/connectivity_plus/darwin
   file_selector_macos:
     :path: Flutter/ephemeral/.symlinks/plugins/file_selector_macos/macos
   firebase_analytics:
@@ -234,7 +232,7 @@ EXTERNAL SOURCES:
     :path: Flutter/ephemeral/.symlinks/plugins/window_manager/macos
 
 SPEC CHECKSUMS:
-  connectivity_plus: 18d3c32514c886e046de60e9c13895109866c747
+  connectivity_plus: ddd7f30999e1faaef5967c23d5b6d503d10434db
   file_selector_macos: 54fdab7caa3ac3fc43c9fac4d7d8d231277f8cf2
   Firebase: 5121c624121af81cbc81df3bda414b3c28c4f3c3
   firebase_analytics: bd792d1d314ce82055d210db3059cb336fc327bc
@@ -260,7 +258,6 @@ SPEC CHECKSUMS:
   PromisesSwift: 9d77319bbe72ebf6d872900551f7eeba9bce2851
   purchases_flutter: 3407100959d2aeb636507b2c98970d850dae57ae
   PurchasesHybridCommon: 4022d5944cb30ec44ba5159e42aa161fe0e30175
-  ReachabilitySwift: 7f151ff156cea1481a8411701195ac6a984f4979
   RevenueCat: 3d934653b7e8b09af88fd47e9e84cfaf5d0a89ba
   screen_retriever: 59634572a57080243dd1bf715e55b6c54f241a38
   share_plus: 36537c04ce0c3e3f5bd297ce4318b6d5ee5fd6cf
