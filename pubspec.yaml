@@ -55,7 +55,7 @@ dependencies:
   code_editor:
     git:
       url: https://github.com/kofj/code_editor
-      ref: dev/show_toolbar_option
+      tag: v2.1.0-kofj-1
   file_selector: ^1.0.2
   path_provider: ^2.1.2
   flutter_multi_select_items: ^0.4.2

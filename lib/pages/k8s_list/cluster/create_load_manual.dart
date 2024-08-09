@@ -20,14 +20,12 @@ class ManualLoadSubPage extends StatefulWidget {
 
 class _ManualLoadSubPageState extends State<ManualLoadSubPage> {
   String _initDir = "";
-  String _config = '''
-apiVersion: v1,
-clusters: [],
-contexts: []
-''';
+  String _config = "";
+  var buttonsHeight = 200;
+  // var model = EditorModel(files: [FileEditor(name: "kubeconfig")]);
   // Map _clusters = <String, KubeConfig>{};
 
-  loadFileOnPressed() async {
+  loadFileOnPressed(appbar, lang) async {
     if (Platform.isMacOS) {
       var downloadDir = await getDownloadsDirectory();
       _initDir = downloadDir!.path.replaceAll("Downloads", "./.kube/");
@@ -120,7 +118,10 @@ contexts: []
         SizedBox(
           height: 50,
           child: TextButton.icon(
-            onPressed: loadFileOnPressed,
+            onPressed: () async {
+              await loadFileOnPressed(appbar, lang);
+              setState(() {});
+            },
             label: Text(lang.load_file),
             icon: const Icon(Icons.file_copy_outlined),
           ),
@@ -137,7 +138,6 @@ contexts: []
         const Divider(indent: 10),
       ],
     );
-    var buttonsHeight = 200;
 
     return Scaffold(
       appBar: appbar,
@@ -150,7 +150,6 @@ contexts: []
                   name: "kubeconfig",
                   language: "yaml",
                   code: _config,
-                  readonly: false,
                 )
               ],
               styleOptions: EditorModelStyleOptions(
@@ -161,6 +160,14 @@ contexts: []
               ),
             ),
             formatters: const ["yaml"],
+            textModifier: (language, content) {
+              return content;
+            },
+            onSubmit: (language, value) {
+              setState(() {
+                _config = value;
+              });
+            },
           ),
 
           const Divider(height: 20, color: Colors.transparent),

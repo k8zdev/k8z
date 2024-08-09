@@ -93,8 +93,8 @@ packages:
     dependency: "direct main"
     description:
       path: "."
-      ref: "dev/show_toolbar_option"
-      resolved-ref: cb4b3279f76b7cca58e2f6930a123b60c62768ee
+      ref: main
+      resolved-ref: "22a971c67e118530693f4af756313c3dc1d71dd3"
       url: "https://github.com/kofj/code_editor"
     source: git
     version: "2.1.0"
