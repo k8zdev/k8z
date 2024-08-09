@@ -1,5 +1,15 @@
 # CHANGELOG
 
+## v1.4.0
+1. bug fix:
+	1. fix: daemonsets should not has scale action.
+
+2. Iterative upgrade:
+	1. implement ReplicaSets page and route, internationalization.
+	2. hidden init containers image pull secrets, container ID, image ID if it is null.
+	3. refactor pod detail section tiles, reuse it for replica sets, daemon sets, deployments and stateful sets.
+	4. add ownerReferences info to metadata section of detail page; add modal window to show ownerReferences detail.
+
 ## v1.3.0
 1. add more Actions type for details page: logs and terminal, show creation time on the detail page.
 2. add logs, terminal action button to pod detail to show logs and terminal modal.
