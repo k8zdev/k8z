@@ -93,7 +93,7 @@ packages:
     dependency: "direct main"
     description:
       path: "."
-      ref: main
+      ref: "v2.1.0-kofj-1"
       resolved-ref: "22a971c67e118530693f4af756313c3dc1d71dd3"
       url: "https://github.com/kofj/code_editor"
     source: git
