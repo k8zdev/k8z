@@ -21,9 +21,8 @@ class ManualLoadSubPage extends StatefulWidget {
 class _ManualLoadSubPageState extends State<ManualLoadSubPage> {
   String _initDir = "";
   String _config = "";
-  var buttonsHeight = 200;
-  // var model = EditorModel(files: [FileEditor(name: "kubeconfig")]);
-  // Map _clusters = <String, KubeConfig>{};
+  final buttonsHeight = 200;
+  final _model = EditorModel(files: [FileEditor(name: "kubeconfig")]);
 
   loadFileOnPressed(appbar, lang) async {
     if (Platform.isMacOS) {
@@ -120,7 +119,6 @@ class _ManualLoadSubPageState extends State<ManualLoadSubPage> {
           child: TextButton.icon(
             onPressed: () async {
               await loadFileOnPressed(appbar, lang);
-              setState(() {});
             },
             label: Text(lang.load_file),
             icon: const Icon(Icons.file_copy_outlined),
@@ -138,42 +136,42 @@ class _ManualLoadSubPageState extends State<ManualLoadSubPage> {
         const Divider(indent: 10),
       ],
     );
+    _model.styleOptions = EditorModelStyleOptions(
+      showToolbar: false,
+      editButtonName: lang.edit,
+      placeCursorAtTheEndOnEdit: false,
+      heightOfContainer: availableHeight(
+          context, appbar.preferredSize.height + buttonsHeight + 20),
+    );
+    _model.allFiles = [
+      FileEditor(
+        name: "kubeconfig",
+        language: "yaml",
+        code: _config,
+        // readonly: false,
+      )
+    ];
 
     return Scaffold(
       appBar: appbar,
-      body: Column(
-        children: [
-          CodeEditor(
-            model: EditorModel(
-              files: [
-                FileEditor(
-                  name: "kubeconfig",
-                  language: "yaml",
-                  code: _config,
-                )
-              ],
-              styleOptions: EditorModelStyleOptions(
-                showToolbar: false,
-                editButtonName: lang.edit,
-                heightOfContainer: availableHeight(
-                    context, appbar.preferredSize.height + buttonsHeight + 20),
-              ),
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            CodeEditor(
+              model: _model,
+              formatters: const ["yaml"],
+              onSubmit: (language, value) {
+                setState(() {
+                  _config = value;
+                });
+              },
             ),
-            formatters: const ["yaml"],
-            textModifier: (language, content) {
-              return content;
-            },
-            onSubmit: (language, value) {
-              setState(() {
-                _config = value;
-              });
-            },
-          ),
 
-          const Divider(height: 20, color: Colors.transparent),
-          // buttons
-          buttons,
-        ],
+            const Divider(height: 20, color: Colors.transparent),
+            // buttons
+            buttons,
+          ],
+        ),
       ),
     );
   }
