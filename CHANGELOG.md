@@ -1,7 +1,12 @@
 # CHANGELOG
 
+## v1.5.0
+1. Iterative upgrade and bug fix:
+   1. fix edit kubeconfig no effect.
+   2. add namespace, service, service accounts, endpoints subset detail.
+
 ## v1.4.0
-1. bug fix:
+1. Bug fix:
 	1. fix: daemonsets should not has scale action.
 
 2. Iterative upgrade:
