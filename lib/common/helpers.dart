@@ -11,8 +11,13 @@ extension DarkMode on BuildContext {
 
 double availableHeight(BuildContext context, double offset) {
   // 获取设备可用空间的高度
-  final deviceHeight = MediaQuery.of(context).size.height;
-  var height = deviceHeight - offset;
+  // 获取设备的物理尺寸
+  final Size physicalScreenSize = View.of(context).physicalSize;
+  // 获取设备的设备像素比率
+  final double devicePixelRatio = View.of(context).devicePixelRatio;
+  // 将物理尺寸转换为逻辑尺寸
+  final Size logicalScreenSize = physicalScreenSize / devicePixelRatio;
+  var height = logicalScreenSize.height - offset;
   return height;
 }
 

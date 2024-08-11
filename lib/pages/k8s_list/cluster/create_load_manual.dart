@@ -21,8 +21,18 @@ class ManualLoadSubPage extends StatefulWidget {
 class _ManualLoadSubPageState extends State<ManualLoadSubPage> {
   String _initDir = "";
   String _config = "";
+  double offset = 0;
+  AppBar appbar = AppBar();
   final buttonsHeight = 200;
+  double heightOfContainer = 300;
   final _model = EditorModel(files: [FileEditor(name: "kubeconfig")]);
+
+  @override
+  void initState() {
+    super.initState();
+    appbar = AppBar(title: Text(S.current.load_file));
+    offset = appbar.preferredSize.height + buttonsHeight + 20;
+  }
 
   loadFileOnPressed(appbar, lang) async {
     if (Platform.isMacOS) {
@@ -109,7 +119,6 @@ class _ManualLoadSubPageState extends State<ManualLoadSubPage> {
   @override
   Widget build(BuildContext context) {
     var lang = S.of(context);
-    var appbar = AppBar(title: Text(lang.load_file));
 
     var buttons = Row(
       mainAxisAlignment: MainAxisAlignment.end,
@@ -140,15 +149,14 @@ class _ManualLoadSubPageState extends State<ManualLoadSubPage> {
       showToolbar: false,
       editButtonName: lang.edit,
       placeCursorAtTheEndOnEdit: false,
-      heightOfContainer: availableHeight(
-          context, appbar.preferredSize.height + buttonsHeight + 20),
+      heightOfContainer: availableHeight(context, offset),
     );
     _model.allFiles = [
       FileEditor(
         name: "kubeconfig",
         language: "yaml",
         code: _config,
-        // readonly: false,
+        readonly: false,
       )
     ];
 
