@@ -42,7 +42,7 @@ dependencies:
   settings_ui: ^2.0.2
   intl: ^0.19.0
   provider: ^6.1.1
-  window_manager: ^0.3.8
+  window_manager: ^0.4.2
   talker_flutter: ^4.0.0
   sqflite: ^2.3.2
   stash: ^5.1.0
@@ -60,15 +60,15 @@ dependencies:
   path_provider: ^2.1.2
   flutter_multi_select_items: ^0.4.2
   material_dialogs: ^1.1.4
-  ffi: ^2.0.1
+  ffi: ^2.1.3
   collection: ^1.18.0
   icons_plus: ^5.0.0
   geekyants_flutter_gauges: ^1.0.3
-  firebase_core: ^3.2.0
-  firebase_crashlytics: ^4.0.3
-  firebase_analytics: ^11.2.0
+  firebase_core: ^3.5.0
+  firebase_crashlytics: ^4.1.2
+  firebase_analytics: ^11.3.2
   archive: ^3.4.10
-  purchases_flutter: ^6.21.1
+  purchases_flutter: ^8.1.2
   url_launcher: ^6.2.5
   flutter_slidable: ^3.0.1
   xterm: ^4.0.0
@@ -76,7 +76,7 @@ dependencies:
   chinese_font_library: ^1.1.0
   http: ^1.2.0
   simple_tags: ^0.0.6
-  auto_hyphenating_text: ^0.2.0
+  auto_hyphenating_text: ^0.3.0
   json2yaml: ^3.0.1
   numberpicker: ^2.1.2
   in_app_review: ^2.0.9
@@ -97,7 +97,7 @@ dev_dependencies:
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
   flutter_lints: ^4.0.0
-  icons_launcher: ^2.1.7
+  icons_launcher: ^3.0.0
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
