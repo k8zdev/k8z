@@ -24,7 +24,7 @@ class _ChoiceClustersSubPageState extends State<ChoiceClustersSubPage> {
     return Container(
       width: screenWith - 36,
       padding: defaultEdge,
-      child: ButtonBar(
+      child: OverflowBar(
         alignment: MainAxisAlignment.center,
         children: [const Icon(Icons.computer), Text(config.name)],
       ),

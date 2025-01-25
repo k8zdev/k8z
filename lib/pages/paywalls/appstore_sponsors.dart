@@ -174,6 +174,7 @@ class _AppStorePaywallState extends State<AppStorePaywall> {
                   buttonText: lang.ok,
                 ),
               ).then((value) {
+                // ignore: use_build_context_synchronously
                 context.pop(2);
               });
             } on PlatformException catch (err) {

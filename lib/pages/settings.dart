@@ -70,10 +70,11 @@ class _SettingsPageState extends State<SettingsPage> {
       ),
       onPressed: (context) {
         Dialogs.materialDialog(
-            context: context,
-            title: lang.debug_flushdb,
-            msg: lang.debug_flushdb_desc,
-            actions: [
+          context: context,
+          title: lang.debug_flushdb,
+          msg: lang.debug_flushdb_desc,
+          actionsBuilder: (context) {
+            return [
               IconsOutlineButton(
                 onPressed: () {
                   context.pop();
@@ -106,7 +107,9 @@ class _SettingsPageState extends State<SettingsPage> {
                   );
                 },
               ),
-            ]);
+            ];
+          },
+        );
       },
     );
   }
