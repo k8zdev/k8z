@@ -67,10 +67,10 @@ dependencies:
   firebase_core: ^3.5.0
   firebase_crashlytics: ^4.1.2
   firebase_analytics: ^11.3.2
-  archive: ^3.4.10
-  purchases_flutter: ^8.1.2
+  archive: ^4.0.2
+  purchases_flutter: ^8.4.4
   url_launcher: ^6.2.5
-  flutter_slidable: ^3.0.1
+  flutter_slidable: ^4.0.0
   xterm: ^4.0.0
   web_socket_channel: ^3.0.1
   chinese_font_library: ^1.1.0
@@ -96,7 +96,7 @@ dev_dependencies:
   # activated in the `analysis_options.yaml` file located at the root of your
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
-  flutter_lints: ^4.0.0
+  flutter_lints: ^5.0.0
   icons_launcher: ^3.0.0
 
 # For information on the generic Dart part of this file, see the
