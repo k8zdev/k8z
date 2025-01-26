@@ -27,19 +27,20 @@ List<AbstractSettingsTile> buildPodDetailSectionTiels(
   // initContainers
   if (spec.initContainers.isNotEmpty) {
     tiles.add(
-      contianersTile(
+      contianersTile<IoK8sApiCoreV1Container>(
         lang,
         lang.initContainers,
         langCode,
         spec.initContainers,
         status,
+        isInitContainers: true,
       ),
     );
   }
 
   // containers
   tiles.add(
-    contianersTile(
+    contianersTile<IoK8sApiCoreV1Container>(
       lang,
       lang.containers,
       langCode,
@@ -47,6 +48,19 @@ List<AbstractSettingsTile> buildPodDetailSectionTiels(
       status,
     ),
   );
+
+  // Ephemeral Containers
+  if (spec.ephemeralContainers.isNotEmpty) {
+    tiles.add(
+      contianersTile<IoK8sApiCoreV1EphemeralContainer>(
+        lang,
+        lang.ephemeral_containers,
+        langCode,
+        spec.ephemeralContainers,
+        status,
+      ),
+    );
+  }
 
   // dnsPolicy
   tiles.add(
@@ -120,18 +134,35 @@ List<AbstractSettingsTile> buildPodDetailSectionTiels(
   return tiles;
 }
 
-SettingsTile contianersTile(
+SettingsTile contianersTile<T>(
   S lang,
   String name,
   String langCode,
-  List<IoK8sApiCoreV1Container> containers,
-  IoK8sApiCoreV1PodStatus? status,
-) {
-  Map<String, IoK8sApiCoreV1ContainerStatus> containerStatuses = {};
-  status?.containerStatuses.forEachIndexed((index, element) {
-    containerStatuses
-        .addAll(<String, IoK8sApiCoreV1ContainerStatus>{element.name: element});
-  });
+  List<T> containers,
+  IoK8sApiCoreV1PodStatus? status, {
+  bool? isInitContainers,
+}) {
+  assert(containers is List<IoK8sApiCoreV1Container> ||
+      containers is List<IoK8sApiCoreV1EphemeralContainer>);
+
+  Map<String, IoK8sApiCoreV1ContainerStatus> statuses = {};
+  if (isInitContainers == true) {
+    status?.initContainerStatuses.forEachIndexed((index, element) {
+      statuses.addAll(
+          <String, IoK8sApiCoreV1ContainerStatus>{element.name: element});
+    });
+  } else if (T == IoK8sApiCoreV1EphemeralContainer) {
+    status?.ephemeralContainerStatuses.forEachIndexed((index, element) {
+      statuses.addAll(
+          <String, IoK8sApiCoreV1ContainerStatus>{element.name: element});
+    });
+  } else {
+    status?.containerStatuses.forEachIndexed((index, element) {
+      statuses.addAll(
+          <String, IoK8sApiCoreV1ContainerStatus>{element.name: element});
+    });
+  }
+
   return SettingsTile.navigation(
     title: const Text(""),
     leading: leadingText(name, langCode),
@@ -141,17 +172,28 @@ SettingsTile contianersTile(
         : (context) {
             List<AbstractSettingsSection> podsSections = [];
 
-            containers.forEach(
+            containers.cast().forEach(
               (container) {
                 List<AbstractSettingsTile> podTiles = [];
-                if (containerStatuses[container.name]?.containerID != null) {
+                if (container is! IoK8sApiCoreV1Container &&
+                    container is! IoK8sApiCoreV1EphemeralContainer) {
                   podTiles.add(
                     copyTileValue(
-                        lang.container_id,
-                        containerStatuses[container.name]?.containerID ?? "",
-                        langCode),
+                      lang.error,
+                      "container is not IoK8sApiCoreV1Container or IoK8sApiCoreV1EphemeralContainer",
+                      langCode,
+                    ),
                   );
+                  return;
                 }
+
+                var state = statuses[container.name]?.state;
+                var cid = statuses[container.name]?.containerID;
+                var imageID = statuses[container.name]?.imageID;
+
+                podTiles.add(
+                  copyTileValue(lang.container_id, cid ?? "", langCode),
+                );
 
                 // image
                 podTiles.add(
@@ -161,14 +203,10 @@ SettingsTile contianersTile(
                     langCode,
                   ),
                 );
-                if (containerStatuses[container.name]?.imageID != null) {
-                  podTiles.add(
-                    copyTileValue(
-                        lang.image_id,
-                        containerStatuses[container.name]?.imageID ?? "",
-                        langCode),
-                  );
-                }
+                podTiles.add(
+                  copyTileValue(lang.image_id, imageID ?? "", langCode),
+                );
+
                 // imagePullPolicy
                 podTiles.add(
                   copyTileValue(
@@ -202,6 +240,8 @@ SettingsTile contianersTile(
                     copyTileYaml(lang.ports, container.ports, langCode),
                   );
                 }
+
+                podTiles.add(copyTileYaml(lang.status, state, langCode));
 
                 // livenessProbe
                 if (container.livenessProbe != null) {

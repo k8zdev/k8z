@@ -462,6 +462,8 @@
   "@logs": {},
   "container": "Container",
   "@container": {},
+  "ephemeral_containers": "Ephemeral Containers",
+  "@ephemeral_containers": {},
   "get_terminal": "Get Terminal",
   "@get_terminal": {},
   "terminals_opened": "{number} terminals opened",

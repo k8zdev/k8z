@@ -10,7 +10,7 @@ import 'intl/messages_all.dart';
 
 // ignore_for_file: non_constant_identifier_names, lines_longer_than_80_chars
 // ignore_for_file: join_return_with_assignment, prefer_final_in_for_each
-// ignore_for_file: avoid_redundant_argument_values, avoid_escaping_inner_quotes
+// ignore_for_file: avoid_redundant_argument_values
 
 class S {
   S();
@@ -18,31 +18,28 @@ class S {
   static S? _current;
 
   static S get current {
-    assert(_current != null,
-        'No instance of S was loaded. Try to initialize the S delegate before accessing S.current.');
+    assert(_current != null, 'No instance of S was loaded. Try to initialize the S delegate before accessing S.current.');
     return _current!;
   }
 
-  static const AppLocalizationDelegate delegate = AppLocalizationDelegate();
+  static const AppLocalizationDelegate delegate =
+    AppLocalizationDelegate();
 
   static Future<S> load(Locale locale) {
-    final name = (locale.countryCode?.isEmpty ?? false)
-        ? locale.languageCode
-        : locale.toString();
-    final localeName = Intl.canonicalizedLocale(name);
+    final name = (locale.countryCode?.isEmpty ?? false) ? locale.languageCode : locale.toString();
+    final localeName = Intl.canonicalizedLocale(name); 
     return initializeMessages(localeName).then((_) {
       Intl.defaultLocale = localeName;
       final instance = S();
       S._current = instance;
-
+ 
       return instance;
     });
-  }
+  } 
 
   static S of(BuildContext context) {
     final instance = S.maybeOf(context);
-    assert(instance != null,
-        'No instance of S present in the widget tree. Did you add S.delegate in localizationsDelegates?');
+    assert(instance != null, 'No instance of S present in the widget tree. Did you add S.delegate in localizationsDelegates?');
     return instance!;
   }
 
@@ -661,7 +658,7 @@ class S {
   }
 
   /// `last {n} warnings`
-  String last_warning_events(num n) {
+  String last_warning_events(Object n) {
     return Intl.message(
       'last $n warnings',
       name: 'last_warning_events',
@@ -671,99 +668,89 @@ class S {
   }
 
   /// `{namespace} / {name}\n\nType: {type}\nReason: {reason}\nObject: {kind}/{objName}\nLast Seen: {lastTimestamp}\n\nMessage: {message}\n`
-  String event_text(String namespace, String name, String type, String reason,
-      String kind, String objName, String lastTimestamp, String message) {
+  String event_text(Object namespace, Object name, Object type, Object reason, Object kind, Object objName, Object lastTimestamp, Object message) {
     return Intl.message(
       '$namespace / $name\n\nType: $type\nReason: $reason\nObject: $kind/$objName\nLast Seen: $lastTimestamp\n\nMessage: $message\n',
       name: 'event_text',
       desc: '',
-      args: [
-        namespace,
-        name,
-        type,
-        reason,
-        kind,
-        objName,
-        lastTimestamp,
-        message
-      ],
+      args: [namespace, name, type, reason, kind, objName, lastTimestamp, message],
     );
   }
 
-  /// `Roles:\t\t {arg}`
+  /// `Roles:		 {arg}`
   String node_roles(Object arg) {
     return Intl.message(
-      'Roles:\t\t $arg',
+      'Roles:		 $arg',
       name: 'node_roles',
       desc: '',
       args: [arg],
     );
   }
 
-  /// `Architecture\t\t: {arg}`
+  /// `Architecture		: {arg}`
   String node_arch(Object arg) {
     return Intl.message(
-      'Architecture\t\t: $arg',
+      'Architecture		: $arg',
       name: 'node_arch',
       desc: '',
       args: [arg],
     );
   }
 
-  /// `Version:\t\t {arg}`
+  /// `Version:		 {arg}`
   String node_version(Object arg) {
     return Intl.message(
-      'Version:\t\t $arg',
+      'Version:		 $arg',
       name: 'node_version',
       desc: '',
       args: [arg],
     );
   }
 
-  /// `Kernel:\t\t {arg}`
+  /// `Kernel:		 {arg}`
   String node_os_image(Object arg) {
     return Intl.message(
-      'Kernel:\t\t $arg',
+      'Kernel:		 $arg',
       name: 'node_os_image',
       desc: '',
       args: [arg],
     );
   }
 
-  /// `Kernel:\t\t {os}/{arg}`
+  /// `Kernel:		 {os}/{arg}`
   String node_kernel(Object os, Object arg) {
     return Intl.message(
-      'Kernel:\t\t $os/$arg',
+      'Kernel:		 $os/$arg',
       name: 'node_kernel',
       desc: '',
       args: [os, arg],
     );
   }
 
-  /// `Internal-IP:\t\t {arg}`
+  /// `Internal-IP:		 {arg}`
   String internel_ip(Object arg) {
     return Intl.message(
-      'Internal-IP:\t\t $arg',
+      'Internal-IP:		 $arg',
       name: 'internel_ip',
       desc: '',
       args: [arg],
     );
   }
 
-  /// `External-IP:\t\t {arg}`
+  /// `External-IP:		 {arg}`
   String external_ip(Object arg) {
     return Intl.message(
-      'External-IP:\t\t $arg',
+      'External-IP:		 $arg',
       name: 'external_ip',
       desc: '',
       args: [arg],
     );
   }
 
-  /// `Runtime:\t\t {arg}`
+  /// `Runtime:		 {arg}`
   String container_runtime(Object arg) {
     return Intl.message(
-      'Runtime:\t\t $arg',
+      'Runtime:		 $arg',
       name: 'container_runtime',
       desc: '',
       args: [arg],
@@ -861,8 +848,7 @@ class S {
   }
 
   /// `{name}\n\nNamespace: {namespace}\nReady: {ready}\nStatus: {status}\nRestarts: {restarts}\nContainers: {containers}\nCPU: {cpu}\nMemory: {memory}`
-  String pod_text(Object name, Object namespace, Object ready, Object status,
-      Object restarts, Object containers, Object cpu, Object memory) {
+  String pod_text(Object name, Object namespace, Object ready, Object status, Object restarts, Object containers, Object cpu, Object memory) {
     return Intl.message(
       '$name\n\nNamespace: $namespace\nReady: $ready\nStatus: $status\nRestarts: $restarts\nContainers: $containers\nCPU: $cpu\nMemory: $memory',
       name: 'pod_text',
@@ -922,8 +908,7 @@ class S {
   }
 
   /// `{name}\nNamespace: {ns}\nReady: {ready}\nUp to date: {upToDate}\nAvailable: {available}`
-  String deployment_text(
-      Object name, Object ns, Object ready, Object upToDate, Object available) {
+  String deployment_text(Object name, Object ns, Object ready, Object upToDate, Object available) {
     return Intl.message(
       '$name\nNamespace: $ns\nReady: $ready\nUp to date: $upToDate\nAvailable: $available',
       name: 'deployment_text',
@@ -933,8 +918,7 @@ class S {
   }
 
   /// `{name}\nNamespace: {ns}\nReady: {ready}\nUp to date: {upToDate}\nAvailable: {available}\n`
-  String daemon_set_text(
-      Object name, Object ns, Object ready, Object upToDate, Object available) {
+  String daemon_set_text(Object name, Object ns, Object ready, Object upToDate, Object available) {
     return Intl.message(
       '$name\nNamespace: $ns\nReady: $ready\nUp to date: $upToDate\nAvailable: $available\n',
       name: 'daemon_set_text',
@@ -944,8 +928,7 @@ class S {
   }
 
   /// `{name}\nNamespace: {ns}\nReady: {ready}\nUp to date: {upToDate}\nAvailable: {available}\n`
-  String stateful_set_text(
-      Object name, Object ns, Object ready, Object upToDate, Object available) {
+  String stateful_set_text(Object name, Object ns, Object ready, Object upToDate, Object available) {
     return Intl.message(
       '$name\nNamespace: $ns\nReady: $ready\nUp to date: $upToDate\nAvailable: $available\n',
       name: 'stateful_set_text',
@@ -955,8 +938,7 @@ class S {
   }
 
   /// `{name}\nNamespace: {ns}\nClass: {className}\nHosts: {hosts}\nAddress: {address}\nPorts: {ports}`
-  String ingress_text(Object name, Object ns, Object className, Object hosts,
-      Object address, Object ports) {
+  String ingress_text(Object name, Object ns, Object className, Object hosts, Object address, Object ports) {
     return Intl.message(
       '$name\nNamespace: $ns\nClass: $className\nHosts: $hosts\nAddress: $address\nPorts: $ports',
       name: 'ingress_text',
@@ -966,8 +948,7 @@ class S {
   }
 
   /// `{name}\nNamespace: {ns}\nType: {type}\nCluster IP: {clusterIP}\nExternal IP: {externalIP}\nPorts: {ports}`
-  String service_text(Object name, Object ns, Object type, Object clusterIP,
-      Object externalIP, Object ports) {
+  String service_text(Object name, Object ns, Object type, Object clusterIP, Object externalIP, Object ports) {
     return Intl.message(
       '$name\nNamespace: $ns\nType: $type\nCluster IP: $clusterIP\nExternal IP: $externalIP\nPorts: $ports',
       name: 'service_text',
@@ -1017,58 +998,27 @@ class S {
   }
 
   /// `{name}\nProvisioner: {provisioner}\nReclaim Policy: {reclaimPolicy}\nVolume Binding Mode: {volumeBindingMode}\nAllow Volume Expansion: {allowVolumeExpansion}\nMountOptions: {mountOptions}`
-  String storage_class_text(
-      Object name,
-      Object provisioner,
-      Object reclaimPolicy,
-      Object mountOptions,
-      Object volumeBindingMode,
-      Object allowVolumeExpansion) {
+  String storage_class_text(Object name, Object provisioner, Object reclaimPolicy, Object mountOptions, Object volumeBindingMode, Object allowVolumeExpansion) {
     return Intl.message(
       '$name\nProvisioner: $provisioner\nReclaim Policy: $reclaimPolicy\nVolume Binding Mode: $volumeBindingMode\nAllow Volume Expansion: $allowVolumeExpansion\nMountOptions: $mountOptions',
       name: 'storage_class_text',
       desc: '',
-      args: [
-        name,
-        provisioner,
-        reclaimPolicy,
-        mountOptions,
-        volumeBindingMode,
-        allowVolumeExpansion
-      ],
+      args: [name, provisioner, reclaimPolicy, mountOptions, volumeBindingMode, allowVolumeExpansion],
     );
   }
 
   /// `{name}\nCapacity: {capacity}\nAccess Modes: {accessModes}\nReclaim Policy: {reclaimPolicy}\nStatus: {status}\nClaim: {claim}\nStorage Class: {storageClass}\nReason: {reason}\n`
-  String pv_text(
-      Object name,
-      Object capacity,
-      Object accessModes,
-      Object reclaimPolicy,
-      Object status,
-      Object claim,
-      Object storageClass,
-      Object reason) {
+  String pv_text(Object name, Object capacity, Object accessModes, Object reclaimPolicy, Object status, Object claim, Object storageClass, Object reason) {
     return Intl.message(
       '$name\nCapacity: $capacity\nAccess Modes: $accessModes\nReclaim Policy: $reclaimPolicy\nStatus: $status\nClaim: $claim\nStorage Class: $storageClass\nReason: $reason\n',
       name: 'pv_text',
       desc: '',
-      args: [
-        name,
-        capacity,
-        accessModes,
-        reclaimPolicy,
-        status,
-        claim,
-        storageClass,
-        reason
-      ],
+      args: [name, capacity, accessModes, reclaimPolicy, status, claim, storageClass, reason],
     );
   }
 
   /// `{name}\nNamespace: {ns}\nStatus: {status}\nVolume: {volume}\nCapacity: {capacity}\nAccess Modes: {accessModes}\nStorage Class: {storageClass}`
-  String pvc_text(Object name, Object ns, Object status, Object volume,
-      Object capacity, Object accessModes, Object storageClass) {
+  String pvc_text(Object name, Object ns, Object status, Object volume, Object capacity, Object accessModes, Object storageClass) {
     return Intl.message(
       '$name\nNamespace: $ns\nStatus: $status\nVolume: $volume\nCapacity: $capacity\nAccess Modes: $accessModes\nStorage Class: $storageClass',
       name: 'pvc_text',
@@ -1108,8 +1058,7 @@ class S {
   }
 
   /// `{name}\nNamespace: {ns}\nRevision: {revision}\nApp Version: {appVer}\nUpdated: {updated}\nStatus: {status}\nChart: {chart}`
-  String release_text(Object name, Object ns, Object revision, Object appVer,
-      Object updated, Object status, Object chart) {
+  String release_text(Object name, Object ns, Object revision, Object appVer, Object updated, Object status, Object chart) {
     return Intl.message(
       '$name\nNamespace: $ns\nRevision: $revision\nApp Version: $appVer\nUpdated: $updated\nStatus: $status\nChart: $chart',
       name: 'release_text',
@@ -1288,6 +1237,16 @@ class S {
     );
   }
 
+  /// `Ephemeral Containers`
+  String get ephemeral_containers {
+    return Intl.message(
+      'Ephemeral Containers',
+      name: 'ephemeral_containers',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Get Terminal`
   String get get_terminal {
     return Intl.message(
@@ -1339,7 +1298,7 @@ class S {
   }
 
   /// `{n} s`
-  String n_seconds(num n) {
+  String n_seconds(Object n) {
     return Intl.message(
       '$n s',
       name: 'n_seconds',
@@ -1348,10 +1307,10 @@ class S {
     );
   }
 
-  /// `\t\tduration: {duration}`
+  /// `		duration: {duration}`
   String api_request_duration(Object duration) {
     return Intl.message(
-      '\t\tduration: $duration',
+      '		duration: $duration',
       name: 'api_request_duration',
       desc: '',
       args: [duration],
@@ -1789,8 +1748,7 @@ class S {
   }
 
   /// `{name}\nNamespace: {ns}\nCurrent: {current}\nReady: {ready}\nAvailable: {available}\n`
-  String replicasets_text(
-      Object name, Object ns, Object current, Object ready, Object available) {
+  String replicasets_text(Object name, Object ns, Object current, Object ready, Object available) {
     return Intl.message(
       '$name\nNamespace: $ns\nCurrent: $current\nReady: $ready\nAvailable: $available\n',
       name: 'replicasets_text',

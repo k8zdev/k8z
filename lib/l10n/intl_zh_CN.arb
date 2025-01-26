@@ -462,6 +462,8 @@
   "@logs": {},
   "container": "容器",
   "@container": {},
+  "ephemeral_containers": "临时容器",
+  "@ephemeral_containers": {},
   "get_terminal": "获取终端",
   "@get_terminal": {},
   "terminals_opened": "已打开 {number} 个终端",
