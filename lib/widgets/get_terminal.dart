@@ -16,6 +16,8 @@ class GetTerminal extends StatefulWidget {
   final String namespace;
   final List<String> containers;
   final K8zCluster cluster;
+  final bool debug;
+  final List<String> ephemeralCmd;
 
   const GetTerminal({
     super.key,
@@ -23,6 +25,8 @@ class GetTerminal extends StatefulWidget {
     required this.namespace,
     required this.containers,
     required this.cluster,
+    this.debug = false,
+    this.ephemeralCmd = const ["sleep", "604800"], // 7 days
   });
 
   @override
@@ -33,12 +37,18 @@ class _GetTerminalState extends State<GetTerminal> {
   String _container = '';
   String _shell = 'zsh';
   bool _loading = false;
+  String _image = "busybox";
   final _terminalFormKey = GlobalKey<FormState>();
 
   @override
   void initState() {
     super.initState();
     _container = widget.containers[0];
+    if (widget.debug) {
+      _shell = 'sh';
+      _image = "alpine:3.14.2";
+      _container = 'k8z-debug-${sid()}';
+    }
   }
 
   Future<void> _getTerminal(BuildContext context) async {
@@ -58,7 +68,7 @@ class _GetTerminalState extends State<GetTerminal> {
       }
 
       final socket = IOWebSocketChannel.connect(
-        "ws://127.0.0.1:29257/shell?name=${widget.name}&namespace=${widget.namespace}&container=$_container&shell=$_shell",
+        "ws://127.0.0.1:29257/shell?name=${widget.name}&namespace=${widget.namespace}&container=$_container&shell=$_shell&debug=${widget.debug}",
         headers: <String, dynamic>{
           'X-CONTEXT-NAME': widget.cluster.name,
           'X-CLUSTER-SERVER': widget.cluster.server,
@@ -71,6 +81,8 @@ class _GetTerminalState extends State<GetTerminal> {
           'X-USER-PASSWORD': widget.cluster.password,
           'X-PROXY': "",
           'X-TIMEOUT': 3,
+          'X-IMAGE': _image,
+          'X-EPHEMERAL-CMD': widget.ephemeralCmd,
         },
       );
 
@@ -106,15 +118,51 @@ class _GetTerminalState extends State<GetTerminal> {
 
   @override
   Widget build(BuildContext context) {
+    final lang = S.of(context);
     final items = widget.containers.map((value) {
       return DropdownMenuItem(
         value: value,
         child: Text(value),
       );
     }).toList();
-    talker.debug("containers: ${widget.containers}, len: ${items.length}");
+    talker.debug(
+        "containers: ${widget.containers}, len: ${items.length}, debug: ${widget.debug}");
 
-    var lang = S.of(context);
+    if (widget.debug) {
+      return Container(
+        margin: defaultEdge,
+        child: Form(
+          child: ListView(
+            shrinkWrap: false,
+            children: [
+              Center(
+                child: Text(
+                  lang.start_debug,
+                  overflow: TextOverflow.ellipsis,
+                ),
+              ),
+              Center(
+                child: Text(lang.start_debug_desc, style: smallTextStyle),
+              ),
+              const Divider(height: 10, color: Colors.transparent),
+              //
+              SizedBox(
+                child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Theme.of(context).primaryColor,
+                    foregroundColor: Colors.white,
+                    minimumSize: const Size.fromHeight(50),
+                  ),
+                  onPressed: _loading ? null : () => _getTerminal(context),
+                  child: Text(lang.get_terminal),
+                ),
+              ),
+            ],
+          ),
+        ),
+      );
+    }
+
     return Container(
       margin: defaultEdge,
       child: Form(

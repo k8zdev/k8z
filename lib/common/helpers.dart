@@ -1,5 +1,6 @@
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
+import 'package:shortid/shortid.dart';
 
 extension DarkMode on BuildContext {
   /// is dark mode currently enabled?
@@ -133,4 +134,11 @@ Future<void> logPurchase(
     parameters: parameters,
     callOptions: callOptions,
   );
+}
+
+const _shortidCharacters = '0123456789abcdefghijklmnopqrstuvwxyz';
+
+String sid() {
+  shortid.characters(_shortidCharacters);
+  return shortid.generate();
 }
