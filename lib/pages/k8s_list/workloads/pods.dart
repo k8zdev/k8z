@@ -187,6 +187,26 @@ class _PodsPageState extends State<PodsPage> {
                             onPressed: (context) {
                               showModal(
                                 context,
+                                GetTerminal(
+                                  name: metadata.name!,
+                                  namespace: ns,
+                                  containers: containers,
+                                  cluster: widget.cluster,
+                                  debug: true,
+                                ),
+                              );
+                            },
+                            backgroundColor: Colors.blue,
+                            foregroundColor: Colors.white,
+                            icon: Icons.bug_report,
+                            spacing: 8,
+                            label: lang.general_debug,
+                            padding: EdgeInsets.zero,
+                          ),
+                          SlidableAction(
+                            onPressed: (context) {
+                              showModal(
+                                context,
                                 GetLogstream(
                                   name: metadata.name!,
                                   namespace: ns,

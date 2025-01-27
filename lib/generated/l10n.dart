@@ -1227,6 +1227,26 @@ class S {
     );
   }
 
+  /// `Start debug`
+  String get start_debug {
+    return Intl.message(
+      'Start debug',
+      name: 'start_debug',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Start debug will create a new ephemeral container in the pod, and attach to it's stdin, stdout, and stderr.`
+  String get start_debug_desc {
+    return Intl.message(
+      'Start debug will create a new ephemeral container in the pod, and attach to it\'s stdin, stdout, and stderr.',
+      name: 'start_debug_desc',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Container`
   String get container {
     return Intl.message(

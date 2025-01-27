@@ -255,6 +255,8 @@ class MessageLookup extends MessageLookupByLibrary {
     "spec" : MessageLookupByLibrary.simpleMessage("Spec"),
     "sponsor_desc" : MessageLookupByLibrary.simpleMessage("赞助我以便于我可以继续开发维护这款应用程序。"),
     "sponsorme" : MessageLookupByLibrary.simpleMessage("赞助我"),
+    "start_debug" : MessageLookupByLibrary.simpleMessage("开始调试"),
+    "start_debug_desc" : MessageLookupByLibrary.simpleMessage("开始调试将会在 Pod 中创建一个临时容器, 并将 stdin, stdout, stderr 附加到它。"),
     "startupProbe" : MessageLookupByLibrary.simpleMessage("启动探针"),
     "stateful_set_text" : m33,
     "stateful_sets" : MessageLookupByLibrary.simpleMessage("StatefulSets"),
