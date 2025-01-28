@@ -7,6 +7,7 @@ import 'package:k8zdev/common/helpers.dart';
 import 'package:k8zdev/common/ops.dart';
 import 'package:k8zdev/common/resources/pods.dart';
 import 'package:k8zdev/common/styles.dart';
+import 'package:k8zdev/common/types.dart';
 import 'package:k8zdev/dao/kube.dart';
 import 'package:k8zdev/generated/l10n.dart';
 import 'package:k8zdev/models/models.dart';
@@ -192,7 +193,7 @@ class _PodsPageState extends State<PodsPage> {
                                   namespace: ns,
                                   containers: containers,
                                   cluster: widget.cluster,
-                                  debug: true,
+                                  shellType: ShellType.debug,
                                 ),
                               );
                             },
