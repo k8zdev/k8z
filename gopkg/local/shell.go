@@ -13,6 +13,8 @@ import (
 	"github.com/k8zdev/k8z/gopkg/k8z"
 	"github.com/k8zdev/k8z/gopkg/k8z/models"
 	"github.com/k8zdev/k8z/gopkg/terminal"
+	corev1 "k8s.io/api/core/v1"
+	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/types"
 	"k8s.io/client-go/kubernetes"
 	"k8s.io/client-go/rest"
@@ -56,6 +58,7 @@ func shell(ctx *gin.Context) {
 	var rawCmd = ctx.Request.Header.Get("x-start-cmd")
 	var startCmd = strings.Split(rawCmd, ", ")
 	var shellType = ctx.Request.Header.Get("x-shell-type")
+	var nodeName = ctx.Request.Header.Get("x-node-name")
 
 	// 1. create Ephemeral container
 	var k8zHeader = &K8zHeader{}
@@ -80,7 +83,10 @@ func shell(ctx *gin.Context) {
 			namespace, name, container, image, startCmd,
 		)
 	case "node":
-		createNodeshellPod()
+		createNodeshellPod(
+			ctx, clientset, wsconn,
+			"kube-system", name, nodeName, container, image, startCmd,
+		)
 
 	default:
 		fmt.Println("no pod or container need create")
@@ -184,4 +190,41 @@ func createEphemeralContainer(
 }
 
 // https://github.com/kvaps/kubectl-node-shell/blob/master/kubectl-node_shell
-func createNodeshellPod() {}
+func createNodeshellPod(ctx *gin.Context,
+	clientset *kubernetes.Clientset, wsconn *websocket.Conn,
+	namespace, name, nodeName, container, image string, startCmd []string,
+) {
+	// 1. create pod
+	var pod = &corev1.Pod{
+		ObjectMeta: metav1.ObjectMeta{
+			Name:      name,
+			Namespace: namespace,
+		},
+		Spec: corev1.PodSpec{
+			NodeName: nodeName,
+			Containers: []corev1.Container{
+				{
+					Name:      container,
+					Image:     image,
+					Stdin:     true,
+					StdinOnce: true,
+					TTY:       true,
+					Command:   startCmd,
+				},
+			},
+		},
+	}
+	var opts = metav1.CreateOptions{}
+	var pod2, err = clientset.CoreV1().Pods(namespace).Create(ctx.Request.Context(), pod, opts)
+	if err != nil {
+		writeError(wsconn, fmt.Sprintf("create pod failed, error: %s\n", err))
+		return
+	}
+	fmt.Printf("🍉 create pod: %s, namespace: %s, container: %s, shell: %s, selflink: %s\n", name, namespace, container, startCmd, pod2.GetSelfLink())
+	writeError(wsconn,
+		fmt.Sprintf(
+			"create pod: %s, namespace: %s, container: %s, shell: %s, selflink: %s\n",
+			name, namespace, container, startCmd, pod2.GetSelfLink(),
+		),
+	)
+}
