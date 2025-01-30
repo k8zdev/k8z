@@ -30,7 +30,7 @@ func init() {
 }
 
 func Server() {
-	router.Run(Addr)
+	fmt.Print(router.Run(Addr))
 }
 
 type K8zHeader struct {
@@ -45,6 +45,10 @@ type K8zHeader struct {
 	Password string `header:"X-USER-PASSWORD"`
 	Proxy    string `header:"X-PROXY"`
 	Timeout  int64  `header:"X-TIMEOUT"`
+
+	HostPID     bool `header:"X-HOST-PID"`
+	HostIPC     bool `header:"X-HOST-IPC"`
+	HostNetwork bool `header:"X-HOST-NETWORK"`
 }
 
 func forward(ctx *gin.Context) {

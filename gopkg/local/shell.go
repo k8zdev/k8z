@@ -16,10 +16,18 @@ import (
 	corev1 "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/types"
+	"k8s.io/apimachinery/pkg/util/wait"
 	"k8s.io/client-go/kubernetes"
 	"k8s.io/client-go/rest"
 	"k8s.io/client-go/tools/remotecommand"
 )
+
+var backoff = wait.Backoff{
+	Steps:    10,
+	Factor:   1.5,
+	Duration: 1e9,
+	Jitter:   0.1,
+}
 
 func writeError(wsconn *websocket.Conn, msg string) {
 	wsmsg, _ := json.Marshal(terminal.Message{
@@ -27,7 +35,9 @@ func writeError(wsconn *websocket.Conn, msg string) {
 		Data: msg,
 	})
 	err := wsconn.WriteMessage(websocket.TextMessage, wsmsg)
-	fmt.Printf("write ws message failed, error: %s", err)
+	if err != nil {
+		fmt.Printf("write ws message failed, error: %s", err)
+	}
 }
 
 func shell(ctx *gin.Context) {
@@ -67,7 +77,9 @@ func shell(ctx *gin.Context) {
 		writeError(wsconn, fmt.Sprintf("get params failed, error: %s\n", err))
 		return
 	}
-	fmt.Printf("🍉 server: %s, ephemeral cmd: \"%s\"\n", k8zHeader.Server, rawCmd)
+	fmt.Printf("🍉 server: %s, ns: %s, podName: %s, container: %s ,start cmd: \"%s\"\n",
+		k8zHeader.Server, namespace, name, container, rawCmd,
+	)
 
 	_, clientset, err := k8z.NewClient(k8zHeader.CtxName, k8zHeader.Server, k8zHeader.CAData, k8zHeader.Insecure == "true", k8zHeader.CertData, k8zHeader.KeyData, k8zHeader.Token, k8zHeader.Username, k8zHeader.Password, k8zHeader.Proxy, k8zHeader.Timeout)
 	if err != nil {
@@ -84,7 +96,7 @@ func shell(ctx *gin.Context) {
 		)
 	case "node":
 		createNodeshellPod(
-			ctx, clientset, wsconn,
+			ctx, clientset, wsconn, k8zHeader,
 			"kube-system", name, nodeName, container, image, startCmd,
 		)
 
@@ -95,11 +107,8 @@ func shell(ctx *gin.Context) {
 	// 3. exec to shell
 	execapi, err := url.Parse(fmt.Sprintf("%s/api/v1/namespaces/%s/pods/%s/exec?container=%s&command=%s&stdin=true&stdout=true&stderr=true&tty=true", restConfig.Host, namespace, name, container, shell))
 	if err != nil {
-		msg, _ := json.Marshal(terminal.Message{
-			Op:   "stdout",
-			Data: fmt.Sprintf("Could not create request url: %s", err.Error()),
-		})
-		wsconn.WriteMessage(websocket.TextMessage, msg)
+		var msg = fmt.Sprintf("Could not create request url: %s", err.Error())
+		writeError(wsconn, msg)
 		return
 	}
 
@@ -114,11 +123,8 @@ func shell(ctx *gin.Context) {
 
 	err = terminal.StartProcess(restConfig, execapi, cmd, session)
 	if err != nil {
-		msg, _ := json.Marshal(terminal.Message{
-			Op:   "stdout",
-			Data: fmt.Sprintf("Could not create terminal: %s", err.Error()),
-		})
-		wsconn.WriteMessage(websocket.TextMessage, msg)
+		var msg = fmt.Sprintf("Could not create terminal: %s", err.Error())
+		writeError(wsconn, msg)
 		return
 	}
 }
@@ -185,41 +191,85 @@ func createEphemeralContainer(
 		Op:   "stdout",
 		Data: fmt.Sprintf("name: %s, namespace: %s, container: %s, shell: %s\n", podName, ns, container, shell),
 	})
-	wsconn.WriteMessage(websocket.TextMessage, msg)
+	_ = wsconn.WriteMessage(websocket.TextMessage, msg)
 	// return
 }
 
 // https://github.com/kvaps/kubectl-node-shell/blob/master/kubectl-node_shell
 func createNodeshellPod(ctx *gin.Context,
 	clientset *kubernetes.Clientset, wsconn *websocket.Conn,
+	header *K8zHeader,
 	namespace, name, nodeName, container, image string, startCmd []string,
 ) {
+	var err error
+	var pod *corev1.Pod
+	var checkPodFunc = func() (bool, error) {
+		var pod, err = clientset.CoreV1().Pods(namespace).Get(ctx.Request.Context(), name, metav1.GetOptions{})
+		writeError(wsconn, fmt.Sprintf("⚙️ check pod status: %s\n", pod.Status.Phase))
+		if err != nil {
+			writeError(wsconn, fmt.Sprintf("check pod status, error: %s\n", err))
+			return false, nil
+		}
+		if pod.Status.Phase == corev1.PodRunning {
+			writeError(wsconn, "✅ pod is running\n")
+			return true, nil
+		}
+		return false, nil
+	}
+	// 0. check pod exist
+	pod, err = clientset.CoreV1().Pods(namespace).Get(ctx.Request.Context(), name, metav1.GetOptions{})
+
+	// if error is pod exist
+	if err == nil || pod != nil {
+		writeError(wsconn, fmt.Sprintf("pod: %s already exist, will check status\n", name))
+		err = wait.ExponentialBackoff(backoff, checkPodFunc)
+		if err != nil {
+			writeError(wsconn, fmt.Sprintf("check pod status failed, error: %s\n", err))
+			return
+		}
+	}
+
 	// 1. create pod
-	var pod = &corev1.Pod{
+	pod = &corev1.Pod{
 		ObjectMeta: metav1.ObjectMeta{
 			Name:      name,
 			Namespace: namespace,
 		},
 		Spec: corev1.PodSpec{
-			NodeName: nodeName,
+			NodeName:    nodeName,
+			HostPID:     header.HostPID,
+			HostIPC:     header.HostIPC,
+			HostNetwork: header.HostNetwork,
 			Containers: []corev1.Container{
 				{
-					Name:      container,
-					Image:     image,
-					Stdin:     true,
-					StdinOnce: true,
-					TTY:       true,
-					Command:   startCmd,
+					Name:       container,
+					Image:      image,
+					Stdin:      true,
+					StdinOnce:  true,
+					TTY:        true,
+					Command:    startCmd,
+					WorkingDir: "~",
+					SecurityContext: &corev1.SecurityContext{
+						Privileged: &[]bool{true}[0],
+					},
 				},
 			},
 		},
 	}
 	var opts = metav1.CreateOptions{}
-	var pod2, err = clientset.CoreV1().Pods(namespace).Create(ctx.Request.Context(), pod, opts)
+	pod2, err := clientset.CoreV1().Pods(namespace).Create(ctx.Request.Context(), pod, opts)
 	if err != nil {
 		writeError(wsconn, fmt.Sprintf("create pod failed, error: %s\n", err))
 		return
 	}
+
+	// wait pod ready
+	err = wait.ExponentialBackoff(backoff, checkPodFunc)
+	if err != nil {
+		writeError(wsconn, fmt.Sprintf("check pod status failed, error:%s", err))
+		return
+	}
+
 	fmt.Printf("🍉 create pod: %s, namespace: %s, container: %s, shell: %s, selflink: %s\n", name, namespace, container, startCmd, pod2.GetSelfLink())
 	writeError(wsconn,
 		fmt.Sprintf(
