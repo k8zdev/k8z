@@ -205,13 +205,13 @@ func createNodeshellPod(ctx *gin.Context,
 	var pod *corev1.Pod
 	var checkPodFunc = func() (bool, error) {
 		var pod, err = clientset.CoreV1().Pods(namespace).Get(ctx.Request.Context(), name, metav1.GetOptions{})
-		writeError(wsconn, fmt.Sprintf("⚙️ check pod status: %s\n", pod.Status.Phase))
+		writeError(wsconn, fmt.Sprintf("🔍 check pod status: %s\n\n", pod.Status.Phase))
 		if err != nil {
-			writeError(wsconn, fmt.Sprintf("check pod status, error: %s\n", err))
+			writeError(wsconn, fmt.Sprintf("❌ check pod status, error: %s\n\n", err))
 			return false, nil
 		}
 		if pod.Status.Phase == corev1.PodRunning {
-			writeError(wsconn, "✅ pod is running\n")
+			writeError(wsconn, "✅ pod is running\n\n")
 			return true, nil
 		}
 		return false, nil
@@ -220,13 +220,15 @@ func createNodeshellPod(ctx *gin.Context,
 	pod, err = clientset.CoreV1().Pods(namespace).Get(ctx.Request.Context(), name, metav1.GetOptions{})
 
 	// if error is pod exist
-	if err == nil || pod != nil {
-		writeError(wsconn, fmt.Sprintf("pod: %s already exist, will check status\n", name))
+	if err == nil {
+		writeError(wsconn, "👷‍♀️ pod already exist, will check status\n\n")
+		writeError(wsconn, fmt.Sprintf("pod %s", pod.GetSelfLink()))
 		err = wait.ExponentialBackoff(backoff, checkPodFunc)
 		if err != nil {
 			writeError(wsconn, fmt.Sprintf("check pod status failed, error: %s\n", err))
 			return
 		}
+		return
 	}
 
 	// 1. create pod
@@ -248,7 +250,7 @@ func createNodeshellPod(ctx *gin.Context,
 					StdinOnce:  true,
 					TTY:        true,
 					Command:    startCmd,
-					WorkingDir: "~",
+					WorkingDir: header.WorkingDir,
 					SecurityContext: &corev1.SecurityContext{
 						Privileged: &[]bool{true}[0],
 					},
@@ -259,7 +261,7 @@ func createNodeshellPod(ctx *gin.Context,
 	var opts = metav1.CreateOptions{}
 	pod2, err := clientset.CoreV1().Pods(namespace).Create(ctx.Request.Context(), pod, opts)
 	if err != nil {
-		writeError(wsconn, fmt.Sprintf("create pod failed, error: %s\n", err))
+		writeError(wsconn, fmt.Sprintf("❌ create pod failed, error: %s\n", err))
 		return
 	}
 

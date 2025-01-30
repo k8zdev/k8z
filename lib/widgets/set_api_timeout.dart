@@ -28,8 +28,8 @@ class ApiTimeoutWidget extends StatelessWidget {
               timeout.update(value.toInt());
             },
             min: 1,
-            max: 600,
-            divisions: 20,
+            max: 300,
+            divisions: 60,
             label: lang.n_seconds(timeout.timeout),
           ),
         ],

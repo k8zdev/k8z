@@ -82,7 +82,7 @@ class _GetTerminalState extends State<GetTerminal> {
         _container = 'k8z-debug-${sid()}';
         break;
       case ShellType.node:
-        _shell = 'bash';
+        _shell = 'zsh';
         _image = "alpine:3.14.2";
         _container = widget.nodeName;
         break;
@@ -93,9 +93,8 @@ class _GetTerminalState extends State<GetTerminal> {
     }
   }
 
-  Future<void> _getTerminal(BuildContext context) async {
+  Future<void> _getTerminal(BuildContext context, int timeout) async {
     logEvent("getTerminal", parameters: {"type": "shell"});
-    var timeout = Provider.of<TimeoutProvider>(context, listen: true);
     try {
       setState(() => _loading = true);
       // check local server is started
@@ -121,10 +120,11 @@ class _GetTerminalState extends State<GetTerminal> {
         'X-USER-USERNAME': widget.cluster.username,
         'X-USER-PASSWORD': widget.cluster.password,
         'X-PROXY': "",
-        'X-TIMEOUT': timeout.timeout,
+        'X-TIMEOUT': timeout,
         'X-IMAGE': _image,
         'X-START-CMD': widget.startCmd,
         "X-SHELL-TYPE": widget.shellType.name,
+        "X-WORKING-DIR": "/root",
       };
 
       headers.addAll(widget.extraHeaders);
@@ -166,20 +166,56 @@ class _GetTerminalState extends State<GetTerminal> {
 
   @override
   Widget build(BuildContext context) {
+    var tp = Provider.of<TimeoutProvider>(context, listen: true);
     talker.debug(
         "containers: ${widget.containers}, nodeName: ${widget.nodeName}, shellType: ${widget.shellType}");
 
     switch (widget.shellType) {
       case ShellType.debug:
-        return _debugShellForm(context);
+        return _debugShellForm(context, tp.timeout);
       case ShellType.node:
-        return _nodeShellForm(context);
+        return _nodeShellForm(context, tp.timeout);
       default:
-        return _podShellForm(context);
+        return _podShellForm(context, tp.timeout);
     }
   }
 
-  Widget _nodeShellForm(BuildContext context) {
+  Widget _nodeShellForm(BuildContext context, int timeout) {
+    final lang = S.of(context);
+    return Container(
+      margin: defaultEdge,
+      child: Form(
+        child: ListView(
+          shrinkWrap: false,
+          children: [
+            Center(
+              child: Text(
+                lang.node_shell,
+                overflow: TextOverflow.ellipsis,
+              ),
+            ),
+
+            const Divider(height: 10, color: Colors.transparent),
+            //
+            SizedBox(
+              child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Theme.of(context).primaryColor,
+                  foregroundColor: Colors.white,
+                  minimumSize: const Size.fromHeight(50),
+                ),
+                onPressed:
+                    _loading ? null : () => _getTerminal(context, timeout),
+                child: Text(lang.get_terminal),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _debugShellForm(BuildContext context, int timeout) {
     final lang = S.of(context);
     return Container(
       margin: defaultEdge,
@@ -205,7 +241,8 @@ class _GetTerminalState extends State<GetTerminal> {
                   foregroundColor: Colors.white,
                   minimumSize: const Size.fromHeight(50),
                 ),
-                onPressed: _loading ? null : () => _getTerminal(context),
+                onPressed:
+                    _loading ? null : () => _getTerminal(context, timeout),
                 child: Text(lang.get_terminal),
               ),
             ),
@@ -215,43 +252,7 @@ class _GetTerminalState extends State<GetTerminal> {
     );
   }
 
-  Widget _debugShellForm(BuildContext context) {
-    final lang = S.of(context);
-    return Container(
-      margin: defaultEdge,
-      child: Form(
-        child: ListView(
-          shrinkWrap: false,
-          children: [
-            Center(
-              child: Text(
-                lang.start_debug,
-                overflow: TextOverflow.ellipsis,
-              ),
-            ),
-            Center(
-              child: Text(lang.start_debug_desc, style: smallTextStyle),
-            ),
-            const Divider(height: 10, color: Colors.transparent),
-            //
-            SizedBox(
-              child: ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Theme.of(context).primaryColor,
-                  foregroundColor: Colors.white,
-                  minimumSize: const Size.fromHeight(50),
-                ),
-                onPressed: _loading ? null : () => _getTerminal(context),
-                child: Text(lang.get_terminal),
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget _podShellForm(BuildContext context) {
+  Widget _podShellForm(BuildContext context, int timeout) {
     final lang = S.of(context);
     final items = widget.containers.map((value) {
       return DropdownMenuItem(
@@ -333,7 +334,8 @@ class _GetTerminalState extends State<GetTerminal> {
                   foregroundColor: Colors.white,
                   minimumSize: const Size.fromHeight(50),
                 ),
-                onPressed: _loading ? null : () => _getTerminal(context),
+                onPressed:
+                    _loading ? null : () => _getTerminal(context, timeout),
                 child: Text(lang.get_terminal),
               ),
             ),

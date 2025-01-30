@@ -46,9 +46,10 @@ type K8zHeader struct {
 	Proxy    string `header:"X-PROXY"`
 	Timeout  int64  `header:"X-TIMEOUT"`
 
-	HostPID     bool `header:"X-HOST-PID"`
-	HostIPC     bool `header:"X-HOST-IPC"`
-	HostNetwork bool `header:"X-HOST-NETWORK"`
+	HostPID     bool   `header:"X-HOST-PID"`
+	HostIPC     bool   `header:"X-HOST-IPC"`
+	HostNetwork bool   `header:"X-HOST-NETWORK"`
+	WorkingDir  string `header:"X-WORKING-DIR"`
 }
 
 func forward(ctx *gin.Context) {
