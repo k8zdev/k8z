@@ -6,6 +6,7 @@ import 'package:k8zdev/common/types.dart';
 import 'package:k8zdev/dao/kube.dart';
 import 'package:k8zdev/generated/l10n.dart';
 import 'package:k8zdev/providers/terminals.dart';
+import 'package:k8zdev/providers/timeout.dart';
 import 'package:k8zdev/services/k8z_native.dart';
 import 'package:k8zdev/services/k8z_service.dart';
 import 'package:k8zdev/widgets/terminals.dart';
@@ -20,7 +21,34 @@ class GetTerminal extends StatefulWidget {
   final String nodeName;
   final ShellType shellType;
   final List<String> startCmd;
+  final Map<String, dynamic> extraHeaders;
 
+  /// Create a [GetTerminal] widget.
+  /// ## examle:
+  /// ### nodeshell:
+  /// ```dart
+  /// GetTerminal(
+  ///   name: "k8z-node-shell-${nodeName}",
+  ///   namespace: "",
+  ///   containers: [nodeName],
+  ///   cluster: cluster,
+  ///   nodeName: nodeName,
+  ///   shellType: ShellType.node,
+  ///   startCmd: const ["sleep", "604800"], // 7 days
+  /// ),
+  /// ```
+  /// ### debugshell:
+  /// ```dart
+  /// GetTerminal(
+  ///   name: "k8z-debug-${sid()}",
+  ///   namespace: "k8z-debug",
+  ///   containers: ["k8z-debug-${sid()}"],
+  ///   cluster: cluster,
+  ///   shellType: ShellType.debug,
+  ///   startCmd: const ["sleep", "604800"], // 7 days
+  /// ),
+  /// ```
+  ///
   const GetTerminal({
     super.key,
     required this.name,
@@ -30,6 +58,7 @@ class GetTerminal extends StatefulWidget {
     this.nodeName = "",
     this.shellType = ShellType.pod,
     this.startCmd = const ["sleep", "604800"], // 7 days
+    this.extraHeaders = const {},
   });
 
   @override
@@ -53,7 +82,7 @@ class _GetTerminalState extends State<GetTerminal> {
         _container = 'k8z-debug-${sid()}';
         break;
       case ShellType.node:
-        _shell = 'sh';
+        _shell = 'bash';
         _image = "alpine:3.14.2";
         _container = widget.nodeName;
         break;
@@ -66,6 +95,7 @@ class _GetTerminalState extends State<GetTerminal> {
 
   Future<void> _getTerminal(BuildContext context) async {
     logEvent("getTerminal", parameters: {"type": "shell"});
+    var timeout = Provider.of<TimeoutProvider>(context, listen: true);
     try {
       setState(() => _loading = true);
       // check local server is started
@@ -80,24 +110,28 @@ class _GetTerminalState extends State<GetTerminal> {
         }
       }
 
+      var headers = <String, dynamic>{
+        'X-CONTEXT-NAME': widget.cluster.name,
+        'X-CLUSTER-SERVER': widget.cluster.server,
+        'X-CLUSTER-CA-DATA': widget.cluster.caData,
+        'X-CLUSTER-INSECURE': '${widget.cluster.insecure}',
+        'X-USER-CERT-DATA': widget.cluster.clientCert,
+        'X-USER-KEY-DATA': widget.cluster.clientKey,
+        'X-USER-TOKEN': widget.cluster.token,
+        'X-USER-USERNAME': widget.cluster.username,
+        'X-USER-PASSWORD': widget.cluster.password,
+        'X-PROXY': "",
+        'X-TIMEOUT': timeout.timeout,
+        'X-IMAGE': _image,
+        'X-START-CMD': widget.startCmd,
+        "X-SHELL-TYPE": widget.shellType.name,
+      };
+
+      headers.addAll(widget.extraHeaders);
+
       final socket = IOWebSocketChannel.connect(
         "ws://127.0.0.1:29257/shell?name=${widget.name}&namespace=${widget.namespace}&container=$_container&shell=$_shell",
-        headers: <String, dynamic>{
-          'X-CONTEXT-NAME': widget.cluster.name,
-          'X-CLUSTER-SERVER': widget.cluster.server,
-          'X-CLUSTER-CA-DATA': widget.cluster.caData,
-          'X-CLUSTER-INSECURE': '${widget.cluster.insecure}',
-          'X-USER-CERT-DATA': widget.cluster.clientCert,
-          'X-USER-KEY-DATA': widget.cluster.clientKey,
-          'X-USER-TOKEN': widget.cluster.token,
-          'X-USER-USERNAME': widget.cluster.username,
-          'X-USER-PASSWORD': widget.cluster.password,
-          'X-PROXY': "",
-          'X-TIMEOUT': 3,
-          'X-IMAGE': _image,
-          'X-START-CMD': widget.startCmd,
-          "x-shell-type": widget.shellType.name,
-        },
+        headers: headers,
       );
 
       // ignore: use_build_context_synchronously
@@ -133,7 +167,7 @@ class _GetTerminalState extends State<GetTerminal> {
   @override
   Widget build(BuildContext context) {
     talker.debug(
-        "containers: ${widget.containers}, shellType: ${widget.shellType}");
+        "containers: ${widget.containers}, nodeName: ${widget.nodeName}, shellType: ${widget.shellType}");
 
     switch (widget.shellType) {
       case ShellType.debug:

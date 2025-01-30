@@ -81,7 +81,7 @@ T? mapValueOfType<T>(dynamic map, String key) {
   return value is T ? value : null;
 }
 
-/// Returns a valid Map<K, V> found at the specified Map [key], null otherwise.
+/// Returns a valid Map&gt;K, V&lt; found at the specified Map [key], null otherwise.
 Map<K, V>? mapCastOfType<K, V>(dynamic map, String key) {
   final dynamic value = map is Map ? map[key] : null;
   return value is Map ? value.cast<K, V>() : null;

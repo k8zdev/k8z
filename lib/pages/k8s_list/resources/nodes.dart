@@ -1,13 +1,17 @@
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:k8zdev/common/const.dart';
 import 'package:k8zdev/common/helpers.dart';
 import 'package:k8zdev/common/styles.dart';
+import 'package:k8zdev/common/types.dart';
 import 'package:k8zdev/dao/kube.dart';
 import 'package:k8zdev/generated/l10n.dart';
 import 'package:k8zdev/models/models.dart';
 import 'package:k8zdev/services/k8z_native.dart';
 import 'package:k8zdev/services/k8z_service.dart';
+import 'package:k8zdev/widgets/get_terminal.dart';
+import 'package:k8zdev/widgets/modal.dart';
 import 'package:k8zdev/widgets/settings_tile.dart';
 import 'package:k8zdev/widgets/widgets.dart';
 import 'package:settings_ui/settings_ui.dart';
@@ -168,6 +172,51 @@ class _NodesPageState extends State<NodesPage> {
                         ]),
                       );
 
+                      final nodeName = node.metadata!.name ?? 'noname';
+                      final endActionPane = ActionPane(
+                        motion: const ScrollMotion(),
+                        children: [
+                          SlidableAction(
+                            onPressed: (context) {
+                              showModal(
+                                context,
+                                GetTerminal(
+                                  nodeName: nodeName,
+                                  namespace: "kube-system",
+                                  name: "k8z-node-shell-$nodeName",
+                                  containers: [nodeName],
+                                  cluster: widget.cluster,
+                                  extraHeaders: {
+                                    "X-HOST-PID": true,
+                                    "X-HOST-IPC": true,
+                                    "X-HOST-NETWORK": true,
+                                  },
+                                  shellType: ShellType.node,
+                                  startCmd: [
+                                    "nsenter",
+                                    "--target",
+                                    "1",
+                                    "--mount",
+                                    "--uts",
+                                    "--ipc",
+                                    "--net",
+                                    "--pid",
+                                    "sleep",
+                                    "604800" // 7 days
+                                  ],
+                                ),
+                              );
+                            },
+                            backgroundColor: Colors.blue,
+                            foregroundColor: Colors.white,
+                            icon: Icons.terminal,
+                            spacing: 8,
+                            label: lang.node_shell,
+                            padding: EdgeInsets.zero,
+                          ),
+                        ],
+                      );
+
                       return metadataSettingsTile(
                         context,
                         tile,
@@ -175,6 +224,7 @@ class _NodesPageState extends State<NodesPage> {
                         node.metadata!.namespace,
                         _path,
                         _resource,
+                        endActionPane: endActionPane,
                       );
                     },
                   ).toList() ??
