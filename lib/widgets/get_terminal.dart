@@ -94,7 +94,7 @@ class _GetTerminalState extends State<GetTerminal> {
   }
 
   Future<void> _getTerminal(BuildContext context) async {
-    logEvent("getTerminal", parameters: {"type": "shell"});
+    logEvent("getTerminal", parameters: {"type": widget.shellType.name});
     var timeout = Provider.of<TimeoutProvider>(context, listen: true);
     try {
       setState(() => _loading = true);
