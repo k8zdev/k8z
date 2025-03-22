@@ -29,7 +29,7 @@ class ApiTimeoutWidget extends StatelessWidget {
             },
             min: 1,
             max: 600,
-            divisions: 20,
+            divisions: 120,
             label: lang.n_seconds(timeout.timeout),
           ),
         ],

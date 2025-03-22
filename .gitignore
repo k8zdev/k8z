@@ -60,3 +60,4 @@ ios/firebase_app_id_file.json
 ios/Runner/GoogleService-Info.plist
 macos/firebase_app_id_file.json
 lib/common/secrets.dart
+.qodo

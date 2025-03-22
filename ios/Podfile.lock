@@ -220,12 +220,12 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/url_launcher_ios/ios"
 
 SPEC CHECKSUMS:
-  connectivity_plus: 18382e7311ba19efcaee94442b23b32507b20695
-  file_selector_ios: f0670c1064a8c8450e38145d8043160105d0b97c
+  connectivity_plus: 2256d3e20624a7749ed21653aafe291a46446fee
+  file_selector_ios: f92e583d43608aebc2e4a18daac30b8902845502
   Firebase: 374a441a91ead896215703a674d58cdb3e9d772b
-  firebase_analytics: 13ea4ad8a42c5060bad7e6694304dabb8b02fe7e
-  firebase_core: e2aa06dbd854d961f8ce46c2e20933bee1bf2d2b
-  firebase_crashlytics: 868f9aa408c704313eebff880c26c1446081679e
+  firebase_analytics: 8ad276088e4f9ba7dfc8dd6be4ee93a29673dde1
+  firebase_core: d3deb82d05dac4bc13190f9d1770787fd6a1cda4
+  firebase_crashlytics: 4c7c77cf1825b70b031fef62e99441c3a423eaa2
   FirebaseAnalytics: 7114c698cac995602e3b1b96663473e50d54d6e7
   FirebaseCore: 48b0dd707581cf9c1a1220da68223fb0a562afaa
   FirebaseCoreExtension: 2d77d6430c16cf43ca2b04608302ed02b3598361
@@ -238,18 +238,18 @@ SPEC CHECKSUMS:
   GoogleAppMeasurement: 6a9e6317b6a6d810ad03d4a66564ca6c4c5818a3
   GoogleDataTransport: aae35b7ea0c09004c3797d53c8c41f66f219d6a7
   GoogleUtilities: 26a3abef001b6533cf678d3eb38fd3f614b7872d
-  in_app_review: a31b5257259646ea78e0e35fc914979b0031d011
+  in_app_review: 5596fe56fab799e8edb3561c03d053363ab13457
   nanopb: fad817b59e0457d11a5dfbde799381cd727c1275
-  package_info_plus: c0502532a26c7662a62a356cebe2692ec5fe4ec4
-  path_provider_foundation: 2b6b4c569c0fb62ec74538f866245ac84301af46
+  package_info_plus: af8e2ca6888548050f16fa2f1938db7b5a5df499
+  path_provider_foundation: 080d55be775b7414fd5a5ef3ac137b97b097e564
   PromisesObjC: f5707f49cb48b9636751c5b2e7d227e43fba9f47
   PromisesSwift: 9d77319bbe72ebf6d872900551f7eeba9bce2851
-  purchases_flutter: 65fd04a8d218300ae57a6163810f35c3b333c2c1
+  purchases_flutter: c30c779ce814f74e6642d511953a7a0c5102a5cf
   PurchasesHybridCommon: 9fbb4c76f20b8e9b74f13b9045c6ed90727f935b
   RevenueCat: 90e7642834cabc3e04e396117776bfb3f50debbf
-  share_plus: 8b6f8b3447e494cca5317c8c3073de39b3600d1f
-  sqflite_darwin: 5a7236e3b501866c1c9befc6771dfd73ffb8702d
-  url_launcher_ios: 5334b05cef931de560670eeae103fd3e431ac3fe
+  share_plus: 50da8cb520a8f0f65671c6c6a99b3617ed10a58a
+  sqflite_darwin: 20b2a3a3b70e43edae938624ce550a3cbf66a3d0
+  url_launcher_ios: 694010445543906933d732453a59da0a173ae33d
 
 PODFILE CHECKSUM: 115fe32e2666650172e60c03ba32319665d80c43
 
