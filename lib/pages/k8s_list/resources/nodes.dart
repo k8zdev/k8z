@@ -182,6 +182,7 @@ class _NodesPageState extends State<NodesPage> {
                                 context,
                                 GetTerminal(
                                   nodeName: nodeName,
+                                  workingDir: "/root/",
                                   namespace: "kube-system",
                                   name: "k8z-node-shell-$nodeName",
                                   containers: [nodeName],
@@ -193,7 +194,7 @@ class _NodesPageState extends State<NodesPage> {
                                   },
                                   shellType: ShellType.node,
                                   startCmd: [
-                                    "nsenter",
+                                    "/usr/bin/nsenter",
                                     "--target",
                                     "1",
                                     "--mount",
@@ -201,7 +202,7 @@ class _NodesPageState extends State<NodesPage> {
                                     "--ipc",
                                     "--net",
                                     "--pid",
-                                    "sleep",
+                                    "/bin/sleep",
                                     "604800" // 7 days
                                   ],
                                 ),

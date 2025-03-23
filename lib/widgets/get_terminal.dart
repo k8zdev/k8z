@@ -19,6 +19,7 @@ class GetTerminal extends StatefulWidget {
   final List<String> containers;
   final K8zCluster cluster;
   final String nodeName;
+  final String workingDir;
   final ShellType shellType;
   final List<String> startCmd;
   final Map<String, dynamic> extraHeaders;
@@ -56,6 +57,7 @@ class GetTerminal extends StatefulWidget {
     required this.containers,
     required this.cluster,
     this.nodeName = "",
+    this.workingDir = "",
     this.shellType = ShellType.pod,
     this.startCmd = const ["sleep", "604800"], // 7 days
     this.extraHeaders = const {},
@@ -95,7 +97,7 @@ class _GetTerminalState extends State<GetTerminal> {
 
   Future<void> _getTerminal(BuildContext context) async {
     logEvent("getTerminal", parameters: {"type": widget.shellType.name});
-    var timeout = Provider.of<TimeoutProvider>(context, listen: true);
+    var timeout = Provider.of<TimeoutProvider>(context, listen: false);
     try {
       setState(() => _loading = true);
       // check local server is started
@@ -121,9 +123,10 @@ class _GetTerminalState extends State<GetTerminal> {
         'X-USER-USERNAME': widget.cluster.username,
         'X-USER-PASSWORD': widget.cluster.password,
         'X-PROXY': "",
-        'X-TIMEOUT': timeout.timeout,
         'X-IMAGE': _image,
+        'X-TIMEOUT': timeout.timeout,
         'X-START-CMD': widget.startCmd,
+        "X-WORKING-DIR": widget.workingDir,
         "X-SHELL-TYPE": widget.shellType.name,
       };
 
