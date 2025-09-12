@@ -20,6 +20,7 @@ import (
 	"k8s.io/apimachinery/pkg/util/wait"
 	"k8s.io/client-go/kubernetes"
 	"k8s.io/client-go/rest"
+	"k8s.io/client-go/tools/remotecommand"
 )
 
 var backoff = wait.Backoff{
@@ -123,7 +124,7 @@ func shell(ctx *gin.Context) {
 	var session = &terminal.Session{
 		WebSocket: wsconn,
 		DoneChan:  make(chan struct{}),
-		// SizeChan:  make(chan remotecommand.TerminalSize),
+		SizeChan:  make(chan remotecommand.TerminalSize),
 	}
 
 	err = terminal.StartProcess(restConfig, execapi, cmd, session)
