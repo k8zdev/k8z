@@ -1,19 +1,19 @@
 # Google Analytics 页面标题修复实现计划
 
-- [ ] 1. 创建核心服务类和工具函数
+- [x] 1. 创建核心服务类和工具函数
   - 实现 `PageTitleManager` 类，负责页面标题的生成和格式化
   - 实现 `ContextInfoProvider` 类，提供当前集群、命名空间等上下文信息
   - 创建页面标题格式化的工具函数，支持多种标题格式
   - _需求: 1.1, 1.2, 1.3_
 
-- [ ] 1.1 实现 PageTitleManager 核心功能
+- [x] 1.1 实现 PageTitleManager 核心功能
   - 创建 `lib/services/page_title_manager.dart` 文件
   - 实现 `generatePageTitle` 方法，根据页面类型和上下文生成标题
   - 实现 `generateAnalyticsParameters` 方法，构建 Analytics 事件参数
   - 添加页面标题格式化的单元测试
   - _需求: 1.1, 3.1, 3.2, 3.3_
 
-- [ ] 1.2 实现 ContextInfoProvider 上下文信息提取
+- [x] 1.2 实现 ContextInfoProvider 上下文信息提取
   - 创建 `lib/services/context_info_provider.dart` 文件
   - 实现 `getCurrentContext` 方法，提取当前页面的上下文信息
   - 实现 `getCurrentClusterName` 和 `getCurrentNamespace` 方法
