@@ -41,5 +41,13 @@ end
 post_install do |installer|
   installer.pods_project.targets.each do |target|
     flutter_additional_ios_build_settings(target)
+
+    # Fix for RevenueCat SubscriptionPeriod conflict with iOS 17+ StoreKit
+    if target.name == 'PurchasesHybridCommon'
+      target.build_configurations.each do |config|
+        config.build_settings['SWIFT_ACTIVE_COMPILATION_CONDITIONS'] ||= ''
+        config.build_settings['SWIFT_ACTIVE_COMPILATION_CONDITIONS'] << ' PURCHASES_HYBRID_COMMON'
+      end
+    end
   end
 end

@@ -68,7 +68,7 @@ dependencies:
   firebase_crashlytics: ^4.1.2
   firebase_analytics: ^11.3.2
   archive: ^4.0.2
-  purchases_flutter: ^8.4.4
+  purchases_flutter: ^8.5.0
   url_launcher: ^6.2.5
   flutter_slidable: ^4.0.0
   xterm: ^4.0.0

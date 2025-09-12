@@ -17,7 +17,7 @@ ThemeData themeData() {
       ),
     ),
     scaffoldBackgroundColor: Colors.grey[200],
-    cardTheme: CardTheme(
+    cardTheme: CardThemeData(
       color: Colors.white,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(smallBorderRadius),

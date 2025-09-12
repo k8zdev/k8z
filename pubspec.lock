@@ -826,10 +826,10 @@ packages:
     dependency: "direct main"
     description:
       name: purchases_flutter
-      sha256: d65db04efc485fbaec8eac267b787656594f20ff96a5464d975f2b2ac2233a64
+      sha256: "1342fc6d3114307bd565619b791288311fd8ff3726060f47ec079aaeed5400bd"
       url: "https://mirrors.tuna.tsinghua.edu.cn/dart-pub/"
     source: hosted
-    version: "8.4.4"
+    version: "8.10.6"
   quiver:
     dependency: transitive
     description:

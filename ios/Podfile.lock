@@ -65,7 +65,7 @@ PODS:
     - GoogleUtilities/Environment (~> 8.0)
     - GoogleUtilities/UserDefaults (~> 8.0)
     - PromisesObjC (~> 2.4)
-  - FirebaseRemoteConfigInterop (11.8.0)
+  - FirebaseRemoteConfigInterop (11.15.0)
   - FirebaseSessions (11.6.0):
     - FirebaseCore (~> 11.6.0)
     - FirebaseCoreExtension (~> 11.6.0)
@@ -99,31 +99,31 @@ PODS:
   - GoogleDataTransport (10.1.0):
     - nanopb (~> 3.30910.0)
     - PromisesObjC (~> 2.4)
-  - GoogleUtilities/AppDelegateSwizzler (8.0.2):
+  - GoogleUtilities/AppDelegateSwizzler (8.1.0):
     - GoogleUtilities/Environment
     - GoogleUtilities/Logger
     - GoogleUtilities/Network
     - GoogleUtilities/Privacy
-  - GoogleUtilities/Environment (8.0.2):
+  - GoogleUtilities/Environment (8.1.0):
     - GoogleUtilities/Privacy
-  - GoogleUtilities/Logger (8.0.2):
+  - GoogleUtilities/Logger (8.1.0):
     - GoogleUtilities/Environment
     - GoogleUtilities/Privacy
-  - GoogleUtilities/MethodSwizzler (8.0.2):
+  - GoogleUtilities/MethodSwizzler (8.1.0):
     - GoogleUtilities/Logger
     - GoogleUtilities/Privacy
-  - GoogleUtilities/Network (8.0.2):
+  - GoogleUtilities/Network (8.1.0):
     - GoogleUtilities/Logger
     - "GoogleUtilities/NSData+zlib"
     - GoogleUtilities/Privacy
     - GoogleUtilities/Reachability
-  - "GoogleUtilities/NSData+zlib (8.0.2)":
+  - "GoogleUtilities/NSData+zlib (8.1.0)":
     - GoogleUtilities/Privacy
-  - GoogleUtilities/Privacy (8.0.2)
-  - GoogleUtilities/Reachability (8.0.2):
+  - GoogleUtilities/Privacy (8.1.0)
+  - GoogleUtilities/Reachability (8.1.0):
     - GoogleUtilities/Logger
     - GoogleUtilities/Privacy
-  - GoogleUtilities/UserDefaults (8.0.2):
+  - GoogleUtilities/UserDefaults (8.1.0):
     - GoogleUtilities/Logger
     - GoogleUtilities/Privacy
   - in_app_review (2.0.0):
@@ -141,12 +141,12 @@ PODS:
   - PromisesObjC (2.4.0)
   - PromisesSwift (2.4.0):
     - PromisesObjC (= 2.4.0)
-  - purchases_flutter (8.4.4):
+  - purchases_flutter (8.10.6):
     - Flutter
-    - PurchasesHybridCommon (= 13.16.2)
-  - PurchasesHybridCommon (13.16.2):
-    - RevenueCat (= 5.15.0)
-  - RevenueCat (5.15.0)
+    - PurchasesHybridCommon (= 14.2.0)
+  - PurchasesHybridCommon (14.2.0):
+    - RevenueCat (= 5.32.0)
+  - RevenueCat (5.32.0)
   - share_plus (0.0.1):
     - Flutter
   - sqflite_darwin (0.0.4):
@@ -232,25 +232,25 @@ SPEC CHECKSUMS:
   FirebaseCoreInternal: d98ab91e2d80a56d7b246856a8885443b302c0c2
   FirebaseCrashlytics: b21c665fb50138766480bce73ebdb1aa30f7f300
   FirebaseInstallations: efc0946fc756e4d22d8113f7c761948120322e8c
-  FirebaseRemoteConfigInterop: 98897a64aa372eac3c5b3fe2816594ccfaac55ef
+  FirebaseRemoteConfigInterop: 1c6135e8a094cc6368949f5faeeca7ee8948b8aa
   FirebaseSessions: 9529d14180868e29a8da164b3a729c036204918b
   Flutter: cabc95a1d2626b1b06e7179b784ebcf0c0cde467
   GoogleAppMeasurement: 6a9e6317b6a6d810ad03d4a66564ca6c4c5818a3
   GoogleDataTransport: aae35b7ea0c09004c3797d53c8c41f66f219d6a7
-  GoogleUtilities: 26a3abef001b6533cf678d3eb38fd3f614b7872d
+  GoogleUtilities: 00c88b9a86066ef77f0da2fab05f65d7768ed8e1
   in_app_review: 5596fe56fab799e8edb3561c03d053363ab13457
   nanopb: fad817b59e0457d11a5dfbde799381cd727c1275
   package_info_plus: af8e2ca6888548050f16fa2f1938db7b5a5df499
   path_provider_foundation: 080d55be775b7414fd5a5ef3ac137b97b097e564
   PromisesObjC: f5707f49cb48b9636751c5b2e7d227e43fba9f47
   PromisesSwift: 9d77319bbe72ebf6d872900551f7eeba9bce2851
-  purchases_flutter: c30c779ce814f74e6642d511953a7a0c5102a5cf
-  PurchasesHybridCommon: 9fbb4c76f20b8e9b74f13b9045c6ed90727f935b
-  RevenueCat: 90e7642834cabc3e04e396117776bfb3f50debbf
+  purchases_flutter: 7f2f923fde8ab75125c3e85522a43f6ed1253580
+  PurchasesHybridCommon: f1650b33e9a1dd04d5e8a40dfe757f39e63f935c
+  RevenueCat: 7e1d0768fb287c9983173c9b28e39ccbeeb828a9
   share_plus: 50da8cb520a8f0f65671c6c6a99b3617ed10a58a
   sqflite_darwin: 20b2a3a3b70e43edae938624ce550a3cbf66a3d0
   url_launcher_ios: 694010445543906933d732453a59da0a173ae33d
 
-PODFILE CHECKSUM: 115fe32e2666650172e60c03ba32319665d80c43
+PODFILE CHECKSUM: ab54f5413d08d3ee580aa60b3b1de176311698b9
 
 COCOAPODS: 1.16.2
