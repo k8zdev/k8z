@@ -20,21 +20,21 @@
   - 实现 `getCurrentLanguage` 方法，获取当前语言设置
   - _需求: 2.1, 2.2, 3.1, 3.2_
 
-- [ ] 2. 增强 Analytics 服务
+- [x] 2. 增强 Analytics 服务
   - 创建新的 `AnalyticsService` 类替代现有的 helper 函数
   - 实现 `logPageView` 方法，包含完整的页面标题和上下文信息
   - 实现错误处理和重试机制
   - 添加离线缓存功能
   - _需求: 4.1, 4.2, 4.3, 4.4_
 
-- [ ] 2.1 创建增强的 AnalyticsService 类
+- [x] 2.1 创建增强的 AnalyticsService 类
   - 创建 `lib/services/analytics_service.dart` 文件
   - 实现 `logPageView` 方法，整合页面标题和上下文信息
   - 实现 `logScreenTransition` 方法，记录页面导航事件
   - 添加事件参数验证和格式化功能
   - _需求: 4.1, 4.2, 4.3_
 
-- [ ] 2.2 实现错误处理和重试机制
+- [x] 2.2 实现错误处理和重试机制
   - 在 AnalyticsService 中添加重试逻辑，最多重试 3 次
   - 实现错误日志记录，使用 talker 记录失败事件
   - 添加网络状态检查，避免在无网络时重复尝试
