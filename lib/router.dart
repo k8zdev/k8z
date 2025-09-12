@@ -109,7 +109,10 @@ final router = GoRouter(
               path: "create",
               parentNavigatorKey: _rootNavigatorKey,
               builder: (context, state) {
-                logScreenView(screenName: 'ClusterCreatePage');
+                AnalyticsService.logPageView(
+                  context: context,
+                  screenName: 'ClusterCreatePage',
+                );
                 return const ClusterCreatePage();
               },
               routes: [
@@ -118,7 +121,10 @@ final router = GoRouter(
                   path: "manual",
                   parentNavigatorKey: _rootNavigatorKey,
                   builder: (context, state) {
-                    logScreenView(screenName: 'ManualLoadSubPage');
+                    AnalyticsService.logPageView(
+                      context: context,
+                      screenName: 'ManualLoadSubPage',
+                    );
                     return const ManualLoadSubPage();
                   },
                 ),
@@ -129,8 +135,14 @@ final router = GoRouter(
               path: "choice",
               parentNavigatorKey: _rootNavigatorKey,
               builder: (context, state) {
-                logScreenView(screenName: 'ChoiceClustersSubPage');
                 final clusters = state.extra as List<K8zCluster>;
+                AnalyticsService.logPageView(
+                  context: context,
+                  screenName: 'ChoiceClustersSubPage',
+                  additionalParams: {
+                    'cluster_count': clusters.length,
+                  },
+                );
                 return ChoiceClustersSubPage(clusters: clusters);
               },
             ),
@@ -143,9 +155,13 @@ final router = GoRouter(
             var lang = S.current;
             final cluster = CurrentCluster.current;
             if (cluster == null) {
-              logScreenView(
+              AnalyticsService.logPageView(
+                context: context,
                 screenName: 'NotFoundPage',
-                parameters: {'vieweScreen': 'WorkloadsPage'},
+                additionalParams: {
+                  'intended_screen': 'WorkloadsPage',
+                  'error_reason': 'no_current_cluster',
+                },
               );
               return NoTransitionPage(
                 child: NotFoundPage(
@@ -154,7 +170,13 @@ final router = GoRouter(
                 ),
               );
             }
-            logScreenView(screenName: 'WorkloadsPage');
+            AnalyticsService.logPageView(
+              context: context,
+              screenName: 'WorkloadsPage',
+              additionalParams: {
+                'cluster_name': cluster.name,
+              },
+            );
             return const NoTransitionPage(
               child: WorkloadsPage(),
             );
@@ -478,8 +500,6 @@ final router = GoRouter(
           path: "/details/:path/:namespace/:resource/:name",
           name: "details",
           pageBuilder: (context, state) {
-            logScreenView(screenName: 'DetailsPage');
-
             talker.info(state.pathParameters);
 
             // namespace param empty will case route miss
@@ -489,13 +509,29 @@ final router = GoRouter(
               namespace = "";
             }
 
+            final resourceType = state.pathParameters['resource']!;
+            final resourceName = state.pathParameters['name']!;
+            final resourcePath = state.pathParameters['path']!;
+
+            AnalyticsService.logPageView(
+              context: context,
+              screenName: 'DetailsPage',
+              customTitle: '$resourceType Details - $resourceName',
+              additionalParams: {
+                'resource_type': resourceType,
+                'resource_name': resourceName,
+                'resource_path': resourcePath,
+                'namespace': namespace ?? 'default',
+              },
+            );
+
             return NoTransitionPage(
               child: ResourceDetailsPage(
                 title: "",
-                path: state.pathParameters['path']!,
+                path: resourcePath,
                 namespace: namespace,
-                resource: state.pathParameters['resource']!,
-                name: state.pathParameters['name']!,
+                resource: resourceType,
+                name: resourceName,
               ),
             );
           },
@@ -505,10 +541,24 @@ final router = GoRouter(
           name: "details_yaml",
           pageBuilder: (context, state) {
             final resp = state.extra as JsonReturn;
+            final fileName = state.pathParameters['file']!;
+            final itemUrl = state.pathParameters['itemUrl']!;
+
+            AnalyticsService.logPageView(
+              context: context,
+              screenName: 'YamlPage',
+              customTitle: 'YAML View - $fileName',
+              additionalParams: {
+                'file_name': fileName,
+                'item_url': itemUrl,
+                'view_type': 'yaml',
+              },
+            );
+
             return NoTransitionPage(
               child: YamlPage(
-                fileName: state.pathParameters['file']!,
-                itemUrl: state.pathParameters['itemUrl']!,
+                fileName: fileName,
+                itemUrl: itemUrl,
                 resp: resp,
               ),
             );

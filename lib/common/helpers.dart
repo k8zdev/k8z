@@ -94,18 +94,28 @@ bool isOkStatus(String status) {
   return podOkStatusList.contains(status);
 }
 
+/// 向后兼容的屏幕访问记录函数
+/// 
+/// @deprecated 请使用 AnalyticsService.logPageView 替代
+/// 这个函数保持向后兼容，但内部使用新的 AnalyticsService
 Future<void> logScreenView({
   String? screenClass,
   String? screenName,
   Map<String, Object>? parameters,
   AnalyticsCallOptions? callOptions,
 }) async {
-  FirebaseAnalytics.instance.logScreenView(
-    screenName: screenName,
-    screenClass: screenClass,
-    parameters: parameters,
-    callOptions: callOptions,
-  );
+  // 为了向后兼容，仍然调用原始的 Firebase Analytics
+  // 但同时也会通过路由观察器自动处理
+  try {
+    FirebaseAnalytics.instance.logScreenView(
+      screenName: screenName,
+      screenClass: screenClass,
+      parameters: parameters,
+      callOptions: callOptions,
+    );
+  } catch (e) {
+    debugPrint('Analytics: Legacy logScreenView failed - $e');
+  }
 }
 
 Future<void> logEvent(
