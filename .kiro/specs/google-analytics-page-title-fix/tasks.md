@@ -41,21 +41,21 @@
   - 实现事件队列机制，支持批量上报
   - _需求: 4.4_
 
-- [ ] 3. 创建路由观察器
+- [x] 3. 创建路由观察器
   - 实现 `AnalyticsRouteObserver` 类，监听路由变化
   - 在路由变化时自动触发页面标题更新和 Analytics 事件
   - 集成到现有的 GoRouter 配置中
   - 确保与现有的 TalkerRouteObserver 兼容
   - _需求: 4.3, 5.1, 5.2_
 
-- [ ] 3.1 实现 AnalyticsRouteObserver 路由监听
+- [x] 3.1 实现 AnalyticsRouteObserver 路由监听
   - 创建 `lib/services/analytics_route_observer.dart` 文件
   - 实现 `didPush`、`didPop`、`didReplace` 方法
   - 在路由变化时提取页面信息并调用 AnalyticsService
   - 添加路由变化的防抖机制，避免频繁触发事件
   - _需求: 4.3, 5.2_
 
-- [ ] 3.2 集成路由观察器到 GoRouter 配置
+- [x] 3.2 集成路由观察器到 GoRouter 配置
   - 修改 `lib/router.dart` 文件，添加 AnalyticsRouteObserver
   - 确保与现有 TalkerRouteObserver 的兼容性
   - 测试路由观察器在不同导航场景下的工作情况

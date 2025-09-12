@@ -36,6 +36,8 @@ import 'package:k8zdev/pages/k8s_list/workloads/pods.dart';
 import 'package:k8zdev/pages/k8s_list/workloads/stateful_sets.dart';
 import 'package:k8zdev/providers/current_cluster.dart';
 import 'package:k8zdev/services/k8z_native.dart';
+import 'package:k8zdev/services/analytics_service.dart';
+import 'package:k8zdev/services/analytics_route_observer.dart';
 import 'package:provider/provider.dart';
 import 'package:sqlite_viewer2/sqlite_viewer.dart';
 import 'package:talker_flutter/talker_flutter.dart';
@@ -49,12 +51,19 @@ final GlobalKey<NavigatorState> _rootNavigatorKey =
     GlobalKey<NavigatorState>(debugLabel: 'root');
 final GlobalKey<NavigatorState> _shellNavigatorKey =
     GlobalKey<NavigatorState>(debugLabel: 'shell');
+
+// Analytics 路由观察器实例
+final AnalyticsRouteObserver _analyticsRouteObserver = AnalyticsRouteObserver();
+
 // GoRouter configuration
 final router = GoRouter(
   initialLocation: "/clusters",
   navigatorKey: _rootNavigatorKey,
   debugLogDiagnostics: true,
-  observers: [TalkerRouteObserver(talker)],
+  observers: [
+    TalkerRouteObserver(talker),
+    _analyticsRouteObserver,
+  ],
   routes: [
     ShellRoute(
       navigatorKey: _shellNavigatorKey,
@@ -66,7 +75,10 @@ final router = GoRouter(
           path: "/clusters",
           name: "clusters",
           pageBuilder: (context, state) {
-            logScreenView(screenName: 'ClusterPage');
+            AnalyticsService.logPageView(
+              context: context,
+              screenName: 'ClustersPage',
+            );
             final key = context.hashCode;
             return NoTransitionPage(
               child: ClustersPage(refreshKey: key),
@@ -78,8 +90,15 @@ final router = GoRouter(
               path: "home",
               parentNavigatorKey: _rootNavigatorKey,
               builder: (context, state) {
-                logScreenView(screenName: 'ClusterHomePage');
                 final cluster = state.extra as K8zCluster;
+                AnalyticsService.logPageView(
+                  context: context,
+                  screenName: 'ClusterHomePage',
+                  additionalParams: {
+                    'cluster_name': cluster.name,
+                    'cluster_server': cluster.server,
+                  },
+                );
                 talker.info("goto cluster home, server: ${cluster.server}");
                 return ClusterHomePage(cluster: cluster);
               },
