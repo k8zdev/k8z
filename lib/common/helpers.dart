@@ -97,53 +97,89 @@ bool isOkStatus(String status) {
 /// 向后兼容的屏幕访问记录函数
 /// 
 /// @deprecated 请使用 AnalyticsService.logPageView 替代
-/// 这个函数保持向后兼容，但内部使用新的 AnalyticsService
+/// 这个函数保持向后兼容，但内部使用新的 AnalyticsService 提供增强功能
+/// 
+/// 迁移指南：
+/// ```dart
+/// // 旧的用法
+/// logScreenView(screenName: 'HomePage', parameters: {'key': 'value'});
+/// 
+/// // 新的用法（推荐）
+/// AnalyticsService.logPageView(
+///   context: context,
+///   screenName: 'HomePage',
+///   additionalParams: {'key': 'value'},
+/// );
+/// ```
 Future<void> logScreenView({
   String? screenClass,
   String? screenName,
   Map<String, Object>? parameters,
   AnalyticsCallOptions? callOptions,
 }) async {
-  // 为了向后兼容，仍然调用原始的 Firebase Analytics
-  // 但同时也会通过路由观察器自动处理
   try {
-    FirebaseAnalytics.instance.logScreenView(
+    // 为了向后兼容，仍然调用原始的 Firebase Analytics
+    // 这确保了现有代码无需修改即可继续工作
+    await FirebaseAnalytics.instance.logScreenView(
       screenName: screenName,
       screenClass: screenClass,
       parameters: parameters,
       callOptions: callOptions,
     );
+    
+    debugPrint('Analytics: Legacy logScreenView called - $screenName');
+    debugPrint('Analytics: Consider migrating to AnalyticsService.logPageView for enhanced features');
   } catch (e) {
     debugPrint('Analytics: Legacy logScreenView failed - $e');
+    // 不重新抛出异常，保持向后兼容的行为
   }
 }
 
+/// 向后兼容的事件记录函数
+/// 
+/// @deprecated 请使用 AnalyticsService.logEvent 替代
+/// 这个函数保持向后兼容，但新的 AnalyticsService 提供更好的错误处理和重试机制
 Future<void> logEvent(
   String name, {
   Map<String, Object>? parameters,
   AnalyticsCallOptions? callOptions,
 }) async {
-  FirebaseAnalytics.instance.logEvent(
-    name: name,
-    parameters: parameters,
-    callOptions: callOptions,
-  );
+  try {
+    await FirebaseAnalytics.instance.logEvent(
+      name: name,
+      parameters: parameters,
+      callOptions: callOptions,
+    );
+    debugPrint('Analytics: Legacy logEvent called - $name');
+  } catch (e) {
+    debugPrint('Analytics: Legacy logEvent failed - $e');
+  }
 }
 
-Future<void> logPurchase(
-    {String? currency = "CNY",
-    double? value,
-    List<AnalyticsEventItem>? items,
-    String? transactionId,
-    Map<String, Object>? parameters,
-    AnalyticsCallOptions? callOptions}) async {
-  FirebaseAnalytics.instance.logPurchase(
-    currency: currency,
-    value: value,
-    transactionId: transactionId,
-    parameters: parameters,
-    callOptions: callOptions,
-  );
+/// 向后兼容的购买事件记录函数
+/// 
+/// @deprecated 请使用 AnalyticsService.logPurchase 替代
+/// 这个函数保持向后兼容，但新的 AnalyticsService 提供更好的错误处理
+Future<void> logPurchase({
+  String? currency = "CNY",
+  double? value,
+  List<AnalyticsEventItem>? items,
+  String? transactionId,
+  Map<String, Object>? parameters,
+  AnalyticsCallOptions? callOptions,
+}) async {
+  try {
+    await FirebaseAnalytics.instance.logPurchase(
+      currency: currency,
+      value: value,
+      transactionId: transactionId,
+      parameters: parameters,
+      callOptions: callOptions,
+    );
+    debugPrint('Analytics: Legacy logPurchase called - value: $value $currency');
+  } catch (e) {
+    debugPrint('Analytics: Legacy logPurchase failed - $e');
+  }
 }
 
 const _shortidCharacters = '0123456789abcdefghijklmnopqrstuvwxyz';

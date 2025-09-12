@@ -1,6 +1,8 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:k8zdev/services/analytics_service.dart';
+import 'package:k8zdev/services/title_update_service.dart';
+import 'package:k8zdev/services/context_info_provider.dart';
 import 'package:k8zdev/common/ops.dart';
 
 /// Analytics 路由观察器
@@ -112,12 +114,25 @@ class AnalyticsRouteObserver extends NavigatorObserver {
     String action,
   ) {
     try {
+      // 获取当前路由路径
+      final routePath = ContextInfoProvider.getCurrentRoutePath(context);
+      
+      // 使用 TitleUpdateService 处理路由变化
+      TitleUpdateService.handleRouteChange(
+        context: context,
+        newRoutePath: routePath,
+        screenName: screenName,
+      );
+      
+      // 记录页面访问事件（TitleUpdateService 会处理标题更新和 Analytics）
+      // 这里我们仍然记录一个额外的导航事件
       AnalyticsService.logPageView(
         context: context,
         screenName: screenName,
         additionalParams: {
           'navigation_action': action,
           'timestamp': DateTime.now().millisecondsSinceEpoch,
+          'route_observer_triggered': true,
         },
       );
     } catch (e) {
@@ -268,7 +283,7 @@ class AnalyticsRouteObserver extends NavigatorObserver {
         
       default:
         // 将路径转换为 PascalCase 并添加 Page 后缀
-        return _toPascalCase(pathSegments[0]) + 'Page';
+        return '${_toPascalCase(pathSegments[0])}Page';
     }
   }
 

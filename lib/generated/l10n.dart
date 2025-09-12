@@ -1572,6 +1572,71 @@ class S {
   String get type {
     return Intl.message('Type', name: 'type', desc: '', args: []);
   }
+
+  /// `Page Not Found`
+  String get page_not_found {
+    return Intl.message(
+      'Page Not Found',
+      name: 'page_not_found',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Resource Details`
+  String get resource_details {
+    return Intl.message(
+      'Resource Details',
+      name: 'resource_details',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Cluster Overview`
+  String get cluster_overview {
+    return Intl.message(
+      'Cluster Overview',
+      name: 'cluster_overview',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Language Settings`
+  String get language_settings {
+    return Intl.message(
+      'Language Settings',
+      name: 'language_settings',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Load Kubeconfig File`
+  String get load_kubeconfig_file {
+    return Intl.message(
+      'Load Kubeconfig File',
+      name: 'load_kubeconfig_file',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Select Clusters`
+  String get select_clusters_page {
+    return Intl.message(
+      'Select Clusters',
+      name: 'select_clusters_page',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Sponsor`
+  String get sponsor_page {
+    return Intl.message('Sponsor', name: 'sponsor_page', desc: '', args: []);
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

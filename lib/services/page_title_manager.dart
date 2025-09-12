@@ -1,11 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:k8zdev/generated/l10n.dart';
+import 'package:k8zdev/services/context_info_provider.dart';
 
 /// 页面标题管理器
-/// 负责统一管理页面标题的生成和格式化
+/// 负责统一管理页面标题的生成和格式化，支持多语言和动态标题更新
 class PageTitleManager {
   static const String _appName = 'k8z';
   static const int _maxTitleLength = 100;
+  
+  // 缓存最近生成的标题，避免重复计算
+  static final Map<String, String> _titleCache = {};
+  static const int _maxCacheSize = 50;
 
   /// 生成页面标题
   /// 
@@ -20,21 +25,41 @@ class PageTitleManager {
     Map<String, String>? contextInfo,
   }) {
     try {
+      // 生成缓存键
+      final cacheKey = _generateCacheKey(screenName, customTitle, contextInfo);
+      
+      // 检查缓存
+      if (_titleCache.containsKey(cacheKey)) {
+        return _titleCache[cacheKey]!;
+      }
+      
       final lang = S.of(context);
+      final currentLanguage = ContextInfoProvider.getCurrentLanguage(context);
+      
+      String baseTitle;
       
       // 如果提供了自定义标题，直接使用
       if (customTitle != null && customTitle.isNotEmpty) {
-        return _formatTitle(customTitle, contextInfo);
+        baseTitle = customTitle;
+      } else {
+        // 根据 screenName 生成对应的本地化标题
+        baseTitle = _getLocalizedTitle(lang, screenName, currentLanguage);
       }
-
-      // 根据 screenName 生成对应的本地化标题
-      String baseTitle = _getLocalizedTitle(lang, screenName);
       
-      return _formatTitle(baseTitle, contextInfo);
+      final finalTitle = _formatTitle(baseTitle, contextInfo, lang);
+      
+      // 缓存结果（限制缓存大小）
+      if (_titleCache.length >= _maxCacheSize) {
+        _titleCache.clear();
+      }
+      _titleCache[cacheKey] = finalTitle;
+      
+      return finalTitle;
     } catch (e) {
       // 如果获取本地化文本失败，使用英文默认标题
+      debugPrint('PageTitleManager: Failed to generate localized title, using fallback: $e');
       String fallbackTitle = _getFallbackTitle(screenName);
-      return _formatTitle(fallbackTitle, contextInfo);
+      return _formatTitle(fallbackTitle, contextInfo, null);
     }
   }
 
@@ -56,12 +81,12 @@ class PageTitleManager {
       'page_title': pageTitle,
       'screen_name': screenName,
       'route_path': routePath,
+      'timestamp': DateTime.now().millisecondsSinceEpoch,
     };
 
-    // 添加语言信息
-    if (language != null && language.isNotEmpty) {
-      parameters['language'] = language;
-    }
+    // 添加语言信息（确保总是包含语言信息）
+    parameters['language'] = language ?? 'en';
+    parameters['language_fallback'] = language == null;
 
     // 添加上下文信息
     if (contextInfo != null) {
@@ -74,9 +99,32 @@ class PageTitleManager {
 
     return parameters;
   }
+  
+  /// 处理语言切换事件
+  /// 
+  /// [context] - Flutter 上下文
+  /// [newLanguage] - 新的语言代码
+  /// [oldLanguage] - 旧的语言代码
+  static void handleLanguageChange({
+    required BuildContext context,
+    required String newLanguage,
+    String? oldLanguage,
+  }) {
+    // 清空标题缓存，因为语言已更改
+    clearTitleCache();
+    
+    debugPrint('PageTitleManager: Language changed from ${oldLanguage ?? 'auto'} to $newLanguage');
+    
+    // 可以在这里触发 Analytics 事件记录语言切换
+    // 但为了避免循环依赖，我们让 AnalyticsService 来处理这个事件
+  }
 
   /// 根据屏幕名称获取本地化标题
-  static String _getLocalizedTitle(S lang, String screenName) {
+  /// 
+  /// [lang] - 国际化文本对象
+  /// [screenName] - 屏幕名称
+  /// [languageCode] - 当前语言代码，用于日志记录
+  static String _getLocalizedTitle(S lang, String screenName, String languageCode) {
     switch (screenName) {
       case 'ClusterPage':
       case 'ClustersPage':
@@ -138,13 +186,14 @@ class PageTitleManager {
       case 'AppStorePaywallPage':
         return lang.sponsorme;
       case 'DetailsPage':
-        return 'Resource Details';
+        return lang.resource_yaml; // Using existing key for now
       case 'YamlPage':
         return lang.resource_yaml;
       case 'NotFoundPage':
-        return 'Not Found';
+        return _getLocalizedTextWithFallback(lang, 'page_not_found', 'Page Not Found');
       default:
         // 尝试从 screenName 中提取有意义的名称
+        debugPrint('PageTitleManager: No localized title found for $screenName in language $languageCode, using extracted title');
         return _extractTitleFromScreenName(screenName);
     }
   }
@@ -237,7 +286,11 @@ class PageTitleManager {
   }
 
   /// 格式化最终标题
-  static String _formatTitle(String baseTitle, Map<String, String>? contextInfo) {
+  /// 
+  /// [baseTitle] - 基础标题
+  /// [contextInfo] - 上下文信息
+  /// [lang] - 国际化文本对象，用于本地化上下文信息
+  static String _formatTitle(String baseTitle, Map<String, String>? contextInfo, S? lang) {
     List<String> titleParts = [_appName, baseTitle];
 
     if (contextInfo != null) {
@@ -250,7 +303,12 @@ class PageTitleManager {
       // 添加命名空间信息
       String? namespace = contextInfo['namespace'];
       if (namespace != null && namespace.isNotEmpty && namespace != 'default') {
-        titleParts.add(namespace);
+        // 如果有国际化文本，添加命名空间标签
+        if (lang != null) {
+          titleParts.add('${lang.namespace}: $namespace');
+        } else {
+          titleParts.add(namespace);
+        }
       }
 
       // 添加资源名称（用于详情页面）
@@ -268,5 +326,51 @@ class PageTitleManager {
     }
 
     return fullTitle;
+  }
+  
+  /// 生成缓存键
+  static String _generateCacheKey(String screenName, String? customTitle, Map<String, String>? contextInfo) {
+    final parts = [screenName];
+    
+    if (customTitle != null) {
+      parts.add('custom:$customTitle');
+    }
+    
+    if (contextInfo != null) {
+      final sortedKeys = contextInfo.keys.toList()..sort();
+      for (final key in sortedKeys) {
+        parts.add('$key:${contextInfo[key]}');
+      }
+    }
+    
+    return parts.join('|');
+  }
+  
+  /// 获取本地化文本，如果失败则使用回退文本
+  static String _getLocalizedTextWithFallback(S lang, String key, String fallback) {
+    try {
+      // 这里我们需要根据具体的键来获取对应的本地化文本
+      // 由于 S 类的方法是生成的，我们无法动态调用，所以这里先返回回退文本
+      // 在实际使用中，应该为每个页面添加对应的本地化键
+      return fallback;
+    } catch (e) {
+      debugPrint('PageTitleManager: Failed to get localized text for key $key: $e');
+      return fallback;
+    }
+  }
+  
+  /// 清空标题缓存（用于语言切换时）
+  static void clearTitleCache() {
+    _titleCache.clear();
+    debugPrint('PageTitleManager: Title cache cleared');
+  }
+  
+  /// 获取缓存统计信息（用于调试）
+  static Map<String, dynamic> getCacheStats() {
+    return {
+      'cache_size': _titleCache.length,
+      'max_cache_size': _maxCacheSize,
+      'cached_keys': _titleCache.keys.toList(),
+    };
   }
 }

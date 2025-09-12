@@ -633,5 +633,19 @@
   "session_affinity": "Session Affinity",
   "@session_affinity": {},
   "type": "Type",
-  "@type": {}
+  "@type": {},
+  "page_not_found": "Page Not Found",
+  "@page_not_found": {},
+  "resource_details": "Resource Details",
+  "@resource_details": {},
+  "cluster_overview": "Cluster Overview",
+  "@cluster_overview": {},
+  "language_settings": "Language Settings",
+  "@language_settings": {},
+  "load_kubeconfig_file": "Load Kubeconfig File",
+  "@load_kubeconfig_file": {},
+  "select_clusters_page": "Select Clusters",
+  "@select_clusters_page": {},
+  "sponsor_page": "Sponsor",
+  "@sponsor_page": {}
 }

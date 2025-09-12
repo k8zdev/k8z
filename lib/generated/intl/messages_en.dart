@@ -180,6 +180,9 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "cancel": MessageLookupByLibrary.simpleMessage("Cancel"),
     "cluster_ip": MessageLookupByLibrary.simpleMessage("Cluster IP"),
+    "cluster_overview": MessageLookupByLibrary.simpleMessage(
+      "Cluster Overview",
+    ),
     "clusters": MessageLookupByLibrary.simpleMessage("Clusters"),
     "command": MessageLookupByLibrary.simpleMessage("Command"),
     "config": MessageLookupByLibrary.simpleMessage("Config"),
@@ -270,12 +273,18 @@ class MessageLookup extends MessageLookupByLibrary {
     "items_number": m14,
     "kind": MessageLookupByLibrary.simpleMessage("kind"),
     "labels": MessageLookupByLibrary.simpleMessage("Labels"),
+    "language_settings": MessageLookupByLibrary.simpleMessage(
+      "Language Settings",
+    ),
     "last_warning_events": m15,
     "livenessProbe": MessageLookupByLibrary.simpleMessage("Liveness Probe"),
     "load_balancer_ip": MessageLookupByLibrary.simpleMessage(
       "Load Balancer IP",
     ),
     "load_file": MessageLookupByLibrary.simpleMessage("load file"),
+    "load_kubeconfig_file": MessageLookupByLibrary.simpleMessage(
+      "Load Kubeconfig File",
+    ),
     "load_metrics_error": m16,
     "loading_metrics": MessageLookupByLibrary.simpleMessage("loading metrics"),
     "logs": MessageLookupByLibrary.simpleMessage("Logs"),
@@ -306,6 +315,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "ok": MessageLookupByLibrary.simpleMessage("ok"),
     "overview": MessageLookupByLibrary.simpleMessage("Overview"),
     "owner": MessageLookupByLibrary.simpleMessage("Owner"),
+    "page_not_found": MessageLookupByLibrary.simpleMessage("Page Not Found"),
     "pod_text": m23,
     "pods": MessageLookupByLibrary.simpleMessage("Pods"),
     "ports": MessageLookupByLibrary.simpleMessage("Ports"),
@@ -320,6 +330,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "replicasets": MessageLookupByLibrary.simpleMessage("ReplicaSets"),
     "replicasets_text": m27,
     "resourceVersion": MessageLookupByLibrary.simpleMessage("Version"),
+    "resource_details": MessageLookupByLibrary.simpleMessage(
+      "Resource Details",
+    ),
     "resource_url": MessageLookupByLibrary.simpleMessage("Resource URL"),
     "resource_yaml": MessageLookupByLibrary.simpleMessage("Resource Yaml"),
     "resources": MessageLookupByLibrary.simpleMessage("Resources"),
@@ -333,6 +346,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "secrets": MessageLookupByLibrary.simpleMessage("Secrets"),
     "select_clusters": MessageLookupByLibrary.simpleMessage(
       "Select cluster(s)",
+    ),
+    "select_clusters_page": MessageLookupByLibrary.simpleMessage(
+      "Select Clusters",
     ),
     "selector": MessageLookupByLibrary.simpleMessage("Selector"),
     "selfLink": MessageLookupByLibrary.simpleMessage("SelfLink"),
@@ -349,6 +365,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "sponsor_desc": MessageLookupByLibrary.simpleMessage(
       "Sponsor me so that I can continue to develop and maintain this app.",
     ),
+    "sponsor_page": MessageLookupByLibrary.simpleMessage("Sponsor"),
     "sponsorme": MessageLookupByLibrary.simpleMessage("Sponsor me"),
     "start_debug": MessageLookupByLibrary.simpleMessage("Start debug"),
     "start_debug_desc": MessageLookupByLibrary.simpleMessage(

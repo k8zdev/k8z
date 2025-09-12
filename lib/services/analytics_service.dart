@@ -44,7 +44,7 @@ class AnalyticsService {
         contextInfo: contextInfo,
       );
 
-      // 获取当前路由路径
+      // 获取当前路由路径和语言
       final routePath = ContextInfoProvider.getCurrentRoutePath(context);
       final language = ContextInfoProvider.getCurrentLanguage(context);
 
@@ -56,6 +56,12 @@ class AnalyticsService {
         language: language,
         contextInfo: contextInfo,
       );
+
+      // 添加页面特定的元数据
+      parameters['page_load_time'] = DateTime.now().millisecondsSinceEpoch;
+      parameters['has_cluster_context'] = ContextInfoProvider.hasClusterContext(context);
+      parameters['has_namespace_context'] = ContextInfoProvider.hasNamespaceContext(context);
+      parameters['is_resource_detail'] = ContextInfoProvider.isResourceDetailPage(context);
 
       // 添加额外参数
       if (additionalParams != null) {
@@ -70,7 +76,7 @@ class AnalyticsService {
         screenClass: _extractScreenClass(screenName),
       );
 
-      debugPrint('Analytics: Page view logged - $pageTitle');
+      debugPrint('Analytics: Page view logged - $pageTitle (${language.toUpperCase()})');
     } catch (e) {
       debugPrint('Analytics: Failed to log page view - $e');
       // 不抛出异常，避免影响用户体验
@@ -182,6 +188,90 @@ class AnalyticsService {
       debugPrint('Analytics: User ID set - $userId');
     } catch (e) {
       debugPrint('Analytics: Failed to set user ID - $e');
+    }
+  }
+
+  /// 记录语言切换事件
+  /// 
+  /// [oldLanguage] - 旧语言代码
+  /// [newLanguage] - 新语言代码
+  /// [context] - Flutter 上下文（可选）
+  static Future<void> logLanguageChange({
+    String? oldLanguage,
+    required String newLanguage,
+    BuildContext? context,
+  }) async {
+    try {
+      final parameters = <String, Object>{
+        'old_language': oldLanguage ?? 'auto',
+        'new_language': newLanguage,
+        'change_time': DateTime.now().millisecondsSinceEpoch,
+      };
+
+      // 如果有上下文，添加当前页面信息
+      if (context != null) {
+        final routePath = ContextInfoProvider.getCurrentRoutePath(context);
+        if (routePath.isNotEmpty) {
+          parameters['current_page'] = routePath;
+        }
+      }
+
+      await _logEventWithRetry(
+        eventName: 'language_change',
+        parameters: parameters,
+      );
+
+      // 清空页面标题缓存
+      PageTitleManager.clearTitleCache();
+
+      debugPrint('Analytics: Language change logged - ${oldLanguage ?? 'auto'} -> $newLanguage');
+    } catch (e) {
+      debugPrint('Analytics: Failed to log language change - $e');
+    }
+  }
+
+  /// 记录上下文切换事件（集群或命名空间切换）
+  /// 
+  /// [contextType] - 上下文类型（'cluster' 或 'namespace'）
+  /// [oldValue] - 旧值
+  /// [newValue] - 新值
+  /// [context] - Flutter 上下文（可选）
+  static Future<void> logContextChange({
+    required String contextType,
+    String? oldValue,
+    required String newValue,
+    BuildContext? context,
+  }) async {
+    try {
+      final parameters = <String, Object>{
+        'context_type': contextType,
+        'old_value': oldValue ?? 'none',
+        'new_value': newValue,
+        'change_time': DateTime.now().millisecondsSinceEpoch,
+      };
+
+      // 如果有上下文，添加当前页面和语言信息
+      if (context != null) {
+        final routePath = ContextInfoProvider.getCurrentRoutePath(context);
+        final language = ContextInfoProvider.getCurrentLanguage(context);
+        
+        if (routePath.isNotEmpty) {
+          parameters['current_page'] = routePath;
+        }
+        parameters['language'] = language;
+      }
+
+      await _logEventWithRetry(
+        eventName: 'context_change',
+        parameters: parameters,
+      );
+
+      // 清空页面标题缓存，因为上下文已更改
+      PageTitleManager.clearTitleCache();
+
+      debugPrint('Analytics: Context change logged - $contextType: ${oldValue ?? 'none'} -> $newValue');
+    } catch (e) {
+      debugPrint('Analytics: Failed to log context change - $e');
     }
   }
 

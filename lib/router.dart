@@ -38,6 +38,7 @@ import 'package:k8zdev/providers/current_cluster.dart';
 import 'package:k8zdev/services/k8z_native.dart';
 import 'package:k8zdev/services/analytics_service.dart';
 import 'package:k8zdev/services/analytics_route_observer.dart';
+import 'package:k8zdev/widgets/context_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:sqlite_viewer2/sqlite_viewer.dart';
 import 'package:talker_flutter/talker_flutter.dart';
@@ -68,7 +69,9 @@ final router = GoRouter(
     ShellRoute(
       navigatorKey: _shellNavigatorKey,
       builder: (context, state, child) {
-        return Landing(child: child);
+        return ContextProvider(
+          child: Landing(child: child),
+        );
       },
       routes: [
         GoRoute(

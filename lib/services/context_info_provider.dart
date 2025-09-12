@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:k8zdev/providers/current_cluster.dart';
-import 'package:k8zdev/generated/l10n.dart';
+import 'package:k8zdev/providers/lang.dart';
 import 'package:provider/provider.dart';
 
 /// 上下文信息提供器
@@ -100,11 +100,18 @@ class ContextInfoProvider {
   /// 返回当前的语言代码（如 'en', 'zh', 'ja'）
   static String getCurrentLanguage(BuildContext context) {
     try {
-      final locale = Localizations.localeOf(context);
-      return locale.languageCode;
+      // 首先尝试从 CurrentLocale Provider 获取
+      final currentLocale = Provider.of<CurrentLocale>(context, listen: false);
+      return currentLocale.languageCode;
     } catch (e) {
-      debugPrint('Failed to get current language: $e');
-      return 'en'; // 默认返回英文
+      try {
+        // 如果 Provider 不可用，回退到 Localizations
+        final locale = Localizations.localeOf(context);
+        return locale.languageCode;
+      } catch (e2) {
+        debugPrint('Failed to get current language: $e2');
+        return 'en'; // 默认返回英文
+      }
     }
   }
 

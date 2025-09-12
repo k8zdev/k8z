@@ -633,5 +633,19 @@
   "session_affinity": "会话亲和性",
   "@session_affinity": {},
   "type": "类型",
-  "@type": {}
+  "@type": {},
+  "page_not_found": "页面未找到",
+  "@page_not_found": {},
+  "resource_details": "资源详情",
+  "@resource_details": {},
+  "cluster_overview": "集群概览",
+  "@cluster_overview": {},
+  "language_settings": "语言设置",
+  "@language_settings": {},
+  "load_kubeconfig_file": "加载 Kubeconfig 文件",
+  "@load_kubeconfig_file": {},
+  "select_clusters_page": "选择集群",
+  "@select_clusters_page": {},
+  "sponsor_page": "赞助",
+  "@sponsor_page": {}
 }

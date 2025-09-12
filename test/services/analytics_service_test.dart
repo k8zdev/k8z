@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:k8zdev/services/analytics_service.dart';
-import 'package:k8zdev/generated/l10n.dart';
+import '../test_helpers.dart';
 
 void main() {
   group('AnalyticsService', () {
@@ -12,12 +12,8 @@ void main() {
 
     testWidgets('logPageView should handle basic page view logging', (WidgetTester tester) async {
       await tester.pumpWidget(
-        MaterialApp(
-          localizationsDelegates: const [
-            S.delegate,
-          ],
-          supportedLocales: S.delegate.supportedLocales,
-          home: Builder(
+        createSimpleTestApp(
+          child: Builder(
             builder: (context) {
               // 测试基本的页面访问记录
               // 注意：这里不会实际发送到 Firebase，只是测试代码逻辑
@@ -33,16 +29,14 @@ void main() {
           ),
         ),
       );
+      
+      await pumpAndSettle(tester);
     });
 
     testWidgets('logPageView should handle custom title', (WidgetTester tester) async {
       await tester.pumpWidget(
-        MaterialApp(
-          localizationsDelegates: const [
-            S.delegate,
-          ],
-          supportedLocales: S.delegate.supportedLocales,
-          home: Builder(
+        createSimpleTestApp(
+          child: Builder(
             builder: (context) {
               expect(() async {
                 await AnalyticsService.logPageView(
@@ -57,16 +51,14 @@ void main() {
           ),
         ),
       );
+      
+      await pumpAndSettle(tester);
     });
 
     testWidgets('logPageView should handle additional parameters', (WidgetTester tester) async {
       await tester.pumpWidget(
-        MaterialApp(
-          localizationsDelegates: const [
-            S.delegate,
-          ],
-          supportedLocales: S.delegate.supportedLocales,
-          home: Builder(
+        createSimpleTestApp(
+          child: Builder(
             builder: (context) {
               expect(() async {
                 await AnalyticsService.logPageView(
@@ -84,6 +76,8 @@ void main() {
           ),
         ),
       );
+      
+      await pumpAndSettle(tester);
     });
 
     test('logScreenTransition should handle screen transitions', () async {
@@ -195,8 +189,8 @@ void main() {
     group('Error handling', () {
       testWidgets('logPageView should not throw on errors', (WidgetTester tester) async {
         await tester.pumpWidget(
-          MaterialApp(
-            home: Builder(
+          createSimpleTestApp(
+            child: Builder(
               builder: (context) {
                 // 即使发生错误也不应该抛出异常
                 expect(() async {
@@ -211,6 +205,8 @@ void main() {
             ),
           ),
         );
+        
+        await pumpAndSettle(tester);
       });
 
       test('logEvent should not throw on errors', () async {
