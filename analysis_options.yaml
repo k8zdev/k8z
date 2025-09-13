@@ -37,3 +37,4 @@ analyzer:
     - main.dart
   errors:
     deprecated_member_use: ignore
+    unintended_html_in_doc_comment: ignore # Ignore HTML in doc comments (common in auto-generated Kubernetes models)
