@@ -15,6 +15,10 @@ import 'package:k8zdev/services/k8z_native.dart';
 import 'package:k8zdev/services/k8z_service.dart';
 import 'package:k8zdev/widgets/namespace.dart';
 import 'package:k8zdev/widgets/widgets.dart';
+import 'package:k8zdev/widgets/guide_overlay.dart';
+import 'package:k8zdev/services/onboarding_guide_service.dart';
+import 'package:k8zdev/services/demo_cluster_service.dart';
+import 'package:k8zdev/services/readonly_restriction_service.dart';
 import 'package:provider/provider.dart';
 import 'package:settings_ui/settings_ui.dart';
 
@@ -28,6 +32,23 @@ class ClusterHomePage extends StatefulWidget {
 
 class _ClusterHomePageState extends State<ClusterHomePage> {
   final eventNumber = 5;
+
+  @override
+  void initState() {
+    super.initState();
+    
+    // Start onboarding guide for demo clusters
+    if (DemoClusterService.isDemoCluster(widget.cluster)) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        _startOnboardingGuide();
+      });
+    }
+  }
+
+  void _startOnboardingGuide() {
+    final guideService = Provider.of<OnboardingGuideService>(context, listen: false);
+    guideService.startGuide(widget.cluster);
+  }
   SettingsSection overview(S lang, CurrentCluster ccProvider) {
     final ns = CurrentCluster.current?.namespace ?? "";
     return SettingsSection(
@@ -286,8 +307,13 @@ class _ClusterHomePageState extends State<ClusterHomePage> {
 
   AppBar appBar(BuildContext context, S lang, CurrentCluster ccProvider) {
     return AppBar(
-      title: InkWell(
-        onLongPress: () {
+      title: Row(
+        children: [
+          Expanded(
+            child: InkWell(
+              onLongPress: ReadOnlyRestrictionService.isReadOnlyCluster(widget.cluster)
+                  ? null
+                  : () {
           showDialog(
               context: context,
               builder: (context) {
@@ -346,7 +372,14 @@ class _ClusterHomePageState extends State<ClusterHomePage> {
                 );
               });
         },
-        child: Text(widget.cluster.name),
+              child: Text(widget.cluster.name),
+            ),
+          ),
+          if (ReadOnlyRestrictionService.isReadOnlyCluster(widget.cluster)) ...[
+            const SizedBox(width: 8),
+            ReadOnlyRestrictionService.getReadOnlyIndicator(widget.cluster) ?? Container(),
+          ],
+        ],
       ),
     );
   }
@@ -356,18 +389,35 @@ class _ClusterHomePageState extends State<ClusterHomePage> {
     var lang = S.of(context);
     var ccProvider = Provider.of<CurrentCluster>(context, listen: true);
 
+    // Wrap with guide overlay if onboarding is active
+    Widget body = Consumer<OnboardingGuideService>(
+      builder: (context, guideService, child) {
+        final mainContent = Container(
+          margin: bottomEdge,
+          child: SettingsList(
+            sections: [
+              overview(lang, ccProvider),
+              nodes(lang),
+              events(lang),
+            ],
+          ),
+        );
+
+        if (guideService.isGuideActive) {
+          return GuideOverlay(
+            currentStep: guideService.currentStep,
+            onNext: () => guideService.nextStep(),
+            onSkip: () => guideService.skipGuide(),
+            child: mainContent,
+          );
+        }
+        return mainContent;
+      },
+    );
+
     return Scaffold(
       appBar: appBar(context, lang, ccProvider),
-      body: Container(
-        margin: bottomEdge,
-        child: SettingsList(
-          sections: [
-            overview(lang, ccProvider),
-            nodes(lang),
-            events(lang),
-          ],
-        ),
-      ),
+      body: body,
     );
   }
 }

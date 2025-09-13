@@ -19,6 +19,7 @@ import 'package:k8zdev/widgets/get_terminal.dart';
 import 'package:k8zdev/widgets/modal.dart';
 import 'package:k8zdev/widgets/namespace.dart';
 import 'package:k8zdev/widgets/widgets.dart';
+import 'package:k8zdev/services/readonly_restriction_service.dart';
 import 'package:settings_ui/settings_ui.dart';
 
 class PodsPage extends StatefulWidget {
@@ -140,38 +141,52 @@ class _PodsPageState extends State<PodsPage> {
                         motion: const ScrollMotion(),
                         children: [
                           SlidableAction(
-                            onPressed: (context) {
-                              showModal(
-                                context,
-                                DeleteResource(
-                                  cluster: widget.cluster,
-                                  itemUrl:
-                                      "$_path/namespaces/${metadata.namespace}/$_resource/${metadata.name}",
-                                  name: metadata.name!,
-                                  namespace: metadata.namespace!,
-                                  resource: _resource,
-                                ),
-                              );
-                            },
-                            backgroundColor: const Color(0xFFFE4A49),
+                            onPressed: ReadOnlyRestrictionService.wrapWithReadOnlyCheckContext(
+                              context: context,
+                              cluster: widget.cluster,
+                              operationName: lang.delete,
+                              callback: (context) {
+                                showModal(
+                                  context,
+                                  DeleteResource(
+                                    cluster: widget.cluster,
+                                    itemUrl:
+                                        "$_path/namespaces/${metadata.namespace}/$_resource/${metadata.name}",
+                                    name: metadata.name!,
+                                    namespace: metadata.namespace!,
+                                    resource: _resource,
+                                  ),
+                                );
+                              },
+                            ),
+                            backgroundColor: ReadOnlyRestrictionService.isReadOnlyCluster(widget.cluster)
+                                ? Colors.black
+                                : const Color(0xFFFE4A49),
                             foregroundColor: Colors.white,
                             icon: Icons.delete,
                             label: lang.delete,
                             padding: EdgeInsets.zero,
                           ),
                           SlidableAction(
-                            onPressed: (context) {
-                              showModal(
-                                context,
-                                GetTerminal(
-                                  name: metadata.name!,
-                                  namespace: ns,
-                                  containers: containers,
-                                  cluster: widget.cluster,
-                                ),
-                              );
-                            },
-                            backgroundColor: const Color(0xFF21B7CA),
+                            onPressed: ReadOnlyRestrictionService.wrapWithReadOnlyCheckContext(
+                              context: context,
+                              cluster: widget.cluster,
+                              operationName: lang.terminal,
+                              callback: (context) {
+                                showModal(
+                                  context,
+                                  GetTerminal(
+                                    name: metadata.name!,
+                                    namespace: ns,
+                                    containers: containers,
+                                    cluster: widget.cluster,
+                                  ),
+                                );
+                              },
+                            ),
+                            backgroundColor: ReadOnlyRestrictionService.isReadOnlyCluster(widget.cluster)
+                                ? Colors.grey
+                                : const Color(0xFF21B7CA),
                             foregroundColor: Colors.white,
                             icon: Icons.terminal,
                             spacing: 8,
@@ -185,19 +200,26 @@ class _PodsPageState extends State<PodsPage> {
                         motion: const ScrollMotion(),
                         children: [
                           SlidableAction(
-                            onPressed: (context) {
-                              showModal(
-                                context,
-                                GetTerminal(
-                                  name: metadata.name!,
-                                  namespace: ns,
-                                  containers: containers,
-                                  cluster: widget.cluster,
-                                  shellType: ShellType.debug,
-                                ),
-                              );
-                            },
-                            backgroundColor: Colors.blue,
+                            onPressed: ReadOnlyRestrictionService.wrapWithReadOnlyCheckContext(
+                              context: context,
+                              cluster: widget.cluster,
+                              operationName: lang.general_debug,
+                              callback: (context) {
+                                showModal(
+                                  context,
+                                  GetTerminal(
+                                    name: metadata.name!,
+                                    namespace: ns,
+                                    containers: containers,
+                                    cluster: widget.cluster,
+                                    shellType: ShellType.debug,
+                                  ),
+                                );
+                              },
+                            ),
+                            backgroundColor: ReadOnlyRestrictionService.isReadOnlyCluster(widget.cluster)
+                                ? Colors.grey
+                                : Colors.blue,
                             foregroundColor: Colors.white,
                             icon: Icons.bug_report,
                             spacing: 8,

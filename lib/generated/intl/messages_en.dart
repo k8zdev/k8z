@@ -217,6 +217,22 @@ class MessageLookup extends MessageLookupByLibrary {
       "Are you sure delete the resource?",
     ),
     "deleted": m6,
+    "demo_cluster_decrypt_error": MessageLookupByLibrary.simpleMessage(
+      "Demo configuration decryption failed, please try again later.",
+    ),
+    "demo_cluster_description": MessageLookupByLibrary.simpleMessage(
+      "Quickly experience K8zDev features without configuring a real cluster",
+    ),
+    "demo_cluster_indicator": MessageLookupByLibrary.simpleMessage("Demo"),
+    "demo_cluster_loaded": MessageLookupByLibrary.simpleMessage(
+      "Demo cluster loaded",
+    ),
+    "demo_cluster_loading": MessageLookupByLibrary.simpleMessage(
+      "Loading demo cluster...",
+    ),
+    "demo_cluster_network_error": MessageLookupByLibrary.simpleMessage(
+      "Cannot connect to demo server, using offline demo.",
+    ),
     "deployment_text": m7,
     "deployments": MessageLookupByLibrary.simpleMessage("Deployments"),
     "discovery_and_lb": MessageLookupByLibrary.simpleMessage(
@@ -281,6 +297,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "load_balancer_ip": MessageLookupByLibrary.simpleMessage(
       "Load Balancer IP",
     ),
+    "load_demo_cluster": MessageLookupByLibrary.simpleMessage(
+      "Load Demo Cluster",
+    ),
     "load_file": MessageLookupByLibrary.simpleMessage("load file"),
     "load_kubeconfig_file": MessageLookupByLibrary.simpleMessage(
       "Load Kubeconfig File",
@@ -325,6 +344,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "pvcs": MessageLookupByLibrary.simpleMessage("Persistent Volume Claims"),
     "pvs": MessageLookupByLibrary.simpleMessage("Persistent Volumes"),
     "readinessProbe": MessageLookupByLibrary.simpleMessage("Readiness Probe"),
+    "readonly_indicator": MessageLookupByLibrary.simpleMessage("Read-only"),
     "release_text": m26,
     "releases": MessageLookupByLibrary.simpleMessage("Releases"),
     "replicasets": MessageLookupByLibrary.simpleMessage("ReplicaSets"),

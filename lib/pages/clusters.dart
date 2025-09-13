@@ -9,6 +9,7 @@ import 'package:k8zdev/generated/l10n.dart';
 import 'package:k8zdev/pages/k8s_list/cluster/create.dart';
 import 'package:k8zdev/providers/current_cluster.dart';
 import 'package:k8zdev/widgets/overview_metrics.dart';
+import 'package:k8zdev/widgets/demo_cluster_indicator.dart';
 import 'package:provider/provider.dart';
 import 'package:settings_ui/settings_ui.dart';
 
@@ -90,14 +91,29 @@ class _ClustersPageState extends State<ClustersPage> {
     final ccProvider = Provider.of<CurrentCluster>(context, listen: false);
     return clusters.map((cluster) {
       final tile = SettingsTile.navigation(
-        title: Text(
-          cluster.name,
-          style: const TextStyle(height: 1.5),
+        title: Row(
+          children: [
+            Expanded(
+              child: Text(
+                cluster.name,
+                style: const TextStyle(height: 1.5),
+              ),
+            ),
+            if (cluster.isDemo || cluster.isReadOnly) ...[
+              const SizedBox(width: 8),
+              DemoClusterIndicator(
+                isDemo: cluster.isDemo,
+                isReadOnly: cluster.isReadOnly,
+              ),
+            ],
+          ],
         ),
         value: (current?.name == cluster.name) ? const Text("current") : null,
-        leading: Icon(Icons.computer,
-            color:
-                (current?.name == cluster.name) ? Colors.green : Colors.grey),
+        leading: Icon(
+          cluster.isDemo ? Icons.play_circle_outline : Icons.computer,
+          color: (current?.name == cluster.name) ? Colors.green : 
+                 cluster.isDemo ? Colors.orange : Colors.grey,
+        ),
         onPressed: (context) {
           GoRouter.of(context).pushNamed("cluster_home", extra: cluster);
         },
