@@ -647,5 +647,21 @@
   "select_clusters_page": "Select Clusters",
   "@select_clusters_page": {},
   "sponsor_page": "Sponsor",
-  "@sponsor_page": {}
+  "@sponsor_page": {},
+  "load_demo_cluster": "Load Demo Cluster",
+  "@load_demo_cluster": {},
+  "demo_cluster_loading": "Loading demo cluster...",
+  "@demo_cluster_loading": {},
+  "demo_cluster_loaded": "Demo cluster loaded",
+  "@demo_cluster_loaded": {},
+  "demo_cluster_indicator": "Demo",
+  "@demo_cluster_indicator": {},
+  "readonly_indicator": "Read-only",
+  "@readonly_indicator": {},
+  "demo_cluster_network_error": "Cannot connect to demo server, using offline demo.",
+  "@demo_cluster_network_error": {},
+  "demo_cluster_decrypt_error": "Demo configuration decryption failed, please try again later.",
+  "@demo_cluster_decrypt_error": {},
+  "demo_cluster_description": "Quickly experience K8zDev features without configuring a real cluster",
+  "@demo_cluster_description": {}
 }

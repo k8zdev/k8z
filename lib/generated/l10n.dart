@@ -1637,6 +1637,86 @@ class S {
   String get sponsor_page {
     return Intl.message('Sponsor', name: 'sponsor_page', desc: '', args: []);
   }
+
+  /// `Load Demo Cluster`
+  String get load_demo_cluster {
+    return Intl.message(
+      'Load Demo Cluster',
+      name: 'load_demo_cluster',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Loading demo cluster...`
+  String get demo_cluster_loading {
+    return Intl.message(
+      'Loading demo cluster...',
+      name: 'demo_cluster_loading',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Demo cluster loaded`
+  String get demo_cluster_loaded {
+    return Intl.message(
+      'Demo cluster loaded',
+      name: 'demo_cluster_loaded',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Demo`
+  String get demo_cluster_indicator {
+    return Intl.message(
+      'Demo',
+      name: 'demo_cluster_indicator',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Read-only`
+  String get readonly_indicator {
+    return Intl.message(
+      'Read-only',
+      name: 'readonly_indicator',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Cannot connect to demo server, using offline demo.`
+  String get demo_cluster_network_error {
+    return Intl.message(
+      'Cannot connect to demo server, using offline demo.',
+      name: 'demo_cluster_network_error',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Demo configuration decryption failed, please try again later.`
+  String get demo_cluster_decrypt_error {
+    return Intl.message(
+      'Demo configuration decryption failed, please try again later.',
+      name: 'demo_cluster_decrypt_error',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Quickly experience K8zDev features without configuring a real cluster`
+  String get demo_cluster_description {
+    return Intl.message(
+      'Quickly experience K8zDev features without configuring a real cluster',
+      name: 'demo_cluster_description',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

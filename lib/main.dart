@@ -16,6 +16,7 @@ import 'package:k8zdev/providers/talker.dart';
 import 'package:k8zdev/providers/terminals.dart';
 import 'package:k8zdev/providers/theme.dart';
 import 'package:k8zdev/providers/timeout.dart';
+import 'package:k8zdev/services/onboarding_guide_service.dart';
 import 'package:k8zdev/router.dart';
 import 'package:k8zdev/services/k8z_native.dart';
 import 'package:k8zdev/services/revenuecat.dart';
@@ -100,6 +101,7 @@ void main() async {
         ChangeNotifierProvider<RevenueCatCustomer>.value(value: customerInfo),
         ChangeNotifierProvider(create: (_) => TerminalProvider()),
         ChangeNotifierProvider(create: (_) => TimeoutProvider()..init()),
+        ChangeNotifierProvider(create: (_) => OnboardingGuideService()),
       ],
       child: TalkerWrapper(
         talker: talker,

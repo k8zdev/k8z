@@ -15,7 +15,9 @@ CREATE TABLE IF NOT EXISTS  "$clustersTable" (
   "password" TEXT NOT NULL DEFAULT "",
   "token" TEXT NOT NULL DEFAULT "",
   "created_at" INTEGER NOT NULL DEFAULT 0,
-  "deleted" INTEGER NOT NULL DEFAULT 0
+  "deleted" INTEGER NOT NULL DEFAULT 0,
+  "is_demo" INTEGER NOT NULL DEFAULT 0,
+  "is_readonly" INTEGER NOT NULL DEFAULT 0
 )
 ''';
 
@@ -33,6 +35,8 @@ class K8zCluster {
   String token;
   int createdAt;
   bool? deleted;
+  bool isDemo;
+  bool isReadOnly;
 
   Map<String, dynamic> toJson() {
     return {
@@ -48,6 +52,8 @@ class K8zCluster {
       'password': password,
       'token': token,
       'created_at': createdAt,
+      'is_demo': isDemo ? 1 : 0,
+      'is_readonly': isReadOnly ? 1 : 0,
     };
   }
 
@@ -63,7 +69,9 @@ class K8zCluster {
         password = json["password"],
         username = json["username"],
         token = json["token"],
-        createdAt = json["created_at"];
+        createdAt = json["created_at"],
+        isDemo = json["is_demo"] == 1,
+        isReadOnly = json["is_readonly"] == 1;
 
   K8zCluster({
     this.id,
@@ -79,6 +87,8 @@ class K8zCluster {
     required this.password,
     required this.token,
     required this.createdAt,
+    this.isDemo = false,
+    this.isReadOnly = false,
   });
 
   static Future<K8zCluster> insert(K8zCluster config) async {
@@ -129,7 +139,38 @@ class K8zCluster {
         password: maps[i]['password'],
         token: maps[i]['token'],
         createdAt: maps[i]['created_at'],
+        isDemo: maps[i]['is_demo'] == 1,
+        isReadOnly: maps[i]['is_readonly'] == 1,
       );
     });
+  }
+
+  /// 创建演示集群的工厂方法
+  factory K8zCluster.createDemo({
+    required String name,
+    required String server,
+    required String caData,
+    String namespace = 'default',
+    String clientKey = '',
+    String clientCert = '',
+    String username = '',
+    String password = '',
+    String token = '',
+  }) {
+    return K8zCluster(
+      name: name,
+      server: server,
+      caData: caData,
+      namespace: namespace,
+      insecure: false,
+      clientKey: clientKey,
+      clientCert: clientCert,
+      username: username,
+      password: password,
+      token: token,
+      createdAt: DateTime.now().millisecondsSinceEpoch,
+      isDemo: true,
+      isReadOnly: true,
+    );
   }
 }

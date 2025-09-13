@@ -647,5 +647,21 @@
   "select_clusters_page": "选择集群",
   "@select_clusters_page": {},
   "sponsor_page": "赞助",
-  "@sponsor_page": {}
+  "@sponsor_page": {},
+  "load_demo_cluster": "加载演示集群",
+  "@load_demo_cluster": {},
+  "demo_cluster_loading": "正在加载演示集群...",
+  "@demo_cluster_loading": {},
+  "demo_cluster_loaded": "演示集群已加载",
+  "@demo_cluster_loaded": {},
+  "demo_cluster_indicator": "演示",
+  "@demo_cluster_indicator": {},
+  "readonly_indicator": "只读",
+  "@readonly_indicator": {},
+  "demo_cluster_network_error": "无法连接到演示服务器，将使用离线演示。",
+  "@demo_cluster_network_error": {},
+  "demo_cluster_decrypt_error": "演示配置解密失败，请稍后重试。",
+  "@demo_cluster_decrypt_error": {},
+  "demo_cluster_description": "快速体验 K8zDev 的功能，无需配置真实集群",
+  "@demo_cluster_description": {}
 }

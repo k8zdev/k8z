@@ -204,6 +204,18 @@ class MessageLookup extends MessageLookupByLibrary {
     "delete_ok": MessageLookupByLibrary.simpleMessage("删除资源成功."),
     "delete_resource": MessageLookupByLibrary.simpleMessage("确认删除资源吗?"),
     "deleted": m6,
+    "demo_cluster_decrypt_error": MessageLookupByLibrary.simpleMessage(
+      "演示配置解密失败，请稍后重试。",
+    ),
+    "demo_cluster_description": MessageLookupByLibrary.simpleMessage(
+      "快速体验 K8zDev 的功能，无需配置真实集群",
+    ),
+    "demo_cluster_indicator": MessageLookupByLibrary.simpleMessage("演示"),
+    "demo_cluster_loaded": MessageLookupByLibrary.simpleMessage("演示集群已加载"),
+    "demo_cluster_loading": MessageLookupByLibrary.simpleMessage("正在加载演示集群..."),
+    "demo_cluster_network_error": MessageLookupByLibrary.simpleMessage(
+      "无法连接到演示服务器，将使用离线演示。",
+    ),
     "deployment_text": m7,
     "deployments": MessageLookupByLibrary.simpleMessage("Deployments"),
     "discovery_and_lb": MessageLookupByLibrary.simpleMessage("服务发现与负载均衡"),
@@ -256,6 +268,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "last_warning_events": m15,
     "livenessProbe": MessageLookupByLibrary.simpleMessage("存活探针"),
     "load_balancer_ip": MessageLookupByLibrary.simpleMessage("负载均衡器 IP"),
+    "load_demo_cluster": MessageLookupByLibrary.simpleMessage("加载演示集群"),
     "load_file": MessageLookupByLibrary.simpleMessage("加载文件"),
     "load_kubeconfig_file": MessageLookupByLibrary.simpleMessage(
       "加载 Kubeconfig 文件",
@@ -296,6 +309,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "pvcs": MessageLookupByLibrary.simpleMessage("持久卷申领"),
     "pvs": MessageLookupByLibrary.simpleMessage("持久卷"),
     "readinessProbe": MessageLookupByLibrary.simpleMessage("就绪探针"),
+    "readonly_indicator": MessageLookupByLibrary.simpleMessage("只读"),
     "release_text": m26,
     "releases": MessageLookupByLibrary.simpleMessage("Releases"),
     "replicasets": MessageLookupByLibrary.simpleMessage("副本集合 (RS)"),

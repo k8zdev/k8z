@@ -13,6 +13,7 @@ import 'package:k8zdev/providers/lang.dart';
 import 'package:k8zdev/services/k8z_native.dart';
 import 'package:k8zdev/services/k8z_service.dart';
 import 'package:k8zdev/widgets/delete_resource.dart';
+import 'package:k8zdev/services/readonly_restriction_service.dart';
 import 'package:k8zdev/widgets/detail_widgets/configmap.dart';
 import 'package:k8zdev/widgets/detail_widgets/pod.dart';
 import 'package:k8zdev/widgets/detail_widgets/secret.dart';
@@ -243,37 +244,71 @@ class _ResourceDetailsPageState extends State<ResourceDetailsPage> {
         ),
       ),
       Actions.delete: TextButton(
-        onPressed: () {
-          showModal(
-            context,
-            DeleteResource(
-              cluster: cluster!,
-              itemUrl: itemUrl,
-              name: widget.name,
-              namespace: widget.namespace!,
-              resource: widget.resource,
-            ),
-          );
-        },
-        child: const Column(
+        onPressed: ReadOnlyRestrictionService.wrapWithReadOnlyCheck(
+          context: context,
+          cluster: cluster,
+          operationName: "删除",
+          callback: () {
+            showModal(
+              context,
+              DeleteResource(
+                cluster: cluster!,
+                itemUrl: itemUrl,
+                name: widget.name,
+                namespace: widget.namespace!,
+                resource: widget.resource,
+              ),
+            );
+          },
+        ),
+        child: Column(
           children: [
-            Icon(Icons.delete),
-            Text("Delete"),
+            Icon(
+              Icons.delete,
+              color: ReadOnlyRestrictionService.isReadOnlyCluster(cluster)
+                  ? Colors.grey
+                  : null,
+            ),
+            Text(
+              "Delete",
+              style: TextStyle(
+                color: ReadOnlyRestrictionService.isReadOnlyCluster(cluster)
+                    ? Colors.grey
+                    : null,
+              ),
+            ),
           ],
         ),
       ),
       Actions.scale: TextButton(
-        onPressed: () {
-          showModal(
-            context,
-            scaleWidget(resp.body["spec"]["replicas"]),
-            minHeight: 200,
-          );
-        },
+        onPressed: ReadOnlyRestrictionService.wrapWithReadOnlyCheck(
+          context: context,
+          cluster: cluster,
+          operationName: lang.scale,
+          callback: () {
+            showModal(
+              context,
+              scaleWidget(resp.body["spec"]["replicas"]),
+              minHeight: 200,
+            );
+          },
+        ),
         child: Column(
           children: [
-            const Icon(Icons.add_circle_sharp),
-            Text(lang.scale),
+            Icon(
+              Icons.add_circle_sharp,
+              color: ReadOnlyRestrictionService.isReadOnlyCluster(cluster)
+                  ? Colors.grey
+                  : null,
+            ),
+            Text(
+              lang.scale,
+              style: TextStyle(
+                color: ReadOnlyRestrictionService.isReadOnlyCluster(cluster)
+                    ? Colors.grey
+                    : null,
+              ),
+            ),
           ],
         ),
       ),
@@ -311,24 +346,41 @@ class _ResourceDetailsPageState extends State<ResourceDetailsPage> {
         ),
       ),
       Actions.terminal: TextButton(
-        onPressed: () {
-          final pod = IoK8sApiCoreV1Pod.fromJson(resp.body);
-          final list =
-              pod?.spec?.containers.map((container) => container.name).toList();
-          showModal(
-            context,
-            GetTerminal(
-              name: widget.name,
-              namespace: widget.namespace ?? "default",
-              containers: list ?? [],
-              cluster: cluster!,
-            ),
-          );
-        },
+        onPressed: ReadOnlyRestrictionService.wrapWithReadOnlyCheck(
+          context: context,
+          cluster: cluster,
+          operationName: lang.terminal,
+          callback: () {
+            final pod = IoK8sApiCoreV1Pod.fromJson(resp.body);
+            final list =
+                pod?.spec?.containers.map((container) => container.name).toList();
+            showModal(
+              context,
+              GetTerminal(
+                name: widget.name,
+                namespace: widget.namespace ?? "default",
+                containers: list ?? [],
+                cluster: cluster!,
+              ),
+            );
+          },
+        ),
         child: Column(
           children: [
-            const Icon(Icons.terminal),
-            Text(lang.terminal),
+            Icon(
+              Icons.terminal,
+              color: ReadOnlyRestrictionService.isReadOnlyCluster(cluster)
+                  ? Colors.grey
+                  : null,
+            ),
+            Text(
+              lang.terminal,
+              style: TextStyle(
+                color: ReadOnlyRestrictionService.isReadOnlyCluster(cluster)
+                    ? Colors.grey
+                    : null,
+              ),
+            ),
           ],
         ),
       ),
