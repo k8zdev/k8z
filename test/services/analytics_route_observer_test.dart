@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:k8zdev/services/analytics_route_observer.dart';
-import '../test_helpers.dart';
 
 void main() {
   group('AnalyticsRouteObserver', () {

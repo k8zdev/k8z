@@ -96,12 +96,11 @@ class CurrentNamespace extends StatelessWidget {
                       var name = ns.metadata?.name ?? "";
                       return SettingsTile(
                         title: Text(name),
-                        trailing: Radio(
+                        trailing: Radio<String>(
                           value: name,
                           groupValue: cluster.namespace,
                           onChanged: (value) {
                             ccProvider.updateNamespace(value);
-
                             Navigator.pop(context);
                           },
                         ),
@@ -145,7 +144,7 @@ class CurrentNamespace extends StatelessWidget {
             tiles: [
               SettingsTile(
                 title: Text(lang.all),
-                trailing: Radio(
+                trailing: Radio<String>(
                   value: "",
                   groupValue: cluster.namespace,
                   onChanged: (value) {

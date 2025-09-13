@@ -374,7 +374,7 @@ class _ResourceDetailsPageState extends State<ResourceDetailsPage> {
       //   color: Colors.green,
       // ),
       tagContainerDecoration: BoxDecoration(
-        color: Colors.green.withOpacity(.2),
+        color: Colors.green.withValues(alpha: 0.2),
         borderRadius: const BorderRadius.all(
           Radius.circular(11),
         ),
