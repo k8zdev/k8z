@@ -76,7 +76,7 @@ dependencies:
   chinese_font_library: ^1.1.0
   http: ^1.2.0
   simple_tags: ^0.0.6
-  auto_hyphenating_text: ^0.3.0
+  auto_hyphenating_text: ^0.3.1
   json2yaml: ^3.0.1
   numberpicker: ^2.1.2
   in_app_review: ^2.0.9
