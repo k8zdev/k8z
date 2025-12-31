@@ -1,0 +1,19 @@
+apiVersion: v1
+clusters:
+- cluster:
+    server: https://127.0.0.1:6443
+    certificate-authority-data: FAKEDATA==
+  name: kind-k8z
+contexts:
+- context:
+    cluster: kind-k8z
+    user: kind-k8z
+  name: kind-k8z
+current-context: kind-k8z
+kind: Config
+preferences: {}
+users:
+- name: kind-k8z
+  user:
+    client-certificate-data: FAKEDATA==
+    client-key-data: FAKEDATA==

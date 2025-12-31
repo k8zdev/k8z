@@ -52,3 +52,13 @@ decrypt:
 dmg:
 	@echo Building DMG...
 	@hack/build_macos_dmg.sh
+
+# BDD tests using gherkin framework may exit with code 79 (no standard flutter tests)
+# This is expected behavior as scenarios are executed by GherkinRunner
+.PHONY: test-bdd-macos
+test-bdd-macos:
+	@flutter test -d macos test/bdd/macos_fast_runner.dart || [ $$? -eq 79 ]
+
+.PHONY: test-bdd-ios
+test-bdd-ios:
+	@flutter test -d simulator test/bdd/ios_critical_runner.dart || [ $$? -eq 79 ]

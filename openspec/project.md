@@ -137,10 +137,17 @@ lib/
 - Widget composition for reusable UI
 
 ### Testing Strategy
-- **Unit tests**: Use `flutter_test` for isolated component testing
-- **Integration tests**: `e2e/` directory for end-to-end workflows
-- **Test coverage**: Aim for coverage on business logic (services, providers, dao)
-- **Test data**: Use mock K8s responses for isolated testing
+Our testing strategy follows a layered approach to balance development speed with quality assurance.
+
+- **Unit Tests**: Use `flutter_test` for isolated testing of individual widgets, classes, and functions (e.g., in `services`, `providers`, `dao`).
+
+- **BDD Integration Tests**: We use Behavior-Driven Development (BDD) for end-to-end integration testing, powered by the `flutter_gherkin` package. This allows us to write human-readable feature files that describe application behavior.
+    - **Single Source of Truth**: All BDD tests (`.feature` and step files) are written once and stored in a dedicated test directory.
+    - **Two-Tiered Execution**: We employ a two-tiered execution strategy using Gherkin tags to optimize for speed and coverage:
+        - **Fast Feedback (macOS)**: The primary test suite runs on the macOS desktop build. It covers the majority of business logic and UI (`@logic`, `@smoke` tags). This suite is designed to be run frequently during development for rapid feedback.
+        - **Critical Path (iOS)**: A smaller, targeted suite runs on an iOS simulator/device. It focuses on validating platform-specific integrations and critical user flows (`@smoke`, `@ios-critical` tags), such as in-app purchases, permissions, and final UI rendering on a mobile form factor.
+
+- **Test Data**: Mock Kubernetes responses and a pre-defined demo cluster are used to ensure tests are repeatable and isolated from external dependencies.
 
 ### Git Workflow
 - **Main branch**: `main` (production releases)
