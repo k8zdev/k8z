@@ -139,87 +139,77 @@ class _IsolateK8zRequestArgs {
 
 void _isolateK8zRequest(_IsolateK8zRequestArgs args) {
   final reqStart = DateTime.now();
-  final Pointer<Utf8> serverPtr = args.server.toNativeUtf8();
-  final int serverLen = args.server.length;
-  final Pointer<Utf8> caDataPtr = args.caData.toNativeUtf8();
-  final caDataLen = args.caData.length;
+  final k8zNative = K8zNative();
 
-  final Pointer<Utf8> clientCertPtr = args.clientCert.toNativeUtf8();
-  final clientCertLen = args.clientCert.length;
-  final Pointer<Utf8> clientKeyPtr = args.clientKey.toNativeUtf8();
-  final clientKeyLen = args.clientKey.length;
+  // Use an Arena for scoped memory management of request parameters.
+  // Pointers allocated within the arena are automatically released.
+  final result = using((Arena arena) {
+    final serverPtr = args.server.toNativeUtf8(allocator: arena);
+    final caDataPtr = args.caData.toNativeUtf8(allocator: arena);
+    final clientCertPtr = args.clientCert.toNativeUtf8(allocator: arena);
+    final clientKeyPtr = args.clientKey.toNativeUtf8(allocator: arena);
+    final tokenPtr = args.token.toNativeUtf8(allocator: arena);
+    final usernamePtr = args.username.toNativeUtf8(allocator: arena);
+    final passwordPtr = args.password.toNativeUtf8(allocator: arena);
+    final proxyPtr = args.proxy.toNativeUtf8(allocator: arena);
+    final methodPtr = args.method.toNativeUtf8(allocator: arena);
+    final apiPtr = args.api.toNativeUtf8(allocator: arena);
+    final bodyPtr = args.body.toNativeUtf8(allocator: arena);
+    final insecureInt = args.insecure ? 1 : 0;
 
-  final Pointer<Utf8> tokenPtr = args.token.toNativeUtf8();
-  final tokenLen = args.token.length;
-  final Pointer<Utf8> usernamePtr = args.username.toNativeUtf8();
-  final usernameLen = args.username.length;
-  final Pointer<Utf8> passwordPtr = args.password.toNativeUtf8();
-  final passwordLen = args.password.length;
-  final Pointer<Utf8> proxyPtr = args.proxy.toNativeUtf8();
-  final proxyLen = args.proxy.length;
-
-  final Pointer<Utf8> methodPtr = args.method.toNativeUtf8();
-  final methodLen = args.method.length;
-  final Pointer<Utf8> apiPtr = args.api.toNativeUtf8();
-  final apiLen = args.api.length;
-  final Pointer<Utf8> bodyPtr = args.body.toNativeUtf8();
-  final bodyLen = args.body.length;
-
-  final int insecureInt = args.insecure ? 1 : 0;
-
-  final result = K8zNative()._k8zRequest()(
-    serverPtr,
-    serverLen,
-    caDataPtr,
-    caDataLen,
-    insecureInt,
-    clientCertPtr,
-    clientCertLen,
-    clientKeyPtr,
-    clientKeyLen,
-    tokenPtr,
-    tokenLen,
-    usernamePtr,
-    usernameLen,
-    passwordPtr,
-    passwordLen,
-    proxyPtr,
-    proxyLen,
-    args.timeout,
-    methodPtr,
-    methodLen,
-    apiPtr,
-    apiLen,
-    bodyPtr,
-    bodyLen,
-  );
+    // Call the cached native function.
+    return k8zNative.k8zRequestFn(
+      serverPtr,
+      args.server.length,
+      caDataPtr,
+      args.caData.length,
+      insecureInt,
+      clientCertPtr,
+      args.clientCert.length,
+      clientKeyPtr,
+      args.clientKey.length,
+      tokenPtr,
+      args.token.length,
+      usernamePtr,
+      args.username.length,
+      passwordPtr,
+      args.password.length,
+      proxyPtr,
+      args.proxy.length,
+      args.timeout,
+      methodPtr,
+      args.method.length,
+      apiPtr,
+      args.api.length,
+      bodyPtr,
+      args.body.length,
+    );
+  });
 
   final duration = DateTime.now().difference(reqStart);
 
   var resp = BodyReturn(
-    body: K8zNative().ptr2String(result.body),
-    error: K8zNative().ptr2String(result.error),
+    body: k8zNative.ptr2String(result.body),
+    error: k8zNative.ptr2String(result.error),
     duration: duration,
   );
   args.respPort.send(resp);
 
-  // free
-  K8zNative().free(serverPtr.address);
-  K8zNative().free(caDataPtr.address);
-  K8zNative().free(clientCertPtr.address);
-  K8zNative().free(clientKeyPtr.address);
-  K8zNative().free(tokenPtr.address);
-  K8zNative().free(usernamePtr.address);
-  K8zNative().free(passwordPtr.address);
-  K8zNative().free(proxyPtr.address);
-  K8zNative().free(methodPtr.address);
-  K8zNative().free(apiPtr.address);
-  K8zNative().free(bodyPtr.address);
+  // Manually free pointers returned from the Go function.
+  k8zNative.freePointer(result.body);
+  k8zNative.freePointer(result.error);
 }
 
 class K8zNative {
   static final K8zNative _instance = K8zNative._internal();
-  late DynamicLibrary _library;
+  late final DynamicLibrary _library;
+
+  // Cached native function pointers.
+  late final FreePointerFn _freePointerFn;
+  late final Json2yamlFn _json2yamlFn;
+  late final LocalServerAddrFn _localServerAddrFn;
+  late final StartLocalServerFn _startLocalServerFn;
+  late final K8zRequestFn k8zRequestFn;
 
   factory K8zNative() {
     return _instance;
@@ -236,6 +226,20 @@ class K8zNative {
       }
       _library = DynamicLibrary.open(libraryPath);
     }
+
+    // Eagerly lookup and cache native functions upon initialization.
+    _freePointerFn = _library
+        .lookupFunction<FreePointerNative, FreePointerFn>("FreePointer");
+    _json2yamlFn =
+        _library.lookupFunction<Json2yamlNative, Json2yamlFn>("Json2yaml");
+    _localServerAddrFn =
+        _library.lookupFunction<LocalServerAddrNative, LocalServerAddrFn>(
+            "LocalServerAddr");
+    _startLocalServerFn =
+        _library.lookupFunction<StartLocalServerNative, StartLocalServerFn>(
+            "StartLocalServer");
+    k8zRequestFn =
+        _library.lookupFunction<K8zRequestNative, K8zRequestFn>("K8zRequest");
   }
 
   static String _getLibraryPath() {
@@ -250,37 +254,32 @@ class K8zNative {
     }
   }
 
-  void _free(Pointer<Utf8> pointer) {
-    FreePointerFn func = _library
-        .lookupFunction<FreePointerNative, FreePointerFn>("FreePointer");
-
-    return func(pointer);
-  }
-
-  void free(int ptr) {
-    this._free(Pointer.fromAddress(ptr));
+  /// Frees a pointer allocated by the native library.
+  void freePointer(Pointer<Utf8> pointer) {
+    return _freePointerFn(pointer);
   }
 
   String _json2yaml(Pointer<Utf8> src, int len) {
-    Json2yamlFn func =
-        _library.lookupFunction<Json2yamlNative, Json2yamlFn>("Json2yaml");
-    final ptr = func(src, len);
-    return ptr2String(ptr);
+    final ptr = _json2yamlFn(src, len);
+    final result = ptr2String(ptr);
+    // Free the pointer returned by the native function to prevent a memory leak.
+    freePointer(ptr);
+    return result;
   }
 
   static String json2yaml(String src) {
-    final Pointer<Utf8> srcPtr = src.toNativeUtf8();
-    final int srcLen = src.length;
-    return K8zNative()._json2yaml(srcPtr, srcLen);
+    // Use an arena to manage the memory of the source pointer.
+    return using((arena) {
+      final srcPtr = src.toNativeUtf8(allocator: arena);
+      return K8zNative()._json2yaml(srcPtr, src.length);
+    });
   }
 
   String _localServerAddr() {
-    LocalServerAddrFn func =
-        _library.lookupFunction<LocalServerAddrNative, LocalServerAddrFn>(
-            "LocalServerAddr");
-    var addr = func();
-    var result = addr.toDartString();
-    free(addr.address);
+    final addr = _localServerAddrFn();
+    final result = addr.toDartString();
+    // Free the pointer returned by the native function.
+    freePointer(addr);
     return result;
   }
 
@@ -289,10 +288,7 @@ class K8zNative {
   }
 
   void _startLocalServer() {
-    StartLocalServerFn func =
-        _library.lookupFunction<StartLocalServerNative, StartLocalServerFn>(
-            "StartLocalServer");
-    func();
+    _startLocalServerFn();
   }
 
   static Future<void> _localServer(RootIsolateToken rootIsolateToken) async {
@@ -309,11 +305,6 @@ class K8zNative {
     }
     var rootIsolateToken = RootIsolateToken.instance!;
     await Isolate.spawn(_localServer, rootIsolateToken);
-  }
-
-  K8zRequestFn _k8zRequest() {
-    return _library
-        .lookupFunction<K8zRequestNative, K8zRequestFn>("K8zRequest");
   }
 
   Future<BodyReturn> k8zRequest2({
@@ -437,3 +428,4 @@ class K8zNative {
     return resp;
   }
 }
+
