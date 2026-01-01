@@ -15,6 +15,7 @@ import 'package:k8zdev/services/k8z_service.dart';
 import 'package:k8zdev/widgets/delete_resource.dart';
 import 'package:k8zdev/services/readonly_restriction_service.dart';
 import 'package:k8zdev/widgets/detail_widgets/configmap.dart';
+import 'package:k8zdev/widgets/detail_widgets/events_detail.dart';
 import 'package:k8zdev/widgets/detail_widgets/pod.dart';
 import 'package:k8zdev/widgets/detail_widgets/secret.dart';
 import 'package:k8zdev/widgets/detail_widgets/services.dart';
@@ -699,6 +700,11 @@ class _ResourceDetailsPageState extends State<ResourceDetailsPage> {
         title = lang.services;
         final svc = IoK8sApiCoreV1Service.fromJson(resp.body);
         tiles = buildServicesTiles(context, svc?.spec, svc?.status, langCode);
+
+      case "events":
+        title = lang.events;
+        final evt = IoK8sApiCoreV1Event.fromJson(resp.body);
+        tiles = buildEventsDetailSectionTiles(context, evt, langCode);
 
       case "namespaces":
         final ns = IoK8sApiCoreV1Namespace.fromJson(resp.body);
