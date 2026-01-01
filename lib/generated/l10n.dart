@@ -2036,6 +2036,136 @@ class S {
       args: [],
     );
   }
+
+  /// `Reason`
+  String get event_reason {
+    return Intl.message('Reason', name: 'event_reason', desc: '', args: []);
+  }
+
+  /// `Message`
+  String get event_message {
+    return Intl.message('Message', name: 'event_message', desc: '', args: []);
+  }
+
+  /// `Count`
+  String get event_count {
+    return Intl.message('Count', name: 'event_count', desc: '', args: []);
+  }
+
+  /// `Involved Object`
+  String get event_involved_object {
+    return Intl.message(
+      'Involved Object',
+      name: 'event_involved_object',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Object UID`
+  String get event_object_uid {
+    return Intl.message(
+      'Object UID',
+      name: 'event_object_uid',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `First Timestamp`
+  String get event_first_timestamp {
+    return Intl.message(
+      'First Timestamp',
+      name: 'event_first_timestamp',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Last Timestamp`
+  String get event_last_timestamp {
+    return Intl.message(
+      'Last Timestamp',
+      name: 'event_last_timestamp',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Event Time`
+  String get event_event_time {
+    return Intl.message(
+      'Event Time',
+      name: 'event_event_time',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Series Count`
+  String get event_series_count {
+    return Intl.message(
+      'Series Count',
+      name: 'event_series_count',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Series Last Observed`
+  String get event_series_last_observed {
+    return Intl.message(
+      'Series Last Observed',
+      name: 'event_series_last_observed',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Reporting Component`
+  String get event_reporting_component {
+    return Intl.message(
+      'Reporting Component',
+      name: 'event_reporting_component',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Reporting Instance`
+  String get event_reporting_instance {
+    return Intl.message(
+      'Reporting Instance',
+      name: 'event_reporting_instance',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Source Component`
+  String get event_source_component {
+    return Intl.message(
+      'Source Component',
+      name: 'event_source_component',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Source Host`
+  String get event_source_host {
+    return Intl.message(
+      'Source Host',
+      name: 'event_source_host',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Action`
+  String get event_action {
+    return Intl.message('Action', name: 'event_action', desc: '', args: []);
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

@@ -30,7 +30,7 @@ List<AbstractSettingsTile> buildEventsDetailSectionTiles(
     ),
     if (event.reason != null)
       copyTileValue(
-        'Reason',
+        lang.event_reason,
         event.reason!,
         langCode,
         enLen: 72.0,
@@ -38,7 +38,7 @@ List<AbstractSettingsTile> buildEventsDetailSectionTiles(
       ),
     if (event.message != null && event.message!.isNotEmpty)
       copyTileValue(
-        'Message',
+        lang.event_message,
         event.message!,
         langCode,
         enLen: 72.0,
@@ -46,7 +46,7 @@ List<AbstractSettingsTile> buildEventsDetailSectionTiles(
       ),
     if (event.count != null)
       copyTileValue(
-        'Count',
+        lang.event_count,
         '${event.count}',
         langCode,
         enLen: 72.0,
@@ -58,7 +58,7 @@ List<AbstractSettingsTile> buildEventsDetailSectionTiles(
   final involved = event.involvedObject;
   tiles.add(
     SettingsTile.navigation(
-      leading: leadingText('Involved Object', langCode, enLen: 72.0, zhLen: 72.0),
+      leading: leadingText(lang.event_involved_object, langCode, enLen: 72.0, zhLen: 72.0),
       title: Text('${involved.kind ?? ''}/${involved.name ?? ''}'),
       trailing: involved.namespace != null
           ? Text(involved.namespace!)
@@ -69,7 +69,7 @@ List<AbstractSettingsTile> buildEventsDetailSectionTiles(
   if (involved.uid != null) {
     tiles.add(
       copyTileValue(
-        'Object UID',
+        lang.event_object_uid,
         involved.uid!,
         langCode,
         enLen: 72.0,
@@ -82,7 +82,7 @@ List<AbstractSettingsTile> buildEventsDetailSectionTiles(
   if (event.firstTimestamp != null) {
     tiles.add(
       copyTileValue(
-        'First Timestamp',
+        lang.event_first_timestamp,
         event.firstTimestamp!.toLocal().toString(),
         langCode,
         enLen: 72.0,
@@ -94,7 +94,7 @@ List<AbstractSettingsTile> buildEventsDetailSectionTiles(
   if (event.lastTimestamp != null) {
     tiles.add(
       copyTileValue(
-        'Last Timestamp',
+        lang.event_last_timestamp,
         event.lastTimestamp!.toLocal().toString(),
         langCode,
         enLen: 72.0,
@@ -106,7 +106,7 @@ List<AbstractSettingsTile> buildEventsDetailSectionTiles(
   if (event.eventTime != null) {
     tiles.add(
       copyTileValue(
-        'Event Time',
+        lang.event_event_time,
         event.eventTime!.toLocal().toString(),
         langCode,
         enLen: 72.0,
@@ -121,7 +121,7 @@ List<AbstractSettingsTile> buildEventsDetailSectionTiles(
     if (series.count != null) {
       tiles.add(
         copyTileValue(
-          'Series Count',
+          lang.event_series_count,
           '${series.count}',
           langCode,
           enLen: 72.0,
@@ -132,7 +132,7 @@ List<AbstractSettingsTile> buildEventsDetailSectionTiles(
     if (series.lastObservedTime != null) {
       tiles.add(
         copyTileValue(
-          'Series Last Observed',
+          lang.event_series_last_observed,
           series.lastObservedTime!.toLocal().toString(),
           langCode,
           enLen: 72.0,
@@ -146,7 +146,7 @@ List<AbstractSettingsTile> buildEventsDetailSectionTiles(
   if (event.reportingComponent != null) {
     tiles.add(
       copyTileValue(
-        'Reporting Component',
+        lang.event_reporting_component,
         event.reportingComponent!,
         langCode,
         enLen: 72.0,
@@ -158,7 +158,7 @@ List<AbstractSettingsTile> buildEventsDetailSectionTiles(
   if (event.reportingInstance != null) {
     tiles.add(
       copyTileValue(
-        'Reporting Instance',
+        lang.event_reporting_instance,
         event.reportingInstance!,
         langCode,
         enLen: 72.0,
@@ -173,7 +173,7 @@ List<AbstractSettingsTile> buildEventsDetailSectionTiles(
     if (source.component != null) {
       tiles.add(
         copyTileValue(
-          'Source Component',
+          lang.event_source_component,
           source.component!,
           langCode,
           enLen: 72.0,
@@ -184,7 +184,7 @@ List<AbstractSettingsTile> buildEventsDetailSectionTiles(
     if (source.host != null) {
       tiles.add(
         copyTileValue(
-          'Source Host',
+          lang.event_source_host,
           source.host!,
           langCode,
           enLen: 72.0,
@@ -198,7 +198,7 @@ List<AbstractSettingsTile> buildEventsDetailSectionTiles(
   if (event.action != null) {
     tiles.add(
       copyTileValue(
-        'Action',
+        lang.event_action,
         event.action!,
         langCode,
         enLen: 72.0,

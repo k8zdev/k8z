@@ -279,6 +279,35 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "error": MessageLookupByLibrary.simpleMessage("error"),
     "eula": MessageLookupByLibrary.simpleMessage("EULA"),
+    "event_action": MessageLookupByLibrary.simpleMessage("Action"),
+    "event_count": MessageLookupByLibrary.simpleMessage("Count"),
+    "event_event_time": MessageLookupByLibrary.simpleMessage("Event Time"),
+    "event_first_timestamp": MessageLookupByLibrary.simpleMessage(
+      "First Timestamp",
+    ),
+    "event_involved_object": MessageLookupByLibrary.simpleMessage(
+      "Involved Object",
+    ),
+    "event_last_timestamp": MessageLookupByLibrary.simpleMessage(
+      "Last Timestamp",
+    ),
+    "event_message": MessageLookupByLibrary.simpleMessage("Message"),
+    "event_object_uid": MessageLookupByLibrary.simpleMessage("Object UID"),
+    "event_reason": MessageLookupByLibrary.simpleMessage("Reason"),
+    "event_reporting_component": MessageLookupByLibrary.simpleMessage(
+      "Reporting Component",
+    ),
+    "event_reporting_instance": MessageLookupByLibrary.simpleMessage(
+      "Reporting Instance",
+    ),
+    "event_series_count": MessageLookupByLibrary.simpleMessage("Series Count"),
+    "event_series_last_observed": MessageLookupByLibrary.simpleMessage(
+      "Series Last Observed",
+    ),
+    "event_source_component": MessageLookupByLibrary.simpleMessage(
+      "Source Component",
+    ),
+    "event_source_host": MessageLookupByLibrary.simpleMessage("Source Host"),
     "event_text": m9,
     "events": MessageLookupByLibrary.simpleMessage("Events"),
     "export": MessageLookupByLibrary.simpleMessage("Export"),

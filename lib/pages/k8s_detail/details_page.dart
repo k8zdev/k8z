@@ -15,6 +15,7 @@ import 'package:k8zdev/services/k8z_service.dart';
 import 'package:k8zdev/widgets/delete_resource.dart';
 import 'package:k8zdev/services/readonly_restriction_service.dart';
 import 'package:k8zdev/widgets/detail_widgets/configmap.dart';
+import 'package:k8zdev/widgets/detail_widgets/crd.dart';
 import 'package:k8zdev/widgets/detail_widgets/events_detail.dart';
 import 'package:k8zdev/widgets/detail_widgets/node.dart';
 import 'package:k8zdev/widgets/detail_widgets/persistentvolume.dart';
@@ -617,11 +618,14 @@ class _ResourceDetailsPageState extends State<ResourceDetailsPage> {
         title = lang.data;
         final secret = IoK8sApiCoreV1Secret.fromJson(resp.body);
         tiles = buildSecretDetailSectionTiels(context, secret, langCode);
+        break;
+
       case "pods":
         title = lang.spec;
         final pod = IoK8sApiCoreV1Pod.fromJson(resp.body);
         tiles = buildPodDetailSectionTiels(
             context, pod?.spec, pod?.status, langCode);
+        break;
 
       case "daemonsets":
         title = lang.spec;
@@ -634,6 +638,7 @@ class _ResourceDetailsPageState extends State<ResourceDetailsPage> {
         } else {
           tiles = buildPodDetailSectionTiels(context, spec, null, langCode);
         }
+        break;
 
       case "deployments":
         title = lang.spec;
@@ -646,6 +651,7 @@ class _ResourceDetailsPageState extends State<ResourceDetailsPage> {
         } else {
           tiles = buildPodDetailSectionTiels(context, spec, null, langCode);
         }
+        break;
 
       case "statefulsets":
         title = lang.spec;
@@ -658,6 +664,7 @@ class _ResourceDetailsPageState extends State<ResourceDetailsPage> {
         } else {
           tiles = buildPodDetailSectionTiels(context, spec, null, langCode);
         }
+        break;
 
       case "replicasets":
         title = lang.spec;
@@ -671,6 +678,7 @@ class _ResourceDetailsPageState extends State<ResourceDetailsPage> {
         } else {
           tiles = buildPodDetailSectionTiels(context, spec, null, langCode);
         }
+        break;
 
       case "endpoints":
         title = lang.subsets;
@@ -700,20 +708,25 @@ class _ResourceDetailsPageState extends State<ResourceDetailsPage> {
         } else {
           tiles = [SettingsTile(title: emptyWidget)];
         }
+        break;
 
       case "services":
         title = lang.services;
         final svc = IoK8sApiCoreV1Service.fromJson(resp.body);
         tiles = buildServicesTiles(context, svc?.spec, svc?.status, langCode);
+        break;
 
       case "events":
         title = lang.events;
         final evt = IoK8sApiCoreV1Event.fromJson(resp.body);
         tiles = buildEventsDetailSectionTiles(context, evt, langCode);
+        break;
+
       case "persistentvolumes":
         title = lang.pvs;
         final pv = IoK8sApiCoreV1PersistentVolume.fromJson(resp.body);
         tiles = buildPersistentVolumeDetailTiles(context, pv, langCode);
+        break;
 
       case "namespaces":
         final ns = IoK8sApiCoreV1Namespace.fromJson(resp.body);
@@ -726,6 +739,7 @@ class _ResourceDetailsPageState extends State<ResourceDetailsPage> {
             zhLen: 45,
           ),
         ];
+        break;
 
       case "serviceaccounts":
         title = lang.service_accounts;
@@ -744,21 +758,33 @@ class _ResourceDetailsPageState extends State<ResourceDetailsPage> {
             zhLen: 48,
           ),
         ];
+        break;
 
       case "nodes":
         title = lang.nodes;
         final node = IoK8sApiCoreV1Node.fromJson(resp.body);
         tiles = buildNodeDetailSectionTiles(
             context, node?.spec, node?.status, langCode);
+        break;
+
       case "persistentvolumeclaims":
         title = lang.pvcs;
         final pvc = IoK8sApiCoreV1PersistentVolumeClaim.fromJson(resp.body);
         tiles = buildPVCDetailSectionTiles(context, pvc, langCode);
+        break;
 
       case "storageclass":
+      case "storageclasses":
         title = lang.spec;
         final sc = IoK8sApiStorageV1StorageClass.fromJson(resp.body);
         tiles = buildStorageClassDetailSectionTiles(context, sc, langCode);
+        break;
+
+      case "customresourcedefinitions":
+        title = lang.spec;
+        final crd = IoK8sApiextensionsApiserverPkgApisApiextensionsV1CustomResourceDefinition.fromJson(resp.body);
+        tiles = buildCrdDetailSectionTiles(context, crd, langCode);
+        break;
 
       default:
         tiles = [SettingsTile(title: buildingWidget)];

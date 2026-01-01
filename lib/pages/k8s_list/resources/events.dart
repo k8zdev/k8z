@@ -10,6 +10,7 @@ import 'package:k8zdev/models/models.dart';
 import 'package:k8zdev/services/k8z_native.dart';
 import 'package:k8zdev/services/k8z_service.dart';
 import 'package:k8zdev/widgets/namespace.dart';
+import 'package:k8zdev/widgets/settings_tile.dart';
 import 'package:k8zdev/widgets/widgets.dart';
 import 'package:settings_ui/settings_ui.dart';
 
@@ -106,7 +107,7 @@ class _EventsPageState extends State<EventsPage> {
                         event.message!,
                       );
 
-                      return SettingsTile(
+                      final tile = SettingsTile(
                         title: Text(text, style: smallTextStyle),
                         trailing: Row(
                           children: [
@@ -115,6 +116,15 @@ class _EventsPageState extends State<EventsPage> {
                             warning ? errorIcon : runningIcon,
                           ],
                         ),
+                      );
+
+                      return metadataSettingsTile(
+                        context,
+                        tile,
+                        event.metadata!.name!,
+                        event.metadata!.namespace,
+                        _path,
+                        _resource,
                       );
                     },
                   ).toList() ??
