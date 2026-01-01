@@ -18,6 +18,7 @@ import 'package:k8zdev/widgets/detail_widgets/configmap.dart';
 import 'package:k8zdev/widgets/detail_widgets/events_detail.dart';
 import 'package:k8zdev/widgets/detail_widgets/node.dart';
 import 'package:k8zdev/widgets/detail_widgets/pod.dart';
+import 'package:k8zdev/widgets/detail_widgets/pvcs.dart';
 import 'package:k8zdev/widgets/detail_widgets/secret.dart';
 import 'package:k8zdev/widgets/detail_widgets/services.dart';
 import 'package:k8zdev/widgets/get_logstream.dart';
@@ -743,6 +744,10 @@ class _ResourceDetailsPageState extends State<ResourceDetailsPage> {
         final node = IoK8sApiCoreV1Node.fromJson(resp.body);
         tiles = buildNodeDetailSectionTiles(
             context, node?.spec, node?.status, langCode);
+      case "persistentvolumeclaims":
+        title = lang.pvcs;
+        final pvc = IoK8sApiCoreV1PersistentVolumeClaim.fromJson(resp.body);
+        tiles = buildPVCDetailSectionTiles(context, pvc, langCode);
 
       default:
         tiles = [SettingsTile(title: buildingWidget)];
