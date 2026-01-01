@@ -1,0 +1,140 @@
+---
+# Cluster-Level Read-Only RBAC Configuration
+#
+# This creates a read-only user with access to all namespaces in the cluster.
+# Use this only when cross-namespace visibility is required.
+#
+# Usage:
+#   kubectl apply -f cluster-readonly.yaml
+#
+# Security Note: Cluster-level access grants read permission to all namespaces.
+# Consider namespace-level access (namespace-readonly.yaml) for better isolation.
+
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: readonly-user
+  namespace: default
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: cluster-readonly
+rules:
+# Core API Group - Resources
+- apiGroups: [""]
+  resources:
+  - pods
+  - pods/log
+  - pods/exec
+  - pods/portforward
+  - services
+  - endpoints
+  - endpointslices
+  - configmaps
+  - secrets
+  - persistentvolumes
+  - persistentvolumeclaims
+  - namespaces
+  - nodes
+  - nodes/metrics
+  - nodes/proxy
+  - nodes/stats
+  - events
+  - limitranges
+  - resourcequotas
+  - serviceaccounts
+  verbs:
+  - get
+  - list
+  - watch
+# Apps API Group - Resources
+- apiGroups: ["apps"]
+  resources:
+  - deployments
+  - replicasets
+  - statefulsets
+  - daemonsets
+  verbs:
+  - get
+  - list
+  - watch
+# Batch API Group - Resources
+- apiGroups: ["batch"]
+  resources:
+  - jobs
+  - cronjobs
+  verbs:
+  - get
+  - list
+  - watch
+# Networking API Group - Resources
+- apiGroups: ["networking.k8s.io"]
+  resources:
+  - ingresses
+  - ingressclasses
+  - networkpolicies
+  verbs:
+  - get
+  - list
+  - watch
+# Autoscaling API Group - Resources
+- apiGroups: ["autoscaling"]
+  resources:
+  - horizontalpodautoscalers
+  verbs:
+  - get
+  - list
+  - watch
+# Storage API Group - Resources
+- apiGroups: ["storage.k8s.io"]
+  resources:
+  - storageclasses
+  - volumeattachments
+  - csidrivers
+  - csinodes
+  verbs:
+  - get
+  - list
+  - watch
+# Policy API Group - Resources
+- apiGroups: ["policy"]
+  resources:
+  - poddisruptionbudgets
+  - podsecuritypolicies
+  verbs:
+  - get
+  - list
+  - watch
+# RBAC API Group - Resources (Read-only RBAC visibility)
+- apiGroups: ["rbac.authorization.k8s.io"]
+  resources:
+  - roles
+  - rolebindings
+  - clusterroles
+  - clusterrolebindings
+  verbs:
+  - get
+  - list
+  - watch
+# API Extensions API Group - Resources
+- apiGroups: ["apiextensions.k8s.io"]
+  resources:
+  - customresourcedefinitions
+  verbs:
+  - get
+  - list
+  - watch
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: cluster-readonly-binding
+subjects:
+- kind: ServiceAccount
+  name: readonly-user
+  namespace: default
+roleRef:
+  kind: ClusterRole
+  name: cluster-readonly
+  apiGroup: rbac.authorization.k8s.io

@@ -1,0 +1,102 @@
+---
+# Namespace-Level Read-Only RBAC Configuration
+#
+# This creates a read-only user with access limited to a specific namespace.
+# Modify the namespace parameter when applying: kubectl apply -f namespace-readonly.yaml -n <namespace>
+#
+# Usage:
+#   kubectl apply -f namespace-readonly.yaml
+#
+# To apply to a specific namespace:
+#   kubectl apply -f namespace-readonly.yaml -n my-namespace
+
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: readonly-user
+  namespace: default
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: readonly-role
+  namespace: default
+rules:
+# Core API Group - Resources
+- apiGroups: [""]
+  resources:
+  - pods
+  - pods/log
+  - pods/exec
+  - pods/portforward
+  - services
+  - endpoints
+  - endpointslices
+  - configmaps
+  - secrets
+  - persistentvolumeclaims
+  - events
+  verbs:
+  - get
+  - list
+  - watch
+# Apps API Group - Resources
+- apiGroups: ["apps"]
+  resources:
+  - deployments
+  - replicasets
+  - statefulsets
+  - daemonsets
+  verbs:
+  - get
+  - list
+  - watch
+# Batch API Group - Resources
+- apiGroups: ["batch"]
+  resources:
+  - jobs
+  - cronjobs
+  verbs:
+  - get
+  - list
+  - watch
+# Networking API Group - Resources
+- apiGroups: ["networking.k8s.io"]
+  resources:
+  - ingresses
+  - networkpolicies
+  verbs:
+  - get
+  - list
+  - watch
+# Autoscaling API Group - Resources
+- apiGroups: ["autoscaling"]
+  resources:
+  - horizontalpodautoscalers
+  verbs:
+  - get
+  - list
+  - watch
+# Storage API Group - Resources
+- apiGroups: ["storage.k8s.io"]
+  resources:
+  - storageclasses
+  - volumeattachments
+  verbs:
+  - get
+  - list
+  - watch
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: readonly-binding
+  namespace: default
+subjects:
+- kind: ServiceAccount
+  name: readonly-user
+  namespace: default
+roleRef:
+  kind: Role
+  name: readonly-role
+  apiGroup: rbac.authorization.k8s.io
