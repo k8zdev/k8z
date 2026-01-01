@@ -1716,6 +1716,326 @@ class S {
       args: [],
     );
   }
+
+  /// `Group`
+  String get crd_group {
+    return Intl.message('Group', name: 'crd_group', desc: '', args: []);
+  }
+
+  /// `Stored Versions`
+  String get crd_storedVersions {
+    return Intl.message(
+      'Stored Versions',
+      name: 'crd_storedVersions',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Scope`
+  String get crd_scope {
+    return Intl.message('Scope', name: 'crd_scope', desc: '', args: []);
+  }
+
+  /// `Plural`
+  String get crd_plural {
+    return Intl.message('Plural', name: 'crd_plural', desc: '', args: []);
+  }
+
+  /// `Singular`
+  String get crd_singular {
+    return Intl.message('Singular', name: 'crd_singular', desc: '', args: []);
+  }
+
+  /// `Categories`
+  String get crd_categories {
+    return Intl.message(
+      'Categories',
+      name: 'crd_categories',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Short Names`
+  String get crd_shortNames {
+    return Intl.message(
+      'Short Names',
+      name: 'crd_shortNames',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Versions`
+  String get crd_versions {
+    return Intl.message('Versions', name: 'crd_versions', desc: '', args: []);
+  }
+
+  /// `Storage Version`
+  String get crd_storageVersion {
+    return Intl.message(
+      'Storage Version',
+      name: 'crd_storageVersion',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `OS Image`
+  String get os_image {
+    return Intl.message('OS Image', name: 'os_image', desc: '', args: []);
+  }
+
+  /// `Architecture`
+  String get architecture {
+    return Intl.message(
+      'Architecture',
+      name: 'architecture',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Kernel Version`
+  String get kernel_version {
+    return Intl.message(
+      'Kernel Version',
+      name: 'kernel_version',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Container Runtime Version`
+  String get container_runtime_version {
+    return Intl.message(
+      'Container Runtime Version',
+      name: 'container_runtime_version',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Kubelet Version`
+  String get kubelet_version {
+    return Intl.message(
+      'Kubelet Version',
+      name: 'kubelet_version',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `OS Type`
+  String get os_type {
+    return Intl.message('OS Type', name: 'os_type', desc: '', args: []);
+  }
+
+  /// `Pod CIDR`
+  String get pod_cidr {
+    return Intl.message('Pod CIDR', name: 'pod_cidr', desc: '', args: []);
+  }
+
+  /// `Unschedulable`
+  String get unschedulable {
+    return Intl.message(
+      'Unschedulable',
+      name: 'unschedulable',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Capacity`
+  String get capacity {
+    return Intl.message('Capacity', name: 'capacity', desc: '', args: []);
+  }
+
+  /// `Allocatable`
+  String get allocatable {
+    return Intl.message('Allocatable', name: 'allocatable', desc: '', args: []);
+  }
+
+  /// `Conditions`
+  String get conditions {
+    return Intl.message('Conditions', name: 'conditions', desc: '', args: []);
+  }
+
+  /// `Pod CIDRs`
+  String get pod_cidrs {
+    return Intl.message('Pod CIDRs', name: 'pod_cidrs', desc: '', args: []);
+  }
+
+  /// `Provider ID`
+  String get provider_id {
+    return Intl.message('Provider ID', name: 'provider_id', desc: '', args: []);
+  }
+
+  /// `Reason`
+  String get reason {
+    return Intl.message('Reason', name: 'reason', desc: '', args: []);
+  }
+
+  /// `Provisioner`
+  String get provisioner {
+    return Intl.message('Provisioner', name: 'provisioner', desc: '', args: []);
+  }
+
+  /// `Reclaim Policy`
+  String get reclaim_policy {
+    return Intl.message(
+      'Reclaim Policy',
+      name: 'reclaim_policy',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Volume Binding Mode`
+  String get volume_binding_mode {
+    return Intl.message(
+      'Volume Binding Mode',
+      name: 'volume_binding_mode',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Allow Volume Expansion`
+  String get allow_volume_expansion {
+    return Intl.message(
+      'Allow Volume Expansion',
+      name: 'allow_volume_expansion',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Mount Options`
+  String get mount_options {
+    return Intl.message(
+      'Mount Options',
+      name: 'mount_options',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Parameters`
+  String get parameters {
+    return Intl.message('Parameters', name: 'parameters', desc: '', args: []);
+  }
+
+  /// `Allowed Topologies`
+  String get allowed_topologies {
+    return Intl.message(
+      'Allowed Topologies',
+      name: 'allowed_topologies',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Capacity`
+  String get pv_capacity {
+    return Intl.message('Capacity', name: 'pv_capacity', desc: '', args: []);
+  }
+
+  /// `Access Modes`
+  String get pv_access_modes {
+    return Intl.message(
+      'Access Modes',
+      name: 'pv_access_modes',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Reclaim Policy`
+  String get pv_reclaim_policy {
+    return Intl.message(
+      'Reclaim Policy',
+      name: 'pv_reclaim_policy',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Claim`
+  String get pv_claim {
+    return Intl.message('Claim', name: 'pv_claim', desc: '', args: []);
+  }
+
+  /// `Reason`
+  String get pv_reason {
+    return Intl.message('Reason', name: 'pv_reason', desc: '', args: []);
+  }
+
+  /// `Mount Options`
+  String get pv_mount_options {
+    return Intl.message(
+      'Mount Options',
+      name: 'pv_mount_options',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Volume Mode`
+  String get pv_volume_mode {
+    return Intl.message(
+      'Volume Mode',
+      name: 'pv_volume_mode',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Node Affinity`
+  String get pv_node_affinity {
+    return Intl.message(
+      'Node Affinity',
+      name: 'pv_node_affinity',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Capacity Details`
+  String get pv_capacity_details {
+    return Intl.message(
+      'Capacity Details',
+      name: 'pv_capacity_details',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Show`
+  String get pv_show {
+    return Intl.message('Show', name: 'pv_show', desc: '', args: []);
+  }
+
+  /// `Volume Name`
+  String get volume_name {
+    return Intl.message('Volume Name', name: 'volume_name', desc: '', args: []);
+  }
+
+  /// `Volume Mode`
+  String get volume_mode {
+    return Intl.message('Volume Mode', name: 'volume_mode', desc: '', args: []);
+  }
+
+  /// `Access Modes`
+  String get access_modes {
+    return Intl.message(
+      'Access Modes',
+      name: 'access_modes',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {
