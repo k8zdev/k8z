@@ -7,9 +7,12 @@ import 'package:sqflite_common_ffi/sqflite_ffi.dart';
 // Import all step definitions
 import 'steps/given_app_has_no_clusters.dart';
 import 'steps/given_app_has_crd.dart';
+import 'steps/given_cluster_has_node.dart';
 import 'steps/then_should_see_cluster_in_list.dart';
 import 'steps/then_see_crd_details.dart';
+import 'steps/then_see_node_details.dart';
 import 'steps/when_click_crd.dart';
+import 'steps/when_click_node.dart';
 import 'steps/when_load_kubeconfig.dart';
 
 Future<void> main() async {
@@ -29,8 +32,10 @@ Future<void> main() async {
     ..stepDefinitions = [
       givenAppHasNoClusters(),
       givenClusterHasCrd(),
+      givenClusterHasNode(),
       whenLoadKubeconfig(),
       whenClickCrd(),
+      whenClickNode(),
       thenShouldSeeClusterInList(),
       thenSeeCrdDetails(),
       thenSeeCrdGroupValue(),
@@ -43,6 +48,15 @@ Future<void> main() async {
       thenSeeCrdWithStorageVersion(),
       thenSeeCrdStorageVersionField(),
       thenSeeCrdVersionList(),
+      thenSeeNodeDetailPage(),
+      thenSeeNodeOS(),
+      thenSeeNodeArch(),
+      thenSeeNodeKernel(),
+      thenSeeNodeContainerRuntime(),
+      thenSeeNodeIP(),
+      thenSeeNodePodCIDR(),
+      thenSeeNodeCapacity(),
+      thenSeeNodeConditions(),
     ]
     // Run all scenarios except those marked as ios-critical
     ..tagExpression = "not @ios-critical"

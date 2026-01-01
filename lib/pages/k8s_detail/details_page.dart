@@ -16,6 +16,7 @@ import 'package:k8zdev/widgets/delete_resource.dart';
 import 'package:k8zdev/services/readonly_restriction_service.dart';
 import 'package:k8zdev/widgets/detail_widgets/configmap.dart';
 import 'package:k8zdev/widgets/detail_widgets/events_detail.dart';
+import 'package:k8zdev/widgets/detail_widgets/node.dart';
 import 'package:k8zdev/widgets/detail_widgets/pod.dart';
 import 'package:k8zdev/widgets/detail_widgets/secret.dart';
 import 'package:k8zdev/widgets/detail_widgets/services.dart';
@@ -353,8 +354,9 @@ class _ResourceDetailsPageState extends State<ResourceDetailsPage> {
           operationName: lang.terminal,
           callback: () {
             final pod = IoK8sApiCoreV1Pod.fromJson(resp.body);
-            final list =
-                pod?.spec?.containers.map((container) => container.name).toList();
+            final list = pod?.spec?.containers
+                .map((container) => container.name)
+                .toList();
             showModal(
               context,
               GetTerminal(
@@ -735,6 +737,12 @@ class _ResourceDetailsPageState extends State<ResourceDetailsPage> {
             zhLen: 48,
           ),
         ];
+
+      case "nodes":
+        title = lang.nodes;
+        final node = IoK8sApiCoreV1Node.fromJson(resp.body);
+        tiles = buildNodeDetailSectionTiles(
+            context, node?.spec, node?.status, langCode);
 
       default:
         tiles = [SettingsTile(title: buildingWidget)];
