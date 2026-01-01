@@ -16,12 +16,14 @@ import 'steps/then_see_node_details.dart';
 import 'steps/when_click_crd.dart';
 import 'steps/when_click_node.dart';
 import 'steps/then_should_see_access_modes.dart';
-import 'steps/then_should_see_cluster_in_list.dart';
 import 'steps/then_should_see_pvc_status.dart';
 import 'steps/then_should_see_storage_capacity.dart';
 import 'steps/then_should_see_storage_class_name.dart';
 import 'steps/then_should_see_volume_mode.dart';
 import 'steps/then_should_see_volume_name.dart';
+import 'steps/given_cluster_has_pvs.dart';
+import 'steps/then_see_pv_detail_page.dart';
+import 'steps/when_click_persistent_volume.dart';
 import 'steps/when_load_kubeconfig.dart';
 import 'steps/when_navigate_to_pvc_details.dart';
 
@@ -78,6 +80,15 @@ Future<void> main() async {
       thenShouldSeeStorageClassName(),
       thenShouldSeeVolumeName(),
       thenShouldSeeVolumeMode(),
+      givenClusterHasPersistentVolumes(),
+      whenLoadKubeconfig(),
+      whenClickPersistentVolume(),
+      thenShouldSeeClusterInList(),
+      thenSeePVDetailsPage(),
+      thenSeePVStatus(),
+      thenSeePVCapacity(),
+      thenSeePVAccessModes(),
+      thenSeePVReclaimPolicy(),
     ]
     // Run all scenarios except those marked as ios-critical
     ..tagExpression = "not @ios-critical"

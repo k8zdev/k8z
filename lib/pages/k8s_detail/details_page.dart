@@ -17,6 +17,7 @@ import 'package:k8zdev/services/readonly_restriction_service.dart';
 import 'package:k8zdev/widgets/detail_widgets/configmap.dart';
 import 'package:k8zdev/widgets/detail_widgets/events_detail.dart';
 import 'package:k8zdev/widgets/detail_widgets/node.dart';
+import 'package:k8zdev/widgets/detail_widgets/persistentvolume.dart';
 import 'package:k8zdev/widgets/detail_widgets/pod.dart';
 import 'package:k8zdev/widgets/detail_widgets/pvcs.dart';
 import 'package:k8zdev/widgets/detail_widgets/secret.dart';
@@ -708,6 +709,10 @@ class _ResourceDetailsPageState extends State<ResourceDetailsPage> {
         title = lang.events;
         final evt = IoK8sApiCoreV1Event.fromJson(resp.body);
         tiles = buildEventsDetailSectionTiles(context, evt, langCode);
+      case "persistentvolumes":
+        title = lang.pvs;
+        final pv = IoK8sApiCoreV1PersistentVolume.fromJson(resp.body);
+        tiles = buildPersistentVolumeDetailTiles(context, pv, langCode);
 
       case "namespaces":
         final ns = IoK8sApiCoreV1Namespace.fromJson(resp.body);
