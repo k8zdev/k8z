@@ -24,8 +24,14 @@ import 'steps/then_should_see_volume_name.dart';
 import 'steps/given_cluster_has_pvs.dart';
 import 'steps/then_see_pv_detail_page.dart';
 import 'steps/when_click_persistent_volume.dart';
-import 'steps/when_load_kubeconfig.dart';
 import 'steps/when_navigate_to_pvc_details.dart';
+import 'steps/given_storageclass_exists.dart';
+import 'steps/then_see_provisioner.dart';
+import 'steps/then_see_reclaim_policy.dart';
+import 'steps/then_see_storageclass_name.dart';
+import 'steps/then_see_volume_binding_mode.dart';
+import 'steps/when_load_kubeconfig.dart';
+import 'steps/when_navigate_to_storageclass_details.dart';
 
 Future<void> main() async {
   // Initialize Flutter test environment
@@ -89,6 +95,14 @@ Future<void> main() async {
       thenSeePVCapacity(),
       thenSeePVAccessModes(),
       thenSeePVReclaimPolicy(),
+      givenStorageclassExists(),
+      whenLoadKubeconfig(),
+      whenNavigateToStorageclassDetails(),
+      thenShouldSeeClusterInList(),
+      thenSeeStorageclassName(),
+      thenSeeProvisioner(),
+      thenSeeReclaimPolicy(),
+      thenSeeVolumeBindingMode(),
     ]
     // Run all scenarios except those marked as ios-critical
     ..tagExpression = "not @ios-critical"

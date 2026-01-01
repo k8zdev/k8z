@@ -22,6 +22,7 @@ import 'package:k8zdev/widgets/detail_widgets/pod.dart';
 import 'package:k8zdev/widgets/detail_widgets/pvcs.dart';
 import 'package:k8zdev/widgets/detail_widgets/secret.dart';
 import 'package:k8zdev/widgets/detail_widgets/services.dart';
+import 'package:k8zdev/widgets/detail_widgets/storageclass.dart';
 import 'package:k8zdev/widgets/get_logstream.dart';
 import 'package:k8zdev/widgets/get_terminal.dart';
 import 'package:k8zdev/widgets/modal.dart';
@@ -753,6 +754,11 @@ class _ResourceDetailsPageState extends State<ResourceDetailsPage> {
         title = lang.pvcs;
         final pvc = IoK8sApiCoreV1PersistentVolumeClaim.fromJson(resp.body);
         tiles = buildPVCDetailSectionTiles(context, pvc, langCode);
+
+      case "storageclass":
+        title = lang.spec;
+        final sc = IoK8sApiStorageV1StorageClass.fromJson(resp.body);
+        tiles = buildStorageClassDetailSectionTiles(context, sc, langCode);
 
       default:
         tiles = [SettingsTile(title: buildingWidget)];

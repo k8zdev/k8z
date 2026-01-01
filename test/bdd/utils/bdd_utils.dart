@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'package:kubeconfig/kubeconfig.dart';
 import 'package:k8zdev/dao/kube.dart';
 import 'package:k8zdev/common/ops.dart';
@@ -60,6 +61,17 @@ class BddUtils {
     } catch (err) {
       talker.error("Failed to load kubeconfig: $err");
       rethrow;
+    }
+  }
+
+  /// Read test asset file
+  static Future<String?> readTestAsset(String filename) async {
+    try {
+      final file = File('test/bdd/assets/$filename');
+      return await file.readAsString();
+    } catch (err) {
+      talker.error("Failed to read asset $filename: $err");
+      return null;
     }
   }
 }
