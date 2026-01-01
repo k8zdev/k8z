@@ -121,8 +121,8 @@ class _EventsPageState extends State<EventsPage> {
                       return metadataSettingsTile(
                         context,
                         tile,
-                        event.metadata!.name!,
-                        event.metadata!.namespace,
+                        event.metadata.name!,
+                        event.metadata.namespace,
                         _path,
                         _resource,
                       );
