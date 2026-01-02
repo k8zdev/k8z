@@ -192,7 +192,11 @@ class _InteractiveGuideOverlayState extends State<InteractiveGuideOverlay>
     // Ensure step index is updated on each build (handles direct widget creation)
     _updateStep();
 
+    print('[DEBUG] InteractiveGuideOverlay build: isActive=${widget.isActive}, currentStepId=${widget.currentStepId}');
+    print('[DEBUG] _currentStepIndex=$_currentStepIndex, _currentStep=$_currentStep');
+
     if (!widget.isActive || _currentStep == null) {
+      print('[DEBUG] Hiding overlay: isActive=${widget.isActive}, currentStep=$_currentStep');
       return widget.child;
     }
 

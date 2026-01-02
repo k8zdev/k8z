@@ -48,8 +48,11 @@ class _ClusterHomePageState extends State<ClusterHomePage> {
   }
 
   void _startOnboardingGuide() {
+    print('[DEBUG] _startOnboardingGuide called for ${widget.cluster.name}');
     final guideService = Provider.of<OnboardingGuideService>(context, listen: false);
+    print('[DEBUG] Before startGuide: isActive=${guideService.isGuideActive}, currentStepId=${guideService.currentStepId}');
     guideService.startGuide(widget.cluster);
+    print('[DEBUG] After startGuide: isActive=${guideService.isGuideActive}, currentStepId=${guideService.currentStepId}');
   }
   SettingsSection overview(S lang, CurrentCluster ccProvider) {
     final ns = CurrentCluster.current?.namespace ?? "";
@@ -395,6 +398,8 @@ class _ClusterHomePageState extends State<ClusterHomePage> {
     // Wrap with interactive guide overlay if onboarding is active
     Widget body = Consumer<OnboardingGuideService>(
       builder: (context, guideService, child) {
+        print('[DEBUG] Consumer rebuild: isActive=${guideService.isGuideActive}, currentStepId=${guideService.currentStepId}');
+
         final mainContent = Container(
           margin: bottomEdge,
           child: SettingsList(
@@ -407,6 +412,7 @@ class _ClusterHomePageState extends State<ClusterHomePage> {
         );
 
         if (guideService.isGuideActive) {
+          print('[DEBUG] Creating InteractiveGuideOverlay');
           return InteractiveGuideOverlay(
             isActive: guideService.isGuideActive,
             currentStepId: guideService.currentStepId,

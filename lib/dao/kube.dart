@@ -70,8 +70,8 @@ class K8zCluster {
         username = json["username"],
         token = json["token"],
         createdAt = json["created_at"],
-        isDemo = json["is_demo"] == 1,
-        isReadOnly = json["is_readonly"] == 1;
+        isDemo = json["is_demo"] == 1 || (json["name"] as String?)?.contains("Demo") == true,
+        isReadOnly = json["is_readonly"] == 1 || json["name"] == "Demo Cluster (Read-only)";
 
   K8zCluster({
     this.id,
@@ -126,9 +126,10 @@ class K8zCluster {
     final List<Map<String, dynamic>> maps =
         await database.query(clustersTable, where: 'deleted = 0');
     return List.generate(maps.length, (i) {
+      final name = maps[i]['name'] as String?;
       return K8zCluster(
         id: maps[i]['id'],
-        name: maps[i]['name'],
+        name: name ?? '',
         server: maps[i]['server'],
         caData: maps[i]['ca'],
         namespace: maps[i]['namespace'],
@@ -139,8 +140,8 @@ class K8zCluster {
         password: maps[i]['password'],
         token: maps[i]['token'],
         createdAt: maps[i]['created_at'],
-        isDemo: maps[i]['is_demo'] == 1,
-        isReadOnly: maps[i]['is_readonly'] == 1,
+        isDemo: maps[i]['is_demo'] == 1 || (name?.contains("Demo") == true),
+        isReadOnly: maps[i]['is_readonly'] == 1 || name == "Demo Cluster (Read-only)",
       );
     });
   }
