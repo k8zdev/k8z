@@ -164,53 +164,47 @@ class _SettingsPageState extends State<SettingsPage> {
           title: Text(lang.general),
           tiles: <SettingsTile>[
             // Onboarding guide restart option
-            CustomSettingsTile(
-              child: Consumer<OnboardingGuideService>(
-                builder: (context, guideService, child) {
-                  return SettingsTile(
-                    leading: const Icon(Icons.replay),
-                    title: const Text("Replay Onboarding Guide"),
-                    onPressed: (context) {
-                      Dialogs.materialDialog(
-                        context: context,
-                        title: "Restart Guide",
-                        msg: "Do you want to reset the onboarding guide completion status?",
-                        actionsBuilder: (context) {
-                          return [
-                            IconsOutlineButton(
-                              onPressed: () {
-                                context.pop();
-                              },
-                              text: lang.cancel,
-                              iconColor: Colors.grey,
-                              iconData: Icons.cancel_outlined,
-                              textStyle: const TextStyle(color: Colors.grey),
-                            ),
-                            IconsOutlineButton(
-                              text: "Reset",
-                              color: Colors.blue,
-                              iconData: Icons.refresh,
-                              iconColor: Colors.white,
-                              textStyle: const TextStyle(color: Colors.white),
-                              onPressed: () async {
-                                // Reset the guide in database using OnboardingGuideDao
-                                await OnboardingGuideDao.resetGuide(
-                                    'demo_cluster_onboarding');
-                                context.pop();
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                  const SnackBar(
-                                    content: Text("Onboarding guide has been reset"),
-                                  ),
-                                );
-                              },
-                            ),
-                          ];
+            SettingsTile(
+              leading: const Icon(Icons.replay),
+              title: const Text("Replay Onboarding Guide"),
+              onPressed: (context) {
+                Dialogs.materialDialog(
+                  context: context,
+                  title: "Restart Guide",
+                  msg: "Do you want to reset the onboarding guide completion status?",
+                  actionsBuilder: (context) {
+                    return [
+                      IconsOutlineButton(
+                        onPressed: () {
+                          context.pop();
                         },
-                      );
-                    },
-                  );
-                },
-              ),
+                        text: lang.cancel,
+                        iconColor: Colors.grey,
+                        iconData: Icons.cancel_outlined,
+                        textStyle: const TextStyle(color: Colors.grey),
+                      ),
+                      IconsOutlineButton(
+                        text: "Reset",
+                        color: Colors.blue,
+                        iconData: Icons.refresh,
+                        iconColor: Colors.white,
+                        textStyle: const TextStyle(color: Colors.white),
+                        onPressed: () async {
+                          // Reset the guide in database using OnboardingGuideDao
+                          await OnboardingGuideDao.resetGuide(
+                              'demo_cluster_onboarding');
+                          context.pop();
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                              content: Text("Onboarding guide has been reset"),
+                            ),
+                          );
+                        },
+                      ),
+                    ];
+                  },
+                );
+              },
             ),
             SettingsTile.navigation(
               leading: const Icon(Icons.language),
