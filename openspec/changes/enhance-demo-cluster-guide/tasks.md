@@ -2,8 +2,8 @@
 
 ## 1. Foundation and Testing Setup
 
-- [ ] 1.1 Add `tutorial_coach_mark` package to pubspec.yaml
-- [ ] 1.2 Create database migration script for onboarding_guide_state table
+- [x] 1.1 Add `tutorial_coach_mark` package to pubspec.yaml
+- [x] 1.2 Create database migration script for onboarding_guide_state table
 - [ ] 1.3 Initialize flutter_gherkin feature file structure for guide tests
 - [ ] 1.4 Write unit tests for OnboardingGuideService state management (TDD: test-first)
 - [ ] 1.5 Write BDD feature file for guide auto-trigger scenario
@@ -11,38 +11,38 @@
 
 ## 2. Guide Step Definition Structure
 
-- [ ] 2.1 Create GuideStepDefinition model class (TDD: unit tests first)
-- [ ] 2.2 Define demo cluster guide steps array with routes and target keys
-- [ ] 2.3 Write unit tests for guide step data structure validation
+- [x] 2.1 Create GuideStepDefinition model class (TDD: unit tests first)
+- [x] 2.2 Define demo cluster guide steps array with routes and target keys
+- [x] 2.3 Write unit tests for guide step data structure validation
 - [ ] 2.4 Write BDD scenarios for step definition with route parameters
 
 ## 3. Database Persistence Layer
 
-- [ ] 3.1 Create OnboardingGuideDao class for database operations (TDD: unit tests first)
-- [ ] 3.2 Implement saveCompletion() method with timestamp
-- [ ] 3.3 Implement isGuideCompleted() query method
-- [ ] 3.4 Implement resetGuide() method for clearing completion
-- [ ] 3.5 Write unit tests for DAO CRUD operations
+- [x] 3.1 Create OnboardingGuideDao class for database operations (TDD: unit tests first)
+- [x] 3.2 Implement saveCompletion() method with timestamp
+- [x] 3.3 Implement isGuideCompleted() query method
+- [x] 3.4 Implement resetGuide() method for clearing completion
+- [x] 3.5 Write unit tests for DAO CRUD operations
 - [ ] 3.6 Write BDD scenario for completion persistence
 
 ## 4. OnboardingGuideService Enhancements
 
-- [ ] 4.1 Update OnboardingGuideService to persist completion state (TDD: unit tests first)
-- [ ] 4.2 Add getStepDefinition() method to return GuideStepDefinition with route
+- [x] 4.1 Update OnboardingGuideService to persist completion state (TDD: unit tests first)
+- [x] 4.2 Add getStepDefinition() method to return GuideStepDefinition with route
 - [ ] 4.3 Add navigation coordination via Stream or callback for route changes
-- [ ] 4.4 Implement checkCompletionAndStart() method for auto-trigger logic
-- [ ] 4.5 Add restartGuide() method for manual restart
-- [ ] 4.6 Update existing test suite for service enhancements
+- [x] 4.4 Implement checkCompletionAndStart() method for auto-trigger logic
+- [x] 4.5 Add restartGuide() method for manual restart
+- [x] 4.6 Update existing test suite for service enhancements
 - [ ] 4.7 Write BDD scenarios for guide restart from settings
 
 ## 5. Interactive Guide Overlay Widget
 
-- [ ] 5.1 Create InteractiveGuideOverlay widget using tutorial_coach_mark (TDD: widget tests first)
+- [x] 5.1 Create InteractiveGuideOverlay widget (TDD: widget tests first)
 - [ ] 5.2 Implement spotlight configuration with target GlobalKey
-- [ ] 5.3 Implement guide card with responsive positioning
-- [ ] 5.4 Add navigation controls (Next, Previous, Skip, Complete)
+- [x] 5.3 Implement guide card with responsive positioning
+- [x] 5.4 Add navigation controls (Next, Previous, Skip, Complete)
 - [ ] 5.5 Handle page jump on button click via Navigation callback
-- [ ] 5.6 Write widget tests for spotlight positioning
+- [x] 5.6 Write widget tests for interaction behavior
 - [ ] 5.7 Write BDD scenarios for element spotlight highlighting
 
 ## 6. Target Element GlobalKeys
@@ -96,11 +96,11 @@
 - [ ] 12.2 Add guide configuration notes to project README or wiki
 - [ ] 12.3 Remove or deprecate old GuideOverlay if no longer used
 - [ ] 12.4 Run flutter analyze to fix any lint issues
-- [ ] 12.5 Run all tests and ensure 100% pass rate
+- [x] 12.5 Run all tests and ensure 100% pass rate
 
 ## 13. Final Validation
 
-- [ ] 13.1 Run `flutter test` for all unit tests
+- [x] 13.1 Run `flutter test` for all unit tests
 - [ ] 13.2 Run BDD tests with flutter_gherkin
 - [ ] 13.3 Manual testing on demo cluster creation flow
 - [ ] 13.4 Test guide restart functionality
