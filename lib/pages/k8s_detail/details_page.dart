@@ -34,6 +34,7 @@ import 'package:numberpicker/numberpicker.dart';
 import 'package:provider/provider.dart';
 import 'package:settings_ui/settings_ui.dart';
 import 'package:simple_tags/simple_tags.dart';
+import 'package:k8zdev/models/guide_keys.dart';
 
 enum Actions {
   delete,
@@ -328,6 +329,7 @@ class _ResourceDetailsPageState extends State<ResourceDetailsPage> {
         ),
       ),
       Actions.logs: TextButton(
+        key: GuideKeys.podLogsTargetKey,
         onPressed: () {
           final pod = IoK8sApiCoreV1Pod.fromJson(resp.body);
           final list =

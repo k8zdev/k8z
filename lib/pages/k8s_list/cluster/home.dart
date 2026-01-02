@@ -15,10 +15,12 @@ import 'package:k8zdev/services/k8z_native.dart';
 import 'package:k8zdev/services/k8z_service.dart';
 import 'package:k8zdev/widgets/namespace.dart';
 import 'package:k8zdev/widgets/widgets.dart';
-import 'package:k8zdev/widgets/guide_overlay.dart';
+import 'package:k8zdev/widgets/interactive_guide_overlay.dart';
 import 'package:k8zdev/services/onboarding_guide_service.dart';
 import 'package:k8zdev/services/demo_cluster_service.dart';
 import 'package:k8zdev/services/readonly_restriction_service.dart';
+import 'package:k8zdev/models/guide_keys.dart';
+import 'package:k8zdev/models/guide_step_definition.dart';
 import 'package:provider/provider.dart';
 import 'package:settings_ui/settings_ui.dart';
 
@@ -52,6 +54,7 @@ class _ClusterHomePageState extends State<ClusterHomePage> {
   SettingsSection overview(S lang, CurrentCluster ccProvider) {
     final ns = CurrentCluster.current?.namespace ?? "";
     return SettingsSection(
+      key: GuideKeys.welcomeTargetKey,
       title: Text(lang.overview),
       tiles: [
         SettingsTile(
@@ -389,7 +392,7 @@ class _ClusterHomePageState extends State<ClusterHomePage> {
     var lang = S.of(context);
     var ccProvider = Provider.of<CurrentCluster>(context, listen: true);
 
-    // Wrap with guide overlay if onboarding is active
+    // Wrap with interactive guide overlay if onboarding is active
     Widget body = Consumer<OnboardingGuideService>(
       builder: (context, guideService, child) {
         final mainContent = Container(
@@ -404,10 +407,14 @@ class _ClusterHomePageState extends State<ClusterHomePage> {
         );
 
         if (guideService.isGuideActive) {
-          return GuideOverlay(
-            currentStep: guideService.currentStep,
+          final stepDef = guideService.getStepDefinition();
+          return InteractiveGuideOverlay(
+            isActive: guideService.isGuideActive,
+            currentStepId: guideService.currentStepId,
+            steps: DemoClusterGuide.getSteps(),
             onNext: () => guideService.nextStep(),
             onSkip: () => guideService.skipGuide(),
+            onPrevious: () => guideService.previousStep(),
             child: mainContent,
           );
         }

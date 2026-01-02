@@ -10,6 +10,7 @@ import 'package:k8zdev/common/styles.dart';
 import 'package:k8zdev/common/types.dart';
 import 'package:k8zdev/dao/kube.dart';
 import 'package:k8zdev/generated/l10n.dart';
+import 'package:k8zdev/models/guide_keys.dart';
 import 'package:k8zdev/models/models.dart';
 import 'package:k8zdev/services/k8z_native.dart';
 import 'package:k8zdev/services/k8z_service.dart';
@@ -276,6 +277,7 @@ class _PodsPageState extends State<PodsPage> {
           talker.debug("list ${list.length}");
 
           return SettingsSection(
+            key: GuideKeys.podListTargetKey,
             title: Text(lang.pods + totals + duration),
             tiles: [
               SettingsTile.navigation(

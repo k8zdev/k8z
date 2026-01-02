@@ -11,6 +11,7 @@ import 'package:k8zdev/providers/lang.dart';
 import 'package:k8zdev/providers/talker.dart';
 import 'package:k8zdev/providers/theme.dart';
 import 'package:k8zdev/providers/timeout.dart';
+import 'package:k8zdev/services/onboarding_guide_service.dart';
 import 'package:k8zdev/widgets/modal.dart';
 import 'package:k8zdev/widgets/set_api_timeout.dart';
 import 'package:material_dialogs/widgets/buttons/icon_outline_button.dart';
@@ -161,6 +162,56 @@ class _SettingsPageState extends State<SettingsPage> {
         SettingsSection(
           title: Text(lang.general),
           tiles: <SettingsTile>[
+            // Onboarding guide restart option
+            Consumer<OnboardingGuideService>(
+              builder: (context, guideService, child) {
+                return SettingsTile(
+                  leading: const Icon(Icons.replay),
+                  title: const Text("Replay Onboarding Guide"),
+                  trailing: guideService.guideCompleted
+                      ? const Icon(Icons.check_circle, color: Colors.green)
+                      : null,
+                  onPressed: (context) {
+                    if (guideService.guideCompleted) {
+                      Dialogs.materialDialog(
+                        context: context,
+                        title: "Restart Guide",
+                        msg: "Do you want to restart the onboarding guide? Your completion status will be reset.",
+                        actionsBuilder: (context) {
+                          return [
+                            IconsOutlineButton(
+                              onPressed: () {
+                                context.pop();
+                              },
+                              text: lang.cancel,
+                              iconColor: Colors.grey,
+                              iconData: Icons.cancel_outlined,
+                              textStyle: const TextStyle(color: Colors.grey),
+                            ),
+                            IconsOutlineButton(
+                              text: "Restart",
+                              color: Colors.blue,
+                              iconData: Icons.replay,
+                              iconColor: Colors.white,
+                              textStyle: const TextStyle(color: Colors.white),
+                              onPressed: () {
+                                guideService.restartGuide();
+                                context.pop();
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  const SnackBar(
+                                    content: Text("Onboarding guide has been reset"),
+                                  ),
+                                );
+                              },
+                            ),
+                          ];
+                        },
+                      );
+                    }
+                  },
+                );
+              },
+            ),
             SettingsTile.navigation(
               leading: const Icon(Icons.language),
               title: Text(lang.general_language),

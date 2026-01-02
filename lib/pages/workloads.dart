@@ -4,6 +4,7 @@ import 'package:k8zdev/common/const.dart';
 import 'package:k8zdev/dao/kube.dart';
 import 'package:k8zdev/generated/l10n.dart';
 import 'package:k8zdev/providers/current_cluster.dart';
+import 'package:k8zdev/models/guide_keys.dart';
 import 'package:settings_ui/settings_ui.dart';
 
 class WorkloadsPage extends StatefulWidget {
@@ -39,6 +40,7 @@ class _WorkloadsPageState extends State<WorkloadsPage> {
 
       //
       SettingsSection(
+        key: GuideKeys.additionalFeaturesTargetKey,
         title: Text(lang.workloads),
         tiles: [
           SettingsTile.navigation(

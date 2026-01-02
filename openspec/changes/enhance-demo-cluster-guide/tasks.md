@@ -38,41 +38,41 @@
 ## 5. Interactive Guide Overlay Widget
 
 - [x] 5.1 Create InteractiveGuideOverlay widget (TDD: widget tests first)
-- [ ] 5.2 Implement spotlight configuration with target GlobalKey
+- [x] 5.2 Implement spotlight configuration with target GlobalKey
 - [x] 5.3 Implement guide card with responsive positioning
 - [x] 5.4 Add navigation controls (Next, Previous, Skip, Complete)
-- [ ] 5.5 Handle page jump on button click via Navigation callback
+- [x] 5.5 Handle page jump on button click via Navigation callback
 - [x] 5.6 Write widget tests for interaction behavior
 - [ ] 5.7 Write BDD scenarios for element spotlight highlighting
 
 ## 6. Target Element GlobalKeys
 
-- [ ] 6.1 Add GlobalKeys to PodsPage target elements (pod list, action buttons)
-- [ ] 6.2 Add GlobalKeys to Pod detail page elements (logs tab, YAML button)
-- [ ] 6.3 Add GlobalKeys to ClusterHomePage elements (demo cluster trigger)
+- [x] 6.1 Add GlobalKeys to PodsPage target elements (pod list, action buttons)
+- [x] 6.2 Add GlobalKeys to Pod detail page elements (logs tab, YAML button)
+- [x] 6.3 Add GlobalKeys to ClusterHomePage elements (demo cluster trigger)
 - [ ] 6.4 Document key naming convention in code comments
 - [ ] 6.5 Write widget tests verifying key attachment
 
 ## 7. Router Integration
 
-- [ ] 7.1 Add optional guide parameter handling to relevant routes (if needed)
-- [ ] 7.2 Create navigation helper for guide step transitions
-- [ ] 7.3 Test navigation between guide steps across different pages
+- [x] 7.1 Add optional guide parameter handling to relevant routes (if needed)
+- [x] 7.2 Create navigation helper for guide step transitions
+- [x] 7.3 Test navigation between guide steps across different pages
 - [ ] 7.4 Write BDD scenario for multi-page guide navigation
 
 ## 8. Demo Cluster Integration
 
-- [ ] 8.1 Update ClusterHomePage to check guide completion before triggering (TDD: tests first)
-- [ ] 8.2 Attach InteractiveGuideOverlay to demo cluster flow
-- [ ] 8.3 Connect guide service stream to overlay widget
-- [ ] 8.4 Test auto-trigger on first-time demo cluster creation
+- [x] 8.1 Update ClusterHomePage to check guide completion before triggering (TDD: tests first)
+- [x] 8.2 Attach InteractiveGuideOverlay to demo cluster flow
+- [x] 8.3 Connect guide service stream to overlay widget
+- [x] 8.4 Test auto-trigger on first-time demo cluster creation
 - [ ] 8.5 Write BDD scenarios for first-time vs subsequent demo cluster access
 
 ## 9. Settings Page Integration
 
-- [ ] 9.1 Add "Replay Onboarding Guide" option to settings page (TDD: tests first)
-- [ ] 9.2 Implement reset button handler
-- [ ] 9.3 Show guide completion status in settings
+- [x] 9.1 Add "Replay Onboarding Guide" option to settings page (TDD: tests first)
+- [x] 9.2 Implement reset button handler
+- [x] 9.3 Show guide completion status in settings
 - [ ] 9.4 Write widget tests for settings UI
 - [ ] 9.5 Write BDD scenarios for guide restart from settings
 
