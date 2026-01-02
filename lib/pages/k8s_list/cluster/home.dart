@@ -407,7 +407,6 @@ class _ClusterHomePageState extends State<ClusterHomePage> {
         );
 
         if (guideService.isGuideActive) {
-          final stepDef = guideService.getStepDefinition();
           return InteractiveGuideOverlay(
             isActive: guideService.isGuideActive,
             currentStepId: guideService.currentStepId,
