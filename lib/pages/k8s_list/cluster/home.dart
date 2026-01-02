@@ -38,7 +38,7 @@ class _ClusterHomePageState extends State<ClusterHomePage> {
   @override
   void initState() {
     super.initState();
-    
+
     // Start onboarding guide for demo clusters
     if (DemoClusterService.isDemoCluster(widget.cluster)) {
       WidgetsBinding.instance.addPostFrameCallback((_) {

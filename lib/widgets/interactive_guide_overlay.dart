@@ -152,11 +152,13 @@ class _InteractiveGuideOverlayState extends State<InteractiveGuideOverlay>
     if (oldWidget.isActive != widget.isActive ||
         oldWidget.currentStepId != widget.currentStepId) {
       _updateStep();
-      if (widget.isActive) {
-        _animationController.forward();
-      } else {
-        _animationController.reverse();
-      }
+      setState(() {
+        if (widget.isActive) {
+          _animationController.forward();
+        } else {
+          _animationController.reverse();
+        }
+      });
     }
   }
 
