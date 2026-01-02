@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:k8zdev/models/guide_step_definition.dart';
+import 'package:k8zdev/common/ops.dart';
 
 /// Theme configuration for the guide overlay
 class GuideOverlayTheme {
@@ -148,17 +149,25 @@ class _InteractiveGuideOverlayState extends State<InteractiveGuideOverlay>
   @override
   void didUpdateWidget(InteractiveGuideOverlay oldWidget) {
     super.didUpdateWidget(oldWidget);
+    print('*** didUpdateWidget: old.isActive=${oldWidget.isActive}, new.isActive=${widget.isActive}');
+    print('*** didUpdateWidget: old.currentStepId=${oldWidget.currentStepId}, new.currentStepId=${widget.currentStepId}');
+
     // Update when active state or step changes
     if (oldWidget.isActive != widget.isActive ||
         oldWidget.currentStepId != widget.currentStepId) {
+      print('*** didUpdateWidget: triggering update and setState');
       _updateStep();
       setState(() {
         if (widget.isActive) {
+          print('*** didUpdateWidget: forwarding animation');
           _animationController.forward();
         } else {
+          print('*** didUpdateWidget: reversing animation');
           _animationController.reverse();
         }
       });
+    } else {
+      print('*** didUpdateWidget: no changes detected, skipping update');
     }
   }
 
@@ -169,13 +178,18 @@ class _InteractiveGuideOverlayState extends State<InteractiveGuideOverlay>
   }
 
   void _updateStep() {
+    print('*** _updateStep: isActive=${widget.isActive}, currentStepId=${widget.currentStepId}, steps.length=${widget.steps.length}');
+
     if (!widget.isActive || widget.currentStepId == null) {
       _currentStepIndex = -1;
+      print('*** _updateStep: setting index=-1 (inactive or no stepId)');
       return;
     }
+
     _currentStepIndex = widget.steps.indexWhere(
       (step) => step.id == widget.currentStepId,
     );
+    print('*** _updateStep: found step at index $_currentStepIndex');
   }
 
   GuideStepDefinition? get _currentStep {
@@ -187,7 +201,14 @@ class _InteractiveGuideOverlayState extends State<InteractiveGuideOverlay>
 
   @override
   Widget build(BuildContext context) {
+    // Ensure step index is updated on each build (handles direct widget creation)
+    _updateStep();
+
+    print('*** InteractiveGuideOverlay build: isActive=${widget.isActive}, currentStepId=${widget.currentStepId}');
+    print('*** InteractiveGuideOverlay build: _currentStepIndex=$_currentStepIndex, _currentStep=$_currentStep');
+
     if (!widget.isActive || _currentStep == null) {
+      print('*** InteractiveGuideOverlay: hiding overlay (isActive=${widget.isActive}, currentStep=$_currentStep)');
       return widget.child;
     }
 
