@@ -779,5 +779,33 @@
   "event_source_host": "源主机",
   "@event_source_host": {},
   "event_action": "动作",
-  "@event_action": {}
+  "@event_action": {},
+  "proDialogTitle": "k8z Pro",
+  "@proDialogTitle": {},
+  "proDialogFeatureLocked": "使用 {featureName} 功能需要 Pro 订阅",
+  "@proDialogFeatureLocked": {
+    "placeholders": {
+      "featureName": {
+        "type": "String"
+      }
+    }
+  },
+  "proDialogBenefitsTitle": "Pro 订阅权益",
+  "@proDialogBenefitsTitle": {},
+  "proDialogCancel": "取消",
+  "@proDialogCancel": {},
+  "proDialogViewPlans": "查看 Pro 方案",
+  "@proDialogViewPlans": {},
+  "proBenefitUnlimitedClusters": "无限制的集群访问",
+  "@proBenefitUnlimitedClusters": {},
+  "proBenefitNodeShell": "节点 Shell 访问",
+  "@proBenefitNodeShell": {},
+  "proBenefitYamlEdit": "YAML 编辑和应用",
+  "@proBenefitYamlEdit": {},
+  "proBenefitLogSearch": "日志搜索功能",
+  "@proBenefitLogSearch": {},
+  "proBenefitCustomDashboard": "自定义仪表板",
+  "@proBenefitCustomDashboard": {},
+  "proBenefitSupport": "专属支持服务",
+  "@proBenefitSupport": {}
 }

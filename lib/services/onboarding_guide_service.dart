@@ -73,7 +73,7 @@ class OnboardingGuideService extends ChangeNotifier {
       eventName: 'onboarding_guide_start',
       parameters: {
         'cluster_name': cluster.name,
-        'cluster_is_demo': cluster.isDemo,
+        'cluster_is_demo': cluster.isDemo ? 'true' : 'false',
         'timestamp': _state.startTime!.millisecondsSinceEpoch,
       },
     );
@@ -138,7 +138,7 @@ class OnboardingGuideService extends ChangeNotifier {
       eventName: 'onboarding_guide_complete',
       parameters: {
         'total_time_ms': totalTime.inMilliseconds,
-        'achieved_30s_goal': totalTime.inSeconds <= 30,
+        'achieved_30s_goal': totalTime.inSeconds <= 30 ? 'true' : 'false',
         'cluster_name': _state.demoCluster?.name ?? 'unknown',
         'completed_steps': _state.currentStep.index + 1,
       },

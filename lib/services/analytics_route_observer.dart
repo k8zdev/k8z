@@ -72,6 +72,13 @@ class AnalyticsRouteObserver extends NavigatorObserver {
     String action,
   ) {
     try {
+      // 只处理命名路由（定义在 GoRouter 中的路由）
+      // 跳过 MaterialPageRoute、CupertinoPageRoute 等非命名路由
+      final routeName = _getRouteName(currentRoute);
+      if (routeName.isEmpty) {
+        return; // 跳过非命名路由
+      }
+
       // 避免重复记录相同的屏幕
       if (_currentScreenName == currentScreenName) {
         return;
@@ -132,7 +139,7 @@ class AnalyticsRouteObserver extends NavigatorObserver {
         additionalParams: {
           'navigation_action': action,
           'timestamp': DateTime.now().millisecondsSinceEpoch,
-          'route_observer_triggered': true,
+          'route_observer_triggered': 'true',
         },
       );
     } catch (e) {

@@ -2166,6 +2166,106 @@ class S {
   String get event_action {
     return Intl.message('Action', name: 'event_action', desc: '', args: []);
   }
+
+  /// `k8z Pro`
+  String get proDialogTitle {
+    return Intl.message('k8z Pro', name: 'proDialogTitle', desc: '', args: []);
+  }
+
+  /// `{featureName} requires a Pro subscription`
+  String proDialogFeatureLocked(Object featureName) {
+    return Intl.message(
+      '$featureName requires a Pro subscription',
+      name: 'proDialogFeatureLocked',
+      desc: '',
+      args: [featureName],
+    );
+  }
+
+  /// `Pro Features:`
+  String get proDialogBenefitsTitle {
+    return Intl.message(
+      'Pro Features:',
+      name: 'proDialogBenefitsTitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Cancel`
+  String get proDialogCancel {
+    return Intl.message('Cancel', name: 'proDialogCancel', desc: '', args: []);
+  }
+
+  /// `View Pro Plans`
+  String get proDialogViewPlans {
+    return Intl.message(
+      'View Pro Plans',
+      name: 'proDialogViewPlans',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Unlimited cluster access`
+  String get proBenefitUnlimitedClusters {
+    return Intl.message(
+      'Unlimited cluster access',
+      name: 'proBenefitUnlimitedClusters',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Node Shell access`
+  String get proBenefitNodeShell {
+    return Intl.message(
+      'Node Shell access',
+      name: 'proBenefitNodeShell',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `YAML editing and Apply`
+  String get proBenefitYamlEdit {
+    return Intl.message(
+      'YAML editing and Apply',
+      name: 'proBenefitYamlEdit',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Historical log search`
+  String get proBenefitLogSearch {
+    return Intl.message(
+      'Historical log search',
+      name: 'proBenefitLogSearch',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Custom dashboard`
+  String get proBenefitCustomDashboard {
+    return Intl.message(
+      'Custom dashboard',
+      name: 'proBenefitCustomDashboard',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Priority support`
+  String get proBenefitSupport {
+    return Intl.message(
+      'Priority support',
+      name: 'proBenefitSupport',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

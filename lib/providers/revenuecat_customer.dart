@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:purchases_flutter/purchases_flutter.dart';
+import 'package:k8zdev/services/pro_features.dart';
 
 class RevenueCatCustomer with ChangeNotifier {
   CustomerInfo? _customerInfo;
@@ -18,6 +19,12 @@ class RevenueCatCustomer with ChangeNotifier {
         }
         return result;
       }();
+
+  /// Check if the user has an active Pro subscription.
+  ///
+  /// Delegates to [ProFeatures.isPro] for consistent Pro status checking.
+  /// Returns true if the user has any active entitlement.
+  bool get isPro => ProFeatures.isPro(customerInfo);
 
   init() async {
     try {

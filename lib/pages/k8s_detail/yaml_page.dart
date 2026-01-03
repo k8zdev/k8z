@@ -5,9 +5,12 @@ import 'package:code_editor/code_editor.dart';
 import 'package:flutter/material.dart';
 import 'package:k8zdev/common/helpers.dart';
 import 'package:k8zdev/generated/l10n.dart';
+import 'package:k8zdev/providers/revenuecat_customer.dart';
 import 'package:k8zdev/services/k8z_native.dart';
+import 'package:k8zdev/services/pro_features.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:json2yaml/json2yaml.dart';
+import 'package:provider/provider.dart';
 
 class YamlPage extends StatefulWidget {
   final String itemUrl;
@@ -26,6 +29,7 @@ class YamlPage extends StatefulWidget {
 
 class _YamlPageState extends State<YamlPage> {
   late String content;
+  bool _canEdit = false;
 
   @override
   void initState() {
@@ -34,7 +38,23 @@ class _YamlPageState extends State<YamlPage> {
       widget.resp.body,
       yamlStyle: YamlStyle.pubspecYaml,
     );
+    // Check Pro status
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _checkProStatus();
+    });
   }
+
+  void _checkProStatus() {
+    final customerProvider = Provider.of<RevenueCatCustomer>(
+      context,
+      listen: false,
+    );
+    final isPro = ProFeatures.isPro(customerProvider.customerInfo);
+    setState(() {
+      _canEdit = ProFeatures.canEditYaml(isPro);
+    });
+  }
+
 
   double buttonsHeight() {
     if (Platform.isIOS) {
@@ -95,11 +115,11 @@ class _YamlPageState extends State<YamlPage> {
                 name: "${widget.fileName}.yaml",
                 language: "yaml",
                 code: content,
-                readonly: true,
+                readonly: !_canEdit, // Pro required to edit
               )
             ],
             styleOptions: EditorModelStyleOptions(
-              showToolbar: false,
+              showToolbar: _canEdit, // Show toolbar only for Pro
               editButtonName: lang.edit,
               heightOfContainer:
                   availableHeight(context, appbarHeight + buttonsHeight()),

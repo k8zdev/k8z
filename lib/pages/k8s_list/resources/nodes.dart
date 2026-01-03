@@ -8,12 +8,16 @@ import 'package:k8zdev/common/types.dart';
 import 'package:k8zdev/dao/kube.dart';
 import 'package:k8zdev/generated/l10n.dart';
 import 'package:k8zdev/models/models.dart';
+import 'package:k8zdev/providers/revenuecat_customer.dart';
 import 'package:k8zdev/services/k8z_native.dart';
 import 'package:k8zdev/services/k8z_service.dart';
+import 'package:k8zdev/services/pro_features.dart';
 import 'package:k8zdev/widgets/get_terminal.dart';
 import 'package:k8zdev/widgets/modal.dart';
+import 'package:k8zdev/widgets/pro_upgrade_dialog.dart';
 import 'package:k8zdev/widgets/settings_tile.dart';
 import 'package:k8zdev/widgets/widgets.dart';
+import 'package:provider/provider.dart';
 import 'package:settings_ui/settings_ui.dart';
 
 class NodesPage extends StatefulWidget {
@@ -178,6 +182,23 @@ class _NodesPageState extends State<NodesPage> {
                         children: [
                           SlidableAction(
                             onPressed: (context) {
+                              // Pro check for Node Shell
+                              final customerProvider = Provider.of<RevenueCatCustomer>(
+                                context,
+                                listen: false,
+                              );
+                              final isPro = ProFeatures.isPro(customerProvider.customerInfo);
+
+                              if (!ProFeatures.canUseNodeShell(isPro)) {
+                                // Show upgrade dialog for Free users
+                                ProUpgradeDialog.show(
+                                  context,
+                                  featureName: lang.node_shell,
+                                );
+                                return;
+                              }
+
+                              // Node Shell is allowed for Pro users
                               showModal(
                                 context,
                                 GetTerminal(

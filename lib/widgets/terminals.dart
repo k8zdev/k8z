@@ -1,9 +1,9 @@
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
-import 'package:k8zdev/common/helpers.dart';
 import 'package:k8zdev/common/styles.dart';
 import 'package:k8zdev/generated/l10n.dart';
 import 'package:k8zdev/providers/terminals.dart';
+import 'package:k8zdev/services/analytics_service.dart';
 import 'package:k8zdev/widgets/virtual_keyboard.dart';
 import 'package:provider/provider.dart';
 import 'package:xterm/ui.dart' as xtermui;
@@ -18,7 +18,9 @@ Widget floatingActionButton(BuildContext context) {
 }
 
 void showTerminals(BuildContext context) {
-  logScreenView(screenName: 'Terminals');
+  AnalyticsService.logEvent(
+    eventName: 'terminals_show',
+  );
   showModalBottomSheet(
     context: context,
     isDismissible: true,

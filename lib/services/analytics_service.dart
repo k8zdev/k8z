@@ -68,10 +68,13 @@ class AnalyticsService {
         parameters.addAll(additionalParams);
       }
 
+      // 将布尔值转换为字符串（Firebase Analytics兼容性）
+      final convertedParams = _convertBoolParameters(parameters);
+
       // 记录页面访问事件
       await _logEventWithRetry(
         eventName: 'screen_view',
-        parameters: parameters,
+        parameters: convertedParams,
         screenName: screenName,
         screenClass: _extractScreenClass(screenName),
       );
@@ -454,6 +457,19 @@ class AnalyticsService {
   /// 清空事件队列（用于测试）
   static void clearEventQueue() {
     _eventQueue.clear();
+  }
+
+  /// 将布尔值参数转换为字符串（Firebase Analytics兼容性）
+  static Map<String, Object> _convertBoolParameters(Map<String, Object> parameters) {
+    final converted = <String, Object>{};
+    parameters.forEach((key, value) {
+      if (value is bool) {
+        converted[key] = value ? 'true' : 'false';
+      } else {
+        converted[key] = value;
+      }
+    });
+    return converted;
   }
 }
 

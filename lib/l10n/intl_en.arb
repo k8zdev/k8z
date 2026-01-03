@@ -779,5 +779,31 @@
   "event_source_host": "Source Host",
   "@event_source_host": {},
   "event_action": "Action",
-  "@event_action": {}
+  "@event_action": {},
+  "proDialogTitle": "k8z Pro",
+  "@proDialogTitle": {},
+  "proDialogFeatureLocked": "{featureName} requires a Pro subscription",
+  "@proDialogFeatureLocked": {
+    "placeholders": {
+      "featureName": {}
+    }
+  },
+  "proDialogBenefitsTitle": "Pro Features:",
+  "@proDialogBenefitsTitle": {},
+  "proDialogCancel": "Cancel",
+  "@proDialogCancel": {},
+  "proDialogViewPlans": "View Pro Plans",
+  "@proDialogViewPlans": {},
+  "proBenefitUnlimitedClusters": "Unlimited cluster access",
+  "@proBenefitUnlimitedClusters": {},
+  "proBenefitNodeShell": "Node Shell access",
+  "@proBenefitNodeShell": {},
+  "proBenefitYamlEdit": "YAML editing and Apply",
+  "@proBenefitYamlEdit": {},
+  "proBenefitLogSearch": "Historical log search",
+  "@proBenefitLogSearch": {},
+  "proBenefitCustomDashboard": "Custom dashboard",
+  "@proBenefitCustomDashboard": {},
+  "proBenefitSupport": "Priority support",
+  "@proBenefitSupport": {}
 }

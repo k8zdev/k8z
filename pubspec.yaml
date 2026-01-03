@@ -85,6 +85,7 @@ dependencies:
   flutter_highlighting: ^0.9.0+11.8.0
   shortid: ^0.1.2
   crypto: ^3.0.3
+  shared_preferences: ^2.2.2
 
 # dependency_overrides:
 #   meta: 1.15.0
@@ -104,6 +105,7 @@ dev_dependencies:
   flutter_lints: ^5.0.0
   icons_launcher: ^3.0.0
   build_runner: ^2.4.7
+  mockito: ^5.4.4
   flutter_gherkin: 2.0.0
   gherkin: ^2.0.8
   glob: ^2.1.2
