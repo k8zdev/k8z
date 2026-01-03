@@ -23,6 +23,7 @@ class OnboardingState {
   final DateTime? startTime;
   final Map<String, dynamic> analytics;
   final bool guideCompleted;
+  final Map<String, String>? podInfo;
 
   const OnboardingState({
     this.isActive = false,
@@ -31,6 +32,7 @@ class OnboardingState {
     this.startTime,
     this.analytics = const {},
     this.guideCompleted = false,
+    this.podInfo,
   });
 
   OnboardingState copyWith({
@@ -40,6 +42,7 @@ class OnboardingState {
     DateTime? startTime,
     Map<String, dynamic>? analytics,
     bool? guideCompleted,
+    Map<String, String>? podInfo,
   }) {
     return OnboardingState(
       isActive: isActive ?? this.isActive,
@@ -48,6 +51,7 @@ class OnboardingState {
       startTime: startTime ?? this.startTime,
       analytics: analytics ?? this.analytics,
       guideCompleted: guideCompleted ?? this.guideCompleted,
+      podInfo: podInfo ?? this.podInfo,
     );
   }
 
@@ -329,6 +333,15 @@ class OnboardingGuideService extends ChangeNotifier {
 
   /// Get total steps count
   int get totalSteps => DemoClusterGuide.getSteps().length;
+
+  /// Set pod info for the guide (used for pod detail step)
+  void setPodInfo(String podName, String podNamespace) {
+    talker.info('Setting pod info for guide: $podName in namespace $podNamespace');
+    _state = _state.copyWith(
+      podInfo: {'name': podName, 'namespace': podNamespace},
+    );
+    notifyListeners();
+  }
 
   /// Log step navigation
   void _logStep(String stepId) {

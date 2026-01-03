@@ -2240,14 +2240,14 @@ class S {
     );
   }
 
-  /// `View YAML configuration, real-time logs, and open a terminal. This page shows the detailed information for the 'web-demo' pod.`
-  String get guide_step_4_desc {
+  /// `View YAML configuration, real-time logs, and open a terminal. This page shows the detailed information for the '{podName}' pod in namespace '{podNamespace}'.`
+  String guide_step_4_desc(String podName, String podNamespace) {
     return Intl.message(
-      'View YAML configuration, real-time logs, and open a terminal. This page shows the detailed information for the \'web-demo\' pod.',
+      'View YAML configuration, real-time logs, and open a terminal. This page shows the detailed information for the \'$podName\' pod in namespace \'$podNamespace\'.',
       name: 'guide_step_4_desc',
       desc:
           'Description for the fourth onboarding guide step - explaining pod details',
-      args: [],
+      args: [podName, podNamespace],
     );
   }
 

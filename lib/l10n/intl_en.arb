@@ -808,9 +808,19 @@
   "@guide_step_4_title": {
     "description": "Title for the fourth onboarding guide step"
   },
-  "guide_step_4_desc": "View YAML configuration, real-time logs, and open a terminal. This page shows the detailed information for the 'web-demo' pod.",
+  "guide_step_4_desc": "View YAML configuration, real-time logs, and open a terminal. This page shows the detailed information for the '{podName}' pod in namespace '{podNamespace}'.",
   "@guide_step_4_desc": {
-    "description": "Description for the fourth onboarding guide step - explaining pod details"
+    "description": "Description for the fourth onboarding guide step - explaining pod details",
+    "placeholders": {
+      "podName": {
+        "type": "String",
+        "example": "web-demo"
+      },
+      "podNamespace": {
+        "type": "String",
+        "example": "default"
+      }
+    }
   },
   "guide_step_5_title": "Resources Menu",
   "@guide_step_5_title": {

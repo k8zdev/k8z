@@ -59,30 +59,33 @@ class MessageLookup extends MessageLookupByLibrary {
 
   static String m11(arg) => "External-IP:\t\t ${arg}";
 
-  static String m12(name, ns, className, hosts, address, ports) =>
+  static String m12(podName, podNamespace) =>
+      "View YAML configuration, real-time logs, and open a terminal. This page shows the detailed information for the \'${podName}\' pod in namespace \'${podNamespace}\'.";
+
+  static String m13(name, ns, className, hosts, address, ports) =>
       "${name}\nNamespace: ${ns}\nClass: ${className}\nHosts: ${hosts}\nAddress: ${address}\nPorts: ${ports}";
 
-  static String m13(arg) => "Internal-IP:\t\t ${arg}";
+  static String m14(arg) => "Internal-IP:\t\t ${arg}";
 
-  static String m14(number) => " (${number} items)";
+  static String m15(number) => " (${number} items)";
 
-  static String m15(n) => "last ${n} warnings";
+  static String m16(n) => "last ${n} warnings";
 
-  static String m16(error) => "load metrics error: ${error}";
+  static String m17(error) => "load metrics error: ${error}";
 
-  static String m17(n) => "${n} s";
+  static String m18(n) => "${n} s";
 
-  static String m18(arg) => "Architecture\t\t: ${arg}";
+  static String m19(arg) => "Architecture\t\t: ${arg}";
 
-  static String m19(os, arg) => "Kernel:\t\t ${os}/${arg}";
+  static String m20(os, arg) => "Kernel:\t\t ${os}/${arg}";
 
-  static String m20(arg) => "Kernel:\t\t ${arg}";
+  static String m21(arg) => "Kernel:\t\t ${arg}";
 
-  static String m21(arg) => "Roles:\t\t ${arg}";
+  static String m22(arg) => "Roles:\t\t ${arg}";
 
-  static String m22(arg) => "Version:\t\t ${arg}";
+  static String m23(arg) => "Version:\t\t ${arg}";
 
-  static String m23(
+  static String m24(
     name,
     namespace,
     ready,
@@ -94,10 +97,10 @@ class MessageLookup extends MessageLookupByLibrary {
   ) =>
       "${name}\n\nNamespace: ${namespace}\nReady: ${ready}\nStatus: ${status}\nRestarts: ${restarts}\nContainers: ${containers}\nCPU: ${cpu}\nMemory: ${memory}";
 
-  static String m24(featureName) =>
+  static String m25(featureName) =>
       "${featureName} requires a Pro subscription";
 
-  static String m25(
+  static String m26(
     name,
     capacity,
     accessModes,
@@ -109,7 +112,7 @@ class MessageLookup extends MessageLookupByLibrary {
   ) =>
       "${name}\nCapacity: ${capacity}\nAccess Modes: ${accessModes}\nReclaim Policy: ${reclaimPolicy}\nStatus: ${status}\nClaim: ${claim}\nStorage Class: ${storageClass}\nReason: ${reason}\n";
 
-  static String m26(
+  static String m27(
     name,
     ns,
     status,
@@ -120,29 +123,29 @@ class MessageLookup extends MessageLookupByLibrary {
   ) =>
       "${name}\nNamespace: ${ns}\nStatus: ${status}\nVolume: ${volume}\nCapacity: ${capacity}\nAccess Modes: ${accessModes}\nStorage Class: ${storageClass}";
 
-  static String m27(name, ns, revision, appVer, updated, status, chart) =>
+  static String m28(name, ns, revision, appVer, updated, status, chart) =>
       "${name}\nNamespace: ${ns}\nRevision: ${revision}\nApp Version: ${appVer}\nUpdated: ${updated}\nStatus: ${status}\nChart: ${chart}";
 
-  static String m28(name, ns, current, ready, available) =>
+  static String m29(name, ns, current, ready, available) =>
       "${name}\nNamespace: ${ns}\nCurrent: ${current}\nReady: ${ready}\nAvailable: ${available}\n";
 
-  static String m29(error) => "scale failed, error: ${error}";
+  static String m30(error) => "scale failed, error: ${error}";
 
-  static String m30(N) => "Scale to ${N} replica(s)";
+  static String m31(N) => "Scale to ${N} replica(s)";
 
-  static String m31(name, ns, type, data) =>
+  static String m32(name, ns, type, data) =>
       "${name}\nNamespace: ${ns}\nType: ${type}\nData: ${data}";
 
-  static String m32(name, ns, secrets) =>
+  static String m33(name, ns, secrets) =>
       "${name}\nNamespace: ${ns}\nSecret: ${secrets}";
 
-  static String m33(name, ns, type, clusterIP, externalIP, ports) =>
+  static String m34(name, ns, type, clusterIP, externalIP, ports) =>
       "${name}\nNamespace: ${ns}\nType: ${type}\nCluster IP: ${clusterIP}\nExternal IP: ${externalIP}\nPorts: ${ports}";
 
-  static String m34(name, ns, ready, upToDate, available) =>
+  static String m35(name, ns, ready, upToDate, available) =>
       "${name}\nNamespace: ${ns}\nReady: ${ready}\nUp to date: ${upToDate}\nAvailable: ${available}\n";
 
-  static String m35(
+  static String m36(
     name,
     provisioner,
     reclaimPolicy,
@@ -152,15 +155,15 @@ class MessageLookup extends MessageLookupByLibrary {
   ) =>
       "${name}\nProvisioner: ${provisioner}\nReclaim Policy: ${reclaimPolicy}\nVolume Binding Mode: ${volumeBindingMode}\nAllow Volume Expansion: ${allowVolumeExpansion}\nMountOptions: ${mountOptions}";
 
-  static String m36(date) => "Sponsor expired: \$${date}";
+  static String m37(date) => "Sponsor expired: \$${date}";
 
-  static String m37(error) => "Restore Purchases Failed, ERROR: ${error}";
+  static String m38(error) => "Restore Purchases Failed, ERROR: ${error}";
 
-  static String m38(number) => "${number} terminals opened";
+  static String m39(number) => "${number} terminals opened";
 
-  static String m39(number) => "Totals: ${number}";
+  static String m40(number) => "Totals: ${number}";
 
-  static String m40(type, name) => "will delete ${type} ${name}";
+  static String m41(type, name) => "will delete ${type} ${name}";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
@@ -350,9 +353,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "View all pods in your cluster. Swipe right for more actions (details, logs, terminal), swipe left to delete.",
     ),
     "guide_step_3_title": MessageLookupByLibrary.simpleMessage("Pod List"),
-    "guide_step_4_desc": MessageLookupByLibrary.simpleMessage(
-      "View YAML configuration, real-time logs, and open a terminal. This page shows the detailed information for the \'web-demo\' pod.",
-    ),
+    "guide_step_4_desc": m12,
     "guide_step_4_title": MessageLookupByLibrary.simpleMessage("Pod Details"),
     "guide_step_5_desc": MessageLookupByLibrary.simpleMessage(
       "Access additional Kubernetes resources: Config (ConfigMaps, Secrets), Storage (PVs, PVCs, StorageClass), and Networking (Services, Ingresses).",
@@ -385,11 +386,11 @@ class MessageLookup extends MessageLookupByLibrary {
       "Image Pull Secrets",
     ),
     "image_id": MessageLookupByLibrary.simpleMessage("Image ID"),
-    "ingress_text": m12,
+    "ingress_text": m13,
     "ingresses": MessageLookupByLibrary.simpleMessage("Ingresses"),
     "initContainers": MessageLookupByLibrary.simpleMessage("Init Containers"),
-    "internel_ip": m13,
-    "items_number": m14,
+    "internel_ip": m14,
+    "items_number": m15,
     "kernel_version": MessageLookupByLibrary.simpleMessage("Kernel Version"),
     "kind": MessageLookupByLibrary.simpleMessage("kind"),
     "kubelet_version": MessageLookupByLibrary.simpleMessage("Kubelet Version"),
@@ -397,7 +398,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "language_settings": MessageLookupByLibrary.simpleMessage(
       "Language Settings",
     ),
-    "last_warning_events": m15,
+    "last_warning_events": m16,
     "livenessProbe": MessageLookupByLibrary.simpleMessage("Liveness Probe"),
     "load_balancer_ip": MessageLookupByLibrary.simpleMessage(
       "Load Balancer IP",
@@ -409,7 +410,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "load_kubeconfig_file": MessageLookupByLibrary.simpleMessage(
       "Load Kubeconfig File",
     ),
-    "load_metrics_error": m16,
+    "load_metrics_error": m17,
     "loading_metrics": MessageLookupByLibrary.simpleMessage("loading metrics"),
     "logs": MessageLookupByLibrary.simpleMessage("Logs"),
     "manual_load_kubeconfig": MessageLookupByLibrary.simpleMessage(
@@ -419,7 +420,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "metadata": MessageLookupByLibrary.simpleMessage("metadata"),
     "more": MessageLookupByLibrary.simpleMessage("More"),
     "mount_options": MessageLookupByLibrary.simpleMessage("Mount Options"),
-    "n_seconds": m17,
+    "n_seconds": m18,
     "name": MessageLookupByLibrary.simpleMessage("Name"),
     "namespace": MessageLookupByLibrary.simpleMessage("Namespace"),
     "namespaces": MessageLookupByLibrary.simpleMessage("Namespaces"),
@@ -427,12 +428,12 @@ class MessageLookup extends MessageLookupByLibrary {
     "no_current_cluster": MessageLookupByLibrary.simpleMessage(
       "no current cluster",
     ),
-    "node_arch": m18,
-    "node_kernel": m19,
-    "node_os_image": m20,
-    "node_roles": m21,
+    "node_arch": m19,
+    "node_kernel": m20,
+    "node_os_image": m21,
+    "node_roles": m22,
     "node_shell": MessageLookupByLibrary.simpleMessage("Node Shell"),
-    "node_version": m22,
+    "node_version": m23,
     "nodes": MessageLookupByLibrary.simpleMessage("Nodes"),
     "nodes_desc": MessageLookupByLibrary.simpleMessage(
       "A node may be a virtual or physical machine.",
@@ -446,7 +447,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "parameters": MessageLookupByLibrary.simpleMessage("Parameters"),
     "pod_cidr": MessageLookupByLibrary.simpleMessage("Pod CIDR"),
     "pod_cidrs": MessageLookupByLibrary.simpleMessage("Pod CIDRs"),
-    "pod_text": m23,
+    "pod_text": m24,
     "pods": MessageLookupByLibrary.simpleMessage("Pods"),
     "ports": MessageLookupByLibrary.simpleMessage("Ports"),
     "privacy_policy": MessageLookupByLibrary.simpleMessage("Privacy Policy"),
@@ -472,7 +473,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "Pro Features:",
     ),
     "proDialogCancel": MessageLookupByLibrary.simpleMessage("Cancel"),
-    "proDialogFeatureLocked": m24,
+    "proDialogFeatureLocked": m25,
     "proDialogTitle": MessageLookupByLibrary.simpleMessage("k8z Pro"),
     "proDialogViewPlans": MessageLookupByLibrary.simpleMessage(
       "View Pro Plans",
@@ -490,19 +491,19 @@ class MessageLookup extends MessageLookupByLibrary {
     "pv_reason": MessageLookupByLibrary.simpleMessage("Reason"),
     "pv_reclaim_policy": MessageLookupByLibrary.simpleMessage("Reclaim Policy"),
     "pv_show": MessageLookupByLibrary.simpleMessage("Show"),
-    "pv_text": m25,
+    "pv_text": m26,
     "pv_volume_mode": MessageLookupByLibrary.simpleMessage("Volume Mode"),
-    "pvc_text": m26,
+    "pvc_text": m27,
     "pvcs": MessageLookupByLibrary.simpleMessage("Persistent Volume Claims"),
     "pvs": MessageLookupByLibrary.simpleMessage("Persistent Volumes"),
     "readinessProbe": MessageLookupByLibrary.simpleMessage("Readiness Probe"),
     "readonly_indicator": MessageLookupByLibrary.simpleMessage("Read-only"),
     "reason": MessageLookupByLibrary.simpleMessage("Reason"),
     "reclaim_policy": MessageLookupByLibrary.simpleMessage("Reclaim Policy"),
-    "release_text": m27,
+    "release_text": m28,
     "releases": MessageLookupByLibrary.simpleMessage("Releases"),
     "replicasets": MessageLookupByLibrary.simpleMessage("ReplicaSets"),
-    "replicasets_text": m28,
+    "replicasets_text": m29,
     "resourceVersion": MessageLookupByLibrary.simpleMessage("Version"),
     "resource_details": MessageLookupByLibrary.simpleMessage(
       "Resource Details",
@@ -513,10 +514,10 @@ class MessageLookup extends MessageLookupByLibrary {
     "running": MessageLookupByLibrary.simpleMessage("Running"),
     "save_clusters": MessageLookupByLibrary.simpleMessage("save clusters"),
     "scale": MessageLookupByLibrary.simpleMessage("Scale"),
-    "scale_failed": m29,
+    "scale_failed": m30,
     "scale_ok": MessageLookupByLibrary.simpleMessage("scale success"),
-    "scale_to": m30,
-    "secret_text": m31,
+    "scale_to": m31,
+    "secret_text": m32,
     "secrets": MessageLookupByLibrary.simpleMessage("Secrets"),
     "select_clusters": MessageLookupByLibrary.simpleMessage(
       "Select cluster(s)",
@@ -526,9 +527,9 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "selector": MessageLookupByLibrary.simpleMessage("Selector"),
     "selfLink": MessageLookupByLibrary.simpleMessage("SelfLink"),
-    "service_account_text": m32,
+    "service_account_text": m33,
     "service_accounts": MessageLookupByLibrary.simpleMessage("ServiceAccounts"),
-    "service_text": m33,
+    "service_text": m34,
     "services": MessageLookupByLibrary.simpleMessage("Services"),
     "session_affinity": MessageLookupByLibrary.simpleMessage(
       "Session Affinity",
@@ -559,13 +560,13 @@ class MessageLookup extends MessageLookupByLibrary {
       "Start debug will create a new ephemeral container in the pod, and attach to it\'s stdin, stdout, and stderr.",
     ),
     "startupProbe": MessageLookupByLibrary.simpleMessage("Startup Probe"),
-    "stateful_set_text": m34,
+    "stateful_set_text": m35,
     "stateful_sets": MessageLookupByLibrary.simpleMessage("StatefulSets"),
     "status": MessageLookupByLibrary.simpleMessage("Status"),
     "storage": MessageLookupByLibrary.simpleMessage("Storage"),
     "storage_class": MessageLookupByLibrary.simpleMessage("StorageClass"),
-    "storage_class_text": m35,
-    "subscriptions_expired_at": m36,
+    "storage_class_text": m36,
+    "subscriptions_expired_at": m37,
     "subscriptions_iap_desc": MessageLookupByLibrary.simpleMessage(
       "If not cancelled, the subscription will be renewed automatically. Payment will be charged to the iTunes account when the purchase is confirmed. Subscriptions are automatically renewed unless automatic renewal is closed at least 24 hours before the end of the current term. The account will charge a renewal fee within 24 hours prior to the end of the current period and determine the renewal fee. Subscriptions can be managed by the user and auto-renewal can be turned off after purchase by going to the user\'\'s account settings. Any unused portion of the free trial period, if provided, will be forfeited when the user purchases a subscription to the publication.",
     ),
@@ -574,7 +575,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "subscriptions_purchased": MessageLookupByLibrary.simpleMessage(
       "Purchased",
     ),
-    "subscriptions_restorePurchases_failed": m37,
+    "subscriptions_restorePurchases_failed": m38,
     "subscriptions_restore_purchases": MessageLookupByLibrary.simpleMessage(
       "Restore Purchases",
     ),
@@ -587,11 +588,11 @@ class MessageLookup extends MessageLookupByLibrary {
     "support": MessageLookupByLibrary.simpleMessage("Support"),
     "tail_lines": MessageLookupByLibrary.simpleMessage("Tail Lines"),
     "terminal": MessageLookupByLibrary.simpleMessage("Terminal"),
-    "terminals_opened": m38,
+    "terminals_opened": m39,
     "theme_auto": MessageLookupByLibrary.simpleMessage("Auto"),
     "theme_dark": MessageLookupByLibrary.simpleMessage("Dark mode"),
     "theme_light": MessageLookupByLibrary.simpleMessage("Light mode"),
-    "totals": m39,
+    "totals": m40,
     "type": MessageLookupByLibrary.simpleMessage("Type"),
     "uid": MessageLookupByLibrary.simpleMessage("Uid"),
     "unschedulable": MessageLookupByLibrary.simpleMessage("Unschedulable"),
@@ -601,7 +602,7 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "volume_mode": MessageLookupByLibrary.simpleMessage("Volume Mode"),
     "volume_name": MessageLookupByLibrary.simpleMessage("Volume Name"),
-    "will_delete": m40,
+    "will_delete": m41,
     "workloads": MessageLookupByLibrary.simpleMessage("Workloads"),
   };
 }

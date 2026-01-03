@@ -88,6 +88,8 @@ class _LandingState extends State<Landing> with SingleTickerProviderStateMixin {
             routeParams['namespace'] = podInfo['namespace']!;
             routeParams['resource'] = 'pods';
             routeParams['name'] = podInfo['name']!;
+            // Set pod info for the guide step description
+            guideService.setPodInfo(podInfo['name']!, podInfo['namespace']!);
           } else {
             talker.warning('No pods available for guide pod detail step, skipping');
             final skipNextId = DemoClusterGuide.getNextStepId(nextId);
@@ -156,6 +158,8 @@ class _LandingState extends State<Landing> with SingleTickerProviderStateMixin {
             routeParams['namespace'] = podInfo['namespace']!;
             routeParams['resource'] = 'pods';
             routeParams['name'] = podInfo['name']!;
+            // Set pod info for the guide step description
+            guideService.setPodInfo(podInfo['name']!, podInfo['namespace']!);
           } else {
             talker.warning('No pods available for guide pod detail step, skipping');
             final skipPrevId = DemoClusterGuide.getPreviousStepId(prevId);

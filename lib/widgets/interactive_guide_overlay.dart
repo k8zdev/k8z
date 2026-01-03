@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:k8zdev/models/guide_step_definition.dart';
 import 'package:k8zdev/generated/l10n.dart';
+import 'package:k8zdev/services/onboarding_guide_service.dart';
+import 'package:provider/provider.dart';
 
 /// Theme configuration for the guide overlay
 class GuideOverlayTheme {
@@ -384,7 +386,14 @@ class _InteractiveGuideOverlayState extends State<InteractiveGuideOverlay>
       case 3:
         return lang.guide_step_3_desc;
       case 4:
-        return lang.guide_step_4_desc;
+        // Step 4 (Pod Details) - use pod info from guide service if available
+        final guideService = Provider.of<OnboardingGuideService>(context, listen: false);
+        final podInfo = guideService.state.podInfo;
+        if (podInfo != null) {
+          return lang.guide_step_4_desc(podInfo['name'] ?? 'pod', podInfo['namespace'] ?? 'namespace');
+        }
+        // Fallback to default description without parameters (will use placeholders)
+        return lang.guide_step_4_desc('web-demo', 'default');
       case 5:
         return lang.guide_step_5_desc;
       case 6:

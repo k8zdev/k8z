@@ -808,9 +808,19 @@
   "@guide_step_4_title": {
     "description": "Title for the fourth onboarding guide step"
   },
-  "guide_step_4_desc": "查看 YAML 配置、实时日志和打开终端。此页面显示 'web-demo' Pod 的详细信息。",
+  "guide_step_4_desc": "查看 YAML 配置、实时日志和打开终端。此页面显示命名空间 '{podNamespace}' 中 '{podName}' Pod 的详细信息。",
   "@guide_step_4_desc": {
-    "description": "Description for the fourth onboarding guide step - explaining pod details"
+    "description": "Description for the fourth onboarding guide step - explaining pod details",
+    "placeholders": {
+      "podName": {
+        "type": "String",
+        "example": "web-demo"
+      },
+      "podNamespace": {
+        "type": "String",
+        "example": "default"
+      }
+    }
   },
   "guide_step_5_title": "资源菜单",
   "@guide_step_5_title": {
