@@ -2177,13 +2177,13 @@ class S {
     );
   }
 
-  /// `Let's quickly explore the main features. This is a demo cluster where you can safely explore.`
+  /// `Let's quickly explore the main features of K8zDev.`
   String get guide_step_1_desc {
     return Intl.message(
-      'Let\'s quickly explore the main features. This is a demo cluster where you can safely explore.',
+      'Let\'s quickly explore the main features of K8zDev.',
       name: 'guide_step_1_desc',
       desc:
-          'Description for the first onboarding guide step - introducing the demo cluster',
+          'Description for the first onboarding guide step - introduction to K8zDev',
       args: [],
     );
   }

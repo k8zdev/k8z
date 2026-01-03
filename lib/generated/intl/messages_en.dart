@@ -332,7 +332,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "guide_button_next": MessageLookupByLibrary.simpleMessage("Next"),
     "guide_button_skip": MessageLookupByLibrary.simpleMessage("Skip"),
     "guide_step_1_desc": MessageLookupByLibrary.simpleMessage(
-      "Let\'s quickly explore the main features. This is a demo cluster where you can safely explore.",
+      "Let\'s quickly explore the main features of K8zDev.",
     ),
     "guide_step_1_title": MessageLookupByLibrary.simpleMessage(
       "Welcome to K8zDev!",

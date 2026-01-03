@@ -784,9 +784,9 @@
   "@guide_step_1_title": {
     "description": "Title for the first onboarding guide step"
   },
-  "guide_step_1_desc": "让我们快速探索主要功能。这是一个演示集群，您可以安全地进行探索。",
+  "guide_step_1_desc": "让我们快速探索 K8zDev 的主要功能。",
   "@guide_step_1_desc": {
-    "description": "Description for the first onboarding guide step - introducing the demo cluster"
+    "description": "Description for the first onboarding guide step - introduction to K8zDev"
   },
   "guide_step_2_title": "负载概览",
   "@guide_step_2_title": {

@@ -80,12 +80,24 @@ class _LandingState extends State<Landing> with SingleTickerProviderStateMixin {
           nextStep.routeParams.map((key, value) => MapEntry(key, value ?? '')),
         );
 
-        // Special handling for pod detail step (fixed name "web-demo")
+        // Special handling for pod detail step (dynamic first pod name)
         if (nextId == DemoClusterGuide.podDetailStepId) {
-          routeParams['path'] = 'workloads';
-          routeParams['namespace'] = '_';
-          routeParams['resource'] = 'pods';
-          routeParams['name'] = 'web-demo';
+          final podName = await _getFirstPodName(context, guideService);
+          if (podName != null) {
+            routeParams['path'] = 'workloads';
+            routeParams['namespace'] = '_';
+            routeParams['resource'] = 'pods';
+            routeParams['name'] = podName;
+          } else {
+            talker.warning('No pods available for guide pod detail step, skipping');
+            final skipNextId = DemoClusterGuide.getNextStepId(nextId);
+            if (skipNextId != null) {
+              await guideService.navigateToStep(skipNextId);
+            } else {
+              await guideService.completeGuide();
+            }
+            return;
+          }
         }
 
         // Special handling for node detail step (dynamic node name - Scheme B)
@@ -136,12 +148,29 @@ class _LandingState extends State<Landing> with SingleTickerProviderStateMixin {
           prevStep.routeParams.map((key, value) => MapEntry(key, value ?? '')),
         );
 
-        // Special handling for pod detail step (fixed name "web-demo")
+        // Special handling for pod detail step (dynamic first pod name)
         if (prevId == DemoClusterGuide.podDetailStepId) {
-          routeParams['path'] = 'workloads';
-          routeParams['namespace'] = '_';
-          routeParams['resource'] = 'pods';
-          routeParams['name'] = 'web-demo';
+          final podName = await _getFirstPodName(context, guideService);
+          if (podName != null) {
+            routeParams['path'] = 'workloads';
+            routeParams['namespace'] = '_';
+            routeParams['resource'] = 'pods';
+            routeParams['name'] = podName;
+          } else {
+            talker.warning('No pods available for guide pod detail step, skipping');
+            final skipPrevId = DemoClusterGuide.getPreviousStepId(prevId);
+            if (skipPrevId != null) {
+              await guideService.navigateToStep(skipPrevId);
+              final skipPrevStep = DemoClusterGuide.getStepById(skipPrevId);
+              if (skipPrevStep != null) {
+                final stringParams = Map<String, String>.from(
+                  skipPrevStep.routeParams.map((key, value) => MapEntry(key, value ?? '')),
+                );
+                _navigateToRoute(router, skipPrevStep.routeName, stringParams);
+              }
+            }
+            return;
+          }
         }
 
         // Special handling for node detail step (dynamic node name - Scheme B)
@@ -176,6 +205,43 @@ class _LandingState extends State<Landing> with SingleTickerProviderStateMixin {
         // Navigate to the previous step's route
         _navigateToRoute(router, prevStep.routeName, routeParams);
       }
+    }
+  }
+
+  /// Get the first available pod name from the cluster
+  Future<String?> _getFirstPodName(BuildContext context, OnboardingGuideService guideService) async {
+    try {
+      final cluster = guideService.state.demoCluster;
+      if (cluster == null) {
+        talker.warning('No cluster available for fetching pods');
+        return null;
+      }
+
+      final path = 'workloads';
+      final resource = 'pods';
+
+      final response = await K8zService(
+        context,
+        cluster: cluster,
+      ).get('$path/$resource');
+
+      if (response.error.isNotEmpty || response.body == null) {
+        talker.error('Failed to fetch pods: ${response.error}');
+        return null;
+      }
+
+      final podsList = IoK8sApiCoreV1PodList.fromJson(response.body);
+      if (podsList?.items != null && podsList!.items!.isNotEmpty) {
+        final firstName = podsList.items!.first.metadata!.name;
+        talker.info('Selected first pod for guide: $firstName');
+        return firstName;
+      }
+
+      talker.warning('No pods found in cluster');
+      return null;
+    } catch (e) {
+      talker.error('Error fetching first pod name: $e');
+      return null;
     }
   }
 

@@ -1,9 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:k8zdev/models/guide_step_definition.dart';
 import 'package:k8zdev/widgets/interactive_guide_overlay.dart';
+import 'package:k8zdev/generated/l10n.dart';
 
 void main() {
+  // Create test app with localization support
+  Widget createTestApp({required Widget child}) {
+    return MaterialApp(
+      localizationsDelegates: const [
+        S.delegate,
+        GlobalMaterialLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+      ],
+      supportedLocales: S.delegate.supportedLocales,
+      home: Scaffold(body: child),
+    );
+  }
+
   group('InteractiveGuideOverlay', () {
     final sampleGuideSteps = [
       GuideStepDefinition(
@@ -33,36 +49,33 @@ void main() {
     testWidgets('should render overlay when active',
         (WidgetTester tester) async {
       await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            body: InteractiveGuideOverlay(
-              isActive: true,
-              currentStepId: 'step1',
-              steps: sampleGuideSteps,
-              child: const Text('Child content'),
-            ),
+        createTestApp(
+          child: InteractiveGuideOverlay(
+            isActive: true,
+            currentStepId: 'step1',
+            steps: sampleGuideSteps,
+            child: const Text('Child content'),
           ),
         ),
       );
 
       await tester.pumpAndSettle();
 
-      // Should show overlay content
-      expect(find.text('Title 1'), findsOneWidget);
-      expect(find.text('Description 1'), findsOneWidget);
+      // Should show overlay content - uses localized strings from S
+      expect(find.text('Welcome to K8zDev!'), findsOneWidget);
+      expect(find.text('Let\'s quickly explore the main features of K8zDev.'), findsOneWidget);
+      expect(find.text('Next'), findsOneWidget);
     });
 
     testWidgets('should not render overlay when inactive',
         (WidgetTester tester) async {
       await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            body: InteractiveGuideOverlay(
-              isActive: false,
-              currentStepId: 'step1',
-              steps: sampleGuideSteps,
-              child: const Text('Child content'),
-            ),
+        createTestApp(
+          child: InteractiveGuideOverlay(
+            isActive: false,
+            currentStepId: 'step1',
+            steps: sampleGuideSteps,
+            child: const Text('Child content'),
           ),
         ),
       );
@@ -72,7 +85,7 @@ void main() {
       // Child should be visible
       expect(find.text('Child content'), findsOneWidget);
       // Overlay title should not be visible
-      expect(find.text('Title 1'), findsNothing);
+      expect(find.text('Welcome to K8zDev!'), findsNothing);
     });
 
     testWidgets('should call onNext when next button tapped',
@@ -80,15 +93,13 @@ void main() {
       bool nextCalled = false;
 
       await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            body: InteractiveGuideOverlay(
-              isActive: true,
-              currentStepId: 'step1',
-              steps: sampleGuideSteps,
-              onNext: () => nextCalled = true,
-              child: const Text('Child content'),
-            ),
+        createTestApp(
+          child: InteractiveGuideOverlay(
+            isActive: true,
+            currentStepId: 'step1',
+            steps: sampleGuideSteps,
+            onNext: () => nextCalled = true,
+            child: const Text('Child content'),
           ),
         ),
       );
@@ -107,22 +118,20 @@ void main() {
       bool skipCalled = false;
 
       await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            body: InteractiveGuideOverlay(
-              isActive: true,
-              currentStepId: 'step1',
-              steps: sampleGuideSteps,
-              onSkip: () => skipCalled = true,
-              child: const Text('Child content'),
-            ),
+        createTestApp(
+          child: InteractiveGuideOverlay(
+            isActive: true,
+            currentStepId: 'step1',
+            steps: sampleGuideSteps,
+            onSkip: () => skipCalled = true,
+            child: const Text('Child content'),
           ),
         ),
       );
 
       await tester.pumpAndSettle();
 
-      // Tap skip button
+      // First step should show skip button
       await tester.tap(find.text('Skip'));
       await tester.pumpAndSettle();
 
@@ -134,15 +143,13 @@ void main() {
       bool previousCalled = false;
 
       await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            body: InteractiveGuideOverlay(
-              isActive: true,
-              currentStepId: 'step2',
-              steps: sampleGuideSteps,
-              onPrevious: () => previousCalled = true,
-              child: const Text('Child content'),
-            ),
+        createTestApp(
+          child: InteractiveGuideOverlay(
+            isActive: true,
+            currentStepId: 'step2',
+            steps: sampleGuideSteps,
+            onPrevious: () => previousCalled = true,
+            child: const Text('Child content'),
           ),
         ),
       );
@@ -161,54 +168,20 @@ void main() {
     testWidgets('should display step title and description',
         (WidgetTester tester) async {
       await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            body: InteractiveGuideOverlay(
-              isActive: true,
-              currentStepId: 'step1',
-              steps: sampleGuideSteps,
-              child: const Text('Child content'),
-            ),
+        createTestApp(
+          child: InteractiveGuideOverlay(
+            isActive: true,
+            currentStepId: 'step1',
+            steps: sampleGuideSteps,
+            child: const Text('Child content'),
           ),
         ),
       );
 
       await tester.pumpAndSettle();
 
-      expect(find.text('Title 1'), findsOneWidget);
-      expect(find.text('Description 1'), findsOneWidget);
-    });
-
-    testWidgets('should use custom button labels when provided',
-        (WidgetTester tester) async {
-      final customSteps = [
-        GuideStepDefinition(
-          id: 'step1',
-          routeName: 'pods',
-          title: 'Title 1',
-          description: 'Description 1',
-          buttonNext: 'Continue',
-          buttonSkip: 'Exit',
-        ),
-      ];
-
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            body: InteractiveGuideOverlay(
-              isActive: true,
-              currentStepId: 'step1',
-              steps: customSteps,
-              child: const Text('Child content'),
-            ),
-          ),
-        ),
-      );
-
-      await tester.pumpAndSettle();
-
-      expect(find.text('Continue'), findsOneWidget);
-      expect(find.text('Exit'), findsOneWidget);
+      expect(find.text('Welcome to K8zDev!'), findsOneWidget);
+      expect(find.text('Let\'s quickly explore the main features of K8zDev.'), findsOneWidget);
     });
 
     testWidgets('should update when currentStepId changes',
@@ -216,42 +189,38 @@ void main() {
       var currentStep = 'step1';
 
       await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            body: InteractiveGuideOverlay(
-              isActive: true,
-              currentStepId: currentStep,
-              steps: sampleGuideSteps,
-              child: const Text('Child content'),
-            ),
+        createTestApp(
+          child: InteractiveGuideOverlay(
+            isActive: true,
+            currentStepId: currentStep,
+            steps: sampleGuideSteps,
+            child: const Text('Child content'),
           ),
         ),
       );
 
       await tester.pumpAndSettle();
 
-      expect(find.text('Title 1'), findsOneWidget);
+      expect(find.text('Welcome to K8zDev!'), findsOneWidget);
 
-      // Update step
+      // Update step - step2 will show localized title
       currentStep = 'step2';
 
       await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            body: InteractiveGuideOverlay(
-              isActive: true,
-              currentStepId: currentStep,
-              steps: sampleGuideSteps,
-              child: const Text('Child content'),
-            ),
+        createTestApp(
+          child: InteractiveGuideOverlay(
+            isActive: true,
+            currentStepId: currentStep,
+            steps: sampleGuideSteps,
+            child: const Text('Child content'),
           ),
         ),
       );
 
       await tester.pumpAndSettle();
 
-      expect(find.text('Title 1'), findsNothing);
-      expect(find.text('Title 2'), findsOneWidget);
+      expect(find.text('Welcome to K8zDev!'), findsNothing);
+      expect(find.text('Workloads Overview'), findsOneWidget);
     });
 
     testWidgets('should hide when active changes to false',
@@ -259,34 +228,30 @@ void main() {
       var isActive = true;
 
       await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            body: InteractiveGuideOverlay(
-              isActive: isActive,
-              currentStepId: 'step1',
-              steps: sampleGuideSteps,
-              child: const Text('Child content'),
-            ),
+        createTestApp(
+          child: InteractiveGuideOverlay(
+            isActive: isActive,
+            currentStepId: 'step1',
+            steps: sampleGuideSteps,
+            child: const Text('Child content'),
           ),
         ),
       );
 
       await tester.pumpAndSettle();
 
-      expect(find.text('Title 1'), findsOneWidget);
+      expect(find.text('Welcome to K8zDev!'), findsOneWidget);
 
       // Deactivate
       isActive = false;
 
       await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            body: InteractiveGuideOverlay(
-              isActive: isActive,
-              currentStepId: 'step1',
-              steps: sampleGuideSteps,
-              child: const Text('Child content'),
-            ),
+        createTestApp(
+          child: InteractiveGuideOverlay(
+            isActive: isActive,
+            currentStepId: 'step1',
+            steps: sampleGuideSteps,
+            child: const Text('Child content'),
           ),
         ),
       );
@@ -294,61 +259,36 @@ void main() {
       await tester.pumpAndSettle();
 
       // Should hide
-      expect(find.text('Title 1'), findsNothing);
+      expect(find.text('Welcome to K8zDev!'), findsNothing);
     });
 
     testWidgets('should show Complete button on last step', (WidgetTester tester) async {
       await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            body: InteractiveGuideOverlay(
-              isActive: true,
-              currentStepId: 'step3',
-              steps: sampleGuideSteps,
-              child: const Text('Child content'),
-            ),
+        createTestApp(
+          child: InteractiveGuideOverlay(
+            isActive: true,
+            currentStepId: 'step3',
+            steps: sampleGuideSteps,
+            child: const Text('Child content'),
           ),
         ),
       );
 
       await tester.pumpAndSettle();
 
-      // Last step should show Complete button (step3 has no buttonNext specified)
+      // Last step should show Complete button (step index 3 maps to guide_step_3_localized strings)
       expect(find.text('Complete'), findsOneWidget);
-    });
-
-    testWidgets('should use custom button label when provided',
-        (WidgetTester tester) async {
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            body: InteractiveGuideOverlay(
-              isActive: true,
-              currentStepId: 'step2',
-              steps: sampleGuideSteps,
-              child: const Text('Child content'),
-            ),
-          ),
-        ),
-      );
-
-      await tester.pumpAndSettle();
-
-      // Step2 has custom buttonNext='Continue', so it should be shown
-      expect(find.text('Continue'), findsOneWidget);
     });
 
     testWidgets('should hide previous button on first step',
         (WidgetTester tester) async {
       await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            body: InteractiveGuideOverlay(
-              isActive: true,
-              currentStepId: 'step1',
-              steps: sampleGuideSteps,
-              child: const Text('Child content'),
-            ),
+        createTestApp(
+          child: InteractiveGuideOverlay(
+            isActive: true,
+            currentStepId: 'step1',
+            steps: sampleGuideSteps,
+            child: const Text('Child content'),
           ),
         ),
       );
@@ -362,14 +302,12 @@ void main() {
     testWidgets('should show step indicator for multi-step guide',
         (WidgetTester tester) async {
       await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            body: InteractiveGuideOverlay(
-              isActive: true,
-              currentStepId: 'step1',
-              steps: sampleGuideSteps,
-              child: const Text('Child content'),
-            ),
+        createTestApp(
+          child: InteractiveGuideOverlay(
+            isActive: true,
+            currentStepId: 'step1',
+            steps: sampleGuideSteps,
+            child: const Text('Child content'),
           ),
         ),
       );

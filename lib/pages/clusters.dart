@@ -44,6 +44,11 @@ class _ClustersPageState extends State<ClustersPage> {
       listen: false,
     );
 
+    // Don't start if guide is already active
+    if (guideService.isGuideActive) {
+      return;
+    }
+
     // Only start guide if not already completed
     final isCompleted = await guideService.isGuideCompleted(
       clusterId: demoCluster.server,

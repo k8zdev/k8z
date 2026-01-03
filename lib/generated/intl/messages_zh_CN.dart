@@ -291,7 +291,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "guide_button_next": MessageLookupByLibrary.simpleMessage("下一步"),
     "guide_button_skip": MessageLookupByLibrary.simpleMessage("跳过"),
     "guide_step_1_desc": MessageLookupByLibrary.simpleMessage(
-      "让我们快速探索主要功能。这是一个演示集群，您可以安全地进行探索。",
+      "让我们快速探索 K8zDev 的主要功能。",
     ),
     "guide_step_1_title": MessageLookupByLibrary.simpleMessage("欢迎使用 K8zDev!"),
     "guide_step_2_desc": MessageLookupByLibrary.simpleMessage(

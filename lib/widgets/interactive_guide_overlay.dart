@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:k8zdev/models/guide_step_definition.dart';
+import 'package:k8zdev/generated/l10n.dart';
 
 /// Theme configuration for the guide overlay
 class GuideOverlayTheme {
@@ -232,6 +233,8 @@ class _InteractiveGuideOverlayState extends State<InteractiveGuideOverlay>
     bool isFirstStep,
     bool isLastStep,
   ) {
+    final lang = S.of(context);
+
     return Container(
       margin: const EdgeInsets.all(32),
       constraints: const BoxConstraints(
@@ -262,7 +265,7 @@ class _InteractiveGuideOverlayState extends State<InteractiveGuideOverlay>
               const SizedBox(height: 16),
               // Title
               Text(
-                step.title,
+                _getLocalizedTitle(lang, step, _currentStepIndex),
                 style: theme.titleStyle ??
                     Theme.of(context).textTheme.headlineSmall?.copyWith(
                           fontWeight: FontWeight.bold,
@@ -274,7 +277,7 @@ class _InteractiveGuideOverlayState extends State<InteractiveGuideOverlay>
               Flexible(
                 child: SingleChildScrollView(
                   child: Text(
-                    step.description,
+                    _getLocalizedDescription(lang, step, _currentStepIndex),
                     style: theme.descriptionStyle ??
                         Theme.of(context).textTheme.bodyMedium?.copyWith(
                               color: Colors.black54,
@@ -291,7 +294,7 @@ class _InteractiveGuideOverlayState extends State<InteractiveGuideOverlay>
                   TextButton(
                     onPressed: widget.onSkip,
                     child: Text(
-                      step.buttonSkip ?? 'Skip',
+                      isLastStep ? '' : lang.guide_button_skip,
                       style: theme.buttonSkipStyle ??
                           TextStyle(
                             color: Colors.grey.shade600,
@@ -306,7 +309,7 @@ class _InteractiveGuideOverlayState extends State<InteractiveGuideOverlay>
                       child: TextButton(
                         onPressed: widget.onPrevious,
                         child: Text(
-                          step.buttonPrevious ?? 'Back',
+                          lang.guide_button_back,
                           style: theme.buttonPreviousStyle ??
                               TextStyle(
                                 color: theme.widgetShapeColor ?? Colors.blue,
@@ -329,7 +332,7 @@ class _InteractiveGuideOverlayState extends State<InteractiveGuideOverlay>
                       ),
                     ),
                     child: Text(
-                      step.buttonNext ?? (isLastStep ? 'Complete' : 'Next'),
+                      isLastStep ? lang.guide_button_complete : lang.guide_button_next,
                       style: theme.buttonNextStyle ??
                           const TextStyle(
                             fontSize: 14,
@@ -343,6 +346,56 @@ class _InteractiveGuideOverlayState extends State<InteractiveGuideOverlay>
         ),
       ),
     );
+  }
+
+  /// Get localized title for the current step
+  String _getLocalizedTitle(S lang, GuideStepDefinition step, int stepIndex) {
+    final stepNum = stepIndex + 1;
+    switch (stepNum) {
+      case 1:
+        return lang.guide_step_1_title;
+      case 2:
+        return lang.guide_step_2_title;
+      case 3:
+        return lang.guide_step_3_title;
+      case 4:
+        return lang.guide_step_4_title;
+      case 5:
+        return lang.guide_step_5_title;
+      case 6:
+        return lang.guide_step_6_title;
+      case 7:
+        return lang.guide_step_7_title;
+      case 8:
+        return lang.guide_step_8_title;
+      default:
+        return step.title;
+    }
+  }
+
+  /// Get localized description for the current step
+  String _getLocalizedDescription(S lang, GuideStepDefinition step, int stepIndex) {
+    final stepNum = stepIndex + 1;
+    switch (stepNum) {
+      case 1:
+        return lang.guide_step_1_desc;
+      case 2:
+        return lang.guide_step_2_desc;
+      case 3:
+        return lang.guide_step_3_desc;
+      case 4:
+        return lang.guide_step_4_desc;
+      case 5:
+        return lang.guide_step_5_desc;
+      case 6:
+        return lang.guide_step_6_desc;
+      case 7:
+        return lang.guide_step_7_desc;
+      case 8:
+        return lang.guide_step_8_desc;
+      default:
+        return step.description;
+    }
   }
 
   Widget _buildStepIndicator(GuideOverlayTheme theme) {

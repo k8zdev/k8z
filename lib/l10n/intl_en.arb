@@ -784,9 +784,9 @@
   "@guide_step_1_title": {
     "description": "Title for the first onboarding guide step"
   },
-  "guide_step_1_desc": "Let's quickly explore the main features. This is a demo cluster where you can safely explore.",
+  "guide_step_1_desc": "Let's quickly explore the main features of K8zDev.",
   "@guide_step_1_desc": {
-    "description": "Description for the first onboarding guide step - introducing the demo cluster"
+    "description": "Description for the first onboarding guide step - introduction to K8zDev"
   },
   "guide_step_2_title": "Workloads Overview",
   "@guide_step_2_title": {
