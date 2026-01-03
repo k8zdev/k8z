@@ -19,6 +19,21 @@ class GuideKeys {
 
   // Nodes step - highlights nodes list
   static final GlobalKey nodesTargetKey = GlobalKey();
+
+  // Workloads step - highlights workloads list section
+  static final GlobalKey workloadsTargetKey = GlobalKey();
+
+  // Pod Detail step - highlights pod detail tabs/actions
+  static final GlobalKey podDetailTargetKey = GlobalKey();
+
+  // Resources step - highlights resources menu
+  static final GlobalKey resourcesTargetKey = GlobalKey();
+
+  // Node Detail step - highlights node detail sections
+  static final GlobalKey nodeDetailTargetKey = GlobalKey();
+
+  // Completed step - highlights completion message area
+  static final GlobalKey completedTargetKey = GlobalKey();
 }
 
 /// Helper class to expose guide keys by their target key string identifiers
@@ -37,6 +52,16 @@ class GuideKeyRegistry {
         return GuideKeys.podListTargetKey;
       case DemoClusterGuide.nodesTargetKey:
         return GuideKeys.nodesTargetKey;
+      case DemoClusterGuide.completedTargetKey:
+        return GuideKeys.completedTargetKey;
+      case DemoClusterGuide.workloadsTargetKey:
+        return GuideKeys.workloadsTargetKey;
+      case DemoClusterGuide.podDetailTargetKey:
+        return GuideKeys.podDetailTargetKey;
+      case DemoClusterGuide.resourcesTargetKey:
+        return GuideKeys.resourcesTargetKey;
+      case DemoClusterGuide.nodeDetailTargetKey:
+        return GuideKeys.nodeDetailTargetKey;
       default:
         return null;
     }
@@ -48,6 +73,11 @@ class GuideKeyRegistry {
       DemoClusterGuide.welcomeTargetKey: GuideKeys.welcomeTargetKey,
       DemoClusterGuide.podListTargetKey: GuideKeys.podListTargetKey,
       DemoClusterGuide.nodesTargetKey: GuideKeys.nodesTargetKey,
+      DemoClusterGuide.completedTargetKey: GuideKeys.completedTargetKey,
+      DemoClusterGuide.workloadsTargetKey: GuideKeys.workloadsTargetKey,
+      DemoClusterGuide.podDetailTargetKey: GuideKeys.podDetailTargetKey,
+      DemoClusterGuide.resourcesTargetKey: GuideKeys.resourcesTargetKey,
+      DemoClusterGuide.nodeDetailTargetKey: GuideKeys.nodeDetailTargetKey,
     };
   }
 }

@@ -7,6 +7,7 @@ import 'package:k8zdev/common/styles.dart';
 import 'package:k8zdev/common/types.dart';
 import 'package:k8zdev/dao/kube.dart';
 import 'package:k8zdev/generated/l10n.dart';
+import 'package:k8zdev/models/guide_keys.dart';
 import 'package:k8zdev/models/models.dart';
 import 'package:k8zdev/providers/revenuecat_customer.dart';
 import 'package:k8zdev/services/k8z_native.dart';
@@ -255,6 +256,7 @@ class _NodesPageState extends State<NodesPage> {
           }
 
           return SettingsSection(
+            key: GuideKeys.nodesTargetKey,
             title: Text(lang.nodes + totals + duration),
             tiles: [
               SettingsTile.navigation(

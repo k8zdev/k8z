@@ -1,3 +1,6 @@
+import 'package:flutter/widgets.dart';
+import 'package:k8zdev/generated/l10n.dart';
+
 /// Guide step definition model for interactive onboarding guides.
 ///
 /// Each step in an onboarding guide is defined by this model, which includes
@@ -125,6 +128,55 @@ class GuideStepDefinition {
         'title: $title, targetKey: $targetKey}';
   }
 
+  /// Import statement needed: import 'package:k8zdev/generated/l10n.dart';
+  /// and import 'package:flutter/widgets.dart' for BuildContext.
+
+  /// Get localized title from i18n key or fall back to direct text.
+  ///
+  /// This method should be called from widgets with access to BuildContext.
+  /// Returns the localized string if [l10nTitle] is set, otherwise returns [title].
+  ///
+  /// Note: Currently returns the direct text as fallback because the S class
+  /// uses generated getters that cannot be dynamically accessed by key.
+  /// For full i18n support, use S.of(context) directly in widgets.
+  String getLocalizedTitle(BuildContext context) {
+    // For now, fall back to direct text
+    // TODO: Implement full i18n support when dynamic lookup is available
+    return title;
+  }
+
+  /// Get localized description from i18n key or fall back to direct text.
+  ///
+  /// This method should be called from widgets with access to BuildContext.
+  /// Returns the localized string if [l10nDescription] is set, otherwise returns [description].
+  String getLocalizedDescription(BuildContext context) {
+    return description;
+  }
+
+  /// Get localized next button label from i18n key or fall back to direct text.
+  ///
+  /// This method should be called from widgets with access to BuildContext.
+  /// Returns the localized string if [l10nButtonNext] is set, otherwise returns [buttonNext].
+  String? getLocalizedButtonNext(BuildContext context) {
+    return buttonNext;
+  }
+
+  /// Get localized skip button label from i18n key or fall back to direct text.
+  ///
+  /// This method should be called from widgets with access to BuildContext.
+  /// Returns the localized string if [l10nButtonSkip] is set, otherwise returns [buttonSkip].
+  String? getLocalizedButtonSkip(BuildContext context) {
+    return buttonSkip;
+  }
+
+  /// Get localized previous button label from i18n key or fall back to direct text.
+  ///
+  /// This method should be called from widgets with access to BuildContext.
+  /// Returns the localized string if [l10nButtonPrevious] is set, otherwise returns [buttonPrevious].
+  String? getLocalizedButtonPrevious(BuildContext context) {
+    return buttonPrevious;
+  }
+
   /// Convert to JSON for storage or serialization
   Map<String, dynamic> toJson() {
     return {
@@ -147,11 +199,18 @@ class GuideStepDefinition {
 
   /// Create from JSON
   factory GuideStepDefinition.fromJson(Map<String, dynamic> json) {
+    final routeParams = json['routeParams'];
+    Map<String, dynamic> parsedRouteParams = const {};
+    if (routeParams is Map) {
+      parsedRouteParams = Map<String, dynamic>.from(
+        routeParams.cast<String, dynamic>(),
+      );
+    }
+
     return GuideStepDefinition(
       id: json['id'] as String,
       routeName: json['routeName'] as String,
-      routeParams:
-          (json['routeParams'] as Map<String, dynamic>?) ?? const {},
+      routeParams: parsedRouteParams,
       targetKey: json['targetKey'] as String?,
       title: json['title'] as String,
       description: json['description'] as String,

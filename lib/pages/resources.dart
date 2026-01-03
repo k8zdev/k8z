@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:k8zdev/common/const.dart';
 import 'package:k8zdev/dao/kube.dart';
 import 'package:k8zdev/generated/l10n.dart';
+import 'package:k8zdev/models/guide_keys.dart';
 import 'package:k8zdev/providers/current_cluster.dart';
 import 'package:settings_ui/settings_ui.dart';
 
@@ -23,6 +24,7 @@ class _ResourcesPageState extends State<ResourcesPage> {
 
   AbstractSettingsSection clusterSection(S lang) {
     return SettingsSection(
+      key: GuideKeys.resourcesTargetKey,
       title: Text(lang.clusters),
       tiles: [
         SettingsTile.navigation(

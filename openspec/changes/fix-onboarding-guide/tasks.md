@@ -91,7 +91,7 @@
   - Step 4: podDetail (route: 'details', params: path=workloads, resource=pods, name=demo-pod)
   - Step 5: resourcesMenu (route: 'resources')
   - Step 6: nodesListWithSwipe (route: 'nodes')
-  - Step 7: nodeDetail (route: 'node_detail', params: name=demo-node)
+  - Step 7: nodeDetail (route: 'details', params: path=/api/v1, namespace=_, resource=nodes, name=<dynamic-first-node>)
   - Step 8: completed (route: 'clusters')
 - [ ] 7.4 Use i18n keys for all step text (titles, descriptions, buttons)
 - [ ] 7.5 Configure appropriate route parameters for podDetail step
@@ -130,7 +130,7 @@
 - [ ] 9.3 Verify 'details' route with params exists in router configuration
 - [ ] 9.4 Verify 'resources' route exists in router configuration
 - [ ] 9.5 Verify 'nodes' route exists in router configuration
-- [ ] 9.6 Verify 'node_detail' route with params exists in router configuration
+- [ ] 9.6 Verify 'details' route with params exists for node detail (path=/api/v1, namespace=_, resource=nodes, name)
 - [ ] 9.7 Verify 'clusters' route exists for landing/welcome/completion
 
 ## 10. Implement Demo Cluster Resources for Guide

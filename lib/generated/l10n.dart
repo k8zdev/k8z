@@ -2167,102 +2167,212 @@ class S {
     return Intl.message('Action', name: 'event_action', desc: '', args: []);
   }
 
-  /// `k8z Pro`
-  String get proDialogTitle {
-    return Intl.message('k8z Pro', name: 'proDialogTitle', desc: '', args: []);
-  }
-
-  /// `{featureName} requires a Pro subscription`
-  String proDialogFeatureLocked(Object featureName) {
+  /// `Welcome to K8zDev!`
+  String get guide_step_1_title {
     return Intl.message(
-      '$featureName requires a Pro subscription',
-      name: 'proDialogFeatureLocked',
-      desc: '',
-      args: [featureName],
-    );
-  }
-
-  /// `Pro Features:`
-  String get proDialogBenefitsTitle {
-    return Intl.message(
-      'Pro Features:',
-      name: 'proDialogBenefitsTitle',
-      desc: '',
+      'Welcome to K8zDev!',
+      name: 'guide_step_1_title',
+      desc: 'Title for the first onboarding guide step',
       args: [],
     );
   }
 
-  /// `Cancel`
-  String get proDialogCancel {
-    return Intl.message('Cancel', name: 'proDialogCancel', desc: '', args: []);
-  }
-
-  /// `View Pro Plans`
-  String get proDialogViewPlans {
+  /// `Let's quickly explore the main features. This is a demo cluster where you can safely explore.`
+  String get guide_step_1_desc {
     return Intl.message(
-      'View Pro Plans',
-      name: 'proDialogViewPlans',
-      desc: '',
+      'Let\'s quickly explore the main features. This is a demo cluster where you can safely explore.',
+      name: 'guide_step_1_desc',
+      desc:
+          'Description for the first onboarding guide step - introducing the demo cluster',
       args: [],
     );
   }
 
-  /// `Unlimited cluster access`
-  String get proBenefitUnlimitedClusters {
+  /// `Workloads Overview`
+  String get guide_step_2_title {
     return Intl.message(
-      'Unlimited cluster access',
-      name: 'proBenefitUnlimitedClusters',
-      desc: '',
+      'Workloads Overview',
+      name: 'guide_step_2_title',
+      desc: 'Title for the second onboarding guide step',
       args: [],
     );
   }
 
-  /// `Node Shell access`
-  String get proBenefitNodeShell {
+  /// `Here you can see all workload resources: Pods, Deployments, DaemonSets, and StatefulSets. Click any type to see resources.`
+  String get guide_step_2_desc {
     return Intl.message(
-      'Node Shell access',
-      name: 'proBenefitNodeShell',
-      desc: '',
+      'Here you can see all workload resources: Pods, Deployments, DaemonSets, and StatefulSets. Click any type to see resources.',
+      name: 'guide_step_2_desc',
+      desc:
+          'Description for the second onboarding guide step - explaining workload types',
       args: [],
     );
   }
 
-  /// `YAML editing and Apply`
-  String get proBenefitYamlEdit {
+  /// `Pod List`
+  String get guide_step_3_title {
     return Intl.message(
-      'YAML editing and Apply',
-      name: 'proBenefitYamlEdit',
-      desc: '',
+      'Pod List',
+      name: 'guide_step_3_title',
+      desc: 'Title for the third onboarding guide step',
       args: [],
     );
   }
 
-  /// `Historical log search`
-  String get proBenefitLogSearch {
+  /// `View all pods in your cluster. Swipe right for more actions (details, logs, terminal), swipe left to delete.`
+  String get guide_step_3_desc {
     return Intl.message(
-      'Historical log search',
-      name: 'proBenefitLogSearch',
-      desc: '',
+      'View all pods in your cluster. Swipe right for more actions (details, logs, terminal), swipe left to delete.',
+      name: 'guide_step_3_desc',
+      desc:
+          'Description for the third onboarding guide step - explaining pod swipe gestures',
       args: [],
     );
   }
 
-  /// `Custom dashboard`
-  String get proBenefitCustomDashboard {
+  /// `Pod Details`
+  String get guide_step_4_title {
     return Intl.message(
-      'Custom dashboard',
-      name: 'proBenefitCustomDashboard',
-      desc: '',
+      'Pod Details',
+      name: 'guide_step_4_title',
+      desc: 'Title for the fourth onboarding guide step',
       args: [],
     );
   }
 
-  /// `Priority support`
-  String get proBenefitSupport {
+  /// `View YAML configuration, real-time logs, and open a terminal. This page shows the detailed information for the 'web-demo' pod.`
+  String get guide_step_4_desc {
     return Intl.message(
-      'Priority support',
-      name: 'proBenefitSupport',
-      desc: '',
+      'View YAML configuration, real-time logs, and open a terminal. This page shows the detailed information for the \'web-demo\' pod.',
+      name: 'guide_step_4_desc',
+      desc:
+          'Description for the fourth onboarding guide step - explaining pod details',
+      args: [],
+    );
+  }
+
+  /// `Resources Menu`
+  String get guide_step_5_title {
+    return Intl.message(
+      'Resources Menu',
+      name: 'guide_step_5_title',
+      desc: 'Title for the fifth onboarding guide step',
+      args: [],
+    );
+  }
+
+  /// `Access additional Kubernetes resources: Config (ConfigMaps, Secrets), Storage (PVs, PVCs, StorageClass), and Networking (Services, Ingresses).`
+  String get guide_step_5_desc {
+    return Intl.message(
+      'Access additional Kubernetes resources: Config (ConfigMaps, Secrets), Storage (PVs, PVCs, StorageClass), and Networking (Services, Ingresses).',
+      name: 'guide_step_5_desc',
+      desc:
+          'Description for the fifth onboarding guide step - explaining resources menu',
+      args: [],
+    );
+  }
+
+  /// `Nodes List`
+  String get guide_step_6_title {
+    return Intl.message(
+      'Nodes List',
+      name: 'guide_step_6_title',
+      desc: 'Title for the sixth onboarding guide step',
+      args: [],
+    );
+  }
+
+  /// `View all cluster nodes. Swipe right to see node details, swipe left to cordon/uncordon the node.`
+  String get guide_step_6_desc {
+    return Intl.message(
+      'View all cluster nodes. Swipe right to see node details, swipe left to cordon/uncordon the node.',
+      name: 'guide_step_6_desc',
+      desc:
+          'Description for the sixth onboarding guide step - explaining node swipe gestures',
+      args: [],
+    );
+  }
+
+  /// `Node Details`
+  String get guide_step_7_title {
+    return Intl.message(
+      'Node Details',
+      name: 'guide_step_7_title',
+      desc: 'Title for the seventh onboarding guide step',
+      args: [],
+    );
+  }
+
+  /// `Monitor node status, resource usage (CPU/memory), and view pods running on this node.`
+  String get guide_step_7_desc {
+    return Intl.message(
+      'Monitor node status, resource usage (CPU/memory), and view pods running on this node.',
+      name: 'guide_step_7_desc',
+      desc:
+          'Description for the seventh onboarding guide step - explaining node details',
+      args: [],
+    );
+  }
+
+  /// `Guide Complete!`
+  String get guide_step_8_title {
+    return Intl.message(
+      'Guide Complete!',
+      name: 'guide_step_8_title',
+      desc: 'Title for the eighth onboarding guide step - completion message',
+      args: [],
+    );
+  }
+
+  /// `You've completed the onboarding guide! Feel free to explore further. Access help documentation anytime from settings.`
+  String get guide_step_8_desc {
+    return Intl.message(
+      'You\'ve completed the onboarding guide! Feel free to explore further. Access help documentation anytime from settings.',
+      name: 'guide_step_8_desc',
+      desc:
+          'Description for the eighth onboarding guide step - completion description',
+      args: [],
+    );
+  }
+
+  /// `Next`
+  String get guide_button_next {
+    return Intl.message(
+      'Next',
+      name: 'guide_button_next',
+      desc: 'Button label for moving to the next step in the onboarding guide',
+      args: [],
+    );
+  }
+
+  /// `Skip`
+  String get guide_button_skip {
+    return Intl.message(
+      'Skip',
+      name: 'guide_button_skip',
+      desc: 'Button label for skipping the onboarding guide',
+      args: [],
+    );
+  }
+
+  /// `Back`
+  String get guide_button_back {
+    return Intl.message(
+      'Back',
+      name: 'guide_button_back',
+      desc:
+          'Button label for moving to the previous step in the onboarding guide',
+      args: [],
+    );
+  }
+
+  /// `Complete`
+  String get guide_button_complete {
+    return Intl.message(
+      'Complete',
+      name: 'guide_button_complete',
+      desc:
+          'Button label for completing the onboarding guide on the final step',
       args: [],
     );
   }

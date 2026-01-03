@@ -6,6 +6,7 @@ import 'package:k8zdev/services/encryption_service.dart';
 import 'package:k8zdev/services/onboarding_guide_service.dart';
 import 'package:k8zdev/services/readonly_restriction_service.dart';
 import 'package:k8zdev/dao/kube.dart';
+import 'package:k8zdev/models/guide_step_definition.dart';
 import 'dart:convert';
 
 void main() {
@@ -71,24 +72,42 @@ void main() {
       );
 
       final guideService = OnboardingGuideService();
-      
+
       // Start guide
       await guideService.startGuide(demoCluster);
       expect(guideService.isGuideActive, isTrue);
-      expect(guideService.currentStep, equals(GuideStep.welcome));
+      expect(guideService.currentStepId, equals(DemoClusterGuide.welcomeStepId));
 
-      // Progress through steps with 3-step guide:
-      // 1. welcome -> podList
-      // 2. podList -> nodes (additionalFeatures)
-      // 3. nodes -> completed
+      // Progress through 8-step guide:
+      // 1. welcome -> workloadsOverview
+      // 2. workloadsOverview -> podListWithSwipe
+      // 3. podListWithSwipe -> podDetail
+      // 4. podDetail -> resourcesMenu
+      // 5. resourcesMenu -> nodesListWithSwipe
+      // 6. nodesListWithSwipe -> nodeDetail
+      // 7. nodeDetail -> completed
       await guideService.nextStep();
-      expect(guideService.currentStep, equals(GuideStep.podList));
+      expect(guideService.currentStepId, equals(DemoClusterGuide.workloadsOverviewStepId));
 
       await guideService.nextStep();
-      expect(guideService.currentStep, equals(GuideStep.additionalFeatures));
+      expect(guideService.currentStepId, equals(DemoClusterGuide.podListWithSwipeStepId));
 
       await guideService.nextStep();
-      expect(guideService.currentStep, equals(GuideStep.completed));
+      expect(guideService.currentStepId, equals(DemoClusterGuide.podDetailStepId));
+
+      await guideService.nextStep();
+      expect(guideService.currentStepId, equals(DemoClusterGuide.resourcesMenuStepId));
+
+      await guideService.nextStep();
+      expect(guideService.currentStepId, equals(DemoClusterGuide.nodesListWithSwipeStepId));
+
+      await guideService.nextStep();
+      expect(guideService.currentStepId, equals(DemoClusterGuide.nodeDetailStepId));
+
+      await guideService.nextStep();
+      expect(guideService.currentStepId, equals(DemoClusterGuide.completedStepId));
+
+      await guideService.nextStep();
       expect(guideService.isGuideActive, isFalse);
     });
 
@@ -141,17 +160,16 @@ void main() {
       // 3. Start and complete onboarding guide
       final guideService = OnboardingGuideService();
       await guideService.startGuide(demoCluster);
-      
+
       expect(guideService.isGuideActive, isTrue);
       expect(guideService.state.demoCluster, equals(demoCluster));
 
-      // Complete all steps
-      while (guideService.currentStep != GuideStep.completed) {
+      // Complete all 8 steps
+      while (guideService.isGuideActive) {
         await guideService.nextStep();
       }
 
       expect(guideService.isGuideActive, isFalse);
-      expect(guideService.currentStep, equals(GuideStep.completed));
     });
 
     test('should measure performance for 30-second goal', () async {
@@ -167,16 +185,16 @@ void main() {
       final guideService = OnboardingGuideService();
       await guideService.startGuide(demoCluster);
 
-      // Complete guide quickly
-      await guideService.nextStep(); // welcome -> podList
-      await guideService.nextStep(); // podList -> additionalFeatures
-      await guideService.nextStep(); // additionalFeatures -> completed
+      // Complete guide quickly through all 8 steps
+      while (guideService.isGuideActive) {
+        await guideService.nextStep();
+      }
 
       final elapsed = DateTime.now().difference(startTime);
-      
+
       // The core operations should be very fast (well under 30 seconds)
       expect(elapsed.inSeconds, lessThan(5));
-      expect(guideService.currentStep, equals(GuideStep.completed));
+      expect(guideService.isGuideActive, isFalse);
     });
   });
 }

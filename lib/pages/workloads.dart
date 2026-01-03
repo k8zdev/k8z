@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:k8zdev/common/const.dart';
 import 'package:k8zdev/dao/kube.dart';
 import 'package:k8zdev/generated/l10n.dart';
+import 'package:k8zdev/models/guide_keys.dart';
 import 'package:k8zdev/providers/current_cluster.dart';
 import 'package:settings_ui/settings_ui.dart';
 
@@ -39,6 +40,7 @@ class _WorkloadsPageState extends State<WorkloadsPage> {
 
       //
       SettingsSection(
+        key: GuideKeys.workloadsTargetKey,
         title: Text(lang.workloads),
         tiles: [
           SettingsTile.navigation(

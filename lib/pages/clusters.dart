@@ -7,6 +7,7 @@ import 'package:k8zdev/common/const.dart';
 import 'package:k8zdev/common/ops.dart';
 import 'package:k8zdev/dao/kube.dart';
 import 'package:k8zdev/generated/l10n.dart';
+import 'package:k8zdev/models/guide_keys.dart';
 import 'package:k8zdev/pages/k8s_list/cluster/create.dart';
 import 'package:k8zdev/providers/current_cluster.dart';
 import 'package:k8zdev/widgets/overview_metrics.dart';
@@ -250,6 +251,7 @@ class _ClustersPageState extends State<ClustersPage> {
               ),
             ];
             body = Container(
+              key: GuideKeys.completedTargetKey,
               padding: EdgeInsets.zero,
               child: SettingsList(
                 sections: [

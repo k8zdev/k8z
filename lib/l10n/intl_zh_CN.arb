@@ -780,32 +780,84 @@
   "@event_source_host": {},
   "event_action": "动作",
   "@event_action": {},
-  "proDialogTitle": "k8z Pro",
-  "@proDialogTitle": {},
-  "proDialogFeatureLocked": "使用 {featureName} 功能需要 Pro 订阅",
-  "@proDialogFeatureLocked": {
-    "placeholders": {
-      "featureName": {
-        "type": "String"
-      }
-    }
+  "guide_step_1_title": "欢迎使用 K8zDev!",
+  "@guide_step_1_title": {
+    "description": "Title for the first onboarding guide step"
   },
-  "proDialogBenefitsTitle": "Pro 订阅权益",
-  "@proDialogBenefitsTitle": {},
-  "proDialogCancel": "取消",
-  "@proDialogCancel": {},
-  "proDialogViewPlans": "查看 Pro 方案",
-  "@proDialogViewPlans": {},
-  "proBenefitUnlimitedClusters": "无限制的集群访问",
-  "@proBenefitUnlimitedClusters": {},
-  "proBenefitNodeShell": "节点 Shell 访问",
-  "@proBenefitNodeShell": {},
-  "proBenefitYamlEdit": "YAML 编辑和应用",
-  "@proBenefitYamlEdit": {},
-  "proBenefitLogSearch": "日志搜索功能",
-  "@proBenefitLogSearch": {},
-  "proBenefitCustomDashboard": "自定义仪表板",
-  "@proBenefitCustomDashboard": {},
-  "proBenefitSupport": "专属支持服务",
-  "@proBenefitSupport": {}
+  "guide_step_1_desc": "让我们快速探索主要功能。这是一个演示集群，您可以安全地进行探索。",
+  "@guide_step_1_desc": {
+    "description": "Description for the first onboarding guide step - introducing the demo cluster"
+  },
+  "guide_step_2_title": "负载概览",
+  "@guide_step_2_title": {
+    "description": "Title for the second onboarding guide step"
+  },
+  "guide_step_2_desc": "在这里您可以查看所有负载资源：Pods、Deployments、DaemonSets 和 StatefulSets。点击任意类型查看资源。",
+  "@guide_step_2_desc": {
+    "description": "Description for the second onboarding guide step - explaining workload types"
+  },
+  "guide_step_3_title": "Pod 列表",
+  "@guide_step_3_title": {
+    "description": "Title for the third onboarding guide step"
+  },
+  "guide_step_3_desc": "查看集群中的所有 Pod。向右滑动进行更多操作（详情、日志、终端），向左滑动删除。",
+  "@guide_step_3_desc": {
+    "description": "Description for the third onboarding guide step - explaining pod swipe gestures"
+  },
+  "guide_step_4_title": "Pod 详情",
+  "@guide_step_4_title": {
+    "description": "Title for the fourth onboarding guide step"
+  },
+  "guide_step_4_desc": "查看 YAML 配置、实时日志和打开终端。此页面显示 'web-demo' Pod 的详细信息。",
+  "@guide_step_4_desc": {
+    "description": "Description for the fourth onboarding guide step - explaining pod details"
+  },
+  "guide_step_5_title": "资源菜单",
+  "@guide_step_5_title": {
+    "description": "Title for the fifth onboarding guide step"
+  },
+  "guide_step_5_desc": "访问更多 Kubernetes 资源：配置（ConfigMaps、Secrets）、存储（PVs、PVCs、StorageClass）和网络（Services、Ingresses）。",
+  "@guide_step_5_desc": {
+    "description": "Description for the fifth onboarding guide step - explaining resources menu"
+  },
+  "guide_step_6_title": "节点列表",
+  "@guide_step_6_title": {
+    "description": "Title for the sixth onboarding guide step"
+  },
+  "guide_step_6_desc": "查看所有集群节点。向右滑动查看节点详情，向左滑动标记为不可调度/恢复调度。",
+  "@guide_step_6_desc": {
+    "description": "Description for the sixth onboarding guide step - explaining node swipe gestures"
+  },
+  "guide_step_7_title": "节点详情",
+  "@guide_step_7_title": {
+    "description": "Title for the seventh onboarding guide step"
+  },
+  "guide_step_7_desc": "监控节点状态、资源使用情况（CPU/内存），并查看在此节点上运行的 Pod。",
+  "@guide_step_7_desc": {
+    "description": "Description for the seventh onboarding guide step - explaining node details"
+  },
+  "guide_step_8_title": "引导完成！",
+  "@guide_step_8_title": {
+    "description": "Title for the eighth onboarding guide step - completion message"
+  },
+  "guide_step_8_desc": "您已完成新手引导！随时可以继续探索。可以从设置中访问帮助文档。",
+  "@guide_step_8_desc": {
+    "description": "Description for the eighth onboarding guide step - completion description"
+  },
+  "guide_button_next": "下一步",
+  "@guide_button_next": {
+    "description": "Button label for moving to the next step in the onboarding guide"
+  },
+  "guide_button_skip": "跳过",
+  "@guide_button_skip": {
+    "description": "Button label for skipping the onboarding guide"
+  },
+  "guide_button_back": "返回",
+  "@guide_button_back": {
+    "description": "Button label for moving to the previous step in the onboarding guide"
+  },
+  "guide_button_complete": "完成",
+  "@guide_button_complete": {
+    "description": "Button label for completing the onboarding guide on the final step"
+  }
 }

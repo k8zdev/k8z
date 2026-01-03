@@ -7,6 +7,7 @@ import 'package:k8zdev/common/ops.dart';
 import 'package:k8zdev/common/styles.dart';
 import 'package:k8zdev/dao/kube.dart';
 import 'package:k8zdev/generated/l10n.dart';
+import 'package:k8zdev/models/guide_keys.dart';
 import 'package:k8zdev/models/models.dart';
 import 'package:k8zdev/providers/current_cluster.dart';
 import 'package:k8zdev/providers/lang.dart';
@@ -465,6 +466,11 @@ class _ResourceDetailsPageState extends State<ResourceDetailsPage> {
     final ownerReferences = metadata.ownerReferences;
 
     return SettingsSection(
+      key: widget.resource == 'pods'
+          ? GuideKeys.podDetailTargetKey
+          : widget.resource == 'nodes'
+              ? GuideKeys.nodeDetailTargetKey
+              : null,
       title: Text(lang.metadata),
       tiles: [
         SettingsTile(

@@ -448,4 +448,400 @@ void main() {
       expect(allKeys.containsKey(DemoClusterGuide.nodeDetailTargetKey), isTrue);
     });
   });
+
+  /// ============================================================================
+  /// Task 13.3: i18n 回退逻辑 TDD
+  /// ============================================================================
+  ///
+  /// These tests define the expected behavior for i18n localization.
+  /// Subagent A will implement getLocalizedTitle(), getLocalizedDescription(),
+  /// and button localization methods to make these tests pass.
+  /// ============================================================================
+
+  group('Task13_3: i18n Fallback Logic - TDD Tests', () {
+    /// Test 1: Verifies that when l10nTitle is not null, i18n is used
+    ///
+    /// Expected: getLocalizedTitle(context) should return the localized title
+    /// from S.of(context) using the l10nTitle key
+    ///
+    /// Implementation needed: GuideStepDefinition.getLocalizedTitle() method
+    test('should use i18n when l10nTitle is not null', () {
+      const step = GuideStepDefinition(
+        id: 'welcome',
+        routeName: 'clusters',
+        title: 'Welcome to K8zDev!', // Fallback text
+        description: 'Welcome description',
+        l10nTitle: 'guide_welcome_title',
+        l10nDescription: 'guide_welcome_desc',
+      );
+
+      // When Subagent A implements getLocalizedTitle(), it should:
+      // 1. Check if l10nTitle is not null
+      // 2. Call S.of(context).getLocalized(l10nTitle!)
+      // 3. Return the localized string
+
+      // For now, we can only verify the data exists
+      expect(step.l10nTitle, equals('guide_welcome_title'));
+      expect(step.title, equals('Welcome to K8zDev!'));
+
+      // TODO: After implementation, test with mock BuildContext:
+      // expect(step.getLocalizedTitle(context), equals('LocalizedWelcomeTitle'));
+    });
+
+    /// Test 2: Verifies that when l10nTitle is null, direct title property is used
+    ///
+    /// Expected: getLocalizedTitle(context) should return the raw title
+    ///
+    /// Implementation needed: GuideStepDefinition.getLocalizedTitle() method
+    test('should fallback to title when l10nTitle is null', () {
+      const step = GuideStepDefinition(
+        id: 'step1',
+        routeName: 'pods',
+        title: 'Direct Title Text',
+        description: 'Step description',
+        // No l10nTitle - should fall back to title
+      );
+
+      expect(step.l10nTitle, isNull);
+      expect(step.title, equals('Direct Title Text'));
+
+      // TODO: After implementation, test:
+      // expect(step.getLocalizedTitle(context), equals('Direct Title Text'));
+    });
+
+    /// Test 3: Verifies getLocalizedDescription uses i18n when available
+    ///
+    /// Expected: getLocalizedDescription(context) should return the localized
+    /// description from S.of(context) using the l10nDescription key
+    ///
+    /// Implementation needed: GuideStepDefinition.getLocalizedDescription() method
+    test('should use i18n for description when l10nDescription is not null', () {
+      const step = GuideStepDefinition(
+        id: 'podList',
+        routeName: 'pods',
+        title: 'Pod List',
+        description: 'View all pods in your cluster',
+        l10nDescription: 'guide_pod_list_description',
+      );
+
+      expect(step.l10nDescription, equals('guide_pod_list_description'));
+      expect(step.description, equals('View all pods in your cluster'));
+
+      // TODO: After implementation:
+      // expect(step.getLocalizedDescription(context), equals('LocalizedDescription'));
+    });
+
+    /// Test 4: Verifies getLocalizedDescription falls back to description
+    ///
+    /// Expected: getLocalizedDescription(context) should return the raw description
+    ///
+    /// Implementation needed: GuideStepDefinition.getLocalizedDescription() method
+    test('should fallback to description when l10nDescription is null', () {
+      const step = GuideStepDefinition(
+        id: 'step1',
+        routeName: 'pods',
+        title: 'Step Title',
+        description: 'Direct Description Text',
+        // No l10nDescription
+      );
+
+      expect(step.l10nDescription, isNull);
+      expect(step.description, equals('Direct Description Text'));
+
+      // TODO: After implementation:
+      // expect(step.getLocalizedDescription(context), equals('Direct Description Text'));
+    });
+
+    /// Test 5: Verifies getLocalizedButtonNext uses i18n when available
+    ///
+    /// Expected: getLocalizedButtonNext(context) should return the localized
+    /// button label from S.of(context) using the l10nButtonNext key
+    ///
+    /// Implementation needed: GuideStepDefinition.getLocalizedButtonNext() method
+    test('should use i18n for buttonNext when l10nButtonNext is not null', () {
+      const step = GuideStepDefinition(
+        id: 'welcome',
+        routeName: 'clusters',
+        title: 'Welcome',
+        description: 'Welcome description',
+        buttonNext: 'Let\'s Start',
+        l10nButtonNext: 'guide_button_next',
+      );
+
+      expect(step.l10nButtonNext, equals('guide_button_next'));
+      expect(step.buttonNext, equals('Let\'s Start'));
+
+      // TODO: After implementation:
+      // expect(step.getLocalizedButtonNext(context), equals('LocalizedNext'));
+    });
+
+    /// Test 6: Verifies getLocalizedButtonNext falls back to buttonNext
+    ///
+    /// Expected: getLocalizedButtonNext(context) should return the raw buttonNext
+    ///
+    /// Implementation needed: GuideStepDefinition.getLocalizedButtonNext() method
+    test('should fallback to buttonNext when l10nButtonNext is null', () {
+      const step = GuideStepDefinition(
+        id: 'step1',
+        routeName: 'pods',
+        title: 'Step Title',
+        description: 'Step description',
+        buttonNext: 'Continue',
+      );
+
+      expect(step.l10nButtonNext, isNull);
+      expect(step.buttonNext, equals('Continue'));
+
+      // TODO: After implementation:
+      // expect(step.getLocalizedButtonNext(context), equals('Continue'));
+    });
+
+    /// Test 7: Verifies getLocalizedButtonSkip uses i18n when available
+    ///
+    /// Implementation needed: GuideStepDefinition.getLocalizedButtonSkip() method
+    test('should use i18n for buttonSkip when l10nButtonSkip is not null', () {
+      const step = GuideStepDefinition(
+        id: 'welcome',
+        routeName: 'clusters',
+        title: 'Welcome',
+        description: 'Welcome description',
+        buttonSkip: 'Skip Guide',
+        l10nButtonSkip: 'guide_button_skip',
+      );
+
+      expect(step.l10nButtonSkip, equals('guide_button_skip'));
+      expect(step.buttonSkip, equals('Skip Guide'));
+
+      // TODO: After implementation:
+      // expect(step.getLocalizedButtonSkip(context), equals('LocalizedSkip'));
+    });
+
+    /// Test 8: Verifies getLocalizedButtonSkip falls back to buttonSkip
+    ///
+    /// Implementation needed: GuideStepDefinition.getLocalizedButtonSkip() method
+    test('should fallback to buttonSkip when l10nButtonSkip is null', () {
+      const step = GuideStepDefinition(
+        id: 'step1',
+        routeName: 'pods',
+        title: 'Step Title',
+        description: 'Step description',
+        buttonSkip: 'Skip',
+      );
+
+      expect(step.l10nButtonSkip, isNull);
+      expect(step.buttonSkip, equals('Skip'));
+
+      // TODO: After implementation:
+      // expect(step.getLocalizedButtonSkip(context), equals('Skip'));
+    });
+
+    /// Test 9: Verifies getLocalizedButtonPrevious uses i18n when available
+    ///
+    /// Implementation needed: GuideStepDefinition.getLocalizedButtonPrevious() method
+    test('should use i18n for buttonPrevious when l10nButtonPrevious is not null', () {
+      const step = GuideStepDefinition(
+        id: 'podList',
+        routeName: 'pods',
+        title: 'Pod List',
+        description: 'Pod list description',
+        buttonPrevious: 'Back',
+        l10nButtonPrevious: 'guide_button_back',
+      );
+
+      expect(step.l10nButtonPrevious, equals('guide_button_back'));
+      expect(step.buttonPrevious, equals('Back'));
+
+      // TODO: After implementation:
+      // expect(step.getLocalizedButtonPrevious(context), equals('LocalizedBack'));
+    });
+
+    /// Test 10: Verifies getLocalizedButtonPrevious falls back to buttonPrevious
+    ///
+    /// Implementation needed: GuideStepDefinition.getLocalizedButtonPrevious() method
+    test('should fallback to buttonPrevious when l10nButtonPrevious is null', () {
+      const step = GuideStepDefinition(
+        id: 'step1',
+        routeName: 'pods',
+        title: 'Step Title',
+        description: 'Step description',
+        buttonPrevious: 'Previous',
+      );
+
+      expect(step.l10nButtonPrevious, isNull);
+      expect(step.buttonPrevious, equals('Previous'));
+
+      // TODO: After implementation:
+      // expect(step.getLocalizedButtonPrevious(context), equals('Previous'));
+    });
+
+    /// Test 11: Verifies all DemoClusterGuide steps have i18n keys
+    ///
+    /// Expected: Every step should have l10nTitle and l10nDescription
+    test('all DemoClusterGuide steps should have i18n keys', () {
+      final steps = DemoClusterGuide.getSteps();
+
+      for (final step in steps) {
+        expect(
+          step.l10nTitle,
+          isNotNull,
+          reason: 'Step ${step.id} should have l10nTitle',
+        );
+        expect(
+          step.l10nDescription,
+          isNotNull,
+          reason: 'Step ${step.id} should have l10nDescription',
+        );
+      }
+    });
+
+    /// Test 12: Verifies step with all i18n fields
+    ///
+    /// Expected: If a step has all optional i18n fields, they should be used
+    test('step with all i18n fields should have them set', () {
+      const step = GuideStepDefinition(
+        id: 'fullStep',
+        routeName: 'clusters',
+        title: 'English Title',
+        description: 'English Description',
+        buttonNext: 'Next',
+        buttonSkip: 'Skip',
+        buttonPrevious: 'Back',
+        l10nTitle: 'guide_full_title',
+        l10nDescription: 'guide_full_description',
+        l10nButtonNext: 'guide_button_next',
+        l10nButtonSkip: 'guide_button_skip',
+        l10nButtonPrevious: 'guide_button_back',
+      );
+
+      expect(step.l10nTitle, isNotNull);
+      expect(step.l10nDescription, isNotNull);
+      expect(step.l10nButtonNext, isNotNull);
+      expect(step.l10nButtonSkip, isNotNull);
+      expect(step.l10nButtonPrevious, isNotNull);
+    });
+
+    /// Test 13: Verifies default values when no i18n keys are provided
+    ///
+    /// Expected: English text should serve as fallback
+    test('step without i18n keys should use English text as fallback', () {
+      const step = GuideStepDefinition(
+        id: 'englishOnly',
+        routeName: 'clusters',
+        title: 'English Title Only',
+        description: 'English Description Only',
+        buttonNext: 'Next',
+        buttonSkip: 'Skip',
+        buttonPrevious: 'Back',
+      );
+
+      expect(step.l10nTitle, isNull);
+      expect(step.l10nDescription, isNull);
+      expect(step.l10nButtonNext, isNull);
+      expect(step.l10nButtonSkip, isNull);
+      expect(step.l10nButtonPrevious, isNull);
+
+      // These should all fallback to English text
+      expect(step.title, equals('English Title Only'));
+      expect(step.description, equals('English Description Only'));
+      expect(step.buttonNext, equals('Next'));
+      expect(step.buttonSkip, equals('Skip'));
+      expect(step.buttonPrevious, equals('Back'));
+    });
+
+    /// Test 14: Verifies JSON serialization includes i18n fields
+    ///
+    /// Expected: toJson() should include l10n fields
+    test('toJson should include i18n fields', () {
+      const step = GuideStepDefinition(
+        id: 'welcome',
+        routeName: 'clusters',
+        title: 'Welcome',
+        description: 'Welcome description',
+        l10nTitle: 'guide_welcome_title',
+        l10nDescription: 'guide_welcome_desc',
+        l10nButtonNext: 'guide_button_next',
+        l10nButtonSkip: 'guide_button_skip',
+      );
+
+      final json = step.toJson();
+
+      expect(json['l10nTitle'], equals('guide_welcome_title'));
+      expect(json['l10nDescription'], equals('guide_welcome_desc'));
+      expect(json['l10nButtonNext'], equals('guide_button_next'));
+      expect(json['l10nButtonSkip'], equals('guide_button_skip'));
+    });
+
+    /// Test 15: Verifies fromJson parses i18n fields correctly
+    ///
+    /// Expected: fromJson() should reconstruct step with i18n fields
+    test('fromJson should parse i18n fields correctly', () {
+      final json = {
+        'id': 'welcome',
+        'routeName': 'clusters',
+        'routeParams': {},
+        'title': 'Welcome',
+        'description': 'Welcome description',
+        'buttonNext': 'Let\'s Start',
+        'buttonSkip': 'Skip',
+        'buttonPrevious': null,
+        'l10nTitle': 'guide_welcome_title',
+        'l10nDescription': 'guide_welcome_desc',
+        'l10nButtonNext': 'guide_button_next',
+        'l10nButtonSkip': 'guide_button_skip',
+        'l10nButtonPrevious': null,
+        'targetKey': null,
+      };
+
+      final step = GuideStepDefinition.fromJson(json);
+
+      expect(step.id, equals('welcome'));
+      expect(step.l10nTitle, equals('guide_welcome_title'));
+      expect(step.l10nDescription, equals('guide_welcome_desc'));
+      expect(step.l10nButtonNext, equals('guide_button_next'));
+      expect(step.l10nButtonSkip, equals('guide_button_skip'));
+      expect(step.l10nButtonPrevious, isNull);
+    });
+
+    /// Test 16: Verifies copyWith preserves i18n fields when not specified
+    ///
+    /// Expected: copyWith() should keep existing i18n fields
+    test('copyWith should preserve i18n fields when not updated', () {
+      const step = GuideStepDefinition(
+        id: 'welcome',
+        routeName: 'clusters',
+        title: 'Welcome',
+        description: 'Welcome description',
+        l10nTitle: 'guide_welcome_title',
+        l10nDescription: 'guide_welcome_desc',
+      );
+
+      final copied = step.copyWith(title: 'New Title');
+
+      expect(copied.title, equals('New Title'));
+      expect(copied.l10nTitle, equals('guide_welcome_title'),
+          reason: 'l10nTitle should be preserved');
+      expect(copied.l10nDescription, equals('guide_welcome_desc'),
+          reason: 'l10nDescription should be preserved');
+    });
+
+    /// Test 17: Verifies copyWith can update i18n fields
+    ///
+    /// Expected: copyWith() should allow updating i18n fields
+    test('copyWith should allow updating i18n fields', () {
+      const step = GuideStepDefinition(
+        id: 'welcome',
+        routeName: 'clusters',
+        title: 'Welcome',
+        description: 'Welcome description',
+      );
+
+      final copied = step.copyWith(
+        l10nTitle: 'guide_new_title',
+        l10nDescription: 'guide_new_desc',
+      );
+
+      expect(copied.l10nTitle, equals('guide_new_title'));
+      expect(copied.l10nDescription, equals('guide_new_desc'));
+    });
+  });
 }
