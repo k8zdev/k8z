@@ -16,6 +16,7 @@ import 'steps/then_should_see_cluster_in_list.dart';
 import 'steps/then_see_crd_details.dart';
 import 'steps/then_see_node_details.dart';
 import 'steps/then_guide_should_be_active.dart';
+import 'steps/then_guide_should_not_be_active.dart';
 import 'steps/then_should_see_welcome_text.dart';
 import 'steps/then_current_step_should_be_welcome.dart';
 import 'steps/when_click_crd.dart';
@@ -83,6 +84,7 @@ Future<void> main() async {
       thenGuideShouldBeActive(),
       thenCurrentStepShouldBeWelcome(),
       thenShouldSeeWelcomeText(),
+      thenGuideShouldNotBeActive(),
       whenSkipTheGuide(),
       givenAppHasNoClusters(),
       givenClusterHasCrd(),
