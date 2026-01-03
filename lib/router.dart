@@ -17,7 +17,7 @@ import 'package:k8zdev/pages/k8s_list/networks/ingresses.dart';
 import 'package:k8zdev/pages/k8s_list/networks/services.dart';
 import 'package:k8zdev/pages/k8s_list/workloads/replica_set.dart';
 import 'package:k8zdev/pages/not_found.dart';
-import 'package:k8zdev/pages/paywalls/appstore_sponsors.dart';
+import 'package:k8zdev/pages/paywalls/appstore_pro.dart';
 import 'package:k8zdev/pages/resources.dart';
 import 'package:k8zdev/pages/k8s_list/resources/config/configmaps.dart';
 import 'package:k8zdev/pages/k8s_list/resources/config/secrets.dart';
@@ -219,7 +219,8 @@ final router = GoRouter(
               path: "daemon_sets",
               name: "daemon_sets",
               pageBuilder: (context, state) {
-                AnalyticsService.logPageView(context: context, screenName: 'DaemonSetsPage');
+                AnalyticsService.logPageView(
+                    context: context, screenName: 'DaemonSetsPage');
                 final cluster = CurrentCluster.current;
 
                 return NoTransitionPage(
@@ -231,7 +232,8 @@ final router = GoRouter(
               path: "deployments",
               name: "deployments",
               pageBuilder: (context, state) {
-                AnalyticsService.logPageView(context: context, screenName: 'DeploymentsPage');
+                AnalyticsService.logPageView(
+                    context: context, screenName: 'DeploymentsPage');
                 final cluster = CurrentCluster.current;
 
                 return NoTransitionPage(
@@ -243,7 +245,8 @@ final router = GoRouter(
               path: "stateful_sets",
               name: "stateful_sets",
               pageBuilder: (context, state) {
-                AnalyticsService.logPageView(context: context, screenName: 'StatefulSetsPage');
+                AnalyticsService.logPageView(
+                    context: context, screenName: 'StatefulSetsPage');
                 final cluster = CurrentCluster.current;
 
                 return NoTransitionPage(
@@ -255,7 +258,8 @@ final router = GoRouter(
               path: "replicasets",
               name: "replicasets",
               pageBuilder: (context, state) {
-                AnalyticsService.logPageView(context: context, screenName: 'ReplicaSetsPage');
+                AnalyticsService.logPageView(
+                    context: context, screenName: 'ReplicaSetsPage');
                 final cluster = CurrentCluster.current;
 
                 return NoTransitionPage(
@@ -268,7 +272,8 @@ final router = GoRouter(
               path: "endpoints",
               name: "endpoints",
               pageBuilder: (context, state) {
-                AnalyticsService.logPageView(context: context, screenName: 'EndpointsPage');
+                AnalyticsService.logPageView(
+                    context: context, screenName: 'EndpointsPage');
                 final cluster = CurrentCluster.current;
 
                 return NoTransitionPage(
@@ -280,7 +285,8 @@ final router = GoRouter(
               path: "ingresses",
               name: "ingresses",
               pageBuilder: (context, state) {
-                AnalyticsService.logPageView(context: context, screenName: 'IngressesPage');
+                AnalyticsService.logPageView(
+                    context: context, screenName: 'IngressesPage');
                 final cluster = CurrentCluster.current;
 
                 return NoTransitionPage(
@@ -292,7 +298,8 @@ final router = GoRouter(
               path: "services",
               name: "services",
               pageBuilder: (context, state) {
-                AnalyticsService.logPageView(context: context, screenName: 'ServicesPage');
+                AnalyticsService.logPageView(
+                    context: context, screenName: 'ServicesPage');
                 final cluster = CurrentCluster.current;
 
                 return NoTransitionPage(
@@ -321,7 +328,8 @@ final router = GoRouter(
                 ),
               );
             }
-            AnalyticsService.logPageView(context: context, screenName: 'ResourcesPage');
+            AnalyticsService.logPageView(
+                context: context, screenName: 'ResourcesPage');
             return const NoTransitionPage(
               child: ResourcesPage(),
             );
@@ -332,7 +340,8 @@ final router = GoRouter(
               path: "nodes",
               name: "nodes",
               pageBuilder: (context, state) {
-                AnalyticsService.logPageView(context: context, screenName: 'NodesPage');
+                AnalyticsService.logPageView(
+                    context: context, screenName: 'NodesPage');
                 K8zCluster? cluster;
                 if (state.extra is K8zCluster) {
                   cluster = state.extra as K8zCluster;
@@ -348,7 +357,8 @@ final router = GoRouter(
                 path: "namespaces",
                 name: "namespaces",
                 pageBuilder: (context, state) {
-                  AnalyticsService.logPageView(context: context, screenName: 'NamespacesPage');
+                  AnalyticsService.logPageView(
+                      context: context, screenName: 'NamespacesPage');
                   final cluster =
                       Provider.of<CurrentCluster>(context, listen: true)
                           .cluster;
@@ -361,7 +371,8 @@ final router = GoRouter(
               path: "events",
               name: "events",
               pageBuilder: (context, state) {
-                AnalyticsService.logPageView(context: context, screenName: 'EventsPage');
+                AnalyticsService.logPageView(
+                    context: context, screenName: 'EventsPage');
                 K8zCluster? cluster;
                 if (state.extra is K8zCluster) {
                   cluster = state.extra as K8zCluster;
@@ -378,7 +389,8 @@ final router = GoRouter(
               path: "crds",
               name: "crds",
               pageBuilder: (context, state) {
-                AnalyticsService.logPageView(context: context, screenName: 'CrdsPage');
+                AnalyticsService.logPageView(
+                    context: context, screenName: 'CrdsPage');
                 final cluster = CurrentCluster.current;
 
                 return NoTransitionPage(
@@ -391,7 +403,8 @@ final router = GoRouter(
               path: "config_maps",
               name: "config_maps",
               pageBuilder: (context, state) {
-                AnalyticsService.logPageView(context: context, screenName: 'ConfigMapsPage');
+                AnalyticsService.logPageView(
+                    context: context, screenName: 'ConfigMapsPage');
                 final cluster = CurrentCluster.current;
 
                 return NoTransitionPage(
@@ -403,7 +416,8 @@ final router = GoRouter(
               path: "secrets",
               name: "secrets",
               pageBuilder: (context, state) {
-                AnalyticsService.logPageView(context: context, screenName: 'SecretsPage');
+                AnalyticsService.logPageView(
+                    context: context, screenName: 'SecretsPage');
                 final cluster = CurrentCluster.current;
 
                 return NoTransitionPage(
@@ -415,7 +429,8 @@ final router = GoRouter(
               path: "service_accounts",
               name: "service_accounts",
               pageBuilder: (context, state) {
-                AnalyticsService.logPageView(context: context, screenName: 'ServiceAccountsPage');
+                AnalyticsService.logPageView(
+                    context: context, screenName: 'ServiceAccountsPage');
                 final cluster = CurrentCluster.current;
 
                 return NoTransitionPage(
@@ -428,7 +443,8 @@ final router = GoRouter(
               path: "storage_class",
               name: "storage_class",
               pageBuilder: (context, state) {
-                AnalyticsService.logPageView(context: context, screenName: 'StorageClassPage');
+                AnalyticsService.logPageView(
+                    context: context, screenName: 'StorageClassPage');
                 final cluster = CurrentCluster.current;
 
                 return NoTransitionPage(
@@ -440,7 +456,8 @@ final router = GoRouter(
               path: "pvs",
               name: "pvs",
               pageBuilder: (context, state) {
-                AnalyticsService.logPageView(context: context, screenName: 'PvsPage');
+                AnalyticsService.logPageView(
+                    context: context, screenName: 'PvsPage');
                 final cluster = CurrentCluster.current;
 
                 return NoTransitionPage(
@@ -452,7 +469,8 @@ final router = GoRouter(
               path: "pvcs",
               name: "pvcs",
               pageBuilder: (context, state) {
-                AnalyticsService.logPageView(context: context, screenName: 'PvcsPage');
+                AnalyticsService.logPageView(
+                    context: context, screenName: 'PvcsPage');
                 final cluster = CurrentCluster.current;
 
                 return NoTransitionPage(
@@ -466,7 +484,8 @@ final router = GoRouter(
           path: "/settings",
           name: "settings",
           pageBuilder: (context, state) {
-            AnalyticsService.logPageView(context: context, screenName: 'SettingsPage');
+            AnalyticsService.logPageView(
+                context: context, screenName: 'SettingsPage');
             return const NoTransitionPage(
               child: SettingsPage(),
             );
@@ -477,7 +496,8 @@ final router = GoRouter(
                 path: "general/locale",
                 parentNavigatorKey: _rootNavigatorKey,
                 builder: (context, state) {
-                  AnalyticsService.logPageView(context: context, screenName: 'LocaleSettingPage');
+                  AnalyticsService.logPageView(
+                      context: context, screenName: 'LocaleSettingPage');
                   return const LocaleSettingPage();
                 }),
             GoRoute(
@@ -501,7 +521,8 @@ final router = GoRouter(
           name: "appstore",
           path: "/paywall/appstore",
           builder: (context, state) {
-            AnalyticsService.logPageView(context: context, screenName: 'AppStorePaywallPage');
+            AnalyticsService.logPageView(
+                context: context, screenName: 'AppStorePaywallPage');
             return const AppStorePaywall();
           },
         ),

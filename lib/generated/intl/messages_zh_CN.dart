@@ -191,6 +191,21 @@ class MessageLookup extends MessageLookupByLibrary {
     "cluster_overview": MessageLookupByLibrary.simpleMessage("集群概览"),
     "clusters": MessageLookupByLibrary.simpleMessage("集群"),
     "command": MessageLookupByLibrary.simpleMessage("命令"),
+    "comparisonFeatureMonitoring": MessageLookupByLibrary.simpleMessage(
+      "基础集群监控",
+    ),
+    "comparisonFeatureNodeShell": MessageLookupByLibrary.simpleMessage(
+      "节点 Shell 访问",
+    ),
+    "comparisonFeatureUnlimitedClusters": MessageLookupByLibrary.simpleMessage(
+      "无限集群",
+    ),
+    "comparisonFeatureViewWorkloads": MessageLookupByLibrary.simpleMessage(
+      "查看工作负载",
+    ),
+    "comparisonFeatureYamlEdit": MessageLookupByLibrary.simpleMessage(
+      "YAML 编辑和应用",
+    ),
     "conditions": MessageLookupByLibrary.simpleMessage("状态"),
     "config": MessageLookupByLibrary.simpleMessage("配置"),
     "config_map_text": m1,
@@ -395,11 +410,21 @@ class MessageLookup extends MessageLookupByLibrary {
       "无限制的集群访问",
     ),
     "proBenefitYamlEdit": MessageLookupByLibrary.simpleMessage("YAML 编辑和应用"),
+    "proBestValue": MessageLookupByLibrary.simpleMessage("超值之选"),
+    "proDescription": MessageLookupByLibrary.simpleMessage("管理无限集群、访问高级功能"),
     "proDialogBenefitsTitle": MessageLookupByLibrary.simpleMessage("Pro 订阅权益"),
     "proDialogCancel": MessageLookupByLibrary.simpleMessage("取消"),
     "proDialogFeatureLocked": m25,
     "proDialogTitle": MessageLookupByLibrary.simpleMessage("k8z Pro"),
     "proDialogViewPlans": MessageLookupByLibrary.simpleMessage("查看 Pro 方案"),
+    "proFree": MessageLookupByLibrary.simpleMessage("免费试用专业版"),
+    "proHeadline": MessageLookupByLibrary.simpleMessage(
+      "解锁 Kubernetes 管理的完整能力",
+    ),
+    "proPro": MessageLookupByLibrary.simpleMessage("Pro 版"),
+    "proSettingsTitle": MessageLookupByLibrary.simpleMessage("Pro"),
+    "proUnlockNow": MessageLookupByLibrary.simpleMessage("立即解锁全部功能"),
+    "proUnlockTitle": MessageLookupByLibrary.simpleMessage("解锁全部功能"),
     "provider_id": MessageLookupByLibrary.simpleMessage("提供商 ID"),
     "provisioner": MessageLookupByLibrary.simpleMessage("分配器"),
     "pv_access_modes": MessageLookupByLibrary.simpleMessage("访问模式"),

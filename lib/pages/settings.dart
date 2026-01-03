@@ -13,6 +13,7 @@ import 'package:k8zdev/providers/talker.dart';
 import 'package:k8zdev/providers/theme.dart';
 import 'package:k8zdev/providers/timeout.dart';
 import 'package:k8zdev/widgets/modal.dart';
+import 'package:k8zdev/widgets/pro_settings_tile.dart';
 import 'package:k8zdev/widgets/set_api_timeout.dart';
 import 'package:material_dialogs/widgets/buttons/icon_outline_button.dart';
 import 'package:provider/provider.dart';
@@ -125,6 +126,14 @@ class _SettingsPageState extends State<SettingsPage> {
 
     var list = SettingsList(
       sections: [
+        // Pro section
+        SettingsSection(
+          title: Text(lang.proSettingsTitle),
+          tiles: <SettingsTile>[
+            ProSettingsTile(),
+          ],
+        ),
+
         // theme
         SettingsSection(
           title: Text(lang.appearance),
@@ -262,13 +271,6 @@ class _SettingsPageState extends State<SettingsPage> {
         SettingsSection(
           title: Text(lang.support),
           tiles: [
-            // sponsor me
-            SettingsTile.navigation(
-              title: Text(lang.sponsorme),
-              leading: const Icon(Icons.monetization_on_outlined),
-              onPressed: (context) =>
-                  GoRouter.of(context).pushNamed("appstore"),
-            ),
             // feedback
             SettingsTile.navigation(
               title: Text(lang.feedback),

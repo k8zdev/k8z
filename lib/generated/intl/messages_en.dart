@@ -201,6 +201,21 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "clusters": MessageLookupByLibrary.simpleMessage("Clusters"),
     "command": MessageLookupByLibrary.simpleMessage("Command"),
+    "comparisonFeatureMonitoring": MessageLookupByLibrary.simpleMessage(
+      "Basic Cluster Monitoring",
+    ),
+    "comparisonFeatureNodeShell": MessageLookupByLibrary.simpleMessage(
+      "Node Shell Access",
+    ),
+    "comparisonFeatureUnlimitedClusters": MessageLookupByLibrary.simpleMessage(
+      "Unlimited Clusters",
+    ),
+    "comparisonFeatureViewWorkloads": MessageLookupByLibrary.simpleMessage(
+      "View Workloads",
+    ),
+    "comparisonFeatureYamlEdit": MessageLookupByLibrary.simpleMessage(
+      "YAML Edit & Apply",
+    ),
     "conditions": MessageLookupByLibrary.simpleMessage("Conditions"),
     "config": MessageLookupByLibrary.simpleMessage("Config"),
     "config_map_text": m1,
@@ -469,6 +484,10 @@ class MessageLookup extends MessageLookupByLibrary {
     "proBenefitYamlEdit": MessageLookupByLibrary.simpleMessage(
       "YAML editing and Apply",
     ),
+    "proBestValue": MessageLookupByLibrary.simpleMessage("Best Value"),
+    "proDescription": MessageLookupByLibrary.simpleMessage(
+      "Manage unlimited clusters and access advanced features",
+    ),
     "proDialogBenefitsTitle": MessageLookupByLibrary.simpleMessage(
       "Pro Features:",
     ),
@@ -478,6 +497,16 @@ class MessageLookup extends MessageLookupByLibrary {
     "proDialogViewPlans": MessageLookupByLibrary.simpleMessage(
       "View Pro Plans",
     ),
+    "proFree": MessageLookupByLibrary.simpleMessage("Free to try Pro"),
+    "proHeadline": MessageLookupByLibrary.simpleMessage(
+      "Unlock Full Power of Kubernetes Management",
+    ),
+    "proPro": MessageLookupByLibrary.simpleMessage("Pro"),
+    "proSettingsTitle": MessageLookupByLibrary.simpleMessage("Pro"),
+    "proUnlockNow": MessageLookupByLibrary.simpleMessage(
+      "Unlock Everything Now",
+    ),
+    "proUnlockTitle": MessageLookupByLibrary.simpleMessage("Unlock Everything"),
     "provider_id": MessageLookupByLibrary.simpleMessage("Provider ID"),
     "provisioner": MessageLookupByLibrary.simpleMessage("Provisioner"),
     "pv_access_modes": MessageLookupByLibrary.simpleMessage("Access Modes"),

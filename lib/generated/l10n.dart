@@ -2433,7 +2433,7 @@ class S {
   }
 
   /// `{featureName} requires a Pro subscription`
-  String proDialogFeatureLocked(Object featureName) {
+  String proDialogFeatureLocked(String featureName) {
     return Intl.message(
       '$featureName requires a Pro subscription',
       name: 'proDialogFeatureLocked',
@@ -2522,6 +2522,116 @@ class S {
     return Intl.message(
       'Priority support',
       name: 'proBenefitSupport',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Unlock Everything`
+  String get proUnlockTitle {
+    return Intl.message(
+      'Unlock Everything',
+      name: 'proUnlockTitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Unlock Full Power of Kubernetes Management`
+  String get proHeadline {
+    return Intl.message(
+      'Unlock Full Power of Kubernetes Management',
+      name: 'proHeadline',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Manage unlimited clusters and access advanced features`
+  String get proDescription {
+    return Intl.message(
+      'Manage unlimited clusters and access advanced features',
+      name: 'proDescription',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Best Value`
+  String get proBestValue {
+    return Intl.message('Best Value', name: 'proBestValue', desc: '', args: []);
+  }
+
+  /// `Unlock Everything Now`
+  String get proUnlockNow {
+    return Intl.message(
+      'Unlock Everything Now',
+      name: 'proUnlockNow',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Pro`
+  String get proSettingsTitle {
+    return Intl.message('Pro', name: 'proSettingsTitle', desc: '', args: []);
+  }
+
+  /// `Free to try Pro`
+  String get proFree {
+    return Intl.message('Free to try Pro', name: 'proFree', desc: '', args: []);
+  }
+
+  /// `Pro`
+  String get proPro {
+    return Intl.message('Pro', name: 'proPro', desc: '', args: []);
+  }
+
+  /// `Unlimited Clusters`
+  String get comparisonFeatureUnlimitedClusters {
+    return Intl.message(
+      'Unlimited Clusters',
+      name: 'comparisonFeatureUnlimitedClusters',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Node Shell Access`
+  String get comparisonFeatureNodeShell {
+    return Intl.message(
+      'Node Shell Access',
+      name: 'comparisonFeatureNodeShell',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `YAML Edit & Apply`
+  String get comparisonFeatureYamlEdit {
+    return Intl.message(
+      'YAML Edit & Apply',
+      name: 'comparisonFeatureYamlEdit',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Basic Cluster Monitoring`
+  String get comparisonFeatureMonitoring {
+    return Intl.message(
+      'Basic Cluster Monitoring',
+      name: 'comparisonFeatureMonitoring',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `View Workloads`
+  String get comparisonFeatureViewWorkloads {
+    return Intl.message(
+      'View Workloads',
+      name: 'comparisonFeatureViewWorkloads',
       desc: '',
       args: [],
     );
