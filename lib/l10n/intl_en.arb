@@ -895,7 +895,9 @@
   "proDialogFeatureLocked": "{featureName} requires a Pro subscription",
   "@proDialogFeatureLocked": {
     "placeholders": {
-      "featureName": {}
+      "featureName": {
+        "type": "String"
+      }
     }
   },
   "proDialogBenefitsTitle": "Pro Features:",
