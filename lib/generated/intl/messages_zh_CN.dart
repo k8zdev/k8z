@@ -93,7 +93,9 @@ class MessageLookup extends MessageLookupByLibrary {
   ) =>
       "${name}\n\n名字空间: ${namespace}\n就绪: ${ready}\n状况: ${status}\n重启: ${restarts}\n容器: ${containers}\nCPU: ${cpu}\n内存: ${memory}";
 
-  static String m24(
+  static String m24(featureName) => "使用 ${featureName} 功能需要 Pro 订阅";
+
+  static String m25(
     name,
     capacity,
     accessModes,
@@ -105,7 +107,7 @@ class MessageLookup extends MessageLookupByLibrary {
   ) =>
       "${name}\n容量: ${capacity}\n访问模式: ${accessModes}\n回收策略: ${reclaimPolicy}\n状态: ${status}\n声明: ${claim}\n存储类: ${storageClass}\n原因: ${reason}\n";
 
-  static String m25(
+  static String m26(
     name,
     ns,
     status,
@@ -116,29 +118,29 @@ class MessageLookup extends MessageLookupByLibrary {
   ) =>
       "${name}\n名字空间: ${ns}\n状态: ${status}\n卷名称: ${volume}\n容量: ${capacity}\n访问模式: ${accessModes}\n存储类: ${storageClass}";
 
-  static String m26(name, ns, revision, appVer, updated, status, chart) =>
+  static String m27(name, ns, revision, appVer, updated, status, chart) =>
       "${name}\n名字空间: ${ns}\nRevision: ${revision}\n程序版本: ${appVer}\n更新: ${updated}\n状态: ${status}\nChart: ${chart}";
 
-  static String m27(name, ns, current, ready, available) =>
+  static String m28(name, ns, current, ready, available) =>
       "${name}\n名字空间: ${ns}\n当前: ${current}\n就绪: ${ready}\n可用: ${available}\n";
 
-  static String m28(error) => "扩缩容失败, 错误: ${error}";
+  static String m29(error) => "扩缩容失败, 错误: ${error}";
 
-  static String m29(N) => "缩放至 ${N} 副本";
+  static String m30(N) => "缩放至 ${N} 副本";
 
-  static String m30(name, ns, type, data) =>
+  static String m31(name, ns, type, data) =>
       "${name}\n名字空间: ${ns}\n类型: ${type}\n数据: ${data}";
 
-  static String m31(name, ns, secrets) =>
+  static String m32(name, ns, secrets) =>
       "${name}\n名字空间: ${ns}\n秘钥: ${secrets}";
 
-  static String m32(name, ns, type, clusterIP, externalIP, ports) =>
+  static String m33(name, ns, type, clusterIP, externalIP, ports) =>
       "${name}\n名字空间: ${ns}\n类: ${type}\n集群 IP: ${clusterIP}\n外部 IP: ${externalIP}\n端口: ${ports}";
 
-  static String m33(name, ns, ready, upToDate, available) =>
+  static String m34(name, ns, ready, upToDate, available) =>
       "${name}\n名字空间: ${ns}\n就绪: ${ready}\nUp to date: ${upToDate}\n可用: ${available}";
 
-  static String m34(
+  static String m35(
     name,
     provisioner,
     reclaimPolicy,
@@ -148,15 +150,15 @@ class MessageLookup extends MessageLookupByLibrary {
   ) =>
       "${name}\n分配器: ${provisioner}\n回收策略: ${reclaimPolicy}\n存储卷绑定模式: ${volumeBindingMode}\n允许卷扩展: ${allowVolumeExpansion}\n挂载参数: ${mountOptions}";
 
-  static String m35(date) => "赞助过期时间: \$${date}";
+  static String m36(date) => "赞助过期时间: \$${date}";
 
-  static String m36(error) => "恢复购买失败, 错误: ${error}";
+  static String m37(error) => "恢复购买失败, 错误: ${error}";
 
-  static String m37(number) => "已打开 ${number} 个终端";
+  static String m38(number) => "已打开 ${number} 个终端";
 
-  static String m38(number) => "总计: ${number}";
+  static String m39(number) => "总计: ${number}";
 
-  static String m39(type, name) => "将要删除 ${type} ${name}";
+  static String m40(type, name) => "将要删除 ${type} ${name}";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
@@ -384,6 +386,19 @@ class MessageLookup extends MessageLookupByLibrary {
     "pods": MessageLookupByLibrary.simpleMessage("Pods"),
     "ports": MessageLookupByLibrary.simpleMessage("端口"),
     "privacy_policy": MessageLookupByLibrary.simpleMessage("隐私政策"),
+    "proBenefitCustomDashboard": MessageLookupByLibrary.simpleMessage("自定义仪表板"),
+    "proBenefitLogSearch": MessageLookupByLibrary.simpleMessage("日志搜索功能"),
+    "proBenefitNodeShell": MessageLookupByLibrary.simpleMessage("节点 Shell 访问"),
+    "proBenefitSupport": MessageLookupByLibrary.simpleMessage("专属支持服务"),
+    "proBenefitUnlimitedClusters": MessageLookupByLibrary.simpleMessage(
+      "无限制的集群访问",
+    ),
+    "proBenefitYamlEdit": MessageLookupByLibrary.simpleMessage("YAML 编辑和应用"),
+    "proDialogBenefitsTitle": MessageLookupByLibrary.simpleMessage("Pro 订阅权益"),
+    "proDialogCancel": MessageLookupByLibrary.simpleMessage("取消"),
+    "proDialogFeatureLocked": m24,
+    "proDialogTitle": MessageLookupByLibrary.simpleMessage("k8z Pro"),
+    "proDialogViewPlans": MessageLookupByLibrary.simpleMessage("查看 Pro 方案"),
     "provider_id": MessageLookupByLibrary.simpleMessage("提供商 ID"),
     "provisioner": MessageLookupByLibrary.simpleMessage("分配器"),
     "pv_access_modes": MessageLookupByLibrary.simpleMessage("访问模式"),
@@ -395,19 +410,19 @@ class MessageLookup extends MessageLookupByLibrary {
     "pv_reason": MessageLookupByLibrary.simpleMessage("原因"),
     "pv_reclaim_policy": MessageLookupByLibrary.simpleMessage("回收策略"),
     "pv_show": MessageLookupByLibrary.simpleMessage("显示"),
-    "pv_text": m24,
+    "pv_text": m25,
     "pv_volume_mode": MessageLookupByLibrary.simpleMessage("卷模式"),
-    "pvc_text": m25,
+    "pvc_text": m26,
     "pvcs": MessageLookupByLibrary.simpleMessage("持久卷申领"),
     "pvs": MessageLookupByLibrary.simpleMessage("持久卷"),
     "readinessProbe": MessageLookupByLibrary.simpleMessage("就绪探针"),
     "readonly_indicator": MessageLookupByLibrary.simpleMessage("只读"),
     "reason": MessageLookupByLibrary.simpleMessage("原因"),
     "reclaim_policy": MessageLookupByLibrary.simpleMessage("回收策略"),
-    "release_text": m26,
+    "release_text": m27,
     "releases": MessageLookupByLibrary.simpleMessage("Releases"),
     "replicasets": MessageLookupByLibrary.simpleMessage("副本集合 (RS)"),
-    "replicasets_text": m27,
+    "replicasets_text": m28,
     "resourceVersion": MessageLookupByLibrary.simpleMessage("资源版本"),
     "resource_details": MessageLookupByLibrary.simpleMessage("资源详情"),
     "resource_url": MessageLookupByLibrary.simpleMessage("资源 URL"),
@@ -416,18 +431,18 @@ class MessageLookup extends MessageLookupByLibrary {
     "running": MessageLookupByLibrary.simpleMessage("运行中"),
     "save_clusters": MessageLookupByLibrary.simpleMessage("保存集群"),
     "scale": MessageLookupByLibrary.simpleMessage("缩放"),
-    "scale_failed": m28,
+    "scale_failed": m29,
     "scale_ok": MessageLookupByLibrary.simpleMessage("扩缩容成功"),
-    "scale_to": m29,
-    "secret_text": m30,
+    "scale_to": m30,
+    "secret_text": m31,
     "secrets": MessageLookupByLibrary.simpleMessage("Secrets"),
     "select_clusters": MessageLookupByLibrary.simpleMessage("选择需要的集群"),
     "select_clusters_page": MessageLookupByLibrary.simpleMessage("选择集群"),
     "selector": MessageLookupByLibrary.simpleMessage("选择器"),
     "selfLink": MessageLookupByLibrary.simpleMessage("selfLink"),
-    "service_account_text": m31,
+    "service_account_text": m32,
     "service_accounts": MessageLookupByLibrary.simpleMessage("服务账号"),
-    "service_text": m32,
+    "service_text": m33,
     "services": MessageLookupByLibrary.simpleMessage("服务 (services)"),
     "session_affinity": MessageLookupByLibrary.simpleMessage("会话亲和性"),
     "settings": MessageLookupByLibrary.simpleMessage("设置"),
@@ -454,20 +469,20 @@ class MessageLookup extends MessageLookupByLibrary {
       "开始调试将会在 Pod 中创建一个临时容器, 并将 stdin, stdout, stderr 附加到它。",
     ),
     "startupProbe": MessageLookupByLibrary.simpleMessage("启动探针"),
-    "stateful_set_text": m33,
+    "stateful_set_text": m34,
     "stateful_sets": MessageLookupByLibrary.simpleMessage("StatefulSets"),
     "status": MessageLookupByLibrary.simpleMessage("状态"),
     "storage": MessageLookupByLibrary.simpleMessage("存储"),
     "storage_class": MessageLookupByLibrary.simpleMessage("存储类"),
-    "storage_class_text": m34,
-    "subscriptions_expired_at": m35,
+    "storage_class_text": m35,
+    "subscriptions_expired_at": m36,
     "subscriptions_iap_desc": MessageLookupByLibrary.simpleMessage(
       "如不取消, 订购将会自动续费。付款将在确认购买时向iTunes帐户收取。订阅自动续订, 除非自动续订在当前期限结束前至少24小时关闭。账户将在本期结束前的24小时内收取续费费用, 并确定续约费用。订购可由用户管理, 购买后可通过转到用户的帐户设置关闭自动续订。免费试用期的任何未使用部分（如果提供）在用户购买该出版物的订阅时将被没收。",
     ),
     "subscriptions_lifetime": MessageLookupByLibrary.simpleMessage("终身"),
     "subscriptions_monthly": MessageLookupByLibrary.simpleMessage("每月"),
     "subscriptions_purchased": MessageLookupByLibrary.simpleMessage("已购买"),
-    "subscriptions_restorePurchases_failed": m36,
+    "subscriptions_restorePurchases_failed": m37,
     "subscriptions_restore_purchases": MessageLookupByLibrary.simpleMessage(
       "恢复购买",
     ),
@@ -480,11 +495,11 @@ class MessageLookup extends MessageLookupByLibrary {
     "support": MessageLookupByLibrary.simpleMessage("支持"),
     "tail_lines": MessageLookupByLibrary.simpleMessage("尾部行数"),
     "terminal": MessageLookupByLibrary.simpleMessage("终端"),
-    "terminals_opened": m37,
+    "terminals_opened": m38,
     "theme_auto": MessageLookupByLibrary.simpleMessage("跟随系统"),
     "theme_dark": MessageLookupByLibrary.simpleMessage("深色模式"),
     "theme_light": MessageLookupByLibrary.simpleMessage("亮色模式"),
-    "totals": m38,
+    "totals": m39,
     "type": MessageLookupByLibrary.simpleMessage("类型"),
     "uid": MessageLookupByLibrary.simpleMessage("uid"),
     "unschedulable": MessageLookupByLibrary.simpleMessage("不可调度"),
@@ -492,7 +507,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "volume_binding_mode": MessageLookupByLibrary.simpleMessage("存储卷绑定模式"),
     "volume_mode": MessageLookupByLibrary.simpleMessage("卷模式"),
     "volume_name": MessageLookupByLibrary.simpleMessage("卷名称"),
-    "will_delete": m39,
+    "will_delete": m40,
     "workloads": MessageLookupByLibrary.simpleMessage("负载"),
   };
 }

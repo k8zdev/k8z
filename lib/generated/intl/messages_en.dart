@@ -94,7 +94,10 @@ class MessageLookup extends MessageLookupByLibrary {
   ) =>
       "${name}\n\nNamespace: ${namespace}\nReady: ${ready}\nStatus: ${status}\nRestarts: ${restarts}\nContainers: ${containers}\nCPU: ${cpu}\nMemory: ${memory}";
 
-  static String m24(
+  static String m24(featureName) =>
+      "${featureName} requires a Pro subscription";
+
+  static String m25(
     name,
     capacity,
     accessModes,
@@ -106,7 +109,7 @@ class MessageLookup extends MessageLookupByLibrary {
   ) =>
       "${name}\nCapacity: ${capacity}\nAccess Modes: ${accessModes}\nReclaim Policy: ${reclaimPolicy}\nStatus: ${status}\nClaim: ${claim}\nStorage Class: ${storageClass}\nReason: ${reason}\n";
 
-  static String m25(
+  static String m26(
     name,
     ns,
     status,
@@ -117,29 +120,29 @@ class MessageLookup extends MessageLookupByLibrary {
   ) =>
       "${name}\nNamespace: ${ns}\nStatus: ${status}\nVolume: ${volume}\nCapacity: ${capacity}\nAccess Modes: ${accessModes}\nStorage Class: ${storageClass}";
 
-  static String m26(name, ns, revision, appVer, updated, status, chart) =>
+  static String m27(name, ns, revision, appVer, updated, status, chart) =>
       "${name}\nNamespace: ${ns}\nRevision: ${revision}\nApp Version: ${appVer}\nUpdated: ${updated}\nStatus: ${status}\nChart: ${chart}";
 
-  static String m27(name, ns, current, ready, available) =>
+  static String m28(name, ns, current, ready, available) =>
       "${name}\nNamespace: ${ns}\nCurrent: ${current}\nReady: ${ready}\nAvailable: ${available}\n";
 
-  static String m28(error) => "scale failed, error: ${error}";
+  static String m29(error) => "scale failed, error: ${error}";
 
-  static String m29(N) => "Scale to ${N} replica(s)";
+  static String m30(N) => "Scale to ${N} replica(s)";
 
-  static String m30(name, ns, type, data) =>
+  static String m31(name, ns, type, data) =>
       "${name}\nNamespace: ${ns}\nType: ${type}\nData: ${data}";
 
-  static String m31(name, ns, secrets) =>
+  static String m32(name, ns, secrets) =>
       "${name}\nNamespace: ${ns}\nSecret: ${secrets}";
 
-  static String m32(name, ns, type, clusterIP, externalIP, ports) =>
+  static String m33(name, ns, type, clusterIP, externalIP, ports) =>
       "${name}\nNamespace: ${ns}\nType: ${type}\nCluster IP: ${clusterIP}\nExternal IP: ${externalIP}\nPorts: ${ports}";
 
-  static String m33(name, ns, ready, upToDate, available) =>
+  static String m34(name, ns, ready, upToDate, available) =>
       "${name}\nNamespace: ${ns}\nReady: ${ready}\nUp to date: ${upToDate}\nAvailable: ${available}\n";
 
-  static String m34(
+  static String m35(
     name,
     provisioner,
     reclaimPolicy,
@@ -149,15 +152,15 @@ class MessageLookup extends MessageLookupByLibrary {
   ) =>
       "${name}\nProvisioner: ${provisioner}\nReclaim Policy: ${reclaimPolicy}\nVolume Binding Mode: ${volumeBindingMode}\nAllow Volume Expansion: ${allowVolumeExpansion}\nMountOptions: ${mountOptions}";
 
-  static String m35(date) => "Sponsor expired: \$${date}";
+  static String m36(date) => "Sponsor expired: \$${date}";
 
-  static String m36(error) => "Restore Purchases Failed, ERROR: ${error}";
+  static String m37(error) => "Restore Purchases Failed, ERROR: ${error}";
 
-  static String m37(number) => "${number} terminals opened";
+  static String m38(number) => "${number} terminals opened";
 
-  static String m38(number) => "Totals: ${number}";
+  static String m39(number) => "Totals: ${number}";
 
-  static String m39(type, name) => "will delete ${type} ${name}";
+  static String m40(type, name) => "will delete ${type} ${name}";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
@@ -447,6 +450,33 @@ class MessageLookup extends MessageLookupByLibrary {
     "pods": MessageLookupByLibrary.simpleMessage("Pods"),
     "ports": MessageLookupByLibrary.simpleMessage("Ports"),
     "privacy_policy": MessageLookupByLibrary.simpleMessage("Privacy Policy"),
+    "proBenefitCustomDashboard": MessageLookupByLibrary.simpleMessage(
+      "Custom dashboard",
+    ),
+    "proBenefitLogSearch": MessageLookupByLibrary.simpleMessage(
+      "Historical log search",
+    ),
+    "proBenefitNodeShell": MessageLookupByLibrary.simpleMessage(
+      "Node Shell access",
+    ),
+    "proBenefitSupport": MessageLookupByLibrary.simpleMessage(
+      "Priority support",
+    ),
+    "proBenefitUnlimitedClusters": MessageLookupByLibrary.simpleMessage(
+      "Unlimited cluster access",
+    ),
+    "proBenefitYamlEdit": MessageLookupByLibrary.simpleMessage(
+      "YAML editing and Apply",
+    ),
+    "proDialogBenefitsTitle": MessageLookupByLibrary.simpleMessage(
+      "Pro Features:",
+    ),
+    "proDialogCancel": MessageLookupByLibrary.simpleMessage("Cancel"),
+    "proDialogFeatureLocked": m24,
+    "proDialogTitle": MessageLookupByLibrary.simpleMessage("k8z Pro"),
+    "proDialogViewPlans": MessageLookupByLibrary.simpleMessage(
+      "View Pro Plans",
+    ),
     "provider_id": MessageLookupByLibrary.simpleMessage("Provider ID"),
     "provisioner": MessageLookupByLibrary.simpleMessage("Provisioner"),
     "pv_access_modes": MessageLookupByLibrary.simpleMessage("Access Modes"),
@@ -460,19 +490,19 @@ class MessageLookup extends MessageLookupByLibrary {
     "pv_reason": MessageLookupByLibrary.simpleMessage("Reason"),
     "pv_reclaim_policy": MessageLookupByLibrary.simpleMessage("Reclaim Policy"),
     "pv_show": MessageLookupByLibrary.simpleMessage("Show"),
-    "pv_text": m24,
+    "pv_text": m25,
     "pv_volume_mode": MessageLookupByLibrary.simpleMessage("Volume Mode"),
-    "pvc_text": m25,
+    "pvc_text": m26,
     "pvcs": MessageLookupByLibrary.simpleMessage("Persistent Volume Claims"),
     "pvs": MessageLookupByLibrary.simpleMessage("Persistent Volumes"),
     "readinessProbe": MessageLookupByLibrary.simpleMessage("Readiness Probe"),
     "readonly_indicator": MessageLookupByLibrary.simpleMessage("Read-only"),
     "reason": MessageLookupByLibrary.simpleMessage("Reason"),
     "reclaim_policy": MessageLookupByLibrary.simpleMessage("Reclaim Policy"),
-    "release_text": m26,
+    "release_text": m27,
     "releases": MessageLookupByLibrary.simpleMessage("Releases"),
     "replicasets": MessageLookupByLibrary.simpleMessage("ReplicaSets"),
-    "replicasets_text": m27,
+    "replicasets_text": m28,
     "resourceVersion": MessageLookupByLibrary.simpleMessage("Version"),
     "resource_details": MessageLookupByLibrary.simpleMessage(
       "Resource Details",
@@ -483,10 +513,10 @@ class MessageLookup extends MessageLookupByLibrary {
     "running": MessageLookupByLibrary.simpleMessage("Running"),
     "save_clusters": MessageLookupByLibrary.simpleMessage("save clusters"),
     "scale": MessageLookupByLibrary.simpleMessage("Scale"),
-    "scale_failed": m28,
+    "scale_failed": m29,
     "scale_ok": MessageLookupByLibrary.simpleMessage("scale success"),
-    "scale_to": m29,
-    "secret_text": m30,
+    "scale_to": m30,
+    "secret_text": m31,
     "secrets": MessageLookupByLibrary.simpleMessage("Secrets"),
     "select_clusters": MessageLookupByLibrary.simpleMessage(
       "Select cluster(s)",
@@ -496,9 +526,9 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "selector": MessageLookupByLibrary.simpleMessage("Selector"),
     "selfLink": MessageLookupByLibrary.simpleMessage("SelfLink"),
-    "service_account_text": m31,
+    "service_account_text": m32,
     "service_accounts": MessageLookupByLibrary.simpleMessage("ServiceAccounts"),
-    "service_text": m32,
+    "service_text": m33,
     "services": MessageLookupByLibrary.simpleMessage("Services"),
     "session_affinity": MessageLookupByLibrary.simpleMessage(
       "Session Affinity",
@@ -529,13 +559,13 @@ class MessageLookup extends MessageLookupByLibrary {
       "Start debug will create a new ephemeral container in the pod, and attach to it\'s stdin, stdout, and stderr.",
     ),
     "startupProbe": MessageLookupByLibrary.simpleMessage("Startup Probe"),
-    "stateful_set_text": m33,
+    "stateful_set_text": m34,
     "stateful_sets": MessageLookupByLibrary.simpleMessage("StatefulSets"),
     "status": MessageLookupByLibrary.simpleMessage("Status"),
     "storage": MessageLookupByLibrary.simpleMessage("Storage"),
     "storage_class": MessageLookupByLibrary.simpleMessage("StorageClass"),
-    "storage_class_text": m34,
-    "subscriptions_expired_at": m35,
+    "storage_class_text": m35,
+    "subscriptions_expired_at": m36,
     "subscriptions_iap_desc": MessageLookupByLibrary.simpleMessage(
       "If not cancelled, the subscription will be renewed automatically. Payment will be charged to the iTunes account when the purchase is confirmed. Subscriptions are automatically renewed unless automatic renewal is closed at least 24 hours before the end of the current term. The account will charge a renewal fee within 24 hours prior to the end of the current period and determine the renewal fee. Subscriptions can be managed by the user and auto-renewal can be turned off after purchase by going to the user\'\'s account settings. Any unused portion of the free trial period, if provided, will be forfeited when the user purchases a subscription to the publication.",
     ),
@@ -544,7 +574,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "subscriptions_purchased": MessageLookupByLibrary.simpleMessage(
       "Purchased",
     ),
-    "subscriptions_restorePurchases_failed": m36,
+    "subscriptions_restorePurchases_failed": m37,
     "subscriptions_restore_purchases": MessageLookupByLibrary.simpleMessage(
       "Restore Purchases",
     ),
@@ -557,11 +587,11 @@ class MessageLookup extends MessageLookupByLibrary {
     "support": MessageLookupByLibrary.simpleMessage("Support"),
     "tail_lines": MessageLookupByLibrary.simpleMessage("Tail Lines"),
     "terminal": MessageLookupByLibrary.simpleMessage("Terminal"),
-    "terminals_opened": m37,
+    "terminals_opened": m38,
     "theme_auto": MessageLookupByLibrary.simpleMessage("Auto"),
     "theme_dark": MessageLookupByLibrary.simpleMessage("Dark mode"),
     "theme_light": MessageLookupByLibrary.simpleMessage("Light mode"),
-    "totals": m38,
+    "totals": m39,
     "type": MessageLookupByLibrary.simpleMessage("Type"),
     "uid": MessageLookupByLibrary.simpleMessage("Uid"),
     "unschedulable": MessageLookupByLibrary.simpleMessage("Unschedulable"),
@@ -571,7 +601,7 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "volume_mode": MessageLookupByLibrary.simpleMessage("Volume Mode"),
     "volume_name": MessageLookupByLibrary.simpleMessage("Volume Name"),
-    "will_delete": m39,
+    "will_delete": m40,
     "workloads": MessageLookupByLibrary.simpleMessage("Workloads"),
   };
 }
