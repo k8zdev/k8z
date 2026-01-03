@@ -82,12 +82,12 @@ class _LandingState extends State<Landing> with SingleTickerProviderStateMixin {
 
         // Special handling for pod detail step (dynamic first pod name)
         if (nextId == DemoClusterGuide.podDetailStepId) {
-          final podName = await _getFirstPodName(context, guideService);
-          if (podName != null) {
-            routeParams['path'] = 'workloads';
-            routeParams['namespace'] = '_';
+          final podInfo = await _getFirstPodName(context, guideService);
+          if (podInfo != null) {
+            routeParams['path'] = '/api/v1';
+            routeParams['namespace'] = podInfo['namespace']!;
             routeParams['resource'] = 'pods';
-            routeParams['name'] = podName;
+            routeParams['name'] = podInfo['name']!;
           } else {
             talker.warning('No pods available for guide pod detail step, skipping');
             final skipNextId = DemoClusterGuide.getNextStepId(nextId);
@@ -150,12 +150,12 @@ class _LandingState extends State<Landing> with SingleTickerProviderStateMixin {
 
         // Special handling for pod detail step (dynamic first pod name)
         if (prevId == DemoClusterGuide.podDetailStepId) {
-          final podName = await _getFirstPodName(context, guideService);
-          if (podName != null) {
-            routeParams['path'] = 'workloads';
-            routeParams['namespace'] = '_';
+          final podInfo = await _getFirstPodName(context, guideService);
+          if (podInfo != null) {
+            routeParams['path'] = '/api/v1';
+            routeParams['namespace'] = podInfo['namespace']!;
             routeParams['resource'] = 'pods';
-            routeParams['name'] = podName;
+            routeParams['name'] = podInfo['name']!;
           } else {
             talker.warning('No pods available for guide pod detail step, skipping');
             final skipPrevId = DemoClusterGuide.getPreviousStepId(prevId);
@@ -208,8 +208,10 @@ class _LandingState extends State<Landing> with SingleTickerProviderStateMixin {
     }
   }
 
-  /// Get the first available pod name from the cluster
-  Future<String?> _getFirstPodName(BuildContext context, OnboardingGuideService guideService) async {
+  /// Get the first available pod name and namespace from the cluster
+  ///
+  /// Returns a Map with 'name' and 'namespace' keys, or null if no pods found.
+  Future<Map<String, String>?> _getFirstPodName(BuildContext context, OnboardingGuideService guideService) async {
     try {
       final cluster = guideService.state.demoCluster;
       if (cluster == null) {
@@ -217,7 +219,8 @@ class _LandingState extends State<Landing> with SingleTickerProviderStateMixin {
         return null;
       }
 
-      final path = 'workloads';
+      // Use correct Kubernetes API path: /api/v1
+      final path = '/api/v1';
       final resource = 'pods';
 
       final response = await K8zService(
@@ -232,9 +235,11 @@ class _LandingState extends State<Landing> with SingleTickerProviderStateMixin {
 
       final podsList = IoK8sApiCoreV1PodList.fromJson(response.body);
       if (podsList?.items != null && podsList!.items!.isNotEmpty) {
-        final firstName = podsList.items!.first.metadata!.name;
-        talker.info('Selected first pod for guide: $firstName');
-        return firstName;
+        final firstPod = podsList.items!.first;
+        final podName = firstPod.metadata?.name ?? '';
+        final podNamespace = firstPod.metadata?.namespace ?? '';
+        talker.info('Selected first pod for guide: $podName in namespace $podNamespace');
+        return {'name': podName, 'namespace': podNamespace};
       }
 
       talker.warning('No pods found in cluster');
