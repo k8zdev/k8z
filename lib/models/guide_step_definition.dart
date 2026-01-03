@@ -42,6 +42,21 @@ class GuideStepDefinition {
   /// Label for the previous button (defaults to "Previous" if null)
   final String? buttonPrevious;
 
+  /// i18n key for the title (optional, for future i18n support)
+  final String? l10nTitle;
+
+  /// i18n key for the description (optional, for future i18n support)
+  final String? l10nDescription;
+
+  /// i18n key for the next button (optional, for future i18n support)
+  final String? l10nButtonNext;
+
+  /// i18n key for the skip button (optional, for future i18n support)
+  final String? l10nButtonSkip;
+
+  /// i18n key for the previous button (optional, for future i18n support)
+  final String? l10nButtonPrevious;
+
   const GuideStepDefinition({
     required this.id,
     required this.routeName,
@@ -52,6 +67,11 @@ class GuideStepDefinition {
     this.buttonNext,
     this.buttonSkip,
     this.buttonPrevious,
+    this.l10nTitle,
+    this.l10nDescription,
+    this.l10nButtonNext,
+    this.l10nButtonSkip,
+    this.l10nButtonPrevious,
   });
 
   /// Creates a copy of this step with modified fields
@@ -65,6 +85,11 @@ class GuideStepDefinition {
     String? buttonNext,
     String? buttonSkip,
     String? buttonPrevious,
+    String? l10nTitle,
+    String? l10nDescription,
+    String? l10nButtonNext,
+    String? l10nButtonSkip,
+    String? l10nButtonPrevious,
   }) {
     return GuideStepDefinition(
       id: id ?? this.id,
@@ -76,6 +101,11 @@ class GuideStepDefinition {
       buttonNext: buttonNext ?? this.buttonNext,
       buttonSkip: buttonSkip ?? this.buttonSkip,
       buttonPrevious: buttonPrevious ?? this.buttonPrevious,
+      l10nTitle: l10nTitle ?? this.l10nTitle,
+      l10nDescription: l10nDescription ?? this.l10nDescription,
+      l10nButtonNext: l10nButtonNext ?? this.l10nButtonNext,
+      l10nButtonSkip: l10nButtonSkip ?? this.l10nButtonSkip,
+      l10nButtonPrevious: l10nButtonPrevious ?? this.l10nButtonPrevious,
     );
   }
 
@@ -107,6 +137,11 @@ class GuideStepDefinition {
       'buttonNext': buttonNext,
       'buttonSkip': buttonSkip,
       'buttonPrevious': buttonPrevious,
+      'l10nTitle': l10nTitle,
+      'l10nDescription': l10nDescription,
+      'l10nButtonNext': l10nButtonNext,
+      'l10nButtonSkip': l10nButtonSkip,
+      'l10nButtonPrevious': l10nButtonPrevious,
     };
   }
 
@@ -123,6 +158,11 @@ class GuideStepDefinition {
       buttonNext: json['buttonNext'] as String?,
       buttonSkip: json['buttonSkip'] as String?,
       buttonPrevious: json['buttonPrevious'] as String?,
+      l10nTitle: json['l10nTitle'] as String?,
+      l10nDescription: json['l10nDescription'] as String?,
+      l10nButtonNext: json['l10nButtonNext'] as String?,
+      l10nButtonSkip: json['l10nButtonSkip'] as String?,
+      l10nButtonPrevious: json['l10nButtonPrevious'] as String?,
     );
   }
 }
@@ -135,51 +175,172 @@ class DemoClusterGuide {
   // Guide name used for persistence
   static const String guideName = 'demo_cluster_onboarding';
 
-  // Step IDs for easy reference
+  // Step IDs for 8-step flow
   static const String welcomeStepId = 'welcome';
-  static const String podListStepId = 'podList';
-  static const String nodesStepId = 'nodes';
+  static const String workloadsOverviewStepId = 'workloadsOverview';
+  static const String podListWithSwipeStepId = 'podListWithSwipe';
+  static const String podDetailStepId = 'podDetail';
+  static const String resourcesMenuStepId = 'resourcesMenu';
+  static const String nodesListWithSwipeStepId = 'nodesListWithSwipe';
+  static const String nodeDetailStepId = 'nodeDetail';
   static const String completedStepId = 'completed';
 
   // Target element key identifiers
   static const String welcomeTargetKey = 'guide-target-welcome';
+  static const String workloadsTargetKey = 'guide-target-workloads';
   static const String podListTargetKey = 'guide-target-pod-list';
+  static const String podDetailTargetKey = 'guide-target-pod-detail';
+  static const String resourcesTargetKey = 'guide-target-resources';
   static const String nodesTargetKey = 'guide-target-nodes';
+  static const String nodeDetailTargetKey = 'guide-target-node-detail';
   static const String completedTargetKey = 'guide-target-completed';
 
-  /// Get all guide steps for demo cluster onboarding
+  /// Get all guide steps for demo cluster onboarding (8-step flow)
+  ///
+  /// Route mappings:
+  /// - Step 1 (welcome): clusters route (cluster list page)
+  /// - Step 2 (workloadsOverview): workloads route
+  /// - Step 3 (podListWithSwipe): pods route
+  /// - Step 4 (podDetail): details route (workloads namespace, pods resource, web-demo pod)
+  /// - Step 5 (resourcesMenu): resources route
+  /// - Step 6 (nodesListWithSwipe): nodes route
+  /// - Step 7 (nodeDetail): details route (cluster-scoped, nodes resource, dynamic node name)
+  /// - Step 8 (completed): clusters route
   static List<GuideStepDefinition> getSteps() {
     return const [
       GuideStepDefinition(
         id: welcomeStepId,
-        routeName: 'cluster_home',
+        routeName: 'clusters',
+        targetKey: welcomeTargetKey,
         title: 'Welcome to K8zDev!',
         description: 'Let\'s quickly explore the main features. '
             'This is a demo cluster where you can safely explore.',
         buttonNext: 'Let\'s Start',
         buttonSkip: 'Skip Guide',
+        l10nTitle: 'guide_step_1_title',
+        l10nDescription: 'guide_step_1_desc',
+        l10nButtonNext: 'guide_button_next',
+        l10nButtonSkip: 'guide_button_skip',
       ),
       GuideStepDefinition(
-        id: podListStepId,
+        id: workloadsOverviewStepId,
+        routeName: 'workloads',
+        targetKey: workloadsTargetKey,
+        title: 'Workloads Overview',
+        description: 'Here you can see all workload resources: Pods, Deployments, '
+            'DaemonSets, and StatefulSets. Click any type to see resources.',
+        buttonNext: 'Next',
+        buttonSkip: 'Skip',
+        buttonPrevious: 'Back',
+        l10nTitle: 'guide_step_2_title',
+        l10nDescription: 'guide_step_2_desc',
+        l10nButtonNext: 'guide_button_next',
+        l10nButtonSkip: 'guide_button_skip',
+        l10nButtonPrevious: 'guide_button_back',
+      ),
+      GuideStepDefinition(
+        id: podListWithSwipeStepId,
         routeName: 'pods',
         targetKey: podListTargetKey,
-        title: 'View Pods',
-        description: 'Here you can see all pods in your cluster. '
-            'Pod is the smallest deployable unit in Kubernetes. '
-            'Click any pod to view details, logs, and even open a terminal.',
+        title: 'Pod List',
+        description: 'View all pods in your cluster. Swipe right for more actions '
+            '(details, logs, terminal), swipe left to delete.',
         buttonNext: 'Next',
+        buttonSkip: 'Skip',
         buttonPrevious: 'Back',
+        l10nTitle: 'guide_step_3_title',
+        l10nDescription: 'guide_step_3_desc',
+        l10nButtonNext: 'guide_button_next',
+        l10nButtonSkip: 'guide_button_skip',
+        l10nButtonPrevious: 'guide_button_back',
       ),
       GuideStepDefinition(
-        id: nodesStepId,
+        id: podDetailStepId,
+        routeName: 'details',
+        routeParams: {
+          'path': 'workloads',
+          'namespace': null,
+          'resource': 'pods',
+          'name': 'web-demo',
+        },
+        targetKey: podDetailTargetKey,
+        title: 'Pod Details',
+        description: 'View YAML configuration, real-time logs, and open a terminal. '
+            'This page shows the detailed information for the \'web-demo\' pod.',
+        buttonNext: 'Next',
+        buttonSkip: 'Skip',
+        buttonPrevious: 'Back',
+        l10nTitle: 'guide_step_4_title',
+        l10nDescription: 'guide_step_4_desc',
+        l10nButtonNext: 'guide_button_next',
+        l10nButtonSkip: 'guide_button_skip',
+        l10nButtonPrevious: 'guide_button_back',
+      ),
+      GuideStepDefinition(
+        id: resourcesMenuStepId,
+        routeName: 'resources',
+        targetKey: resourcesTargetKey,
+        title: 'Resources Menu',
+        description: 'Access additional Kubernetes resources: Config (ConfigMaps, Secrets), '
+            'Storage (PVs, PVCs, StorageClass), and Networking (Services, Ingresses).',
+        buttonNext: 'Next',
+        buttonSkip: 'Skip',
+        buttonPrevious: 'Back',
+        l10nTitle: 'guide_step_5_title',
+        l10nDescription: 'guide_step_5_desc',
+        l10nButtonNext: 'guide_button_next',
+        l10nButtonSkip: 'guide_button_skip',
+        l10nButtonPrevious: 'guide_button_back',
+      ),
+      GuideStepDefinition(
+        id: nodesListWithSwipeStepId,
         routeName: 'nodes',
         targetKey: nodesTargetKey,
-        title: 'View Nodes',
-        description: 'Here you can see all nodes in your cluster. '
-            'Nodes are the worker machines where your workloads run. '
-            'Monitor node status and resource usage.',
-        buttonNext: 'Complete',
+        title: 'Nodes List',
+        description: 'View all cluster nodes. Swipe right to see node details, '
+            'swipe left to cordon/uncordon the node.',
+        buttonNext: 'Next',
+        buttonSkip: 'Skip',
         buttonPrevious: 'Back',
+        l10nTitle: 'guide_step_6_title',
+        l10nDescription: 'guide_step_6_desc',
+        l10nButtonNext: 'guide_button_next',
+        l10nButtonSkip: 'guide_button_skip',
+        l10nButtonPrevious: 'guide_button_back',
+      ),
+      GuideStepDefinition(
+        id: nodeDetailStepId,
+        routeName: 'details',
+        routeParams: {
+          'path': '/api/v1',
+          'namespace': '_',
+          'resource': 'nodes',
+          'name': null, // Will be filled dynamically by LandingPage
+        },
+        targetKey: nodeDetailTargetKey,
+        title: 'Node Details',
+        description: 'Monitor node status, resource usage (CPU/memory), and view '
+            'pods running on this node.',
+        buttonNext: 'Complete',
+        buttonSkip: 'Skip',
+        buttonPrevious: 'Back',
+        l10nTitle: 'guide_step_7_title',
+        l10nDescription: 'guide_step_7_desc',
+        l10nButtonNext: 'guide_button_complete',
+        l10nButtonSkip: 'guide_button_skip',
+        l10nButtonPrevious: 'guide_button_back',
+      ),
+      GuideStepDefinition(
+        id: completedStepId,
+        routeName: 'clusters',
+        targetKey: completedTargetKey,
+        title: 'Guide Complete!',
+        description: 'You\'ve completed the onboarding guide! Feel free to explore '
+            'further. Access help documentation anytime from settings.',
+        buttonNext: 'Got it!',
+        l10nTitle: 'guide_step_8_title',
+        l10nDescription: 'guide_step_8_desc',
+        l10nButtonNext: 'guide_button_complete',
       ),
     ];
   }
