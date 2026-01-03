@@ -128,9 +128,9 @@ void main() {
   });
 
   group('DemoClusterGuide', () {
-    test('should have at least 4 steps defined', () {
+    test('should have at least 3 steps defined', () {
       final steps = DemoClusterGuide.getSteps();
-      expect(steps.length, greaterThanOrEqualTo(4));
+      expect(steps.length, greaterThanOrEqualTo(3));
     });
 
     test('should have welcome step as first step', () {
@@ -158,12 +158,12 @@ void main() {
       );
     });
 
-    test('should contain pod logs step', () {
+    test('should contain nodes step', () {
       final steps = DemoClusterGuide.getSteps();
       expect(
-        steps.any((s) => s.id == 'podLogs'),
+        steps.any((s) => s.id == 'nodes'),
         isTrue,
-        reason: 'DemoClusterGuide should contain pod logs step',
+        reason: 'DemoClusterGuide should contain nodes step',
       );
     });
 
@@ -174,6 +174,7 @@ void main() {
         'cluster_home',
         'workloads',
         'pods',
+        'nodes',
         'details',
         'resources',
         'settings',

@@ -15,12 +15,8 @@ import 'package:k8zdev/services/k8z_native.dart';
 import 'package:k8zdev/services/k8z_service.dart';
 import 'package:k8zdev/widgets/namespace.dart';
 import 'package:k8zdev/widgets/widgets.dart';
-import 'package:k8zdev/widgets/interactive_guide_overlay.dart';
-import 'package:k8zdev/services/onboarding_guide_service.dart';
-import 'package:k8zdev/services/demo_cluster_service.dart';
 import 'package:k8zdev/services/readonly_restriction_service.dart';
 import 'package:k8zdev/models/guide_keys.dart';
-import 'package:k8zdev/models/guide_step_definition.dart';
 import 'package:provider/provider.dart';
 import 'package:settings_ui/settings_ui.dart';
 
@@ -38,22 +34,30 @@ class _ClusterHomePageState extends State<ClusterHomePage> {
   @override
   void initState() {
     super.initState();
-
-    // Start onboarding guide for demo clusters
-    if (DemoClusterService.isDemoCluster(widget.cluster)) {
-      WidgetsBinding.instance.addPostFrameCallback((_) {
-        _startOnboardingGuide();
-      });
-    }
+    // Note: Onboarding guide is now triggered from the cluster list page (ClustersPage)
+    // Not from this cluster detail page anymore.
   }
 
-  void _startOnboardingGuide() {
-    print('[DEBUG] _startOnboardingGuide called for ${widget.cluster.name}');
-    final guideService = Provider.of<OnboardingGuideService>(context, listen: false);
-    print('[DEBUG] Before startGuide: isActive=${guideService.isGuideActive}, currentStepId=${guideService.currentStepId}');
-    guideService.startGuide(widget.cluster);
-    print('[DEBUG] After startGuide: isActive=${guideService.isGuideActive}, currentStepId=${guideService.currentStepId}');
+  @override
+  Widget build(BuildContext context) {
+    var lang = S.of(context);
+    var ccProvider = Provider.of<CurrentCluster>(context, listen: true);
+
+    return Scaffold(
+      appBar: appBar(context, lang, ccProvider),
+      body: Container(
+        margin: bottomEdge,
+        child: SettingsList(
+          sections: [
+            overview(lang, ccProvider),
+            nodes(lang),
+            events(lang),
+          ],
+        ),
+      ),
+    );
   }
+
   SettingsSection overview(S lang, CurrentCluster ccProvider) {
     final ns = CurrentCluster.current?.namespace ?? "";
     return SettingsSection(
@@ -387,49 +391,6 @@ class _ClusterHomePageState extends State<ClusterHomePage> {
           ],
         ],
       ),
-    );
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    var lang = S.of(context);
-    var ccProvider = Provider.of<CurrentCluster>(context, listen: true);
-
-    // Wrap with interactive guide overlay if onboarding is active
-    Widget body = Consumer<OnboardingGuideService>(
-      builder: (context, guideService, child) {
-        print('[DEBUG] Consumer rebuild: isActive=${guideService.isGuideActive}, currentStepId=${guideService.currentStepId}');
-
-        final mainContent = Container(
-          margin: bottomEdge,
-          child: SettingsList(
-            sections: [
-              overview(lang, ccProvider),
-              nodes(lang),
-              events(lang),
-            ],
-          ),
-        );
-
-        if (guideService.isGuideActive) {
-          print('[DEBUG] Creating InteractiveGuideOverlay');
-          return InteractiveGuideOverlay(
-            isActive: guideService.isGuideActive,
-            currentStepId: guideService.currentStepId,
-            steps: DemoClusterGuide.getSteps(),
-            onNext: () => guideService.nextStep(),
-            onSkip: () => guideService.skipGuide(),
-            onPrevious: () => guideService.previousStep(),
-            child: mainContent,
-          );
-        }
-        return mainContent;
-      },
-    );
-
-    return Scaffold(
-      appBar: appBar(context, lang, ccProvider),
-      body: body,
     );
   }
 }

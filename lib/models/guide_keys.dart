@@ -17,11 +17,8 @@ class GuideKeys {
   // Pod List step - highlights pod list container
   static final GlobalKey podListTargetKey = GlobalKey();
 
-  // Pod Logs step - highlights logs button or logs container
-  static final GlobalKey podLogsTargetKey = GlobalKey();
-
-  // Additional Features step - highlights workloads menu or features button
-  static final GlobalKey additionalFeaturesTargetKey = GlobalKey();
+  // Nodes step - highlights nodes list
+  static final GlobalKey nodesTargetKey = GlobalKey();
 }
 
 /// Helper class to expose guide keys by their target key string identifiers
@@ -38,10 +35,8 @@ class GuideKeyRegistry {
         return GuideKeys.welcomeTargetKey;
       case DemoClusterGuide.podListTargetKey:
         return GuideKeys.podListTargetKey;
-      case DemoClusterGuide.podLogsTargetKey:
-        return GuideKeys.podLogsTargetKey;
-      case DemoClusterGuide.additionalFeaturesTargetKey:
-        return GuideKeys.additionalFeaturesTargetKey;
+      case DemoClusterGuide.nodesTargetKey:
+        return GuideKeys.nodesTargetKey;
       default:
         return null;
     }
@@ -52,9 +47,7 @@ class GuideKeyRegistry {
     return {
       DemoClusterGuide.welcomeTargetKey: GuideKeys.welcomeTargetKey,
       DemoClusterGuide.podListTargetKey: GuideKeys.podListTargetKey,
-      DemoClusterGuide.podLogsTargetKey: GuideKeys.podLogsTargetKey,
-      DemoClusterGuide.additionalFeaturesTargetKey:
-          GuideKeys.additionalFeaturesTargetKey,
+      DemoClusterGuide.nodesTargetKey: GuideKeys.nodesTargetKey,
     };
   }
 }

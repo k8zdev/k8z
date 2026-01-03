@@ -67,9 +67,7 @@ class OnboardingState {
         return GuideStep.welcome;
       case DemoClusterGuide.podListStepId:
         return GuideStep.podList;
-      case DemoClusterGuide.podLogsStepId:
-        return GuideStep.podLogs;
-      case DemoClusterGuide.additionalFeaturesStepId:
+      case DemoClusterGuide.nodesStepId:
         return GuideStep.additionalFeatures;
       default:
         return GuideStep.welcome;
@@ -105,6 +103,9 @@ class OnboardingGuideService extends ChangeNotifier {
       },
     );
 
+    // Notify listeners immediately so UI updates right away
+    notifyListeners();
+
     // Update last step in database
     await OnboardingGuideDao.updateLastStep(
       guideName,
@@ -121,8 +122,6 @@ class OnboardingGuideService extends ChangeNotifier {
         'timestamp': _state.startTime!.millisecondsSinceEpoch,
       },
     );
-
-    notifyListeners();
   }
 
   /// Navigate to specific step
@@ -152,25 +151,27 @@ class OnboardingGuideService extends ChangeNotifier {
   /// Show pod list guide (legacy method)
   Future<void> showPodListGuide() async {
     if (!_state.isActive ||
-        _state.currentStepId != DemoClusterGuide.welcomeStepId) return;
+        _state.currentStepId != DemoClusterGuide.welcomeStepId) {
+      return;
+    }
 
     await navigateToStep(DemoClusterGuide.podListStepId);
   }
 
-  /// Show log view guide (legacy method)
+  /// Show log view guide (legacy method) - removed, no longer applicable
+  @Deprecated('This step has been removed from the guide flow')
   Future<void> showLogViewGuide() async {
-    if (!_state.isActive ||
-        _state.currentStepId != DemoClusterGuide.podListStepId) return;
-
-    await navigateToStep(DemoClusterGuide.podLogsStepId);
+    // This method is deprecated, do nothing
   }
 
   /// Show additional features guide (legacy method)
   Future<void> showAdditionalFeaturesGuide() async {
     if (!_state.isActive ||
-        _state.currentStepId != DemoClusterGuide.podLogsStepId) return;
+        _state.currentStepId != DemoClusterGuide.podListStepId) {
+      return;
+    }
 
-    await navigateToStep(DemoClusterGuide.additionalFeaturesStepId);
+    await navigateToStep(DemoClusterGuide.nodesStepId);
   }
 
   /// Complete the guide

@@ -1,7 +1,11 @@
+// ignore_for_file: deprecated_member_use_from_same_package
+
 import 'package:flutter/material.dart';
 import 'package:k8zdev/services/onboarding_guide_service.dart';
 
 /// Guide overlay widget that shows onboarding tips
+/// Note: This is the legacy overlay using deprecated GuideStep enum.
+/// Consider migrating to InteractiveGuideOverlay with GuideStepDefinition.
 class GuideOverlay extends StatefulWidget {
   final Widget child;
   final GuideStep currentStep;

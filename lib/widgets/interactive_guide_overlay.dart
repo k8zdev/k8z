@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:k8zdev/models/guide_step_definition.dart';
-import 'package:k8zdev/common/ops.dart';
 
 /// Theme configuration for the guide overlay
 class GuideOverlayTheme {
@@ -32,11 +31,11 @@ class GuideOverlayTheme {
       titleStyle: const TextStyle(
         fontSize: 20,
         fontWeight: FontWeight.bold,
-        color: Colors.white,
+        color: Colors.black87,
       ),
       descriptionStyle: const TextStyle(
         fontSize: 14,
-        color: Colors.white70,
+        color: Colors.black54,
       ),
       overlayColor: Colors.black.withOpacity(0.7),
       widgetShapeColor: Colors.blue,
@@ -144,6 +143,11 @@ class _InteractiveGuideOverlayState extends State<InteractiveGuideOverlay>
       curve: Curves.easeInOut,
     ));
     _updateStep();
+
+    // Start animation if overlay is initially active
+    if (widget.isActive) {
+      _animationController.forward();
+    }
   }
 
   @override
@@ -192,11 +196,7 @@ class _InteractiveGuideOverlayState extends State<InteractiveGuideOverlay>
     // Ensure step index is updated on each build (handles direct widget creation)
     _updateStep();
 
-    print('[DEBUG] InteractiveGuideOverlay build: isActive=${widget.isActive}, currentStepId=${widget.currentStepId}');
-    print('[DEBUG] _currentStepIndex=$_currentStepIndex, _currentStep=$_currentStep');
-
     if (!widget.isActive || _currentStep == null) {
-      print('[DEBUG] Hiding overlay: isActive=${widget.isActive}, currentStep=$_currentStep');
       return widget.child;
     }
 
@@ -207,7 +207,7 @@ class _InteractiveGuideOverlayState extends State<InteractiveGuideOverlay>
     return Stack(
       children: [
         widget.child,
-        // Overlay content
+        // Overlay content with fade animation
         FadeTransition(
           opacity: _fadeAnimation,
           child: ColoredBox(

@@ -138,15 +138,14 @@ class DemoClusterGuide {
   // Step IDs for easy reference
   static const String welcomeStepId = 'welcome';
   static const String podListStepId = 'podList';
-  static const String podLogsStepId = 'podLogs';
-  static const String additionalFeaturesStepId = 'additionalFeatures';
+  static const String nodesStepId = 'nodes';
+  static const String completedStepId = 'completed';
 
   // Target element key identifiers
   static const String welcomeTargetKey = 'guide-target-welcome';
   static const String podListTargetKey = 'guide-target-pod-list';
-  static const String podLogsTargetKey = 'guide-target-pod-logs';
-  static const String additionalFeaturesTargetKey =
-      'guide-target-additional-features';
+  static const String nodesTargetKey = 'guide-target-nodes';
+  static const String completedTargetKey = 'guide-target-completed';
 
   /// Get all guide steps for demo cluster onboarding
   static List<GuideStepDefinition> getSteps() {
@@ -167,33 +166,18 @@ class DemoClusterGuide {
         title: 'View Pods',
         description: 'Here you can see all pods in your cluster. '
             'Pod is the smallest deployable unit in Kubernetes. '
-            'Click any pod to view details.',
+            'Click any pod to view details, logs, and even open a terminal.',
         buttonNext: 'Next',
         buttonPrevious: 'Back',
       ),
       GuideStepDefinition(
-        id: podLogsStepId,
-        routeName: 'details',
-        routeParams: {
-          'path': 'workloads',
-          'namespace': '_',
-          'resource': 'pods',
-          'name': 'demo-pod',
-        },
-        targetKey: podLogsTargetKey,
-        title: 'View Logs',
-        description: 'You can view pod logs in real-time to understand '
-            'the application status. This is very useful for debugging and monitoring.',
-        buttonNext: 'Next',
-        buttonPrevious: 'Back',
-      ),
-      GuideStepDefinition(
-        id: additionalFeaturesStepId,
-        routeName: 'workloads',
-        targetKey: additionalFeaturesTargetKey,
-        title: 'More Features',
-        description: 'K8zDev provides many features like viewing services, '
-            'configmaps, secrets, and more. You can explore these in the side menu.',
+        id: nodesStepId,
+        routeName: 'nodes',
+        targetKey: nodesTargetKey,
+        title: 'View Nodes',
+        description: 'Here you can see all nodes in your cluster. '
+            'Nodes are the worker machines where your workloads run. '
+            'Monitor node status and resource usage.',
         buttonNext: 'Complete',
         buttonPrevious: 'Back',
       ),

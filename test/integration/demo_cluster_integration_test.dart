@@ -1,3 +1,5 @@
+// ignore_for_file: deprecated_member_use_from_same_package
+
 import 'package:flutter_test/flutter_test.dart';
 import 'package:k8zdev/services/demo_cluster_service.dart';
 import 'package:k8zdev/services/encryption_service.dart';
@@ -75,12 +77,12 @@ void main() {
       expect(guideService.isGuideActive, isTrue);
       expect(guideService.currentStep, equals(GuideStep.welcome));
 
-      // Progress through steps
+      // Progress through steps with 3-step guide:
+      // 1. welcome -> podList
+      // 2. podList -> nodes (additionalFeatures)
+      // 3. nodes -> completed
       await guideService.nextStep();
       expect(guideService.currentStep, equals(GuideStep.podList));
-
-      await guideService.nextStep();
-      expect(guideService.currentStep, equals(GuideStep.podLogs));
 
       await guideService.nextStep();
       expect(guideService.currentStep, equals(GuideStep.additionalFeatures));
@@ -167,8 +169,7 @@ void main() {
 
       // Complete guide quickly
       await guideService.nextStep(); // welcome -> podList
-      await guideService.nextStep(); // podList -> podLogs
-      await guideService.nextStep(); // podLogs -> additionalFeatures
+      await guideService.nextStep(); // podList -> additionalFeatures
       await guideService.nextStep(); // additionalFeatures -> completed
 
       final elapsed = DateTime.now().difference(startTime);

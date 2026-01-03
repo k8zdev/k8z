@@ -1,3 +1,5 @@
+// ignore_for_file: deprecated_member_use_from_same_package
+
 import 'package:flutter_test/flutter_test.dart';
 import 'package:k8zdev/services/onboarding_guide_service.dart';
 import 'package:k8zdev/dao/kube.dart';
@@ -35,11 +37,7 @@ void main() {
       await service.nextStep();
       expect(service.currentStep, equals(GuideStep.podList));
 
-      // Pod List -> Pod Logs
-      await service.nextStep();
-      expect(service.currentStep, equals(GuideStep.podLogs));
-
-      // Pod Logs -> Additional Features
+      // Pod List -> Additional Features (nodes)
       await service.nextStep();
       expect(service.currentStep, equals(GuideStep.additionalFeatures));
 
@@ -88,12 +86,25 @@ void main() {
       await service.showPodListGuide();
       expect(service.currentStep, equals(GuideStep.podList));
 
-      // Can only go from pod list to pod logs
+      // showAdditionalFeaturesGuide goes from podList to nodes (additionalFeatures)
       await service.showAdditionalFeaturesGuide();
+      expect(service.currentStep, equals(GuideStep.additionalFeatures));
+    });
+
+    test('should complete guide after last step', () async {
+      await service.startGuide(demoCluster);
+
+      // Progress to last step
+      await service.nextStep();
       expect(service.currentStep, equals(GuideStep.podList));
 
-      await service.showLogViewGuide();
-      expect(service.currentStep, equals(GuideStep.podLogs));
+      await service.nextStep();
+      expect(service.currentStep, equals(GuideStep.additionalFeatures));
+
+      // Last step
+      await service.nextStep();
+      expect(service.currentStep, equals(GuideStep.completed));
+      expect(service.isGuideActive, isFalse);
     });
   });
 }

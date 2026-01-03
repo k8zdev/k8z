@@ -11,9 +11,13 @@ import 'steps/given_cluster_has_pvcs.dart';
 import 'steps/given_app_has_no_clusters.dart';
 import 'steps/given_app_has_crd.dart';
 import 'steps/given_cluster_has_node.dart';
+import 'steps/given_app_is_running.dart';
 import 'steps/then_should_see_cluster_in_list.dart';
 import 'steps/then_see_crd_details.dart';
 import 'steps/then_see_node_details.dart';
+import 'steps/then_guide_should_be_active.dart';
+import 'steps/then_should_see_welcome_text.dart';
+import 'steps/then_current_step_should_be_welcome.dart';
 import 'steps/when_click_crd.dart';
 import 'steps/when_click_node.dart';
 import 'steps/then_should_see_access_modes.dart';
@@ -26,6 +30,7 @@ import 'steps/given_cluster_has_pvs.dart';
 import 'steps/then_see_pv_detail_page.dart';
 import 'steps/when_click_persistent_volume.dart';
 import 'steps/when_navigate_to_pvc_details.dart';
+import 'steps/when_enter_cluster_list_page.dart';
 import 'steps/given_storageclass_exists.dart';
 import 'steps/then_see_provisioner.dart';
 import 'steps/then_see_reclaim_policy.dart';
@@ -70,6 +75,15 @@ Future<void> main() async {
     ..stepDefinitions = [
       givenAppIsInitialized(),
       // UI step definitions
+      givenAppIsRunning(),
+      givenDemoClusterLoaded(),
+      whenEnterClusterListPage(),
+      whenEnterClusterListPageSecondTime(),
+      whenIsGuideIncomplete(),
+      thenGuideShouldBeActive(),
+      thenCurrentStepShouldBeWelcome(),
+      thenShouldSeeWelcomeText(),
+      whenSkipTheGuide(),
       givenAppHasNoClusters(),
       givenClusterHasCrd(),
       givenClusterHasNode(),

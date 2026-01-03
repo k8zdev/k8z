@@ -12,7 +12,6 @@ import 'package:k8zdev/providers/lang.dart';
 import 'package:k8zdev/providers/talker.dart';
 import 'package:k8zdev/providers/theme.dart';
 import 'package:k8zdev/providers/timeout.dart';
-import 'package:k8zdev/services/onboarding_guide_service.dart';
 import 'package:k8zdev/widgets/modal.dart';
 import 'package:k8zdev/widgets/set_api_timeout.dart';
 import 'package:material_dialogs/widgets/buttons/icon_outline_button.dart';

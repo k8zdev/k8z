@@ -1,3 +1,4 @@
+import 'package:collection/collection.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
@@ -10,6 +11,8 @@ import 'package:k8zdev/pages/k8s_list/cluster/create.dart';
 import 'package:k8zdev/providers/current_cluster.dart';
 import 'package:k8zdev/widgets/overview_metrics.dart';
 import 'package:k8zdev/widgets/demo_cluster_indicator.dart';
+import 'package:k8zdev/services/onboarding_guide_service.dart';
+import 'package:k8zdev/services/demo_cluster_service.dart';
 import 'package:provider/provider.dart';
 import 'package:settings_ui/settings_ui.dart';
 
@@ -22,6 +25,35 @@ class ClustersPage extends StatefulWidget {
 }
 
 class _ClustersPageState extends State<ClustersPage> {
+  bool _guideTriggered = false;
+
+  /// Start onboarding guide if demo cluster exists and guide is not completed
+  Future<void> _checkAndStartGuide(List<K8zCluster> clusters) async {
+    if (_guideTriggered) return;
+
+    // Check if there's a demo cluster
+    final demoCluster = clusters.firstWhereOrNull(
+      (c) => DemoClusterService.isDemoCluster(c),
+    );
+
+    if (demoCluster == null) return;
+
+    final guideService = Provider.of<OnboardingGuideService>(
+      context,
+      listen: false,
+    );
+
+    // Only start guide if not already completed
+    final isCompleted = await guideService.isGuideCompleted(
+      clusterId: demoCluster.server,
+    );
+
+    if (!isCompleted) {
+      talker.info('[BDD] Starting onboarding guide from cluster list page');
+      _guideTriggered = true;
+      await guideService.startGuide(demoCluster);
+    }
+  }
   Future<void> onDeletePress(BuildContext context, K8zCluster cluster) async {
     final lang = S.of(context);
     final current = CurrentCluster.current;
@@ -201,6 +233,12 @@ class _ClustersPageState extends State<ClustersPage> {
         } else {
           List<K8zCluster> clusters = snapshot.data ?? [];
           talker.info("cluster ${clusters.length}");
+
+          // Trigger onboarding guide if demo cluster exists
+          WidgetsBinding.instance.addPostFrameCallback((_) {
+            _checkAndStartGuide(clusters);
+          });
+
           if (clusters.isEmpty) {
             title = Text(lang.add_cluster, style: theme.textTheme.titleLarge);
             body = const ClusterCreatePage(hiddenAppBar: true);
