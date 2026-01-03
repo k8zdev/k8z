@@ -780,13 +780,13 @@
   "@event_source_host": {},
   "event_action": "动作",
   "@event_action": {},
-  "guide_step_1_title": "欢迎使用 K8zDev!",
+  "guide_step_1_title": "欢迎使用 K8Z!",
   "@guide_step_1_title": {
     "description": "Title for the first onboarding guide step"
   },
-  "guide_step_1_desc": "让我们快速探索 K8zDev 的主要功能。",
+  "guide_step_1_desc": "让我们快速探索 K8Z 的主要功能。",
   "@guide_step_1_desc": {
-    "description": "Description for the first onboarding guide step - introduction to K8zDev"
+    "description": "Description for the first onboarding guide step - introduction to K8Z"
   },
   "guide_step_2_title": "负载概览",
   "@guide_step_2_title": {
@@ -859,5 +859,25 @@
   "guide_button_complete": "完成",
   "@guide_button_complete": {
     "description": "Button label for completing the onboarding guide on the final step"
+  },
+  "settings_replay_guide": "重新播放引导",
+  "@settings_replay_guide": {
+    "description": "Menu option in settings to replay the onboarding guide"
+  },
+  "settings_restart_guide_title": "重新开始引导",
+  "@settings_restart_guide_title": {
+    "description": "Dialog title when restarting the onboarding guide"
+  },
+  "settings_restart_guide_msg": "您要重置新手引导的完成状态吗？",
+  "@settings_restart_guide_msg": {
+    "description": "Dialog message when confirming guide restart"
+  },
+  "settings_reset": "重置",
+  "@settings_reset": {
+    "description": "Button label to reset the guide"
+  },
+  "settings_guide_reset_success": "新手引导已重置",
+  "@settings_guide_reset_success": {
+    "description": "Success message after resetting the onboarding guide"
   }
 }

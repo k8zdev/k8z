@@ -2167,23 +2167,23 @@ class S {
     return Intl.message('Action', name: 'event_action', desc: '', args: []);
   }
 
-  /// `Welcome to K8zDev!`
+  /// `Welcome to K8Z!`
   String get guide_step_1_title {
     return Intl.message(
-      'Welcome to K8zDev!',
+      'Welcome to K8Z!',
       name: 'guide_step_1_title',
       desc: 'Title for the first onboarding guide step',
       args: [],
     );
   }
 
-  /// `Let's quickly explore the main features of K8zDev.`
+  /// `Let's quickly explore the main features of K8Z.`
   String get guide_step_1_desc {
     return Intl.message(
-      'Let\'s quickly explore the main features of K8zDev.',
+      'Let\'s quickly explore the main features of K8Z.',
       name: 'guide_step_1_desc',
       desc:
-          'Description for the first onboarding guide step - introduction to K8zDev',
+          'Description for the first onboarding guide step - introduction to K8Z',
       args: [],
     );
   }
@@ -2373,6 +2373,56 @@ class S {
       name: 'guide_button_complete',
       desc:
           'Button label for completing the onboarding guide on the final step',
+      args: [],
+    );
+  }
+
+  /// `Replay Onboarding Guide`
+  String get settings_replay_guide {
+    return Intl.message(
+      'Replay Onboarding Guide',
+      name: 'settings_replay_guide',
+      desc: 'Menu option in settings to replay the onboarding guide',
+      args: [],
+    );
+  }
+
+  /// `Restart Guide`
+  String get settings_restart_guide_title {
+    return Intl.message(
+      'Restart Guide',
+      name: 'settings_restart_guide_title',
+      desc: 'Dialog title when restarting the onboarding guide',
+      args: [],
+    );
+  }
+
+  /// `Do you want to reset the onboarding guide completion status?`
+  String get settings_restart_guide_msg {
+    return Intl.message(
+      'Do you want to reset the onboarding guide completion status?',
+      name: 'settings_restart_guide_msg',
+      desc: 'Dialog message when confirming guide restart',
+      args: [],
+    );
+  }
+
+  /// `Reset`
+  String get settings_reset {
+    return Intl.message(
+      'Reset',
+      name: 'settings_reset',
+      desc: 'Button label to reset the guide',
+      args: [],
+    );
+  }
+
+  /// `Onboarding guide has been reset`
+  String get settings_guide_reset_success {
+    return Intl.message(
+      'Onboarding guide has been reset',
+      name: 'settings_guide_reset_success',
+      desc: 'Success message after resetting the onboarding guide',
       args: [],
     );
   }

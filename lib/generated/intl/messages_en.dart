@@ -332,10 +332,10 @@ class MessageLookup extends MessageLookupByLibrary {
     "guide_button_next": MessageLookupByLibrary.simpleMessage("Next"),
     "guide_button_skip": MessageLookupByLibrary.simpleMessage("Skip"),
     "guide_step_1_desc": MessageLookupByLibrary.simpleMessage(
-      "Let\'s quickly explore the main features of K8zDev.",
+      "Let\'s quickly explore the main features of K8Z.",
     ),
     "guide_step_1_title": MessageLookupByLibrary.simpleMessage(
-      "Welcome to K8zDev!",
+      "Welcome to K8Z!",
     ),
     "guide_step_2_desc": MessageLookupByLibrary.simpleMessage(
       "Here you can see all workload resources: Pods, Deployments, DaemonSets, and StatefulSets. Click any type to see resources.",
@@ -504,6 +504,19 @@ class MessageLookup extends MessageLookupByLibrary {
       "Session Affinity",
     ),
     "settings": MessageLookupByLibrary.simpleMessage("Settings"),
+    "settings_guide_reset_success": MessageLookupByLibrary.simpleMessage(
+      "Onboarding guide has been reset",
+    ),
+    "settings_replay_guide": MessageLookupByLibrary.simpleMessage(
+      "Replay Onboarding Guide",
+    ),
+    "settings_reset": MessageLookupByLibrary.simpleMessage("Reset"),
+    "settings_restart_guide_msg": MessageLookupByLibrary.simpleMessage(
+      "Do you want to reset the onboarding guide completion status?",
+    ),
+    "settings_restart_guide_title": MessageLookupByLibrary.simpleMessage(
+      "Restart Guide",
+    ),
     "since": MessageLookupByLibrary.simpleMessage("Since"),
     "spec": MessageLookupByLibrary.simpleMessage("Spec"),
     "sponsor_desc": MessageLookupByLibrary.simpleMessage(

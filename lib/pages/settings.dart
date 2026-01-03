@@ -165,12 +165,12 @@ class _SettingsPageState extends State<SettingsPage> {
             // Onboarding guide restart option
             SettingsTile(
               leading: const Icon(Icons.replay),
-              title: const Text("Replay Onboarding Guide"),
+              title: Text(lang.settings_replay_guide),
               onPressed: (context) {
                 Dialogs.materialDialog(
                   context: context,
-                  title: "Restart Guide",
-                  msg: "Do you want to reset the onboarding guide completion status?",
+                  title: lang.settings_restart_guide_title,
+                  msg: lang.settings_restart_guide_msg,
                   actionsBuilder: (context) {
                     return [
                       IconsOutlineButton(
@@ -183,7 +183,7 @@ class _SettingsPageState extends State<SettingsPage> {
                         textStyle: const TextStyle(color: Colors.grey),
                       ),
                       IconsOutlineButton(
-                        text: "Reset",
+                        text: lang.settings_reset,
                         color: Colors.blue,
                         iconData: Icons.refresh,
                         iconColor: Colors.white,
@@ -194,8 +194,8 @@ class _SettingsPageState extends State<SettingsPage> {
                               'demo_cluster_onboarding');
                           context.pop();
                           ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(
-                              content: Text("Onboarding guide has been reset"),
+                            SnackBar(
+                              content: Text(lang.settings_guide_reset_success),
                             ),
                           );
                         },

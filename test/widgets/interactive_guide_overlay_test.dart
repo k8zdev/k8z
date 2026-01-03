@@ -62,8 +62,8 @@ void main() {
       await tester.pumpAndSettle();
 
       // Should show overlay content - uses localized strings from S
-      expect(find.text('Welcome to K8zDev!'), findsOneWidget);
-      expect(find.text('Let\'s quickly explore the main features of K8zDev.'), findsOneWidget);
+      expect(find.text('Welcome to K8Z!'), findsOneWidget);
+      expect(find.text("Let's quickly explore the main features of K8Z."), findsOneWidget);
       expect(find.text('Next'), findsOneWidget);
     });
 
@@ -85,7 +85,7 @@ void main() {
       // Child should be visible
       expect(find.text('Child content'), findsOneWidget);
       // Overlay title should not be visible
-      expect(find.text('Welcome to K8zDev!'), findsNothing);
+      expect(find.text('Welcome to K8Z!'), findsNothing);
     });
 
     testWidgets('should call onNext when next button tapped',
@@ -180,8 +180,8 @@ void main() {
 
       await tester.pumpAndSettle();
 
-      expect(find.text('Welcome to K8zDev!'), findsOneWidget);
-      expect(find.text('Let\'s quickly explore the main features of K8zDev.'), findsOneWidget);
+      expect(find.text('Welcome to K8Z!'), findsOneWidget);
+      expect(find.text("Let's quickly explore the main features of K8Z."), findsOneWidget);
     });
 
     testWidgets('should update when currentStepId changes',
@@ -201,7 +201,7 @@ void main() {
 
       await tester.pumpAndSettle();
 
-      expect(find.text('Welcome to K8zDev!'), findsOneWidget);
+      expect(find.text('Welcome to K8Z!'), findsOneWidget);
 
       // Update step - step2 will show localized title
       currentStep = 'step2';
@@ -219,7 +219,7 @@ void main() {
 
       await tester.pumpAndSettle();
 
-      expect(find.text('Welcome to K8zDev!'), findsNothing);
+      expect(find.text('Welcome to K8Z!'), findsNothing);
       expect(find.text('Workloads Overview'), findsOneWidget);
     });
 
@@ -240,7 +240,7 @@ void main() {
 
       await tester.pumpAndSettle();
 
-      expect(find.text('Welcome to K8zDev!'), findsOneWidget);
+      expect(find.text('Welcome to K8Z!'), findsOneWidget);
 
       // Deactivate
       isActive = false;
@@ -259,7 +259,7 @@ void main() {
       await tester.pumpAndSettle();
 
       // Should hide
-      expect(find.text('Welcome to K8zDev!'), findsNothing);
+      expect(find.text('Welcome to K8Z!'), findsNothing);
     });
 
     testWidgets('should show Complete button on last step', (WidgetTester tester) async {

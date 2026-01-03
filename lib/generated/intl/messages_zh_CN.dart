@@ -291,9 +291,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "guide_button_next": MessageLookupByLibrary.simpleMessage("下一步"),
     "guide_button_skip": MessageLookupByLibrary.simpleMessage("跳过"),
     "guide_step_1_desc": MessageLookupByLibrary.simpleMessage(
-      "让我们快速探索 K8zDev 的主要功能。",
+      "让我们快速探索 K8Z 的主要功能。",
     ),
-    "guide_step_1_title": MessageLookupByLibrary.simpleMessage("欢迎使用 K8zDev!"),
+    "guide_step_1_title": MessageLookupByLibrary.simpleMessage("欢迎使用 K8Z!"),
     "guide_step_2_desc": MessageLookupByLibrary.simpleMessage(
       "在这里您可以查看所有负载资源：Pods、Deployments、DaemonSets 和 StatefulSets。点击任意类型查看资源。",
     ),
@@ -431,6 +431,17 @@ class MessageLookup extends MessageLookupByLibrary {
     "services": MessageLookupByLibrary.simpleMessage("服务 (services)"),
     "session_affinity": MessageLookupByLibrary.simpleMessage("会话亲和性"),
     "settings": MessageLookupByLibrary.simpleMessage("设置"),
+    "settings_guide_reset_success": MessageLookupByLibrary.simpleMessage(
+      "新手引导已重置",
+    ),
+    "settings_replay_guide": MessageLookupByLibrary.simpleMessage("重新播放引导"),
+    "settings_reset": MessageLookupByLibrary.simpleMessage("重置"),
+    "settings_restart_guide_msg": MessageLookupByLibrary.simpleMessage(
+      "您要重置新手引导的完成状态吗？",
+    ),
+    "settings_restart_guide_title": MessageLookupByLibrary.simpleMessage(
+      "重新开始引导",
+    ),
     "since": MessageLookupByLibrary.simpleMessage("自"),
     "spec": MessageLookupByLibrary.simpleMessage("Spec"),
     "sponsor_desc": MessageLookupByLibrary.simpleMessage(
