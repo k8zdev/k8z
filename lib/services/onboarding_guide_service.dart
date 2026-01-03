@@ -159,7 +159,7 @@ class OnboardingGuideService extends ChangeNotifier {
       return;
     }
 
-    await navigateToStep(DemoClusterGuide.podListStepId);
+    await navigateToStep(DemoClusterGuide.podListWithSwipeStepId);
   }
 
   /// Show log view guide (legacy method) - removed, no longer applicable
@@ -171,11 +171,11 @@ class OnboardingGuideService extends ChangeNotifier {
   /// Show additional features guide (legacy method)
   Future<void> showAdditionalFeaturesGuide() async {
     if (!_state.isActive ||
-        _state.currentStepId != DemoClusterGuide.podListStepId) {
+        _state.currentStepId != DemoClusterGuide.podListWithSwipeStepId) {
       return;
     }
 
-    await navigateToStep(DemoClusterGuide.nodesStepId);
+    await navigateToStep(DemoClusterGuide.nodesListWithSwipeStepId);
   }
 
   /// Complete the guide

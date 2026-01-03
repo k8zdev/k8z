@@ -1,5 +1,4 @@
 import 'package:flutter/widgets.dart';
-import 'package:k8zdev/generated/l10n.dart';
 
 /// Guide step definition model for interactive onboarding guides.
 ///

@@ -104,7 +104,9 @@ class _LandingState extends State<Landing> with SingleTickerProviderStateMixin {
 
         // Special handling for node detail step (dynamic node name - Scheme B)
         if (nextId == DemoClusterGuide.nodeDetailStepId) {
+          // ignore: use_build_context_synchronously
           final nodeName = await _getFirstNodeName(context, guideService);
+          if (!mounted) return;
           if (nodeName != null) {
             routeParams['path'] = '/api/v1';
             routeParams['namespace'] = '_';
@@ -179,7 +181,9 @@ class _LandingState extends State<Landing> with SingleTickerProviderStateMixin {
 
         // Special handling for node detail step (dynamic node name - Scheme B)
         if (prevId == DemoClusterGuide.nodeDetailStepId) {
+          // ignore: use_build_context_synchronously
           final nodeName = await _getFirstNodeName(context, guideService);
+          if (!mounted) return;
           if (nodeName != null) {
             routeParams['path'] = '/api/v1';
             routeParams['namespace'] = '_';
@@ -232,14 +236,14 @@ class _LandingState extends State<Landing> with SingleTickerProviderStateMixin {
         cluster: cluster,
       ).get('$path/$resource');
 
-      if (response.error.isNotEmpty || response.body == null) {
+      if (response.error.isNotEmpty) {
         talker.error('Failed to fetch pods: ${response.error}');
         return null;
       }
 
       final podsList = IoK8sApiCoreV1PodList.fromJson(response.body);
-      if (podsList?.items != null && podsList!.items!.isNotEmpty) {
-        final firstPod = podsList.items!.first;
+      if (podsList != null && podsList.items.isNotEmpty) {
+        final firstPod = podsList.items.first;
         final podName = firstPod.metadata?.name ?? '';
         final podNamespace = firstPod.metadata?.namespace ?? '';
         talker.info('Selected first pod for guide: $podName in namespace $podNamespace');
@@ -275,14 +279,14 @@ class _LandingState extends State<Landing> with SingleTickerProviderStateMixin {
         cluster: cluster,
       ).get('$path/$resource');
 
-      if (response.error.isNotEmpty || response.body == null) {
+      if (response.error.isNotEmpty) {
         talker.error('Failed to fetch nodes: ${response.error}');
         return null;
       }
 
       final nodesList = IoK8sApiCoreV1NodeList.fromJson(response.body);
-      if (nodesList?.items != null && nodesList!.items!.isNotEmpty) {
-        final firstName = nodesList.items!.first.metadata!.name;
+      if (nodesList != null && nodesList.items.isNotEmpty) {
+        final firstName = nodesList.items.first.metadata?.name;
         talker.info('Selected first node for guide: $firstName');
         return firstName;
       }

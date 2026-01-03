@@ -273,7 +273,6 @@ void main() {
       final steps = DemoClusterGuide.getSteps();
 
       for (int i = 0; i < steps.length - 1; i++) {
-        const currentId = DemoClusterGuide.welcomeStepId;
         final nextId =
             DemoClusterGuide.getNextStepId(steps[i].id);
         expect(

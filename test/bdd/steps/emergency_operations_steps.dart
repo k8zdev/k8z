@@ -1,6 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:gherkin/gherkin.dart';
-import 'package:k8zdev/services/pro_features.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 /// Step definitions for emergency operations scenarios

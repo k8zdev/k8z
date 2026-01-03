@@ -3,8 +3,6 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:k8zdev/services/onboarding_guide_service.dart';
 import 'package:k8zdev/dao/kube.dart';
-import 'package:k8zdev/dao/onboarding_guide.dart';
-import 'package:k8zdev/common/ops.dart' hide talker;
 import 'package:k8zdev/models/guide_step_definition.dart';
 
 void main() {
