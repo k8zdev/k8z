@@ -222,13 +222,26 @@ class OnboardingGuideService extends ChangeNotifier {
         ? DateTime.now().difference(_state.startTime!)
         : Duration.zero;
 
-    // Log guide skip
+    // Save skip as completion to database
+    await OnboardingGuideDao.saveCompletion(
+      OnboardingGuideState.completed(
+        guideName: guideName,
+        clusterId: _state.demoCluster?.server,
+        lastStep: _state.currentStepId,
+      ),
+    );
+
+    // Log guide skip with timestamp
     AnalyticsService.logEvent(
       eventName: 'onboarding_guide_skip',
       parameters: {
         'total_time_ms': totalTime.inMilliseconds,
         'skipped_at_step': _state.currentStepId ?? 'unknown',
         'cluster_name': _state.demoCluster?.name ?? 'unknown',
+        'timestamp': DateTime.now().millisecondsSinceEpoch,
+        'skip_step_index': _state.currentStepId != null
+            ? DemoClusterGuide.getStepIndex(_state.currentStepId!)
+            : -1,
       },
     );
 

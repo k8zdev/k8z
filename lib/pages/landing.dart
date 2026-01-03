@@ -6,7 +6,9 @@ import 'package:k8zdev/common/styles.dart';
 import 'package:k8zdev/generated/l10n.dart';
 import 'package:k8zdev/common/helpers.dart';
 import 'package:k8zdev/common/ops.dart';
+import 'package:k8zdev/models/models.dart';
 import 'package:k8zdev/providers/terminals.dart';
+import 'package:k8zdev/services/k8z_service.dart';
 import 'package:k8zdev/widgets/terminals.dart';
 import 'package:k8zdev/widgets/interactive_guide_overlay.dart';
 import 'package:k8zdev/services/onboarding_guide_service.dart';
@@ -73,11 +75,44 @@ class _LandingState extends State<Landing> with SingleTickerProviderStateMixin {
       // Get the next step to navigate to its route
       final nextStep = DemoClusterGuide.getStepById(nextId);
       if (nextStep != null && nextStep.routeName.isNotEmpty) {
+        // Build route parameters
+        final routeParams = Map<String, String>.from(nextStep.routeParams);
+
+        // Special handling for pod detail step (fixed name "web-demo")
+        if (nextId == DemoClusterGuide.podDetailStepId) {
+          routeParams['path'] = 'workloads';
+          routeParams['namespace'] = '_';
+          routeParams['resource'] = 'pods';
+          routeParams['name'] = 'web-demo';
+        }
+
+        // Special handling for node detail step (dynamic node name - Scheme B)
+        if (nextId == DemoClusterGuide.nodeDetailStepId) {
+          final nodeName = await _getFirstNodeName(context, guideService);
+          if (nodeName != null) {
+            routeParams['path'] = '/api/v1';
+            routeParams['namespace'] = '_';
+            routeParams['resource'] = 'nodes';
+            routeParams['name'] = nodeName;
+          } else {
+            talker.warning('No nodes available for guide node detail step, skipping');
+            // Skip to next step or complete
+            final skipNextId = DemoClusterGuide.getNextStepId(nextId);
+            if (skipNextId != null) {
+              await guideService.navigateToStep(skipNextId);
+              return;
+            } else {
+              await guideService.completeGuide();
+              return;
+            }
+          }
+        }
+
         // Update the step before navigation
         await guideService.navigateToStep(nextId);
 
         // Navigate to the next step's route
-        _navigateToRoute(router, nextStep.routeName, nextStep.routeParams);
+        _navigateToRoute(router, nextStep.routeName, routeParams);
       }
     } else {
       // Last step, complete the guide
@@ -85,10 +120,104 @@ class _LandingState extends State<Landing> with SingleTickerProviderStateMixin {
     }
   }
 
-  /// Navigate to route based on route name and parameters
-  void _navigateToRoute(GoRouter router, String routeName, Map<String, dynamic> params) {
+  /// Handle previous button click with navigation
+  void _handlePreviousStep(BuildContext context, OnboardingGuideService guideService) async {
+    final prevId = DemoClusterGuide.getPreviousStepId(guideService.currentStepId ?? '');
+    final router = GoRouter.of(context);
+
+    if (prevId != null) {
+      // Get the previous step to navigate to its route
+      final prevStep = DemoClusterGuide.getStepById(prevId);
+      if (prevStep != null && prevStep.routeName.isNotEmpty) {
+        // Build route parameters
+        final routeParams = Map<String, String>.from(prevStep.routeParams);
+
+        // Special handling for pod detail step (fixed name "web-demo")
+        if (prevId == DemoClusterGuide.podDetailStepId) {
+          routeParams['path'] = 'workloads';
+          routeParams['namespace'] = '_';
+          routeParams['resource'] = 'pods';
+          routeParams['name'] = 'web-demo';
+        }
+
+        // Special handling for node detail step (dynamic node name - Scheme B)
+        if (prevId == DemoClusterGuide.nodeDetailStepId) {
+          final nodeName = await _getFirstNodeName(context, guideService);
+          if (nodeName != null) {
+            routeParams['path'] = '/api/v1';
+            routeParams['namespace'] = '_';
+            routeParams['resource'] = 'nodes';
+            routeParams['name'] = nodeName;
+          } else {
+            talker.warning('No nodes available for guide node detail step, skipping');
+            // Go further back
+            final skipPrevId = DemoClusterGuide.getPreviousStepId(prevId);
+            if (skipPrevId != null) {
+              await guideService.navigateToStep(skipPrevId);
+              final skipPrevStep = DemoClusterGuide.getStepById(skipPrevId);
+              if (skipPrevStep != null) {
+                final stringParams = Map<String, String>.from(skipPrevStep.routeParams);
+                _navigateToRoute(router, skipPrevStep.routeName, stringParams);
+              }
+            }
+            return;
+          }
+        }
+
+        // Update the step before navigation
+        await guideService.navigateToStep(prevId);
+
+        // Navigate to the previous step's route
+        _navigateToRoute(router, prevStep.routeName, routeParams);
+      }
+    }
+  }
+
+  /// Get the first available node name from the cluster (Scheme B: LandingPage implementation)
+  Future<String?> _getFirstNodeName(BuildContext context, OnboardingGuideService guideService) async {
     try {
-      router.goNamed(routeName);
+      // Use K8zService to fetch nodes list from the demo cluster
+      final cluster = guideService.state.demoCluster;
+      if (cluster == null) {
+        talker.warning('No demo cluster available for fetching nodes');
+        return null;
+      }
+
+      // Use context-based K8zService - requires BuildContext
+      // We need to create K8zService with context and cluster
+      final path = '/api/v1';
+      final resource = 'nodes';
+
+      // Fetch nodes using the cluster - create K8zService with context
+      final response = await K8zService(
+        context,
+        cluster: cluster,
+      ).get('$path/$resource');
+
+      if (response.error.isNotEmpty || response.body == null) {
+        talker.error('Failed to fetch nodes: ${response.error}');
+        return null;
+      }
+
+      final nodesList = IoK8sApiCoreV1NodeList.fromJson(response.body);
+      if (nodesList?.items != null && nodesList!.items!.isNotEmpty) {
+        final firstName = nodesList.items!.first.metadata!.name;
+        talker.info('Selected first node for guide: $firstName');
+        return firstName;
+      }
+
+      talker.warning('No nodes found in cluster');
+      return null;
+    } catch (e) {
+      talker.error('Error fetching first node name: $e');
+      return null;
+    }
+  }
+
+  /// Navigate to route based on route name and parameters
+  void _navigateToRoute(GoRouter router, String routeName, Map<String, String> params) {
+    try {
+      router.goNamed(routeName, pathParameters: params);
     } catch (e) {
       // Route not found or navigation failed, stay on current page
       talker.warning('Failed to navigate to $routeName: $e');
@@ -114,7 +243,7 @@ class _LandingState extends State<Landing> with SingleTickerProviderStateMixin {
               steps: DemoClusterGuide.getSteps(),
               onNext: () => _handleNextStep(context, guideService),
               onSkip: () => guideService.skipGuide(),
-              onPrevious: () => guideService.previousStep(),
+              onPrevious: () => _handlePreviousStep(context, guideService),
               child: widget.child,
             );
           }

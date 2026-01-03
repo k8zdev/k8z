@@ -185,6 +185,17 @@ class DemoClusterGuide {
   static const String nodeDetailStepId = 'nodeDetail';
   static const String completedStepId = 'completed';
 
+  // Legacy step IDs (for backward compatibility with OnboardingGuideService)
+  // These map to their counterparts in the new 8-step flow
+  @Deprecated('Use podListWithSwipeStepId instead')
+  static const String podListStepId = podListWithSwipeStepId;
+  @Deprecated('Use nodesListWithSwipeStepId instead')
+  static const String nodesStepId = nodesListWithSwipeStepId;
+  @Deprecated('Use workloadsOverviewStepId instead')
+  static const String workloadsStepId = workloadsOverviewStepId;
+  @Deprecated('Use resourcesMenuStepId instead')
+  static const String resourcesStepId = resourcesMenuStepId;
+
   // Target element key identifiers
   static const String welcomeTargetKey = 'guide-target-welcome';
   static const String workloadsTargetKey = 'guide-target-workloads';
