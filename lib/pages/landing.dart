@@ -75,8 +75,10 @@ class _LandingState extends State<Landing> with SingleTickerProviderStateMixin {
       // Get the next step to navigate to its route
       final nextStep = DemoClusterGuide.getStepById(nextId);
       if (nextStep != null && nextStep.routeName.isNotEmpty) {
-        // Build route parameters
-        final routeParams = Map<String, String>.from(nextStep.routeParams);
+        // Build route parameters - filter out null values
+        final routeParams = Map<String, String>.from(
+          nextStep.routeParams.map((key, value) => MapEntry(key, value ?? '')),
+        );
 
         // Special handling for pod detail step (fixed name "web-demo")
         if (nextId == DemoClusterGuide.podDetailStepId) {
@@ -129,8 +131,10 @@ class _LandingState extends State<Landing> with SingleTickerProviderStateMixin {
       // Get the previous step to navigate to its route
       final prevStep = DemoClusterGuide.getStepById(prevId);
       if (prevStep != null && prevStep.routeName.isNotEmpty) {
-        // Build route parameters
-        final routeParams = Map<String, String>.from(prevStep.routeParams);
+        // Build route parameters - filter out null values
+        final routeParams = Map<String, String>.from(
+          prevStep.routeParams.map((key, value) => MapEntry(key, value ?? '')),
+        );
 
         // Special handling for pod detail step (fixed name "web-demo")
         if (prevId == DemoClusterGuide.podDetailStepId) {
@@ -156,7 +160,9 @@ class _LandingState extends State<Landing> with SingleTickerProviderStateMixin {
               await guideService.navigateToStep(skipPrevId);
               final skipPrevStep = DemoClusterGuide.getStepById(skipPrevId);
               if (skipPrevStep != null) {
-                final stringParams = Map<String, String>.from(skipPrevStep.routeParams);
+                final stringParams = Map<String, String>.from(
+                  skipPrevStep.routeParams.map((key, value) => MapEntry(key, value ?? '')),
+                );
                 _navigateToRoute(router, skipPrevStep.routeName, stringParams);
               }
             }
