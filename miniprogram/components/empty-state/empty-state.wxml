@@ -1,0 +1,13 @@
+<view class="empty-state">
+  <view class="empty-state__icon">{{icon}}</view>
+  <view class="empty-state__text">{{text}}</view>
+  <view class="empty-state__subtext" wx:if="{{subtext}}">{{subtext}}</view>
+  <button
+    wx:if="{{actionText}}"
+    class="empty-state__btn"
+    hover-class="empty-state__btn--hover"
+    bindtap="onAction"
+  >
+    {{actionText}}
+  </button>
+</view>

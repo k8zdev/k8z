@@ -1,0 +1,115 @@
+.code-card {
+  position: relative;
+  background: var(--color-white);
+  border-radius: var(--radius-lg);
+  padding: 28rpx 32rpx;
+  margin: 0 24rpx 20rpx;
+  box-shadow: 0 2rpx 16rpx rgba(0, 0, 0, 0.06);
+  transition: all 0.3s ease;
+}
+
+.code-card--copied {
+  opacity: 0.55;
+  background: #fafafa;
+}
+
+.code-card--expired {
+  opacity: 0.4;
+  background: #f9f9f9;
+}
+
+/* 状态标签 */
+.code-card__tag {
+  position: absolute;
+  top: -2rpx;
+  right: 24rpx;
+  background: #07c160;
+  color: #fff;
+  font-size: 20rpx;
+  padding: 4rpx 16rpx;
+  border-radius: 0 0 8rpx 8rpx;
+}
+
+.code-card__tag--warning {
+  background: #999;
+}
+
+/* 口令正文 */
+.code-card__body {
+  margin-bottom: 24rpx;
+}
+
+.code-card__code-text {
+  font-size: 32rpx;
+  font-weight: 600;
+  color: var(--color-text);
+  line-height: 1.6;
+  word-break: break-all;
+  margin-bottom: 16rpx;
+  padding: 20rpx 24rpx;
+  background: #fff8f8;
+  border-radius: var(--radius);
+  border: 1rpx solid #ffe0e0;
+  font-family: 'Courier New', Courier, monospace;
+}
+
+.code-card__meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.code-card__time {
+  font-size: 24rpx;
+  color: var(--color-text-secondary);
+}
+
+.code-card__copy-count {
+  font-size: 24rpx;
+  color: var(--color-primary);
+}
+
+/* 操作区 */
+.code-card__actions {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.code-card__btn {
+  display: flex;
+  align-items: center;
+  gap: 8rpx;
+  padding: 16rpx 36rpx;
+  background: linear-gradient(135deg, #e4393c, #ff4d4f);
+  color: #fff;
+  font-size: 28rpx;
+  font-weight: 500;
+  border-radius: 40rpx;
+  border: none;
+  line-height: 1;
+}
+
+.code-card__btn--hover {
+  opacity: 0.85;
+  transform: scale(0.97);
+}
+
+.code-card__btn--delete {
+  background: linear-gradient(135deg, #ff7875, #ff4d4f);
+}
+
+.code-card__btn-icon {
+  font-size: 28rpx;
+}
+
+.code-card__status-text {
+  font-size: 26rpx;
+  color: var(--color-success);
+  display: flex;
+  align-items: center;
+  gap: 4rpx;
+}
+
+.code-card__status-text--expired {
+  color: var(--color-text-secondary);
+}

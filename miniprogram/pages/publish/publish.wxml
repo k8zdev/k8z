@@ -1,0 +1,48 @@
+<view class="page-publish">
+  <!-- 表单区域 -->
+  <view class="publish-form">
+    <!-- 口令输入 -->
+    <view class="form-group">
+      <view class="form-label">福袋口令</view>
+      <textarea
+        class="form-textarea"
+        placeholder="请从拼多多复制福袋口令后粘贴到此处"
+        placeholder-style="color: #ccc;"
+        value="{{codeText}}"
+        bindinput="onCodeInput"
+        maxlength="500"
+        auto-height
+        focus="{{true}}"
+      />
+      <view class="form-hint">
+        <text class="form-hint__icon">💡</text>
+        <text>打开拼多多 App → 进入福袋活动 → 点击"邀请好友"复制口令 → 回到此处粘贴</text>
+      </view>
+      <view class="form-counter" wx:if="{{codeText.length > 0}}">
+        {{codeText.length}}/500
+      </view>
+    </view>
+
+    <!-- 使用须知 -->
+    <view class="form-notice">
+      <view class="form-notice__title">📌 使用须知</view>
+      <view class="form-notice__item">1. 请从拼多多官方App中复制福袋口令</view>
+      <view class="form-notice__item">2. 口令发布后将公开展示在列表中</view>
+      <view class="form-notice__item">3. 被其他用户复制后，口令将自动隐藏</view>
+      <view class="form-notice__item">4. 请勿发布与拼多多福袋无关的内容</view>
+    </view>
+  </view>
+
+  <!-- 提交按钮 -->
+  <view class="publish-footer safe-area-bottom">
+    <button
+      class="publish-btn {{codeText.trim() ? 'publish-btn--active' : ''}}"
+      hover-class="publish-btn--hover"
+      bindtap="onSubmit"
+      disabled="{{submitting}}"
+      loading="{{submitting}}"
+    >
+      {{submitting ? '发布中...' : '发布口令'}}
+    </button>
+  </view>
+</view>

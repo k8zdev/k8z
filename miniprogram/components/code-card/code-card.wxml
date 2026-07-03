@@ -1,0 +1,35 @@
+<view class="code-card {{status === 'copied' ? 'code-card--copied' : ''}} {{status === 'expired' ? 'code-card--expired' : ''}}">
+  <!-- 状态标签 -->
+  <view class="code-card__tag" wx:if="{{status === 'copied'}}">已使用</view>
+  <view class="code-card__tag code-card__tag--warning" wx:elif="{{status === 'expired'}}">已过期</view>
+
+  <!-- 口令内容 -->
+  <view class="code-card__body">
+    <view class="code-card__code-text">{{maskedText}}</view>
+    <view class="code-card__meta">
+      <text class="code-card__time">{{formattedTime}}</text>
+      <text class="code-card__copy-count" wx:if="{{copyCount > 0}}">{{copyCount}} 人已复制</text>
+    </view>
+  </view>
+
+  <!-- 操作按钮 -->
+  <view class="code-card__actions">
+    <button
+      wx:if="{{status === 'active'}}"
+      class="code-card__btn code-card__btn--copy"
+      hover-class="code-card__btn--hover"
+      bindtap="onCopyCode"
+    >
+      <text class="code-card__btn-icon">📋</text>
+      <text>复制口令</text>
+    </button>
+
+    <view wx:elif="{{status === 'copied'}}" class="code-card__status-text">
+      ✓ 已复制
+    </view>
+
+    <view wx:else class="code-card__status-text code-card__status-text--expired">
+      ⏱ 已过期
+    </view>
+  </view>
+</view>

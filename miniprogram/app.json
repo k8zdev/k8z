@@ -1,0 +1,38 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/publish/publish",
+    "pages/history/history"
+  ],
+  "window": {
+    "navigationBarBackgroundColor": "#e4393c",
+    "navigationBarTitleText": "福袋口令",
+    "navigationBarTextStyle": "white",
+    "backgroundColor": "#f5f5f5",
+    "backgroundTextStyle": "dark",
+    "enablePullDownRefresh": false
+  },
+  "tabBar": {
+    "color": "#999999",
+    "selectedColor": "#e4393c",
+    "backgroundColor": "#ffffff",
+    "borderStyle": "black",
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "text": "口令列表",
+        "iconPath": "images/tab-list.png",
+        "selectedIconPath": "images/tab-list-active.png"
+      },
+      {
+        "pagePath": "pages/history/history",
+        "text": "我的记录",
+        "iconPath": "images/tab-mine.png",
+        "selectedIconPath": "images/tab-mine-active.png"
+      }
+    ]
+  },
+  "usingComponents": {},
+  "style": "v2",
+  "sitemapLocation": "sitemap.json"
+}

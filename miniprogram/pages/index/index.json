@@ -1,0 +1,9 @@
+{
+  "usingComponents": {
+    "code-card": "../../components/code-card/code-card",
+    "empty-state": "../../components/empty-state/empty-state"
+  },
+  "navigationBarTitleText": "福袋口令",
+  "enablePullDownRefresh": true,
+  "onReachBottomDistance": 100
+}

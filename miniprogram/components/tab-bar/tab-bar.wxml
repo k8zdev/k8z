@@ -1,0 +1,12 @@
+<view class="tab-bar safe-area-bottom">
+  <view
+    wx:for="{{tabs}}"
+    wx:key="key"
+    class="tab-bar__item {{active === item.key ? 'tab-bar__item--active' : ''}}"
+    data-key="{{item.key}}"
+    bindtap="onTabChange"
+  >
+    <text class="tab-bar__icon">{{active === item.key ? item.activeIcon : item.icon}}</text>
+    <text class="tab-bar__text">{{item.text}}</text>
+  </view>
+</view>

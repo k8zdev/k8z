@@ -1,0 +1,56 @@
+<view class="page-index">
+  <!-- 顶部操作栏 -->
+  <view class="index-header">
+    <view class="index-header__title">福袋口令</view>
+    <view class="index-header__subtitle">复制口令，去拼多多组队</view>
+    <button class="index-header__publish-btn" hover-class="index-header__publish-btn--hover" bindtap="onGoPublish">
+      <text class="index-header__publish-icon">＋</text>
+      <text>发布口令</text>
+    </button>
+  </view>
+
+  <!-- 统计条 -->
+  <view class="index-stats" wx:if="{{codes.length > 0}}">
+    <text>共 <text class="index-stats__num">{{total}}</text> 条可用口令</text>
+  </view>
+
+  <!-- 口令列表 -->
+  <scroll-view
+    wx:if="{{codes.length > 0}}"
+    class="index-list"
+    scroll-y
+    bindscrolltolower="onLoadMore"
+    lower-threshold="100"
+    refresher-enabled
+    refresher-triggered="{{refreshing}}"
+    bindrefresherrefresh="onRefresh"
+  >
+    <code-card
+      wx:for="{{codes}}"
+      wx:key="id"
+      code="{{item}}"
+      bindcopied="onCodeCopied"
+    />
+
+    <!-- 加载更多 -->
+    <view class="index-list__loading" wx:if="{{loadingMore}}">
+      <text>加载中...</text>
+    </view>
+    <view class="index-list__end" wx:if="{{!hasMore && codes.length > 0}}">
+      <text>— 没有更多了 —</text>
+    </view>
+
+    <!-- 底部安全距离 -->
+    <view style="height: 40rpx;"></view>
+  </scroll-view>
+
+  <!-- 空状态 -->
+  <empty-state
+    wx:else
+    icon="📋"
+    text="暂无可用口令"
+    subtext="成为第一个发布口令的人吧"
+    actionText="发布口令"
+    bindaction="onGoPublish"
+  />
+</view>

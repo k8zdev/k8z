@@ -1,0 +1,54 @@
+/* 全局样式变量 */
+page {
+  --color-primary: #e4393c;
+  --color-primary-light: #ff6b6b;
+  --color-bg: #f5f5f5;
+  --color-white: #ffffff;
+  --color-text: #333333;
+  --color-text-secondary: #999999;
+  --color-text-light: #cccccc;
+  --color-border: #eeeeee;
+  --color-success: #07c160;
+  --color-warning: #ff9c00;
+  --radius: 12rpx;
+  --radius-lg: 20rpx;
+
+  font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Helvetica,
+    'Segoe UI', Arial, 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei',
+    sans-serif;
+  font-size: 28rpx;
+  color: var(--color-text);
+  background-color: var(--color-bg);
+  line-height: 1.6;
+}
+
+/* 通用工具类 */
+.flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.flex-between {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.ellipsis {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* 安全区域 */
+.safe-area-bottom {
+  padding-bottom: constant(safe-area-inset-bottom);
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+/* 滚动容器 */
+.scroll-container {
+  height: 100%;
+  box-sizing: border-box;
+}

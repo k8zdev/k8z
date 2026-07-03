@@ -1,0 +1,58 @@
+.page-history {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Tab 栏 */
+.history-tabs {
+  display: flex;
+  position: relative;
+  background: var(--color-white);
+  border-bottom: 1rpx solid var(--color-border);
+}
+
+.history-tabs__item {
+  flex: 1;
+  text-align: center;
+  padding: 28rpx 0;
+  font-size: 30rpx;
+  color: var(--color-text-secondary);
+  transition: color 0.3s;
+  position: relative;
+  z-index: 1;
+}
+
+.history-tabs__item--active {
+  color: var(--color-primary);
+  font-weight: 600;
+}
+
+.history-tabs__indicator {
+  position: absolute;
+  bottom: 0;
+  left: 25%;
+  width: 50%;
+  height: 4rpx;
+  background: var(--color-primary);
+  border-radius: 2rpx;
+  transition: transform 0.3s ease;
+}
+
+.history-tabs__indicator--right {
+  transform: translateX(100%);
+}
+
+/* 列表 */
+.history-list {
+  flex: 1;
+  padding-top: 20rpx;
+}
+
+.history-list__loading,
+.history-list__end {
+  text-align: center;
+  padding: 30rpx 0;
+  font-size: 24rpx;
+  color: var(--color-text-light);
+}

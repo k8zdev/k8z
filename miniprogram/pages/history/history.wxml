@@ -1,0 +1,77 @@
+<view class="page-history">
+  <!-- Tab 切换 -->
+  <view class="history-tabs">
+    <view
+      class="history-tabs__item {{activeTab === 'published' ? 'history-tabs__item--active' : ''}}"
+      data-tab="published"
+      bindtap="onTabSwitch"
+    >
+      我发布的
+    </view>
+    <view
+      class="history-tabs__item {{activeTab === 'copied' ? 'history-tabs__item--active' : ''}}"
+      data-tab="copied"
+      bindtap="onTabSwitch"
+    >
+      我复制的
+    </view>
+    <view class="history-tabs__indicator {{activeTab === 'copied' ? 'history-tabs__indicator--right' : ''}}"></view>
+  </view>
+
+  <!-- 发布列表 -->
+  <scroll-view
+    wx:if="{{activeTab === 'published'}}"
+    class="history-list"
+    scroll-y
+    bindscrolltolower="onLoadMore"
+    lower-threshold="100"
+    refresher-enabled
+    refresher-triggered="{{refreshing}}"
+    bindrefresherrefresh="onRefresh"
+  >
+    <code-card
+      wx:for="{{publishedCodes}}"
+      wx:key="id"
+      code="{{item}}"
+      showDelete="{{true}}"
+      bindcopied="onCodeCopied"
+      binddelete="onCodeDelete"
+    />
+
+    <view class="history-list__loading" wx:if="{{loadingMore}}">
+      <text>加载中...</text>
+    </view>
+    <view class="history-list__end" wx:if="{{!hasMore && publishedCodes.length > 0}}">
+      <text>— 没有更多了 —</text>
+    </view>
+
+    <view style="height: 40rpx;"></view>
+  </scroll-view>
+
+  <!-- 复制列表（仅展示占位，一期可简单处理） -->
+  <scroll-view
+    wx:if="{{activeTab === 'copied'}}"
+    class="history-list"
+    scroll-y
+    bindscrolltolower="onLoadMore"
+    lower-threshold="100"
+    refresher-enabled
+    refresher-triggered="{{refreshing}}"
+    bindrefresherrefresh="onRefresh"
+  >
+    <code-card
+      wx:for="{{copiedCodes}}"
+      wx:key="id"
+      code="{{item}}"
+    />
+
+    <empty-state
+      wx:if="{{copiedCodes.length === 0 && !initialLoading}}"
+      icon="📋"
+      text="暂无复制记录"
+      subtext="去首页复制一个口令吧"
+    />
+
+    <view style="height: 40rpx;"></view>
+  </scroll-view>
+</view>
